@@ -48,4 +48,30 @@ function App(){
   );
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+/* ------------------------------------------------------------
+   Boot guard.
+   The screens (Poster/Dates/Rider/TicketScreen) and bits
+   (Ticker/Grain/Confetti) live in separate type="text/babel"
+   files that Babel compiles + executes asynchronously, with no
+   guaranteed ordering vs this file. If <App/> rendered before
+   those globals existed, React would hit `undefined` components
+   and the tree would fail to mount — surfacing as an intermittent
+   reset on reload. Wait until every dependency is present (and the
+   DOM root exists) before the first render. */
+(function boot(tries){
+  tries = tries || 0;
+  const needed = ['Poster','Dates','Rider','TicketScreen','Ticker','Grain','Confetti'];
+  const root = document.getElementById('root');
+  const ready = root && needed.every(n => typeof window[n] === 'function');
+
+  if(ready){
+    ReactDOM.createRoot(root).render(<App/>);
+    return;
+  }
+  if(tries > 600){ // ~10s of frames — a dependency truly failed to load
+    if(root){ root.textContent = 'Failed to load. Please refresh.'; }
+    return;
+  }
+  // Dependencies/DOM not ready yet — re-check on next frame.
+  setTimeout(()=>boot(tries+1), 16);
+})();
