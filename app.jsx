@@ -10,7 +10,8 @@ function loadState(){
 
 function App(){
   const saved = loadState();
-  const [screen, setScreen]   = _aS(saved.screen || 'poster'); // poster | dates | rider | ticket
+  // Always start fresh at the poster on (re)load — don't restore the saved screen.
+  const [screen, setScreen]   = _aS('poster'); // poster | dates | rider | ticket
   const [night,  setNight]    = _aS(saved.night ?? null);
   const [name,   setName]     = _aS(saved.name || 'Josie');
   const [accepted,setAccepted]= _aS(saved.accepted || {});
