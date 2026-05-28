@@ -56,14 +56,6 @@ function Poster({ onStart }){
           JUN 3 <span className="dot">·</span> 4 <span className="dot">·</span> 5 <span className="dot">·</span> 6 <span className="yr">’26</span>
         </div>
 
-        <div className="quotes type">
-          <span className="stars">★★★★★</span>
-          <span><b>“I’m honored to be part of such a historic moment.”</b> &nbsp;Josie, via text</span>
-        </div>
-        <div className="quotes type" style={{marginTop:'2px'}}>
-          <span><b>“There is a little room for a redemption tour..”</b> &nbsp;Matt, the defendant</span>
-        </div>
-
         <button className="cta-stamp" onClick={onStart}>Claim Your Ticket →</button>
 
         <div className="poster__finefooter type">
