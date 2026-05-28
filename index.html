@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mattyee Redemption Tour</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+            background: #0a0a0a;
+      color: #fff;
+            font-family: 'Georgia', serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+}
+    h1 {
+            font-size: clamp(2.5rem, 8vw, 6rem);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #c8a96e, #fff, #c8a96e);
+              -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+}
+    .subtitle {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+      color: #c8a96e;
+            letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+}
+    .tagline {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+      color: #888;
+      font-style: italic;
+      max-width: 600px;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+}
+    .dates {
+            border: 1px solid #c8a96e33;
+      border-radius: 8px;
+      padding: 2rem;
+      max-width: 500px;
+      width: 100%;
+    }
+    .dates h2 {
+            color: #c8a96e;
+                  letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .date-item {
+            display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #ffffff11;
+      font-size: 0.95rem;
+}
+    .date-item:last-child { border-bottom: none; }
+    .city { color: #fff; }
+        .venue { color: #888; font-style: italic; }
+    footer {
+            margin-top: 4rem;
+      color: #444;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+}
+  </style>
+    </head>
+    <body>
+      <h1>Mattyee<br>Redemption Tour</h1>
+      <p class="subtitle">World Tour 2026</p>
+      <p class="tagline">After everything that happened... he's back. And this time, he means it.</p>
+  <div class="dates">
+    <h2>Tour Dates</h2>
+    <div class="date-item">
+      <span class="city">His Living Room &mdash; Jan 3</span>
+          <span class="venue">SOLD OUT</span>
+        </div>
+        <div class="date-item">
+          <span class="city">His Mom's House &mdash; Jan 17</span>
+          <span class="venue">2 tickets left</span>
+        </div>
+        <div class="date-item">
+          <span class="city">A Waffle House &mdash; Feb 5</span>
+          <span class="venue">Available</span>
+        </div>
+        <div class="date-item">
+          <span class="city">The Parking Lot &mdash; Mar 1</span>
+          <span class="venue">Cancelled*</span>
+        </div>
+      </div>
+      <footer>*Due to circumstances beyond our control. You know what you did.</footer>
+    </body>
+    </html>
