@@ -229,9 +229,13 @@ body{
 .btn:active{ transform:translate(3px,3px); box-shadow:1px 1px 0 var(--ink); }
 .btn--red{ background:var(--red); color:var(--paper); border-color:var(--ink); }
 .btn--ghost{ background:transparent; box-shadow:none; border:none;
-  text-decoration:underline; font-family:var(--f-type); letter-spacing:.04em;
-  font-size:13px; padding:8px 6px; }
-.btn--ghost:hover{ transform:none; color:var(--red); }
+  color:var(--ink); text-decoration:underline; text-underline-offset:3px;
+  text-decoration-color:var(--gold); font-family:var(--f-type);
+  letter-spacing:.04em; font-size:13px; padding:8px 6px; opacity:.85; }
+.btn--ghost:hover{ transform:none; color:var(--red); opacity:1; }
+/* On the dark-wall panels (no .paper surface), light the ghost button up */
+.panel:not(.paper) .btn--ghost{ color:var(--paper); }
+.panel:not(.paper) .btn--ghost:hover{ color:var(--gold); }
 .btn:disabled{ opacity:.35; cursor:not-allowed; transform:none;
   box-shadow:4px 4px 0 var(--ink); }
 .btn--big{ font-size:24px; padding:16px 30px; }
