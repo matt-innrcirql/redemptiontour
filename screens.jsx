@@ -45,7 +45,6 @@ function Poster({ onStart }){
           <div className="headliner__tab type">Headlining</div>
           <img src="assets/matt-star.jpg" alt="Matt Yee, live on stage" />
           <div className="headliner__name display">Matt Yee
-            <small>NOW ACCEPTING SECOND CHANCES</small>
           </div>
         </div>
 
