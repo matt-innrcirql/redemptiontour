@@ -5,10 +5,10 @@ const { useState:_uS, useEffect:_uE, useRef:_uR } = React;
 
 const NIGHTS = [
   { id:0, no:'NIGHT I',  day:'WED', date:3, dow:'WED', short:'WED · JUN 3',
-    bill:'The Preview', tag:'Lowest stakes. A midweek warm up to shake off two weeks of nerves.',
+    bill:'The Preview', tag:'Lowest stakes. A midweek warm-up before the weekend rush.',
     demand:'DEMAND: WARMING UP', fill:42 },
   { id:1, no:'NIGHT II', day:'THU', date:4, dow:'THU', short:'THU · JUN 4',
-    bill:'The Soft Open', tag:'Lower lighting, gentler pacing. A measured re-introduction to not freezing.',
+    bill:'The Soft Open', tag:'Lower lighting, gentler pacing. Conversation over volume.',
     demand:'DEMAND: BUILDING', fill:60 },
   { id:2, no:'NIGHT III',day:'FRI', date:5, dow:'FRI', short:'FRI · JUN 5',
     bill:'The Main Event', tag:'Prime billing. The night he proves the redemption tour was a good call.',
@@ -19,10 +19,10 @@ const NIGHTS = [
 ];
 
 const CLAUSES = [
-  { id:'freeze', txt:(<span>The Attendee acknowledges that the party of the first part (<b>Matt</b>) was, in fact, <b>just freezing</b>, and was not, under any reading, fleeing the scene.</span>) },
-  { id:'uber',   txt:(<span>The <b>"he was just excited for his Uber"</b> theory is hereby permanently retired and may not be entered into evidence.</span>) },
-  { id:'historic',txt:(<span>The Attendee agrees to treat the proceedings as a <b>Certified Historic Moment™</b>, as previously stipulated by both parties via text.</span>) },
-  { id:'letdown',txt:(<span>The Performer agrees <b>not to be a total letdown</b>. The Attendee agrees to grant approximately one (1) redemption, results pending.</span>) },
+  { id:'present', txt:(<span>The Performer arrives <b>on time</b>, <b>fully present</b>, phone <b>face-down</b>.</span>) },
+  { id:'venue',   txt:(<span>The <b>surprise venue</b> is revealed upon entry.</span>) },
+  { id:'doodle',  txt:(<span>The <b>Goldendoodle co-pilot</b> retains <b>full veto authority</b>.</span>) },
+  { id:'encore',  txt:(<span>The Attendee may <b>decline any encore</b> — no hard feelings.</span>) },
 ];
 
 /* ---------------- POSTER (hero) ---------------- */
@@ -59,7 +59,7 @@ function Poster({ onStart }){
 
         <div className="poster__finefooter type">
           Doors 6:00 PM · No refunds · One redemption per customer<br/>
-          *Approx. Times and freezing levels subject to change.
+          *Approx. times subject to change. Venue revealed at the door.
         </div>
       </div>
     </div>
@@ -145,11 +145,10 @@ function Rider({ name, setName, accepted, setAccepted, onNext, onBack }){
       <div className="perks">
         <h4>Included With Admission <span>· VIP perks</span></h4>
         <ul>
-          <li>Front-row access to a man who has confirmed, in writing, that he will not freeze.</li>
-          <li>One (1) guaranteed non-awkward goodbye. No Uber required.</li>
+          <li>Front-row access to the surprise venue he's been eyeballing the last few Chicago trips.</li>
+          <li>One (1) full goodbye. No clock-watching.</li>
           <li>Complimentary nerves, served warm, on the house.</li>
           <li>Goldendoodle approval pending. Your co-pilot retains full veto power.</li>
-          <li>The surprise location he's been "eyeballing the last few times in Chicago." Finally revealed.</li>
         </ul>
       </div>
 
@@ -186,7 +185,7 @@ function TicketScreen({ name, nightId, onRestart }){
 ${night.no} · ${night.short} · Chicago, IL
 Section: FRONT ROW
 
-Terms accepted (yes, even the freezing clause). You may now proceed to not be a total letdown. Don't make me regret this. 😌`;
+All four terms initialed. Front row's yours — venue revealed at the door. See you there. 😌`;
   const sms = `sms:${phone}?&body=${encodeURIComponent(body)}`;
 
   return (
@@ -213,6 +212,7 @@ Terms accepted (yes, even the freezing clause). You may now proceed to not be a 
             </div>
 
             <div className="ticket__body">
+              <img className="ticket__photo" src="assets/goldendoodle.jpg" alt="Goldendoodle co-pilot" />
               <div className="tgrid">
                 <div className="tcell"><label>Ticket Holder</label><div className="v red">{holder}</div></div>
                 <div className="tcell"><label>Headliner</label><div className="v">Matt Yee</div></div>
@@ -223,8 +223,8 @@ Terms accepted (yes, even the freezing clause). You may now proceed to not be a 
             </div>
 
             <div className="ticket__perksline type">
-              <b>Includes:</b> non-awkward goodbye (×1) · zero (0) freezing · complimentary nerves ·
-              surprise location reveal · dog veto rights reserved.
+              <b>Includes:</b> full goodbye (×1) · phone face-down · complimentary nerves ·
+              surprise venue reveal · goldendoodle veto rights reserved.
             </div>
 
             <div className="ticket__order type">
@@ -254,7 +254,7 @@ Terms accepted (yes, even the freezing clause). You may now proceed to not be a 
         <button className="btn btn--ghost" onClick={onRestart}>← start over</button>
         <a className="btn btn--red btn--big" href={sms} onClick={()=>setTexted(true)}
            style={{textDecoration:'none'}}>
-          {texted ? '✓ Sent to Matt. Now don’t freeze' : 'Confirm → Text Matt 📲'}
+          {texted ? '✓ Sent to Matt. See you front row' : 'Confirm → Text Matt 📲'}
         </a>
       </div>
       {texted && (
