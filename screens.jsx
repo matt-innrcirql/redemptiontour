@@ -15,7 +15,7 @@ const NIGHTS = [
     demand:'DEMAND: NEARLY SOLD OUT', fill:88 },
   { id:3, no:'NIGHT IV', day:'SAT', date:6, dow:'SAT', short:'SAT · JUN 6',
     bill:'The Encore', tag:'Full weekend energy. If the week went well… an encore was always likely.',
-    demand:'DEMAND: HIGH', fill:74 },
+    demand:'DEMAND: HIGH', fill:74, preferred:true },
 ];
 
 const CLAUSES = [
@@ -81,7 +81,8 @@ function Dates({ selected, setSelected, onNext, onBack }){
         {NIGHTS.map(n=>{
           const on = selected===n.id;
           return (
-            <div key={n.id} className={"night"+(on?" night--on":"")} onClick={()=>setSelected(n.id)}>
+            <div key={n.id} className={"night"+(on?" night--on":"")+(n.preferred?" night--preferred":"")} onClick={()=>setSelected(n.id)}>
+              {n.preferred && <div className="night__pref-badge type">★ Preferred</div>}
               <div className="night__pick"></div>
               <div className="night__top">
                 <div className="night__no display">{n.no}</div>

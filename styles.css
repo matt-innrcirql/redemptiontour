@@ -256,6 +256,12 @@ body{
   box-shadow:8px 12px 0 rgba(27,22,17,.3); }
 .night--on{ background:var(--paper); box-shadow:6px 6px 0 var(--red);
   transform:translateY(-4px); border-color:var(--red); }
+.night--preferred{ border-color:var(--gold); }
+.night--preferred.night--on{ border-color:var(--red); }
+.night__pref-badge{ position:absolute; top:8px; left:8px; z-index:5;
+  background:var(--gold); color:var(--ink); font-size:9px; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase; padding:3px 7px;
+  border:1px solid var(--ink); box-shadow:2px 2px 0 rgba(27,22,17,.3); }
 .night__top{ background:var(--ink); color:var(--paper); padding:10px 8px 8px;
   position:relative; }
 .night--on .night__top{ background:var(--red); }
