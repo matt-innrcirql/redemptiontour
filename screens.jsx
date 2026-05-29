@@ -135,6 +135,8 @@ function Rider({ name, setName, accepted, setAccepted, onNext, onBack }){
             onChange={e=>setName(e.target.value)} maxLength={28} />
         </div>
 
+        <div className="rider__cue type">👆 Tap each term to initial it</div>
+
         {CLAUSES.map((c,i)=>(
           <div key={c.id} className={"clause"+(accepted[c.id]?" clause--on":"")} onClick={()=>toggle(c.id)}>
             <div className="clause__box"></div>
@@ -198,7 +200,10 @@ All terms initialed. Front row's yours — I'll text you the venue. See you ther
 
       <div className="ticket-wrap">
         <div className="ticket">
-          <div className={"soldout"+(sold?" show":"")}>Sold Out</div>
+          <div className={"soldout"+(sold?" show":"")}>
+            <span className="soldout__kicker">You got the last seat ·</span>
+            Sold Out
+          </div>
 
           <div className="ticket__main">
             <div className="ticket__top">
