@@ -185,7 +185,7 @@ function TicketScreen({ name, nightId, onRestart }){
 `🎟 IT'S OFFICIAL. ${holder.toUpperCase()} has claimed her ticket to the MATT YEE REDEMPTION TOUR.
 
 ${night.no} · ${night.short} · Chicago, IL
-Section: FRONT ROW · Seat: HIS HEART
+Section: FRONT ROW
 
 Terms accepted (yes, even the freezing clause). You may now proceed to not be a total letdown. Don't make me regret this. 😌`;
   const sms = `sms:${phone}?&body=${encodeURIComponent(body)}`;
@@ -221,7 +221,6 @@ Terms accepted (yes, even the freezing clause). You may now proceed to not be a 
                 <div className="tcell"><label>Showing</label><div className="v sm">{night.no} · {night.short}</div></div>
                 <div className="tcell"><label>Venue</label><div className="v sm">Chicago, IL</div></div>
                 <div className="tcell"><label>Section</label><div className="v">Front Row</div></div>
-                <div className="tcell"><label>Seat</label><div className="v red">His Heart</div></div>
               </div>
             </div>
 
@@ -241,7 +240,6 @@ Terms accepted (yes, even the freezing clause). You may now proceed to not be a 
             <div className="stub__no display">{night.no}</div>
             <div>
               <div className="stub__seat display">FRONT<br/>ROW</div>
-              <div className="stub__seat display" style={{marginTop:'6px'}}>SEAT: <span className="red">HIS<br/>HEART</span></div>
             </div>
             <div>
               <Barcode seed={order.length + night.date*13} />
