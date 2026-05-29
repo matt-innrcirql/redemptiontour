@@ -27,6 +27,18 @@ function App(){
     if(screen==='ticket') setFire(f=>f+1);
   },[screen]);
 
+  // Analytics: this is a single-page state machine — the URL never changes,
+  // so PostHog's automatic pageview only fires once. Emit a pageview +
+  // friendly event on every screen change so the poster→dates→rider→ticket
+  // funnel and the per-screen session replay are visible in the dashboard.
+  // Guarded so the site still works if PostHog fails to load; the snippet
+  // queues these calls safely even before array.js finishes loading.
+  _aE(()=>{
+    if(typeof window.posthog === 'undefined') return;
+    window.posthog.capture('$pageview',   { screen });
+    window.posthog.capture('screen_viewed', { screen });
+  },[screen]);
+
   const go = (s)=> setScreen(s);
   const restart = ()=>{ setNight(null); setAccepted({}); setScreen('poster'); };
 
