@@ -19,9 +19,11 @@ const NIGHTS = [
 ];
 
 const CLAUSES = [
-  { id:'present', txt:(<span>The Performer arrives <b>on time</b> and <b>fully present</b>.</span>) },
-  { id:'venue',   txt:(<span>The <b>surprise venue</b> is texted to the Attendee after confirmation.</span>) },
-  { id:'doodle',  txt:(<span>The <b>Goldendoodle co-pilot</b> retains <b>full veto authority</b>.</span>) },
+  { id:'cut',     txt:(<span>The Performer shall, in fact, <b>make the cut</b> this time.</span>) },
+  { id:'venue',   txt:(<span>The <b>Surprise Venue</b> (eyeballed for several Chicago trips) shall be <b>texted to the Attendee after confirmation</b>.</span>) },
+  { id:'doodle',  txt:(<span>Goldendoodle co-pilots <b>Dash</b> and <b>Osito</b> retain <b>full and unappealable veto authority</b>.</span>) },
+  { id:'letdown', txt:(<span>Performer agrees <b>not to be a total letdown</b>, as previously stipulated.</span>) },
+  { id:'tenders', txt:(<span>No <b>kids-menu chicken tenders</b> shall be ordered. Bullets, dodged. 😉</span>) },
 ];
 
 /* ---------------- POSTER (hero) ---------------- */
@@ -121,9 +123,9 @@ function Rider({ name, setName, accepted, setAccepted, onNext, onBack }){
   return (
     <div className="panel paper rider screen-enter">
       <div className="panel__head">
-        <div className="panel__step">Step 2 of 3 · The fine print</div>
+        <div className="panel__step">Step 2 of 3 · The Rider</div>
         <h2 className="panel__title display">The <em>Rider</em></h2>
-        <p className="panel__sub">Every headliner has a rider. Before tickets are issued, the Attendee must review and initial the following terms. Standard stuff, mostly.</p>
+        <p className="panel__sub">Every headliner has one. Initial to proceed.</p>
       </div>
 
       <div className="rider__doc">
