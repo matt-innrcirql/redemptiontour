@@ -19,10 +19,9 @@ const NIGHTS = [
 ];
 
 const CLAUSES = [
-  { id:'present', txt:(<span>The Performer arrives <b>on time</b>, <b>fully present</b>, phone <b>face-down</b>.</span>) },
-  { id:'venue',   txt:(<span>The <b>surprise venue</b> is revealed upon entry.</span>) },
+  { id:'present', txt:(<span>The Performer arrives <b>on time</b> and <b>fully present</b>.</span>) },
+  { id:'venue',   txt:(<span>The <b>surprise venue</b> is texted to the Attendee after confirmation.</span>) },
   { id:'doodle',  txt:(<span>The <b>Goldendoodle co-pilot</b> retains <b>full veto authority</b>.</span>) },
-  { id:'encore',  txt:(<span>The Attendee may <b>decline any encore</b> — no hard feelings.</span>) },
 ];
 
 /* ---------------- POSTER (hero) ---------------- */
@@ -59,7 +58,7 @@ function Poster({ onStart }){
 
         <div className="poster__finefooter type">
           Doors 6:00 PM · No refunds · One redemption per customer<br/>
-          *Approx. times subject to change. Venue revealed at the door.
+          *Approx. times subject to change. Venue texted after confirmation.
         </div>
       </div>
     </div>
@@ -185,7 +184,7 @@ function TicketScreen({ name, nightId, onRestart }){
 ${night.no} · ${night.short} · Chicago, IL
 Section: FRONT ROW
 
-All four terms initialed. Front row's yours — venue revealed at the door. See you there. 😌`;
+All terms initialed. Front row's yours — I'll text you the venue. See you there. 😌`;
   const sms = `sms:${phone}?&body=${encodeURIComponent(body)}`;
 
   return (
@@ -223,8 +222,8 @@ All four terms initialed. Front row's yours — venue revealed at the door. See 
             </div>
 
             <div className="ticket__perksline type">
-              <b>Includes:</b> full goodbye (×1) · phone face-down · complimentary nerves ·
-              surprise venue reveal · goldendoodle veto rights reserved.
+              <b>Includes:</b> full goodbye (×1) · fully present · complimentary nerves ·
+              surprise venue (texted) · goldendoodle veto rights reserved.
             </div>
 
             <div className="ticket__order type">

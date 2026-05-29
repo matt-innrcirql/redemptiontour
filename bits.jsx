@@ -23,7 +23,7 @@ function Ticker(){
     <span key="b">FRONT ROW · <b>FOUR NIGHTS</b> · ONE CITY</span>,
     <span key="c">HEADLINING: <b>MATT YEE</b></span>,
     <span key="d">LIVE IN <b>CHICAGO, IL</b> ★ JUNE 3·4·5·6</span>,
-    <span key="e">VENUE REVEAL <b>AT THE DOOR</b></span>,
+    <span key="e">VENUE <b>TEXTED AFTER CONFIRMATION</b></span>,
     <span key="f"><b>GOLDENDOODLE-APPROVED</b> PROGRAMMING</span>,
   ];
   const loop = [...items, ...items.map((it,i)=>React.cloneElement(it,{key:'x'+i}))];
