@@ -184,11 +184,9 @@ function TicketScreen({ name, nightId, onRestart }){
   const phone = '+12028801652';
   const body =
 `🎟 IT'S OFFICIAL. ${holder.toUpperCase()} has claimed her ticket to the MATT YEE REDEMPTION TOUR.
-
 ${night.no} · ${night.short} · Chicago, IL
 Section: FRONT ROW
-
-All terms initialed. Front row's yours — I'll text you the venue. See you there. 😌`;
+Terms initialed. Don't be a letdown. Goldendoodle's on standby. 😌`;
   const sms = `sms:${phone}?&body=${encodeURIComponent(body)}`;
 
   return (
