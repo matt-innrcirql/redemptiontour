@@ -34,7 +34,7 @@ function Poster({ onStart }){
         <div className="poster__tape"></div>
 
         <div className="presents rule-word type">The City of Chicago (unofficially) presents</div>
-        <div className="poster__kicker">A Live Redemption Event · two weeks in the making*</div>
+        <div className="poster__kicker">A Live Redemption Event · 1.5 weeks in the making*</div>
 
         <div className="poster__title">
           <span className="l1 display">One <em>Date</em></span>
