@@ -353,9 +353,7 @@ body{
 .ticket__admit .big{ font-family:var(--f-display); font-size:22px; }
 .ticket__admit .sm{ font-size:10px; letter-spacing:.2em; color:var(--ink-soft); }
 
-.ticket__body{ display:grid; grid-template-columns:96px 1fr; gap:16px; margin-top:14px; align-items:center;}
-.ticket__photo{ width:96px; height:96px; border:2px solid var(--ink); object-fit:cover;
-  box-shadow:3px 3px 0 var(--red); }
+.ticket__body{ display:grid; grid-template-columns:1fr; gap:16px; margin-top:14px; align-items:center;}
 .tgrid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px 16px; }
 .tcell label{ font-size:9.5px; letter-spacing:.2em; text-transform:uppercase;
   color:var(--ink-soft); display:block; }
@@ -469,7 +467,6 @@ body{
 /* phones: stack ticket holder block, keep details readable */
 @media(max-width:400px){
   .ticket__body{ grid-template-columns:1fr; justify-items:center; gap:12px; }
-  .ticket__photo{ width:104px; height:104px; }
   .tgrid{ width:100%; gap:9px 14px; }
   .night__bignum{ font-size:56px; }
 }

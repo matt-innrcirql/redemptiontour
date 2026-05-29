@@ -213,7 +213,6 @@ Terms accepted (yes, even the freezing clause). You may now proceed to not be a 
             </div>
 
             <div className="ticket__body">
-              <img className="ticket__photo" src="assets/josie-v2.jpg" alt="Josie" />
               <div className="tgrid">
                 <div className="tcell"><label>Ticket Holder</label><div className="v red">{holder}</div></div>
                 <div className="tcell"><label>Headliner</label><div className="v">Matt Yee</div></div>
