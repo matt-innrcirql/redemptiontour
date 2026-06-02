@@ -30,14 +30,14 @@ const CLAUSES = [
 const STOPS = [
   { id:0, no:'STOP I', kind:'venue', act:'Dinner', time:'6:00 PM',
     place:'Bazaar Meat', city:'by José Andrés · Chicago',
-    note:"Doors at six. The headliner has promised to arrive on time and to not, under any circumstances, freeze.",
+    note:"The opening act. Bold, a little theatrical, and exactly the kind of first impression worth showing up early for.",
     map:'https://www.google.com/maps/search/?api=1&query=Bazaar+Meat+by+Jose+Andres+Chicago' },
   { id:1, kind:'walk', act:'The Walk', time:'~10–15 min',
     place:'down the Magnificent Mile',
     note:"A short stroll up the Mag Mile between acts. Lights, windows, and a man trying to be charming the whole way." },
   { id:2, no:'STOP II', kind:'venue', act:'Drinks', time:'8:45 PM',
     place:'Terrace 16', city:'Trump Tower · Chicago',
-    note:"Nightcap with a skyline. The encore of the evening — best enjoyed slowly.",
+    note:"Nightcap with a skyline. The encore of the evening, best enjoyed slowly.",
     map:'https://www.google.com/maps/search/?api=1&query=Terrace+16+Chicago' },
 ];
 
