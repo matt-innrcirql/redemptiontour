@@ -57,7 +57,8 @@ function App(){
         {screen==='ticket' && <TicketScreen name={name} nightId={night}
                                      onRestart={restart} />}
         {screen==='itinerary' && <Itinerary name={name} nightId={night}
-                                     onBack={()=>go('poster')} />}
+                                     onBack={()=>go('poster')}
+                                     onCelebrate={()=>setFire(f=>f+1)} />}
       </div>
     </React.Fragment>
   );

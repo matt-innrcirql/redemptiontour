@@ -487,19 +487,49 @@ body{
 }
 
 /* ===========================================================
-   POSTER → ITINERARY entry link
+   POSTER → ITINERARY entry link  (made deliberately attention-grabbing)
    =========================================================== */
+.poster__itin-wrap{
+  margin:18px auto 4px; text-align:center;
+  border:2px dashed var(--teal); padding:12px 16px 14px;
+  background:rgba(31,111,104,.07); max-width:420px;
+  animation:itinPulse 2.4s ease-in-out infinite;
+}
+@keyframes itinPulse{
+  0%,100%{ box-shadow:0 0 0 0 rgba(31,111,104,.35); }
+  50%{ box-shadow:0 0 0 7px rgba(31,111,104,0); }
+}
+.poster__itin-nudge{
+  font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--teal); margin-bottom:2px;
+  animation:nudgeBob 1.6s ease-in-out infinite;
+}
+@keyframes nudgeBob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-3px); } }
+
 .poster__itinerary{
-  display:block; margin:14px auto 0; cursor:pointer;
+  display:block; margin:0 auto; cursor:pointer;
   background:transparent; border:none;
   font-family:var(--f-script); font-weight:700; color:var(--teal);
-  font-size:clamp(24px,6vw,34px); line-height:1; transform:rotate(-2deg);
+  font-size:clamp(26px,6.5vw,38px); line-height:1;
   text-decoration:underline; text-underline-offset:5px;
   text-decoration-color:var(--gold); text-decoration-thickness:2px;
-  transition:transform .12s, color .12s;
+  transform-origin:center;
+  animation:itinWiggle 2.8s ease-in-out infinite;
+  transition:color .12s;
 }
-.poster__itinerary:hover{ transform:rotate(-2deg) scale(1.03); color:var(--red); }
-.poster__itinerary:active{ transform:rotate(-2deg) scale(.98); }
+@keyframes itinWiggle{
+  0%,100%{ transform:rotate(-2deg); }
+  25%{ transform:rotate(1.5deg) scale(1.02); }
+  50%{ transform:rotate(-2deg); }
+  75%{ transform:rotate(-3.5deg) scale(1.02); }
+}
+.poster__itinerary:hover{ color:var(--red); animation-play-state:paused; transform:rotate(-2deg) scale(1.05); }
+.poster__itinerary:active{ transform:rotate(-2deg) scale(.97); }
+
+@media(prefers-reduced-motion:reduce){
+  .poster__itin-wrap, .poster__itin-nudge, .poster__itinerary{ animation:none; }
+  .poster__itinerary{ transform:rotate(-2deg); }
+}
 
 /* ===========================================================
    ITINERARY SCREEN

@@ -81,9 +81,12 @@ function Poster({ onStart, onItinerary }){
 
         <button className="cta-stamp" onClick={onStart}>Claim Your Ticket →</button>
 
-        <button className="poster__itinerary script" onClick={onItinerary}>
-          Josie — tap here to view your itinerary 🎟
-        </button>
+        <div className="poster__itin-wrap">
+          <div className="poster__itin-nudge type">👀 psst, Josie</div>
+          <button className="poster__itinerary script" onClick={onItinerary}>
+            tap here to see your itinerary 🎟
+          </button>
+        </div>
 
         <div className="poster__finefooter type">
           Doors 6:00 PM · No refunds · One redemption per customer<br/>
@@ -299,7 +302,7 @@ Terms initialed. Don't be a letdown. Goldendoodle's on standby. 😌`;
 }
 
 /* ---------------- ITINERARY (the night) ---------------- */
-function Itinerary({ name, nightId, onBack }){
+function Itinerary({ name, nightId, onBack, onCelebrate }){
   const holder = (name||'Josie').trim();
   // Default to the preferred night (Sat Jun 6) if she hasn't locked one in yet.
   const night = NIGHTS[nightId] ?? NIGHTS.find(n=>n.preferred) ?? NIGHTS[3];
@@ -311,6 +314,7 @@ function Itinerary({ name, nightId, onBack }){
   const unlock = ()=>{
     if(excite===null) return;
     setUnlocked(true);
+    if(typeof onCelebrate === 'function') onCelebrate(); // confetti burst 🎉
     if(typeof window.posthog !== 'undefined'){
       window.posthog.capture('itinerary_excitement', { excitement: excite, night: night.no });
     }
