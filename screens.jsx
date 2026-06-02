@@ -378,6 +378,10 @@ function Itinerary({ name, nightId, onBack }){
               <span>✨ your personality</span>
             </div>
             <div className="gate__rider-f type">Non-negotiable. The rest is handled.</div>
+            <div className="gate__dress type">
+              <b>Dress code:</b> cocktail (or similar). Block heels recommended —
+              or carry a flat for the Mag Mile walk. 👠
+            </div>
           </div>
 
           <button className="btn btn--red btn--big gate__btn" disabled={excite===null} onClick={unlock}>
