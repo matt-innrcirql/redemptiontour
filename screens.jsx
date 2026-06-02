@@ -382,6 +382,9 @@ function Itinerary({ name, nightId, onBack }){
               <b>Dress code:</b> cocktail (or similar). Block heels recommended —
               or carry a flat for the Mag Mile walk. 👠
             </div>
+            <div className="gate__dress type">
+              <b>Transport:</b> handled. An Uber picks you up and drops you home. 🚗
+            </div>
           </div>
 
           <button className="btn btn--red btn--big gate__btn" disabled={excite===null} onClick={unlock}>
