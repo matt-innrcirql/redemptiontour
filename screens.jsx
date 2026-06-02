@@ -379,7 +379,7 @@ function Itinerary({ name, nightId, onBack }){
             </div>
             <div className="gate__rider-f type">Non-negotiable. The rest is handled.</div>
             <div className="gate__dress type">
-              <b>Dress code:</b> cocktail (or similar). Block heels recommended —
+              <b>Dress code:</b> cocktail (or similar). Block heels recommended,
               or carry a flat for the Mag Mile walk. 👠
             </div>
             <div className="gate__dress type">
