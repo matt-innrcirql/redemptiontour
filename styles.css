@@ -485,3 +485,106 @@ body{
   .tgrid{ width:100%; gap:9px 14px; }
   .night__bignum{ font-size:56px; }
 }
+
+/* ===========================================================
+   POSTER → ITINERARY entry link
+   =========================================================== */
+.poster__itinerary{
+  display:block; margin:14px auto 0; cursor:pointer;
+  background:transparent; border:none;
+  font-family:var(--f-script); font-weight:700; color:var(--teal);
+  font-size:clamp(24px,6vw,34px); line-height:1; transform:rotate(-2deg);
+  text-decoration:underline; text-underline-offset:5px;
+  text-decoration-color:var(--gold); text-decoration-thickness:2px;
+  transition:transform .12s, color .12s;
+}
+.poster__itinerary:hover{ transform:rotate(-2deg) scale(1.03); color:var(--red); }
+.poster__itinerary:active{ transform:rotate(-2deg) scale(.98); }
+
+/* ===========================================================
+   ITINERARY SCREEN
+   =========================================================== */
+.itin{ background:var(--paper); max-width:680px; }
+
+/* --- the excitement gate --- */
+.gate{ text-align:center; margin-top:18px; border:2px dashed var(--ink);
+  background:var(--paper-2); padding:26px 20px 24px; }
+.gate__q{ color:var(--red); font-size:clamp(30px,8vw,46px); line-height:.92; }
+.gate__scale{ font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--ink-soft); margin-top:8px; }
+.stars{ display:flex; justify-content:center; gap:6px; margin:12px 0 4px; }
+.star{ cursor:pointer; background:transparent; border:none; padding:6px;
+  font-size:clamp(34px,11vw,52px); line-height:1; color:rgba(60,45,20,.28);
+  transition:transform .1s, color .12s; -webkit-tap-highlight-color:transparent; }
+.star:hover{ transform:translateY(-3px) scale(1.06); }
+.star:active{ transform:scale(.92); }
+.star--on{ color:var(--gold); text-shadow:2px 2px 0 rgba(168,42,22,.25); }
+.gate__react{ min-height:34px; font-size:14px; color:var(--ink-soft);
+  line-height:1.4; max-width:420px; margin:2px auto 0; opacity:0;
+  transition:opacity .25s; }
+.gate__react.show{ opacity:1; color:var(--ink); }
+
+.gate__rider{ margin:18px auto 4px; max-width:380px; border-top:1px dashed rgba(60,45,20,.4);
+  border-bottom:1px dashed rgba(60,45,20,.4); padding:14px 0; }
+.gate__rider-h{ font-size:11px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--red); }
+.gate__rider-b{ display:flex; justify-content:center; gap:18px; flex-wrap:wrap;
+  margin:8px 0 6px; font-family:var(--f-display); text-transform:uppercase;
+  font-size:clamp(18px,5vw,24px); letter-spacing:.02em; }
+.gate__rider-f{ font-size:11px; letter-spacing:.06em; color:var(--ink-soft); }
+.gate__btn{ margin-top:18px; }
+
+/* --- the reveal timeline --- */
+.timeline{ margin:22px 0 4px; position:relative; }
+.stop{ display:grid; grid-template-columns:54px 1fr; gap:14px; align-items:stretch; }
+.stop__rail{ position:relative; display:flex; flex-direction:column; align-items:center; }
+.stop__rail::before{ /* connecting line down the rail */
+  content:""; position:absolute; top:0; bottom:0; width:3px; background:var(--ink); opacity:.5; }
+.stop:first-child .stop__rail::before{ top:26px; }
+.stop:last-child .stop__rail::before{ bottom:auto; height:26px; }
+.stop__dot{ position:relative; z-index:2; width:52px; height:52px; flex:none;
+  border-radius:50%; border:3px solid var(--ink); background:var(--red);
+  color:var(--paper); font-family:var(--f-display); font-size:22px;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:4px 4px 0 var(--gold); margin-top:0; }
+.stop--walk .stop__dot{ background:var(--teal); font-size:24px; box-shadow:4px 4px 0 var(--ink); }
+
+.stop__card{ border:2px solid var(--ink); background:var(--paper);
+  padding:14px 16px 15px; margin-bottom:16px; box-shadow:4px 4px 0 rgba(27,22,17,.25); }
+.stop--walk .stop__card{ background:var(--paper-2); border-style:dashed;
+  box-shadow:none; }
+.stop__time{ font-family:var(--f-display); font-size:30px; color:var(--red); line-height:.9; }
+.stop--walk .stop__time{ color:var(--teal); }
+.stop__act{ font-size:11px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--ink-soft); margin-top:4px; }
+.stop__place{ font-family:var(--f-script); font-size:32px; color:var(--ink);
+  line-height:.9; margin:6px 0 0; }
+.stop__city{ font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--gold); margin-top:4px; }
+.stop__note{ font-size:13.5px; line-height:1.5; color:var(--ink-soft); margin-top:8px; }
+.stop__map{ display:inline-block; margin-top:10px; font-size:12px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--ink); text-decoration:underline;
+  text-underline-offset:3px; text-decoration-color:var(--red); }
+.stop__map:hover{ color:var(--red); }
+
+/* staggered reveal of each stop */
+.stop-reveal{ animation:stopIn .5s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes stopIn{ from{ opacity:0; transform:translateY(22px); } }
+
+/* add-to-calendar */
+.itin__cal{ text-align:center; margin-top:18px; }
+.itin__cal-note{ font-size:11px; letter-spacing:.08em; color:var(--ink-soft); margin-top:8px; }
+
+@media(prefers-reduced-motion:reduce){
+  .stop-reveal{ animation:none; }
+}
+
+@media(max-width:620px){
+  .itin{ max-width:100%; }
+  .gate{ padding:20px 14px 20px; }
+  .stop{ grid-template-columns:46px 1fr; gap:10px; }
+  .stop__dot{ width:44px; height:44px; font-size:18px; }
+  .stop__card{ padding:12px 13px 13px; }
+  .stop__place{ font-size:28px; }
+  .stop__note{ font-size:13px; }
+}

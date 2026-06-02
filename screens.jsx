@@ -26,8 +26,31 @@ const CLAUSES = [
   { id:'tenders', txt:(<span>No <b>kids-menu chicken tenders</b> shall be ordered. Bullets, dodged. 😉</span>) },
 ];
 
+/* ---------------- ITINERARY data ---------------- */
+const STOPS = [
+  { id:0, no:'STOP I', kind:'venue', act:'Dinner', time:'6:00 PM',
+    place:'Bazaar Meat', city:'by José Andrés · Chicago',
+    note:"Doors at six. The headliner has promised to arrive on time and to not, under any circumstances, freeze.",
+    map:'https://www.google.com/maps/search/?api=1&query=Bazaar+Meat+by+Jose+Andres+Chicago' },
+  { id:1, kind:'walk', act:'The Walk', time:'~10–15 min',
+    place:'down the Magnificent Mile',
+    note:"A short stroll up the Mag Mile between acts. Lights, windows, and a man trying to be charming the whole way." },
+  { id:2, no:'STOP II', kind:'venue', act:'Drinks', time:'8:45 PM',
+    place:'Terrace 16', city:'Trump Tower · Chicago',
+    note:"Nightcap with a skyline. The encore of the evening — best enjoyed slowly.",
+    map:'https://www.google.com/maps/search/?api=1&query=Terrace+16+Chicago' },
+];
+
+const EXCITE = {
+  1:'…we’ll allow it. The bar was on the floor anyway.',
+  2:'Cautiously optimistic. Respectable.',
+  3:'A solid, mature level of excitement. Noted.',
+  4:'Now we’re talking. He can feel it through the screen.',
+  5:'Correct answer. ✅ He’s honored to be part of such a historic moment.',
+};
+
 /* ---------------- POSTER (hero) ---------------- */
-function Poster({ onStart }){
+function Poster({ onStart, onItinerary }){
   return (
     <div className="poster paper screen-enter">
       <div className="poster__frame">
@@ -57,6 +80,10 @@ function Poster({ onStart }){
         </div>
 
         <button className="cta-stamp" onClick={onStart}>Claim Your Ticket →</button>
+
+        <button className="poster__itinerary script" onClick={onItinerary}>
+          Josie — tap here to view your itinerary 🎟
+        </button>
 
         <div className="poster__finefooter type">
           Doors 6:00 PM · No refunds · One redemption per customer<br/>
@@ -271,4 +298,132 @@ Terms initialed. Don't be a letdown. Goldendoodle's on standby. 😌`;
   );
 }
 
-Object.assign(window, { Poster, Dates, Rider, TicketScreen, NIGHTS });
+/* ---------------- ITINERARY (the night) ---------------- */
+function Itinerary({ name, nightId, onBack }){
+  const holder = (name||'Josie').trim();
+  // Default to the preferred night (Sat Jun 6) if she hasn't locked one in yet.
+  const night = NIGHTS[nightId] ?? NIGHTS.find(n=>n.preferred) ?? NIGHTS[3];
+
+  const [excite, setExcite] = _uS(null);  // 1–5
+  const [hover,  setHover]  = _uS(0);
+  const [unlocked, setUnlocked] = _uS(false);
+
+  const unlock = ()=>{
+    if(excite===null) return;
+    setUnlocked(true);
+    if(typeof window.posthog !== 'undefined'){
+      window.posthog.capture('itinerary_excitement', { excitement: excite, night: night.no });
+    }
+  };
+
+  // Build a downloadable .ics for the evening on the chosen night.
+  const addToCalendar = ()=>{
+    const yyyy = 2026, mm = '06';
+    const dd = String(night.date).padStart(2,'0');
+    const dt = (h,mi)=> `${yyyy}${mm}${dd}T${String(h).padStart(2,'0')}${String(mi).padStart(2,'0')}00`;
+    const ics = [
+      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Redemption Tour//Itinerary//EN',
+      'BEGIN:VEVENT',
+      'UID:redemption-tour-'+night.date+'@mattyeeredemptiontour.com',
+      'DTSTART:'+dt(18,0),
+      'DTEND:'+dt(22,30),
+      'SUMMARY:The Redemption Tour 🎟 — '+holder+' + Matt',
+      'LOCATION:Bazaar Meat then Terrace 16, Chicago, IL',
+      'DESCRIPTION:6:00 PM Dinner at Bazaar Meat \\, ~10-15 min walk down the Magnificent Mile \\, 8:45 PM Drinks at Terrace 16. Bring your smile and your personality.',
+      'END:VEVENT','END:VCALENDAR'
+    ].join('\r\n');
+    const blob = new Blob([ics], { type:'text/calendar' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'redemption-tour.ics';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(()=>URL.revokeObjectURL(url), 1000);
+    if(typeof window.posthog !== 'undefined'){ window.posthog.capture('itinerary_add_to_calendar', { night: night.no }); }
+  };
+
+  return (
+    <div className="panel paper itin screen-enter">
+      <div className="panel__head">
+        <div className="panel__step">The Main Event · {night.short}</div>
+        <h2 className="panel__title display">The <em>Itinerary</em></h2>
+        <p className="panel__sub">The full running order for the evening, {holder}. Two acts, one walk, zero freezing.</p>
+      </div>
+
+      {!unlocked && (
+        <div className="gate">
+          <div className="gate__q script">Before the tour begins…<br/>how excited are we?</div>
+          <div className="gate__scale type">Tap a number · 1 to 5</div>
+
+          <div className="stars" role="group" aria-label="Excitement, 1 to 5">
+            {[1,2,3,4,5].map(n=>{
+              const lit = n <= (hover || excite || 0);
+              return (
+                <button key={n}
+                  className={"star"+(lit?" star--on":"")}
+                  aria-label={n+' out of 5'}
+                  onMouseEnter={()=>setHover(n)} onMouseLeave={()=>setHover(0)}
+                  onClick={()=>setExcite(n)}>★</button>
+              );
+            })}
+          </div>
+
+          <div className={"gate__react type"+(excite?" show":"")}>
+            {excite ? EXCITE[excite] : ' '}
+          </div>
+
+          <div className="gate__rider">
+            <div className="gate__rider-h type">Mandatory items to bring</div>
+            <div className="gate__rider-b">
+              <span>😊 your smile</span>
+              <span>✨ your personality</span>
+            </div>
+            <div className="gate__rider-f type">Non-negotiable. The rest is handled.</div>
+          </div>
+
+          <button className="btn btn--red btn--big gate__btn" disabled={excite===null} onClick={unlock}>
+            {excite===null ? 'Pick a number first' : 'Unlock the night →'}
+          </button>
+        </div>
+      )}
+
+      {unlocked && (
+        <React.Fragment>
+          <div className="timeline">
+            {STOPS.map((s,i)=>(
+              <div key={s.id}
+                className={"stop stop--"+s.kind+" stop-reveal"}
+                style={{ animationDelay:(0.12 + i*0.28)+'s' }}>
+                <div className="stop__rail">
+                  <div className="stop__dot">{s.kind==='walk' ? '🚶' : (s.id===0?'I':'II')}</div>
+                </div>
+                <div className="stop__card">
+                  <div className="stop__time display">{s.time}</div>
+                  <div className="stop__act type">{s.no || 'INTERMISSION'} · {s.act}</div>
+                  <div className="stop__place script">{s.place}</div>
+                  {s.city && <div className="stop__city type">{s.city}</div>}
+                  <div className="stop__note">{s.note}</div>
+                  {s.map && (
+                    <a className="stop__map type" href={s.map} target="_blank" rel="noopener noreferrer">
+                      📍 View on map
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="itin__cal">
+            <button className="btn btn--red" onClick={addToCalendar}>🗓 Add the night to your calendar</button>
+            <div className="itin__cal-note type">Saves a calendar file for {night.short}.</div>
+          </div>
+        </React.Fragment>
+      )}
+
+      <div className="navrow" style={{justifyContent:'center'}}>
+        <button className="btn btn--ghost" onClick={onBack}>← back to the poster</button>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { Poster, Dates, Rider, TicketScreen, Itinerary, NIGHTS });

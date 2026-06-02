@@ -11,7 +11,7 @@ function loadState(){
 function App(){
   const saved = loadState();
   // Always start fresh at the poster on (re)load — don't restore the saved screen.
-  const [screen, setScreen]   = _aS('poster'); // poster | dates | rider | ticket
+  const [screen, setScreen]   = _aS('poster'); // poster | dates | rider | ticket | itinerary
   const [night,  setNight]    = _aS(saved.night ?? null);
   const [name,   setName]     = _aS(saved.name || 'Josie');
   const [accepted,setAccepted]= _aS(saved.accepted || {});
@@ -48,7 +48,7 @@ function App(){
       <Grain />
       <Confetti fire={fire} />
       <div className="stage">
-        {screen==='poster' && <Poster onStart={()=>go('dates')} />}
+        {screen==='poster' && <Poster onStart={()=>go('dates')} onItinerary={()=>go('itinerary')} />}
         {screen==='dates'  && <Dates selected={night} setSelected={setNight}
                                      onNext={()=>go('rider')} onBack={()=>go('poster')} />}
         {screen==='rider'  && <Rider name={name} setName={setName}
@@ -56,6 +56,8 @@ function App(){
                                      onNext={()=>go('ticket')} onBack={()=>go('dates')} />}
         {screen==='ticket' && <TicketScreen name={name} nightId={night}
                                      onRestart={restart} />}
+        {screen==='itinerary' && <Itinerary name={name} nightId={night}
+                                     onBack={()=>go('poster')} />}
       </div>
     </React.Fragment>
   );
@@ -73,7 +75,7 @@ function App(){
    DOM root exists) before the first render. */
 (function boot(tries){
   tries = tries || 0;
-  const needed = ['Poster','Dates','Rider','TicketScreen','Ticker','Grain','Confetti'];
+  const needed = ['Poster','Dates','Rider','TicketScreen','Itinerary','Ticker','Grain','Confetti'];
   const root = document.getElementById('root');
   const ready = root && needed.every(n => typeof window[n] === 'function');
 
