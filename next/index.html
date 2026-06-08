@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Season Two · The Redemption Tour</title>
+<meta name="description" content="Previously on the Redemption Tour…" />
+
+<!-- PostHog (same public client token as the hub + tour). -->
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('phc_zhordsTx3ucwQ5EmMbxctXqdE4L7eqz8gE79R5fhAHBk', {
+    api_host: 'https://us.i.posthog.com', defaults: '2026-01-30',
+    autocapture: true, capture_pageview: true, session_recording: { maskAllInputs: true }
+  });
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Special+Elite&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --ink:#241a12; --burg:#5d1a1c; --burg2:#430f12; --gold:#cba14a; --gold-2:#e7c878;
+  --gold-deep:#a87f2e; --cream:#f3e7cb; --paper:#ece0c2; --paper-line:#d8c79e;
+  --red:#9c2c25; --navy:#274066;
+  --tile:#3a2418; --tile-correct:#cba14a; --tile-present:#8a6d3b; --tile-absent:#2a1b12;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Special Elite',monospace;color:var(--cream);
+  background:radial-gradient(1100px 700px at 50% -5%, #3a1416 0%, transparent 60%),
+             repeating-linear-gradient(135deg,#2a0f10 0 22px,#280e0f 22px 44px),#220c0d;
+  min-height:100%;overflow-x:hidden;
+}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+.app{max-width:560px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;padding:18px 18px 30px}
+
+/* ---- top brand + progress ---- */
+.brand{text-align:center;margin-bottom:10px}
+.brand__k{font-family:'Caveat',cursive;font-size:22px;color:var(--gold-2);line-height:1}
+.brand__t{font-family:'Anton',sans-serif;letter-spacing:.06em;font-size:13px;color:var(--gold);opacity:.85}
+.prog{display:flex;gap:6px;justify-content:center;margin:10px 0 6px}
+.prog i{width:26px;height:3px;border-radius:2px;background:rgba(231,200,120,.25);transition:background .3s}
+.prog i.on{background:var(--gold-2)}
+
+.stage{flex:1;display:flex;flex-direction:column;justify-content:center;animation:fade .45s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ===================== RECAP SCENES ===================== */
+.scene{
+  position:relative;border-radius:18px;overflow:hidden;
+  min-height:62dvh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:26px 22px;color:#fff;
+  box-shadow:0 24px 60px rgba(0,0,0,.5);border:1px solid rgba(231,200,120,.25);
+  background:linear-gradient(180deg,#1a2540 0%,#3a2742 55%,#5a2a2c 100%);
+}
+.scene__sky{position:absolute;inset:0;overflow:hidden}
+.scene__moon{position:absolute;top:9%;right:14%;width:54px;height:54px;border-radius:50%;
+  background:radial-gradient(circle at 38% 38%, #fff6dc, #e7c878 70%, #b9923f);box-shadow:0 0 50px rgba(231,200,120,.55)}
+.scene__city{position:absolute;left:0;right:0;bottom:0;height:46%;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,.35));}
+.bldg{position:absolute;bottom:0;background:linear-gradient(180deg,#14202f,#0c1620);box-shadow:inset 0 0 0 1px rgba(231,200,120,.04)}
+.bldg::before{content:"";position:absolute;inset:6px;background-image:
+  radial-gradient(rgba(231,200,120,.5) 1px, transparent 1.4px);background-size:9px 13px;opacity:.55}
+.scene__motif{position:absolute;top:7%;left:50%;transform:translateX(-50%);font-size:74px;
+  filter:drop-shadow(0 8px 22px rgba(0,0,0,.5));opacity:.96}
+.scene__grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(20,8,9,.2) 60%,rgba(20,8,9,.85) 100%)}
+.scene__body{position:relative;z-index:2}
+.scene__tag{font-family:'Anton',sans-serif;letter-spacing:.16em;font-size:12px;color:var(--gold-2);text-transform:uppercase}
+.scene__title{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(26px,8vw,38px);line-height:1.04;margin:6px 0 8px;text-shadow:0 2px 18px rgba(0,0,0,.6)}
+.scene__note{font-size:14px;line-height:1.6;color:#f3ead7;max-width:34ch;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.scene__hint{position:relative;z-index:2;text-align:center;margin-top:16px;font-size:11px;letter-spacing:.28em;color:var(--gold-2);opacity:.85;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+
+/* generic big button */
+.btn{display:inline-block;border:none;cursor:pointer;font-family:'Special Elite',monospace;
+  background:linear-gradient(180deg,var(--gold-2),var(--gold-deep));color:#3a1416;
+  padding:15px 22px;border-radius:30px;font-size:15px;letter-spacing:.04em;font-weight:bold;
+  box-shadow:0 10px 26px rgba(0,0,0,.4);transition:transform .12s ease, box-shadow .12s ease;
+  text-decoration:none;text-align:center;width:100%}
+.btn:active{transform:translateY(2px)}
+.btn--ghost{background:transparent;color:var(--gold-2);border:1.5px solid rgba(231,200,120,.5);box-shadow:none}
+.btn--red{background:linear-gradient(180deg,#c0473f,#7d2019);color:#fff5ee}
+.btn--big{font-size:17px;padding:17px 22px}
+.btn.pulse{animation:btnpulse 1.6s ease-in-out infinite}
+@keyframes btnpulse{0%,100%{box-shadow:0 10px 26px rgba(0,0,0,.4)}50%{box-shadow:0 10px 40px rgba(231,200,120,.6)}}
+.btnrow{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+
+/* ===================== PUZZLE ===================== */
+.puz{display:flex;flex-direction:column;align-items:center;gap:14px}
+.puz__h{text-align:center}
+.puz__h h2{font-family:'Playfair Display',serif;font-weight:800;font-size:24px;color:var(--gold-2)}
+.puz__h p{font-size:12.5px;opacity:.85;margin-top:4px;max-width:32ch}
+.board{display:grid;grid-template-rows:repeat(6,1fr);gap:7px}
+.brow{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.tile{width:48px;height:48px;display:flex;align-items:center;justify-content:center;
+  font-family:'Anton',sans-serif;font-size:24px;color:#fff;text-transform:uppercase;
+  border:2px solid rgba(231,200,120,.3);border-radius:8px;background:rgba(58,36,24,.4);
+  transition:transform .15s ease, background .3s ease, border-color .3s ease}
+.tile.filled{border-color:rgba(231,200,120,.7);transform:scale(1.04)}
+.tile.correct{background:var(--tile-correct);border-color:var(--tile-correct);color:#3a1416}
+.tile.present{background:var(--tile-present);border-color:var(--tile-present)}
+.tile.absent{background:var(--tile-absent);border-color:var(--tile-absent);color:#8a7a6a}
+.tile.flip{animation:flip .5s ease}
+@keyframes flip{0%{transform:rotateX(0)}50%{transform:rotateX(90deg)}100%{transform:rotateX(0)}}
+.brow.bad{animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+
+.memory{min-height:38px;text-align:center;font-size:13px;color:var(--gold-2);max-width:34ch;
+  opacity:0;transition:opacity .4s ease;font-style:italic}
+.memory.show{opacity:1}
+
+.kbd{display:flex;flex-direction:column;gap:7px;width:100%;max-width:430px;margin-top:4px}
+.krow{display:flex;gap:5px;justify-content:center}
+.key{flex:1;min-width:0;height:50px;border:none;border-radius:7px;background:#6a4a36;color:#fff;
+  font-family:'Special Elite',monospace;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.key:active{transform:translateY(2px)}
+.key.wide{flex:1.6;font-size:11px;letter-spacing:.04em}
+.key.correct{background:var(--tile-correct);color:#3a1416}
+.key.present{background:var(--tile-present)}
+.key.absent{background:#2a1b12;color:#6a5848}
+.puz__skip{margin-top:6px;font-size:11px;letter-spacing:.1em;color:var(--gold-2);opacity:.6;
+  background:none;border:none;cursor:pointer;text-decoration:underline;font-family:inherit}
+
+/* ===================== REVEAL (ticket) ===================== */
+.reveal{text-align:center}
+.reveal__k{font-family:'Anton',sans-serif;letter-spacing:.14em;color:var(--gold-2);font-size:13px}
+.reveal__lead{font-size:14px;line-height:1.6;margin:8px auto 18px;max-width:30ch;color:#f3ead7}
+.ticket{position:relative;background:linear-gradient(180deg,#f7eece,var(--cream));color:var(--ink);
+  border-radius:14px;padding:22px 18px;box-shadow:0 22px 50px rgba(0,0,0,.5);overflow:hidden}
+.ticket::before,.ticket::after{content:"";position:absolute;width:26px;height:26px;border-radius:50%;
+  background:#220c0d;top:50%;transform:translateY(-50%)}
+.ticket::before{left:-14px}.ticket::after{right:-14px}
+.ticket__brand{font-family:'Caveat',cursive;font-size:20px;color:var(--burg)}
+.ticket__day{font-family:'Anton',sans-serif;font-size:clamp(30px,11vw,52px);line-height:1;color:var(--burg);letter-spacing:.02em;margin:6px 0}
+.ticket__sub{font-size:12px;letter-spacing:.18em;color:#6a5436}
+.ticket__perf{border-top:2px dashed var(--paper-line);margin:14px -18px;}
+.ticket__fine{font-size:11px;color:#6a5436;line-height:1.6;padding-top:2px}
+.q{font-family:'Playfair Display',serif;font-weight:800;font-size:18px;color:var(--gold-2);margin:20px 0 4px}
+
+/* ===================== CONFIRM ===================== */
+.done{text-align:center}
+.done__big{font-family:'Playfair Display',serif;font-weight:800;font-size:26px;color:var(--gold-2);line-height:1.15}
+.done__sub{font-size:14px;line-height:1.6;color:#f3ead7;margin:12px auto 22px;max-width:32ch}
+.backlink{display:inline-block;margin-top:22px;color:var(--gold-2);opacity:.7;font-size:12px;letter-spacing:.12em;text-decoration:none}
+
+/* confetti */
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:95;overflow:hidden}
+.confetti i{position:absolute;top:-12px;width:9px;height:14px;opacity:.9;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(108dvh) rotate(720deg);opacity:.9}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="brand">
+    <div class="brand__k">previously on…</div>
+    <div class="brand__t">THE REDEMPTION TOUR</div>
+  </div>
+  <div class="prog" id="prog"><i></i><i></i><i></i></div>
+  <div class="stage" id="stage"></div>
+</div>
+
+<script>
+/* ============================================================
+   Season Two — recap → puzzle → reveal (changeable) → text Matt
+   All client-side; safe on static hosting.
+   ============================================================ */
+var MATT_PHONE = '+12028801652';      // from the tour's ticket confirm
+var ANSWER     = 'NIGHT';             // the secret word (tour callback: "choose your night")
+
+/* The proposed date + fallback. Edit here to change days. */
+var PLAN = {
+  primary:  { day:'SATURDAY', date:'JUNE 13', dow:'Sat', short:'Sat · Jun 13' },
+  fallback: { day:'FRIDAY',   date:'JUNE 12', dow:'Fri', short:'Fri · Jun 12' }
+};
+
+/* Recap scenes — pulled from the real Chicago night. */
+var SCENES = [
+  { tag:'Season One · Recap', title:'One Date,<br>One Shot.', motif:'🎟',
+    note:'Chicago. Saturday night — dinner, a walk, fireworks (more than the literal kind), and learning about Malört shots. A quick recap.' },
+  { tag:'The Opening Act', title:'Bazaar Meat', motif:'🥩',
+    note:'Dinner by José Andrés. Bold, a little theatrical — exactly the kind of first impression worth showing up early for.' },
+  { tag:'Intermission', title:'The Magnificent<br>Mile', motif:'🌃',
+    note:'A walk between acts. Lights, windows, and a man trying very hard to be charming the whole way up.' },
+  { tag:'The Encore', title:'Terrace 16', motif:'🍸',
+    note:'A nightcap with the whole skyline. Best enjoyed slowly. Nobody watching the clock.' },
+  { tag:'The Fireworks', title:'Sparks,<br>Literally.', motif:'🎆',
+    note:'Over the lake — and a few that weren’t on the schedule.' },
+  { tag:'The Initiation', title:'Malört', motif:'🥃',
+    note:'Chicago’s cruelest rite of passage. You found out the hard way — and still smiled.' },
+  { tag:'The Critics', title:'Dash &amp; Osito', motif:'🐾',
+    note:'Two goldendoodles. Full and unappealable veto power. The verdict on Matt: approved.' },
+  { tag:'The Fine Print', title:'Bullets,<br>Dodged.', motif:'😉',
+    note:'No kids-menu chicken tenders were ordered. Nobody was a letdown. As stipulated.' },
+  { tag:'Season Two', title:'There’s a<br>Next Night.', motif:'✨',
+    note:'Every good tour gets a second night. Decode the theme of the whole thing to unlock it…' }
+];
+
+/* A memory flips up under the board after each guess. */
+var MEMORIES = [
+  '💭 the José Andrés dinner…',
+  '💭 that walk up the Mag Mile…',
+  '💭 the skyline from Terrace 16…',
+  '💭 Dash & Osito, approving…',
+  '💭 zero chicken tenders ordered…',
+  '💭 front row. no refunds.'
+];
+
+var stage = document.getElementById('stage');
+var progEl = document.getElementById('prog');
+function setProg(n){ Array.prototype.forEach.call(progEl.children,function(i,k){ i.classList.toggle('on', k<=n); }); }
+
+/* ---------------- skyline helper ---------------- */
+function skyline(){
+  var b='', x=0, n=0;
+  while(x < 100){
+    var w = 7 + (n*37 % 9), h = 30 + (n*53 % 55);
+    b += '<div class="bldg" style="left:'+x+'%;width:'+w+'%;height:'+h+'%"></div>';
+    x += w + 1.5; n++;
+  }
+  return '<div class="scene__sky"><div class="scene__moon"></div><div class="scene__city">'+b+'</div></div>';
+}
+
+/* ===================== RECAP ===================== */
+var sceneIdx = 0;
+function renderRecap(){
+  setProg(0);
+  var s = SCENES[sceneIdx];
+  var last = sceneIdx === SCENES.length-1;
+  stage.innerHTML =
+    '<div class="scene">'+
+      skyline()+
+      '<div class="scene__motif">'+s.motif+'</div>'+
+      '<div class="scene__grad"></div>'+
+      '<div class="scene__body">'+
+        '<div class="scene__tag">'+s.tag+'</div>'+
+        '<div class="scene__title">'+s.title+'</div>'+
+        '<div class="scene__note">'+s.note+'</div>'+
+      '</div>'+
+    '</div>'+
+    (last
+      ? '<div class="btnrow"><button class="btn btn--big pulse" id="toPuz">Unlock the next night →</button></div>'
+      : '<div class="scene__hint">TAP TO CONTINUE</div>');
+
+  if(last){
+    document.getElementById('toPuz').onclick = function(){ capture('recap_finished'); renderPuzzle(); };
+  } else {
+    stage.querySelector('.scene').onclick = function(){ sceneIdx++; renderRecap(); };
+  }
+}
+
+/* ===================== PUZZLE ===================== */
+var guesses=[], cur='', solved=false, done=false;
+var KEYS=['QWERTYUIOP','ASDFGHJKL','ZXCVBNM'];
+var keyState={};
+
+function renderPuzzle(){
+  setProg(1);
+  guesses=[]; cur=''; solved=false; done=false; keyState={};
+  var board='';
+  for(var r=0;r<6;r++){ board+='<div class="brow" data-r="'+r+'">';
+    for(var c=0;c<5;c++) board+='<div class="tile" data-r="'+r+'" data-c="'+c+'"></div>';
+    board+='</div>'; }
+  var kbd='';
+  KEYS.forEach(function(row,ri){
+    kbd+='<div class="krow">';
+    if(ri===2) kbd+='<button class="key wide" data-k="ENTER">ENTER</button>';
+    row.split('').forEach(function(ch){ kbd+='<button class="key" data-k="'+ch+'">'+ch+'</button>'; });
+    if(ri===2) kbd+='<button class="key wide" data-k="DEL">⌫</button>';
+    kbd+='</div>';
+  });
+  stage.innerHTML =
+    '<div class="puz">'+
+      '<div class="puz__h"><h2>What was this whole tour?</h2><p>One word · six tries. (Hint: you got to pick yours.)</p></div>'+
+      '<div class="board">'+board+'</div>'+
+      '<div class="memory" id="memory"></div>'+
+      '<div class="kbd">'+kbd+'</div>'+
+      '<button class="puz__skip" id="skip" style="display:none">just show me the date →</button>'+
+    '</div>';
+  Array.prototype.forEach.call(stage.querySelectorAll('.key'),function(k){
+    k.onclick=function(){ press(k.getAttribute('data-k')); };
+  });
+  document.getElementById('skip').onclick=function(){ capture('puzzle_skipped'); toReveal(); };
+  capture('puzzle_started');
+}
+
+function setTile(r,c,ch,cls){
+  var t=stage.querySelector('.tile[data-r="'+r+'"][data-c="'+c+'"]');
+  if(!t) return; t.textContent=ch||''; t.className='tile'+(ch?' filled':'')+(cls?' '+cls:'');
+}
+function showMemory(i){
+  var m=document.getElementById('memory'); if(!m||!MEMORIES[i]) return;
+  m.classList.remove('show'); m.textContent=MEMORIES[i];
+  setTimeout(function(){ m.classList.add('show'); }, 60);
+}
+function press(k){
+  if(done) return;
+  if(k==='ENTER') return submit();
+  if(k==='DEL'){ cur=cur.slice(0,-1); setTile(guesses.length, cur.length, ''); return; }
+  if(/^[A-Z]$/.test(k) && cur.length<5){ setTile(guesses.length, cur.length, k); cur+=k; }
+}
+function submit(){
+  var r=guesses.length;
+  if(cur.length<5){ var row=stage.querySelector('.brow[data-r="'+r+'"]'); row.classList.add('bad'); setTimeout(function(){row.classList.remove('bad');},400); return; }
+  var guess=cur, ans=ANSWER.split(''), res=new Array(5).fill('absent'), used=new Array(5).fill(false);
+  for(var i=0;i<5;i++){ if(guess[i]===ans[i]){ res[i]='correct'; used[i]=true; } }
+  for(var i=0;i<5;i++){ if(res[i]==='correct') continue;
+    for(var j=0;j<5;j++){ if(!used[j] && guess[i]===ans[j]){ res[i]='present'; used[j]=true; break; } } }
+  for(var i=0;i<5;i++){ (function(i){ setTimeout(function(){
+      var t=stage.querySelector('.tile[data-r="'+r+'"][data-c="'+i+'"]'); t.classList.add('flip');
+      setTimeout(function(){ setTile(r,i,guess[i],res[i]); upKey(guess[i],res[i]); },230);
+    }, i*220); })(i); }
+  guesses.push(guess); var idx=cur; cur='';
+  showMemory(r);
+  var win = guess===ANSWER;
+  setTimeout(function(){
+    if(win){ solved=true; done=true; capture('puzzle_won',{tries:guesses.length}); burst(); setTimeout(toReveal,900); }
+    else if(guesses.length>=6){ done=true; capture('puzzle_lost'); setTimeout(toReveal,700); }
+    else if(guesses.length>=2){ document.getElementById('skip').style.display='inline-block'; }
+  }, 5*220+260);
+}
+function upKey(ch,cls){
+  var rank={absent:0,present:1,correct:2};
+  if((rank[cls]||0) >= (rank[keyState[ch]]||0)){ keyState[ch]=cls;
+    var k=stage.querySelector('.key[data-k="'+ch+'"]'); if(k){ k.classList.remove('absent','present','correct'); k.classList.add(cls); } }
+}
+
+/* ===================== REVEAL (changeable) ===================== */
+var chosen=null;
+function toReveal(){ chosen=null; renderReveal(PLAN.primary, false); }
+function renderReveal(plan, isFallback){
+  setProg(2);
+  stage.innerHTML =
+    '<div class="reveal">'+
+      '<div class="reveal__k">'+(solved?'YOU DECODED IT 🎟':'THE THEME WAS “NIGHT” 🎟')+'</div>'+
+      '<div class="reveal__lead">'+(isFallback
+          ? 'No problem at all. How about this one instead —'
+          : 'Because there’s another one coming. Here’s your next night:')+'</div>'+
+      '<div class="ticket">'+
+        '<div class="ticket__brand">the redemption tour</div>'+
+        '<div class="ticket__sub">SEASON TWO · ADMIT ONE (+1 GOLDENDOODLE)</div>'+
+        '<div class="ticket__day">'+plan.day+'</div>'+
+        '<div class="ticket__sub">'+plan.date+' · 2026</div>'+
+        '<div class="ticket__perf"></div>'+
+        '<div class="ticket__fine">Venue: a surprise (texted after you confirm) · Doors TBD · Bring your smile and your personality.</div>'+
+      '</div>'+
+      '<div class="q">Does '+plan.dow+' work?</div>'+
+      '<div class="btnrow">'+
+        '<button class="btn btn--big pulse" id="yes">Yes — '+plan.dow+' works ✓</button>'+
+        (isFallback
+          ? '<button class="btn btn--ghost" id="no">Neither night works…</button>'
+          : '<button class="btn btn--ghost" id="no">Hmm, '+plan.dow+'’s tough →</button>')+
+      '</div>'+
+    '</div>';
+  document.getElementById('yes').onclick=function(){
+    chosen=plan; capture('date_accepted',{day:plan.short}); renderConfirm(plan,'yes');
+  };
+  document.getElementById('no').onclick=function(){
+    if(isFallback){ capture('date_neither'); renderConfirm(null,'neither'); }
+    else { capture('date_swapped'); renderReveal(PLAN.fallback, true); }
+  };
+}
+
+/* ===================== CONFIRM / TEXT MATT ===================== */
+function renderConfirm(plan, mode){
+  burst();
+  var body, big, sub;
+  if(mode==='neither'){
+    big='Okay — let’s find a night.';
+    sub='Tell Matt what actually works for you. He’ll make it happen.';
+    body='Hey Matt — neither of those works for me, but here’s what does: ';
+  } else {
+    big='It’s a date. 🎟';
+    sub=plan.day.charAt(0)+plan.day.slice(1).toLowerCase()+', '+plan.date+'. Send this to Matt to lock it in — then the surprise venue comes to you.';
+    body='🎟 IT’S ON. '+plan.short+' works — I’m in. (Yes, I solved your puzzle 😏) Your move next, Matt.';
+  }
+  var sms='sms:'+MATT_PHONE+(/(iphone|ipad|mac)/i.test(navigator.userAgent)?'&':'?')+'body='+encodeURIComponent(body);
+  stage.innerHTML=
+    '<div class="done">'+
+      '<div class="done__big">'+big+'</div>'+
+      '<div class="done__sub">'+sub+'</div>'+
+      '<div class="btnrow">'+
+        '<a class="btn btn--big btn--red pulse" id="txt" href="'+sms+'">👉 Tap to text Matt 📲</a>'+
+      '</div>'+
+      '<a class="backlink" href="../">← back to the passport</a>'+
+    '</div>';
+  document.getElementById('txt').onclick=function(){
+    capture('text_matt_clicked',{mode:mode, day:plan?plan.short:'none'});
+    try{ localStorage.setItem('next-date-rsvp', JSON.stringify({day:plan?plan.short:'tbd', mode:mode})); }catch(e){}
+    var a=document.getElementById('txt');
+    setTimeout(function(){ a.textContent='✓ Sent — see you then'; }, 400);
+  };
+}
+
+/* ---------------- confetti ---------------- */
+function burst(){
+  var cols=['#cba14a','#e7c878','#9c2c25','#f3e7cb'];
+  var wrap=document.createElement('div'); wrap.className='confetti';
+  for(var i=0;i<70;i++){ var p=document.createElement('i');
+    var l=(i*1.37*53)%100, dur=2.4+(i%5)*0.35, delay=(i%9)*0.07;
+    p.style.left=l+'%'; p.style.background=cols[i%4];
+    p.style.animationDuration=dur+'s'; p.style.animationDelay=delay+'s';
+    p.style.transform='rotate('+(i*47%360)+'deg)';
+    wrap.appendChild(p); }
+  document.body.appendChild(wrap);
+  setTimeout(function(){ wrap.remove(); }, 4200);
+}
+
+function capture(ev,props){ if(window.posthog) window.posthog.capture(ev, props||{}); }
+
+/* physical keyboard (desktop) */
+document.addEventListener('keydown',function(e){
+  if(!stage.querySelector('.board')) return;
+  if(e.key==='Enter') press('ENTER');
+  else if(e.key==='Backspace') press('DEL');
+  else if(/^[a-zA-Z]$/.test(e.key)) press(e.key.toUpperCase());
+});
+
+renderRecap();
+</script>
+</body>
+</html>

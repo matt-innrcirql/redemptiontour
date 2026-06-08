@@ -330,22 +330,28 @@ var DESTINATIONS = [
               '<div class="stamp__go">↦ RE-ENTER</div>'+
             '</a>';
   });
-  // an interactive "next destination" placeholder — tap to peek a teaser
-  html += '<div class="stamp stamp--tbd" id="tbdStamp" role="button" tabindex="0" '+
-          'aria-label="Peek at the next destination" style="--rot:2deg">'+
-            '<div class="tbd__front">'+
+  // the interactive "next destination" stamp — unlocks the Season Two experience.
+  // If she's already RSVP'd, reflect it instead of the locked teaser.
+  var rsvp=null; try{ rsvp=JSON.parse(localStorage.getItem('next-date-rsvp')); }catch(e){}
+  if(rsvp && rsvp.mode && rsvp.mode!=='neither'){
+    html += '<a class="stamp stamp--navy" href="next/" style="--rot:2deg" data-title="Season Two">'+
               '<div class="stamp__no">STAMP '+roman(DESTINATIONS.length+1)+'</div>'+
-              '<div class="stamp__title">To Be Determined</div>'+
-              '<div class="stamp__place">DESTINATION PENDING</div>'+
-              '<div class="stamp__date">COMING SOON</div>'+
-              '<div class="stamp__go">👀 tap to peek</div>'+
-            '</div>'+
-            '<div class="tbd__reveal">'+
-              '<div class="tbd__seal">CLASSIFIED</div>'+
-              '<div class="tbd__msg">The next destination is being plotted.<br/>Pending final approval from Dash &amp; Osito. 🐾</div>'+
-              '<div class="stamp__go">tap to hide ✦</div>'+
-            '</div>'+
-          '</div>';
+              '<div class="stamp__title">Season Two</div>'+
+              '<div class="stamp__place">SURPRISE · TBD</div>'+
+              '<div class="stamp__date">'+(rsvp.day||'').toUpperCase()+'</div>'+
+              '<div class="stamp__go">✓ YOU’RE IN ↦</div>'+
+            '</a>';
+  } else {
+    html += '<a class="stamp stamp--tbd" id="tbdStamp" href="next/" style="--rot:2deg">'+
+              '<div class="tbd__front">'+
+                '<div class="stamp__no">STAMP '+roman(DESTINATIONS.length+1)+'</div>'+
+                '<div class="stamp__title">To Be Determined</div>'+
+                '<div class="stamp__place">SEALED UNTIL UNLOCKED</div>'+
+                '<div class="stamp__date">PLAY TO REVEAL</div>'+
+                '<div class="stamp__go">🔒 tap to unlock</div>'+
+              '</div>'+
+            '</a>';
+  }
   stampsEl.innerHTML = html;
   document.getElementById('stampCount').textContent = DESTINATIONS.length;
 
@@ -358,15 +364,12 @@ var DESTINATIONS = [
 
   function roman(n){return ['','I','II','III','IV','V','VI','VII','VIII','IX','X'][n]||n;}
 
-  // peek interaction on the "next destination" stamp
+  // the "next destination" stamp links to the Season Two experience (next/)
   var tbd = document.getElementById('tbdStamp');
   if(tbd){
-    var peek = function(){
-      var on = tbd.classList.toggle('peeked');
-      if(on && window.posthog) window.posthog.capture('next_date_peeked');
-    };
-    tbd.addEventListener('click', peek);
-    tbd.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); peek(); } });
+    tbd.addEventListener('click', function(){
+      if(window.posthog) window.posthog.capture('next_experience_opened');
+    });
   }
 
   // open the passport
