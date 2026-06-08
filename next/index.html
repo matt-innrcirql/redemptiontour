@@ -104,8 +104,10 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 .fw{transform-box:fill-box;transform-origin:center;animation:fwpop 2.6s ease-out infinite}
 .fw2{animation-delay:.9s}.fw3{animation-delay:1.7s}
 @keyframes fwpop{0%{transform:scale(.15);opacity:0}14%{opacity:1}55%{transform:scale(1.1);opacity:.95}100%{transform:scale(1.32);opacity:0}}
-.bubble--think{left:30%;right:4%;bottom:74%;top:auto;--orig:bottom center;font-size:12px;line-height:1.4;padding:9px 12px;background:#f6eed7;color:#2a1810;border-radius:16px;font-style:italic}
+.bubble--think{left:30%;right:4%;bottom:72%;top:auto;--orig:bottom center;font-size:12px;line-height:1.4;padding:9px 12px;background:#f6eed7;color:#2a1810;border-radius:16px;font-style:italic}
 .bubble--think::after{left:44%;right:auto;bottom:-7px;border:none;width:9px;height:9px;border-radius:50%;background:#f6eed7;box-shadow:-9px 9px 0 -2px #f6eed7}
+.bubble--say{left:4%;right:40%;bottom:72%;top:auto;--orig:bottom center;font-size:12px;line-height:1.4;padding:9px 12px;background:#f6eed7;color:#2a1810;border-radius:14px}
+.bubble--say::after{left:50%;right:auto;bottom:-8px;border:8px solid transparent;border-top-color:#f6eed7}
 .bubble__sig{display:block;margin-top:6px;text-align:right;font-family:'Caveat',cursive;font-style:normal;font-size:17px;color:#9c2c25}
 .dscene__cap{position:absolute;bottom:34px;left:0;right:0;text-align:center;font-size:12px;font-style:italic;color:var(--gold-2);z-index:3;padding:0 22px}
 .dscene__hint{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:.28em;color:var(--gold-2);opacity:.85;z-index:3;animation:pulse 2s infinite}
@@ -223,8 +225,9 @@ var SCENES = [
   { tag:'The Walk', title:'The Chicago<br>Riverwalk', motif:'🌉',
     note:'Down along the water. City lights on the river, and a man still trying very hard to be charming.' },
   { tag:'The Fireworks', title:'Sparks,<br>Literally.', fireworks:true,
-    caption:'Right over the Riverwalk, and a few that weren’t on the schedule.',
-    think:'If I just keep backing up every time he steps closer… he can’t set the mood and kiss me. Foolproof.' },
+    caption:'He couldn’t read your signals… so he just said it.',
+    think:'If I just keep backing up every time he steps closer… he can’t set the mood and kiss me. Foolproof.',
+    say:'I can’t read your body language… but I’d like to kiss you.' },
   { tag:'The After-Party', title:'Parlor<br>Pizza Bar', motif:'🍸',
     note:'No pizza, actually, just drinks. And where you schooled me on Malört, Chicago’s most notorious shot. (I still haven’t worked up the nerve to try it.)' },
   { tag:'Season Two', title:'There’s a<br>Next Night.', motif:'✨',
@@ -409,18 +412,23 @@ function renderFireworks(s){
       '<div class="dscene__title">'+s.title+'</div>'+
       '<div class="dscene__art"><div class="vstage">'+RIVERWALK_SVG+
         '<div class="bubble bubble--think" id="bThink">'+s.think+'</div>'+
+        '<div class="bubble bubble--say" id="bSay">'+s.say+'</div>'+
       '</div></div>'+
       '<div class="dscene__cap">'+s.caption+'</div>'+
       '<div class="dscene__hint" id="dhint">&nbsp;</div>'+
     '</div>';
-  var shown=false;
+  var step=0;
   var dscene=document.getElementById('dscene');
   var hint=document.getElementById('dhint');
-  var reveal=function(){ document.getElementById('bThink').classList.add('show'); hint.textContent='TAP TO CONTINUE'; shown=true; };
-  var t=setTimeout(reveal, 750);
+  var showThink=function(){ document.getElementById('bThink').classList.add('show'); hint.textContent='TAP TO CONTINUE'; if(step<1) step=1; };
+  var t=setTimeout(showThink, 750);
   dscene.onclick=function(){
-    if(!shown){ clearTimeout(t); reveal(); }
-    else { sceneIdx++; renderRecap(); }
+    if(step===0){ clearTimeout(t); showThink(); }
+    else if(step===1){
+      document.getElementById('bThink').classList.remove('show');   // her thought fades…
+      document.getElementById('bSay').classList.add('show');        // …he says it anyway
+      step=2;
+    } else { sceneIdx++; renderRecap(); }
   };
 }
 
