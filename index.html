@@ -193,12 +193,28 @@ body.open .pages{display:block}
 .stamp__date{margin-top:8px;display:inline-block;border:1.5px solid currentColor;border-radius:20px;padding:2px 12px;font-size:10px;letter-spacing:.16em}
 .stamp__go{margin-top:12px;font-size:10px;letter-spacing:.18em;opacity:.7}
 
-/* not-yet stamp (coming soon) */
-.stamp--tbd{border-style:dashed;border-color:#9a865f;background:rgba(120,90,50,.04);transform:rotate(var(--rot,2deg));cursor:default}
+/* not-yet stamp (coming soon) — tap to peek a teaser */
+.stamp--tbd{border-style:dashed;border-color:#9a865f;background:rgba(120,90,50,.04);transform:rotate(var(--rot,2deg));cursor:pointer;min-height:148px;display:flex;align-items:center;justify-content:center}
 .stamp--tbd::before{display:none}
-.stamp--tbd:hover{transform:rotate(var(--rot,2deg));box-shadow:none}
+.stamp--tbd:hover{transform:rotate(0deg) scale(1.03);box-shadow:0 10px 24px rgba(0,0,0,.18)}
 .stamp--tbd .stamp__title,.stamp--tbd .stamp__place,.stamp--tbd .stamp__no{color:#8a7551}
 .stamp--tbd .stamp__date{border-color:#9a865f;color:#8a7551}
+
+.tbd__front{transition:opacity .25s ease}
+.stamp--tbd.peeked .tbd__front{opacity:.07}
+.tbd__reveal{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:9px;padding:12px;text-align:center;
+  opacity:0;transform:scale(1.6) rotate(-10deg);pointer-events:none;
+  transition:opacity .28s ease, transform .28s cubic-bezier(.2,.9,.3,1.3);
+}
+.stamp--tbd.peeked .tbd__reveal{opacity:1;transform:scale(1) rotate(-5deg)}
+.tbd__seal{
+  font-family:'Playfair Display',serif;font-weight:800;letter-spacing:.18em;font-size:15px;
+  color:var(--stamp-red);border:2.5px solid var(--stamp-red);border-radius:6px;padding:3px 11px;
+  opacity:.92;
+}
+.tbd__msg{font-size:10.5px;line-height:1.55;color:#6a5436}
 
 .footer{text-align:center;margin-top:26px;color:var(--gold);opacity:.7;font-size:10px;letter-spacing:.22em}
 .footer .heart{color:var(--stamp-red);opacity:.9}
@@ -293,7 +309,7 @@ var DESTINATIONS = [
     no:'STAMP I',
     title:'The Redemption Tour',
     place:'CHICAGO · ILLINOIS',
-    date:'JUN 2026',
+    date:'JUN 6 · 2025',
     href:'redemptiontour/',
     kind:'red',
     rot:-3
@@ -314,13 +330,21 @@ var DESTINATIONS = [
               '<div class="stamp__go">↦ RE-ENTER</div>'+
             '</a>';
   });
-  // a faded "next destination" placeholder so the collection feels alive
-  html += '<div class="stamp stamp--tbd" style="--rot:2deg">'+
-            '<div class="stamp__no">STAMP '+roman(DESTINATIONS.length+1)+'</div>'+
-            '<div class="stamp__title">To Be Determined</div>'+
-            '<div class="stamp__place">DESTINATION PENDING</div>'+
-            '<div class="stamp__date">COMING SOON</div>'+
-            '<div class="stamp__go">stay tuned ✦</div>'+
+  // an interactive "next destination" placeholder — tap to peek a teaser
+  html += '<div class="stamp stamp--tbd" id="tbdStamp" role="button" tabindex="0" '+
+          'aria-label="Peek at the next destination" style="--rot:2deg">'+
+            '<div class="tbd__front">'+
+              '<div class="stamp__no">STAMP '+roman(DESTINATIONS.length+1)+'</div>'+
+              '<div class="stamp__title">To Be Determined</div>'+
+              '<div class="stamp__place">DESTINATION PENDING</div>'+
+              '<div class="stamp__date">COMING SOON</div>'+
+              '<div class="stamp__go">👀 tap to peek</div>'+
+            '</div>'+
+            '<div class="tbd__reveal">'+
+              '<div class="tbd__seal">CLASSIFIED</div>'+
+              '<div class="tbd__msg">The next destination is being plotted.<br/>Pending final approval from Dash &amp; Osito. 🐾</div>'+
+              '<div class="stamp__go">tap to hide ✦</div>'+
+            '</div>'+
           '</div>';
   stampsEl.innerHTML = html;
   document.getElementById('stampCount').textContent = DESTINATIONS.length;
@@ -333,6 +357,17 @@ var DESTINATIONS = [
   });
 
   function roman(n){return ['','I','II','III','IV','V','VI','VII','VIII','IX','X'][n]||n;}
+
+  // peek interaction on the "next destination" stamp
+  var tbd = document.getElementById('tbdStamp');
+  if(tbd){
+    var peek = function(){
+      var on = tbd.classList.toggle('peeked');
+      if(on && window.posthog) window.posthog.capture('next_date_peeked');
+    };
+    tbd.addEventListener('click', peek);
+    tbd.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); peek(); } });
+  }
 
   // open the passport
   var cover = document.getElementById('cover');
