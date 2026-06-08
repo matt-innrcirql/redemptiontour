@@ -82,8 +82,10 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
   background:radial-gradient(58% 46% at 50% 64%, #5a3320 0%, #34190f 52%, #1a0c08 100%);}
 .dscene__tag{position:absolute;top:16px;left:0;right:0;text-align:center;font-family:'Anton',sans-serif;letter-spacing:.16em;font-size:12px;color:var(--gold-2);z-index:3}
 .dscene__title{position:absolute;top:33px;left:0;right:0;text-align:center;font-family:'Playfair Display',serif;font-weight:800;font-size:26px;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.6);z-index:3}
-.dscene__art{flex:1;position:relative}
+.dscene__art{flex:1;position:relative;display:flex;align-items:center;justify-content:center}
 .dscene__art svg{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:360px;height:auto}
+.vstage{position:relative;width:100%;max-width:340px;aspect-ratio:320/260}
+.dscene__art .vstage svg{position:absolute;inset:0;left:0;bottom:auto;width:100%;height:100%;max-width:none;transform:none}
 .bubble{position:absolute;z-index:4;max-width:60%;background:#f6eed7;color:#2a1810;border-radius:14px;padding:10px 13px;
   font-size:13px;line-height:1.4;box-shadow:0 8px 20px rgba(0,0,0,.45);
   opacity:0;transform:scale(.5);transform-origin:var(--orig,bottom left);
@@ -102,8 +104,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 .fw{transform-box:fill-box;transform-origin:center;animation:fwpop 2.6s ease-out infinite}
 .fw2{animation-delay:.9s}.fw3{animation-delay:1.7s}
 @keyframes fwpop{0%{transform:scale(.15);opacity:0}14%{opacity:1}55%{transform:scale(1.1);opacity:.95}100%{transform:scale(1.32);opacity:0}}
-.bubble--think{top:7%;right:5%;--orig:bottom right;font-size:13px;line-height:1.45;background:#f6eed7;color:#2a1810;border-radius:18px;font-style:italic;max-width:66%}
-.bubble--think::after{border:none;width:9px;height:9px;border-radius:50%;background:#f6eed7;bottom:-7px;right:30px;box-shadow:-10px 9px 0 -2px #f6eed7}
+.bubble--think{left:30%;right:4%;bottom:74%;top:auto;--orig:bottom center;font-size:12px;line-height:1.4;padding:9px 12px;background:#f6eed7;color:#2a1810;border-radius:16px;font-style:italic}
+.bubble--think::after{left:44%;right:auto;bottom:-7px;border:none;width:9px;height:9px;border-radius:50%;background:#f6eed7;box-shadow:-9px 9px 0 -2px #f6eed7}
 .bubble__sig{display:block;margin-top:6px;text-align:right;font-family:'Caveat',cursive;font-style:normal;font-size:17px;color:#9c2c25}
 .dscene__cap{position:absolute;bottom:34px;left:0;right:0;text-align:center;font-size:12px;font-style:italic;color:var(--gold-2);z-index:3;padding:0 22px}
 .dscene__hint{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:.28em;color:var(--gold-2);opacity:.85;z-index:3;animation:pulse 2s infinite}
@@ -213,7 +215,7 @@ var PLAN = {
 /* Recap scenes — pulled from the real Chicago night. */
 var SCENES = [
   { tag:'Season One · Recap', title:'One Date,<br>One Shot.', motif:'🎟',
-    note:'Chicago. Saturday night, start to finish — dinner, the Riverwalk, fireworks (more than the literal kind), pizza, and one long wait for an Uber. A quick recap.' },
+    note:'Chicago. Saturday night, start to finish. Dinner, the Riverwalk, fireworks (more than the literal kind), and drinks after. A quick recap.' },
   { tag:'The Opening Act', title:'Bazaar Meat', dialogue:true,
     caption:'You almost stood me up… it got us free wine. Worth it. 🍷',
     matt:'I don’t know how you get more beautiful every time I see you.',
@@ -221,12 +223,10 @@ var SCENES = [
   { tag:'The Walk', title:'The Chicago<br>Riverwalk', motif:'🌉',
     note:'Down along the water. City lights on the river, and a man still trying very hard to be charming.' },
   { tag:'The Fireworks', title:'Sparks,<br>Literally.', fireworks:true,
-    caption:'Right over the Riverwalk — and a few that weren’t on the schedule.',
+    caption:'Right over the Riverwalk, and a few that weren’t on the schedule.',
     think:'If I just keep backing up every time he steps closer… he can’t set the mood and kiss me. Foolproof.' },
   { tag:'The After-Party', title:'Parlor<br>Pizza Bar', motif:'🍸',
-    note:'No pizza, actually — just drinks. And where you schooled me on Malört, Chicago’s most notorious shot. (I still haven’t worked up the nerve to try it.)' },
-  { tag:'Last Call', title:'The Long<br>Goodbye', motif:'🚕',
-    note:'Back at the hotel, waiting on an Uber that took its sweet time. Nobody seemed to mind.' },
+    note:'No pizza, actually, just drinks. And where you schooled me on Malört, Chicago’s most notorious shot. (I still haven’t worked up the nerve to try it.)' },
   { tag:'Season Two', title:'There’s a<br>Next Night.', motif:'✨',
     note:'Every good tour gets a second night. Decode the theme of the whole thing to unlock it…' }
 ];
@@ -326,7 +326,7 @@ function renderDialogue(s){
       '<div class="dscene__tag">'+s.tag+'</div>'+
       '<div class="dscene__title">'+s.title+'</div>'+
       '<div class="dscene__art">'+DINNER_SVG+
-        '<div class="bubble bubble--matt" id="bMatt">'+s.matt+'<span class="bubble__sig">— Matt</span></div>'+
+        '<div class="bubble bubble--matt" id="bMatt">'+s.matt+'<span class="bubble__sig">Matt</span></div>'+
         '<div class="bubble bubble--josie" id="bJosie">'+s.josie+'</div>'+
       '</div>'+
       '<div class="dscene__cap">'+s.caption+'</div>'+
@@ -399,9 +399,6 @@ var RIVERWALK_SVG =
     '<rect x="202" y="96" width="11" height="18" rx="5" fill="#e8b894"/><circle cx="208" cy="86" r="13" fill="#e8b894"/>'+
     '<path d="M194 82 Q194 62 208 62 Q222 62 222 82 L225 132 Q215 124 212 108 Q210 92 208 92 Q206 92 204 108 Q201 124 191 132 Z" fill="#23160f"/>'+
   '</g>'+
-  /* dashed arrow — she edges away (rightward) */
-  '<g stroke="#9fb4d6" stroke-width="1.5" stroke-dasharray="4 4" opacity=".5" fill="none">'+
-    '<path d="M150 246 L188 246"/><path d="M182 242 L189 246 L182 250"/></g>'+
 '</svg>';
 
 function renderFireworks(s){
@@ -410,9 +407,9 @@ function renderFireworks(s){
     '<div class="dscene dscene--night" id="dscene">'+
       '<div class="dscene__tag">'+s.tag+'</div>'+
       '<div class="dscene__title">'+s.title+'</div>'+
-      '<div class="dscene__art">'+RIVERWALK_SVG+
+      '<div class="dscene__art"><div class="vstage">'+RIVERWALK_SVG+
         '<div class="bubble bubble--think" id="bThink">'+s.think+'</div>'+
-      '</div>'+
+      '</div></div>'+
       '<div class="dscene__cap">'+s.caption+'</div>'+
       '<div class="dscene__hint" id="dhint">&nbsp;</div>'+
     '</div>';
@@ -512,7 +509,7 @@ function renderReveal(plan, isFallback){
     '<div class="reveal">'+
       '<div class="reveal__k">'+(solved?'YOU DECODED IT 🎟':'THE THEME WAS “NIGHT” 🎟')+'</div>'+
       '<div class="reveal__lead">'+(isFallback
-          ? 'No problem at all. How about this one instead —'
+          ? 'No problem at all. How about this one instead?'
           : 'Because there’s another one coming. Here’s your next night:')+'</div>'+
       '<div class="ticket">'+
         '<div class="ticket__brand">the redemption tour</div>'+
@@ -524,7 +521,7 @@ function renderReveal(plan, isFallback){
       '</div>'+
       '<div class="q">Does '+plan.dow+' work?</div>'+
       '<div class="btnrow">'+
-        '<button class="btn btn--big pulse" id="yes">Yes — '+plan.dow+' works ✓</button>'+
+        '<button class="btn btn--big pulse" id="yes">Yes, '+plan.dow+' works ✓</button>'+
         (isFallback
           ? '<button class="btn btn--ghost" id="no">Neither night works…</button>'
           : '<button class="btn btn--ghost" id="no">Hmm, '+plan.dow+'’s tough →</button>')+
@@ -544,13 +541,13 @@ function renderConfirm(plan, mode){
   burst();
   var body, big, sub;
   if(mode==='neither'){
-    big='Okay — let’s find a night.';
+    big='Okay, let’s find a night.';
     sub='Tell Matt what actually works for you. He’ll make it happen.';
-    body='Hey Matt — neither of those works for me, but here’s what does: ';
+    body='Hey Matt, neither of those works for me, but here’s what does: ';
   } else {
     big='It’s a date. 🎟';
-    sub=plan.day.charAt(0)+plan.day.slice(1).toLowerCase()+', '+plan.date+'. Send this to Matt to lock it in — then the surprise venue comes to you.';
-    body='🎟 IT’S ON. '+plan.short+' works — I’m in. (Yes, I solved your puzzle 😏) Your move next, Matt.';
+    sub=plan.day.charAt(0)+plan.day.slice(1).toLowerCase()+', '+plan.date+'. Send this to Matt to lock it in, then the surprise venue comes to you.';
+    body='🎟 IT’S ON. '+plan.short+' works. I’m in. (Yes, I solved your puzzle 😏) Your move next, Matt.';
   }
   var sms='sms:'+MATT_PHONE+(/(iphone|ipad|mac)/i.test(navigator.userAgent)?'&':'?')+'body='+encodeURIComponent(body);
   stage.innerHTML=
@@ -566,7 +563,7 @@ function renderConfirm(plan, mode){
     capture('text_matt_clicked',{mode:mode, day:plan?plan.short:'none'});
     try{ localStorage.setItem('next-date-rsvp', JSON.stringify({day:plan?plan.short:'tbd', mode:mode})); }catch(e){}
     var a=document.getElementById('txt');
-    setTimeout(function(){ a.textContent='✓ Sent — see you then'; }, 400);
+    setTimeout(function(){ a.textContent='✓ Sent. See you then'; }, 400);
   };
 }
 
