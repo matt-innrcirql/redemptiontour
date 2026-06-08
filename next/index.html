@@ -98,6 +98,13 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 .dscene.blushing .blush{opacity:.65}
 .flicker{transform-box:fill-box;transform-origin:center bottom;animation:flick 1.3s ease-in-out infinite}
 @keyframes flick{0%,100%{opacity:.95;transform:scaleY(1)}50%{opacity:.62;transform:scaleY(.82)}}
+.dscene--night{background:linear-gradient(180deg,#0a1430 0%,#15233f 48%,#1d2942 70%,#0c1525 100%)}
+.fw{transform-box:fill-box;transform-origin:center;animation:fwpop 2.6s ease-out infinite}
+.fw2{animation-delay:.9s}.fw3{animation-delay:1.7s}
+@keyframes fwpop{0%{transform:scale(.15);opacity:0}14%{opacity:1}55%{transform:scale(1.1);opacity:.95}100%{transform:scale(1.32);opacity:0}}
+.bubble--think{top:7%;right:5%;--orig:bottom right;font-size:13px;line-height:1.45;background:#f6eed7;color:#2a1810;border-radius:18px;font-style:italic;max-width:66%}
+.bubble--think::after{border:none;width:9px;height:9px;border-radius:50%;background:#f6eed7;bottom:-7px;right:30px;box-shadow:-10px 9px 0 -2px #f6eed7}
+.bubble__sig{display:block;margin-top:6px;text-align:right;font-family:'Caveat',cursive;font-style:normal;font-size:17px;color:#9c2c25}
 .dscene__cap{position:absolute;bottom:34px;left:0;right:0;text-align:center;font-size:12px;font-style:italic;color:var(--gold-2);z-index:3;padding:0 22px}
 .dscene__hint{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:.28em;color:var(--gold-2);opacity:.85;z-index:3;animation:pulse 2s infinite}
 
@@ -213,8 +220,9 @@ var SCENES = [
     josie:'oh stop' },
   { tag:'The Walk', title:'The Chicago<br>Riverwalk', motif:'🌉',
     note:'Down along the water. City lights on the river, and a man still trying very hard to be charming.' },
-  { tag:'The Fireworks', title:'Sparks,<br>Literally.', motif:'🎆',
-    note:'Right over the Riverwalk — and a few that weren’t on the schedule.' },
+  { tag:'The Fireworks', title:'Sparks,<br>Literally.', fireworks:true,
+    caption:'Right over the Riverwalk — and a few that weren’t on the schedule.',
+    think:'If I just keep backing up every time he steps closer… he can’t set the mood and kiss me. Foolproof.' },
   { tag:'The After-Party', title:'Parlor<br>Pizza Bar', motif:'🍸',
     note:'No pizza, actually — just drinks. And where you schooled me on Malört, Chicago’s most notorious shot. (I still haven’t worked up the nerve to try it.)' },
   { tag:'Last Call', title:'The Long<br>Goodbye', motif:'🚕',
@@ -255,6 +263,7 @@ function renderRecap(){
   var s = SCENES[sceneIdx];
   var last = sceneIdx === SCENES.length-1;
   if(s.dialogue){ return renderDialogue(s); }
+  if(s.fireworks){ return renderFireworks(s); }
   stage.innerHTML =
     '<div class="scene">'+
       skyline()+
@@ -317,7 +326,7 @@ function renderDialogue(s){
       '<div class="dscene__tag">'+s.tag+'</div>'+
       '<div class="dscene__title">'+s.title+'</div>'+
       '<div class="dscene__art">'+DINNER_SVG+
-        '<div class="bubble bubble--matt" id="bMatt">'+s.matt+'</div>'+
+        '<div class="bubble bubble--matt" id="bMatt">'+s.matt+'<span class="bubble__sig">— Matt</span></div>'+
         '<div class="bubble bubble--josie" id="bJosie">'+s.josie+'</div>'+
       '</div>'+
       '<div class="dscene__cap">'+s.caption+'</div>'+
@@ -335,6 +344,86 @@ function renderDialogue(s){
       dscene.classList.add('blushing');
       step=1;
     } else { sceneIdx++; renderRecap(); }
+  };
+}
+
+/* The fireworks vignette: two standing figures on the Riverwalk, her thought bubble. */
+function fwBurst(c1,c2){
+  return '<circle cx="0" cy="0" r="2.6" fill="'+c2+'"/>'+
+    '<circle cx="0" cy="-15" r="2" fill="'+c1+'"/><circle cx="11" cy="-11" r="2" fill="'+c1+'"/>'+
+    '<circle cx="15" cy="0" r="2" fill="'+c1+'"/><circle cx="11" cy="11" r="2" fill="'+c1+'"/>'+
+    '<circle cx="0" cy="15" r="2" fill="'+c1+'"/><circle cx="-11" cy="11" r="2" fill="'+c1+'"/>'+
+    '<circle cx="-15" cy="0" r="2" fill="'+c1+'"/><circle cx="-11" cy="-11" r="2" fill="'+c1+'"/>'+
+    '<circle cx="0" cy="-8" r="1.6" fill="'+c2+'"/><circle cx="7" cy="-4" r="1.6" fill="'+c2+'"/>'+
+    '<circle cx="6" cy="6" r="1.6" fill="'+c2+'"/><circle cx="-7" cy="4" r="1.6" fill="'+c2+'"/>';
+}
+var RIVERWALK_SVG =
+'<svg viewBox="0 0 320 260" fill="none" aria-hidden="true">'+
+  /* fireworks (sky) */
+  '<g transform="translate(66,46)"><g class="fw">'+fwBurst('#ffd56e','#fff3cf')+'</g></g>'+
+  '<g transform="translate(168,38)"><g class="fw fw2">'+fwBurst('#ff8f7c','#ffd9cf')+'</g></g>'+
+  '<g transform="translate(252,58)"><g class="fw fw3">'+fwBurst('#e7c878','#ffffff')+'</g></g>'+
+  /* skyline */
+  '<g fill="#0b1322">'+
+    '<rect x="4" y="96" width="22" height="40"/><rect x="30" y="82" width="15" height="54"/>'+
+    '<rect x="49" y="104" width="26" height="32"/><rect x="80" y="74" width="13" height="62"/>'+
+    '<rect x="246" y="88" width="19" height="48"/><rect x="270" y="74" width="13" height="62"/>'+
+    '<rect x="288" y="100" width="28" height="36"/>'+
+  '</g>'+
+  /* river + reflections */
+  '<rect x="0" y="130" width="320" height="22" fill="#0e2038"/>'+
+  '<g stroke="#274a78" stroke-width="2" opacity=".45"><line x1="18" y1="141" x2="42" y2="141"/>'+
+    '<line x1="116" y1="146" x2="150" y2="146"/><line x1="222" y1="142" x2="252" y2="142"/></g>'+
+  /* walkway + railing */
+  '<rect x="0" y="152" width="320" height="108" fill="#2a2e39"/>'+
+  '<line x1="0" y1="152" x2="320" y2="152" stroke="#3c4a63" stroke-width="3"/>'+
+  '<g fill="#3c4a63"><rect x="28" y="152" width="3" height="13"/><rect x="98" y="152" width="3" height="13"/>'+
+    '<rect x="168" y="152" width="3" height="13"/><rect x="238" y="152" width="3" height="13"/><rect x="300" y="152" width="3" height="13"/></g>'+
+  /* MAN — blue blazer, khaki slacks */
+  '<g>'+
+    '<rect x="102" y="178" width="9" height="58" rx="3" fill="#cbb487"/><rect x="114" y="178" width="9" height="58" rx="3" fill="#cbb487"/>'+
+    '<ellipse cx="106" cy="237" rx="7" ry="3.5" fill="#1c1c22"/><ellipse cx="119" cy="237" rx="7" ry="3.5" fill="#1c1c22"/>'+
+    '<rect x="86" y="120" width="11" height="52" rx="5" fill="#2a4a7c"/><rect x="127" y="120" width="11" height="52" rx="5" fill="#2a4a7c"/>'+
+    '<path d="M90 120 Q92 112 112 110 Q132 112 134 120 L132 184 L92 184 Z" fill="#2f5288"/>'+
+    '<path d="M105 116 L112 140 L119 116 Z" fill="#eef0ee"/><path d="M108 116 L112 130 L116 116 Z" fill="#27406a"/>'+
+    '<rect x="106" y="96" width="12" height="18" rx="5" fill="#e8b894"/><circle cx="112" cy="86" r="14" fill="#e8b894"/>'+
+    '<path d="M98 84 Q99 64 112 64 Q125 64 126 84 Q119 73 112 73 Q105 73 98 84 Z" fill="#2a1c14"/>'+
+  '</g>'+
+  /* WOMAN — black cocktail dress (a step back, to the right) */
+  '<g>'+
+    '<rect x="200" y="176" width="7" height="54" rx="3" fill="#e8b894"/><rect x="210" y="176" width="7" height="54" rx="3" fill="#e8b894"/>'+
+    '<path d="M197 231 l10 0 -1 5 -6 0 z" fill="#1c1c22"/><path d="M211 231 l10 0 -1 5 -6 0 z" fill="#1c1c22"/>'+
+    '<rect x="187" y="120" width="8" height="48" rx="4" fill="#e8b894"/><rect x="221" y="120" width="8" height="48" rx="4" fill="#e8b894"/>'+
+    '<path d="M191 118 Q194 112 208 110 Q222 112 225 118 L219 180 L197 180 Z" fill="#16110f"/>'+
+    '<path d="M197 120 Q208 130 219 120 Q213 113 208 113 Q202 113 197 120 Z" fill="#e8b894"/>'+
+    '<rect x="202" y="96" width="11" height="18" rx="5" fill="#e8b894"/><circle cx="208" cy="86" r="13" fill="#e8b894"/>'+
+    '<path d="M194 82 Q194 62 208 62 Q222 62 222 82 L225 132 Q215 124 212 108 Q210 92 208 92 Q206 92 204 108 Q201 124 191 132 Z" fill="#23160f"/>'+
+  '</g>'+
+  /* dashed arrow — she edges away (rightward) */
+  '<g stroke="#9fb4d6" stroke-width="1.5" stroke-dasharray="4 4" opacity=".5" fill="none">'+
+    '<path d="M150 246 L188 246"/><path d="M182 242 L189 246 L182 250"/></g>'+
+'</svg>';
+
+function renderFireworks(s){
+  setProg(0);
+  stage.innerHTML =
+    '<div class="dscene dscene--night" id="dscene">'+
+      '<div class="dscene__tag">'+s.tag+'</div>'+
+      '<div class="dscene__title">'+s.title+'</div>'+
+      '<div class="dscene__art">'+RIVERWALK_SVG+
+        '<div class="bubble bubble--think" id="bThink">'+s.think+'</div>'+
+      '</div>'+
+      '<div class="dscene__cap">'+s.caption+'</div>'+
+      '<div class="dscene__hint" id="dhint">&nbsp;</div>'+
+    '</div>';
+  var shown=false;
+  var dscene=document.getElementById('dscene');
+  var hint=document.getElementById('dhint');
+  var reveal=function(){ document.getElementById('bThink').classList.add('show'); hint.textContent='TAP TO CONTINUE'; shown=true; };
+  var t=setTimeout(reveal, 750);
+  dscene.onclick=function(){
+    if(!shown){ clearTimeout(t); reveal(); }
+    else { sceneIdx++; renderRecap(); }
   };
 }
 
