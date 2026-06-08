@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>One Date, One Shot · The Redemption Tour</title>
+<title>The Passport · Matt & Josie</title>
+<meta name="description" content="A passport of every place we've been — open it up." />
 
-<!-- PostHog analytics + session replay. Loaded first so the recording
-     captures the whole visit. The phc_ key is a public client token —
-     safe to ship in source. GeoIP (city/country) is added server-side
-     automatically; no client config needed for it. -->
+<!-- PostHog analytics (same public client token as the tour site). Lets the
+     hub's opens + destination taps show up in the same dashboard. -->
 <script>
   !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
   posthog.init('phc_zhordsTx3ucwQ5EmMbxctXqdE4L7eqz8gE79R5fhAHBk', {
@@ -16,26 +15,338 @@
     defaults: '2026-01-30',
     autocapture: true,
     capture_pageview: true,
-    disable_session_recording: false,
     session_recording: { maskAllInputs: true }
   });
 </script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Special+Elite&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=12" />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Special+Elite&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --ink:#241a12;
+  --burg:#5d1a1c;
+  --burg2:#430f12;
+  --burg3:#6e2426;
+  --gold:#cba14a;
+  --gold-2:#e7c878;
+  --gold-deep:#a87f2e;
+  --cream:#f3e7cb;
+  --paper:#ece0c2;
+  --paper-line:#d8c79e;
+  --stamp-red:#9c2c25;
+  --stamp-navy:#274066;
+  --stamp-green:#2f5d43;
+}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Special Elite',monospace;
+  color:var(--ink);
+  background:
+    radial-gradient(1200px 600px at 50% -10%, #3a1416 0%, transparent 60%),
+    repeating-linear-gradient(135deg,#2a0f10 0 22px,#280e0f 22px 44px),
+    #2a0f10;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* faint paper grain overlay */
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.wrap{max-width:760px;margin:0 auto;padding:34px 18px 80px}
+
+/* ============================ COVER ============================ */
+.cover{
+  position:relative;
+  border-radius:14px;
+  padding:54px 30px 46px;
+  background:
+    radial-gradient(120% 90% at 50% 0%, var(--burg3) 0%, var(--burg) 42%, var(--burg2) 100%);
+  box-shadow:
+    inset 0 0 0 2px rgba(0,0,0,.35),
+    inset 0 0 60px rgba(0,0,0,.45),
+    0 26px 60px rgba(0,0,0,.55);
+  border:1px solid #2c0a0c;
+  overflow:hidden;
+  cursor:pointer;
+  transition:transform .5s cubic-bezier(.2,.8,.2,1), opacity .5s ease, max-height .6s ease;
+  text-align:center;
+}
+.cover::before{ /* leather sheen */
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(115deg, rgba(255,255,255,.06) 0 12%, transparent 30%);
+  pointer-events:none;
+}
+.cover__foil{
+  border:2px solid var(--gold);
+  border-radius:8px;
+  margin:0 auto;
+  padding:30px 18px 26px;
+  max-width:430px;
+  box-shadow:inset 0 0 0 1px rgba(231,200,120,.35);
+}
+.foil{
+  background:linear-gradient(180deg,var(--gold-2),var(--gold) 45%,var(--gold-deep));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 1px 0 rgba(0,0,0,.18);
+}
+.cover__top{
+  font-family:'Playfair Display',serif;font-weight:800;
+  letter-spacing:.22em;font-size:13px;margin-bottom:24px;
+}
+.crest{width:118px;height:118px;margin:6px auto 18px;display:block}
+.cover__word{
+  font-family:'Playfair Display',serif;font-weight:800;
+  font-size:clamp(30px,9vw,46px);letter-spacing:.16em;line-height:1;
+}
+.cover__sub{
+  font-size:11px;letter-spacing:.36em;margin-top:14px;opacity:.92;
+}
+.cover__rule{height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:20px auto 16px;max-width:200px}
+.cover__holder{
+  font-family:'Caveat',cursive;font-size:34px;font-weight:700;line-height:1;
+  color:var(--gold-2);
+}
+.cover__holder small{display:block;font-family:'Special Elite';font-size:9px;letter-spacing:.34em;color:var(--gold);margin-bottom:2px;opacity:.8}
+.cover__open{
+  margin-top:30px;font-size:11px;letter-spacing:.3em;color:var(--gold-2);
+  animation:pulse 2.2s ease-in-out infinite;
+}
+.cover__open span{display:inline-block;animation:nudge 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+
+/* opened state: cover lifts away, pages reveal */
+body.open .cover{transform:translateY(-14px) scale(.985);opacity:0;max-height:0;padding-top:0;padding-bottom:0;margin-top:-20px;pointer-events:none}
+
+/* ============================ PAGES ============================ */
+.pages{
+  display:none;
+  margin-top:4px;
+  animation:rise .6s cubic-bezier(.2,.8,.2,1) both;
+}
+body.open .pages{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+.page{
+  position:relative;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 27px, rgba(160,130,80,.13) 27px 28px),
+    radial-gradient(140% 100% at 0% 0%, #f7eece 0%, var(--cream) 55%, var(--paper) 100%);
+  border-radius:12px;
+  padding:30px 26px;
+  box-shadow:0 18px 40px rgba(0,0,0,.45), inset 0 0 0 1px rgba(120,90,50,.18);
+  margin-bottom:22px;
+  color:var(--ink);
+}
+.page__edge{position:absolute;inset:6px;border:1px solid var(--paper-line);border-radius:8px;pointer-events:none}
+
+/* identity page */
+.id__head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1.5px solid var(--paper-line);padding-bottom:10px;margin-bottom:18px}
+.id__type{font-size:10px;letter-spacing:.28em}
+.id__no{font-size:10px;letter-spacing:.18em;opacity:.7}
+.id__title{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(20px,6vw,28px);letter-spacing:.04em;margin:0 0 4px}
+.id__row{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px;margin-top:16px}
+.field label{display:block;font-size:9px;letter-spacing:.22em;opacity:.6;margin-bottom:3px}
+.field .v{font-size:15px;letter-spacing:.02em}
+.field .v.big{font-family:'Playfair Display',serif;font-weight:600;font-size:18px}
+.sig{margin-top:22px;border-top:1px dashed var(--paper-line);padding-top:12px;display:flex;justify-content:space-between;align-items:flex-end}
+.sig small{font-size:9px;letter-spacing:.2em;opacity:.6}
+.sig .name{font-family:'Caveat',cursive;font-size:30px;font-weight:700;line-height:.9;color:var(--burg)}
+.mrz{margin-top:18px;font-size:12px;letter-spacing:.18em;color:#6a5436;background:rgba(120,90,50,.08);padding:8px 10px;border-radius:4px;word-break:break-all;line-height:1.7}
+
+/* stamps page */
+.stamps__head{text-align:center;margin-bottom:6px}
+.stamps__kicker{font-size:10px;letter-spacing:.3em;opacity:.6}
+.stamps__title{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(22px,6vw,30px);margin:4px 0 2px}
+.stamps__sub{font-size:12px;opacity:.7;max-width:420px;margin:0 auto}
+.stamps{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+@media(max-width:480px){.stamps{grid-template-columns:1fr}}
+
+.stamp{
+  position:relative;display:block;text-decoration:none;color:inherit;
+  border:2.5px solid var(--stamp-red);
+  border-radius:10px;
+  padding:18px 14px 16px;
+  text-align:center;
+  background:rgba(156,44,37,.04);
+  transform:rotate(var(--rot,-2deg));
+  transition:transform .18s ease, box-shadow .18s ease;
+  overflow:hidden;
+}
+.stamp::before{ /* perforated edge */
+  content:"";position:absolute;inset:3px;border:1.5px dotted rgba(156,44,37,.55);border-radius:7px;pointer-events:none;
+}
+.stamp:hover{transform:rotate(0deg) scale(1.03);box-shadow:0 10px 24px rgba(0,0,0,.22)}
+.stamp--navy{border-color:var(--stamp-navy);background:rgba(39,64,102,.05)}
+.stamp--navy::before{border-color:rgba(39,64,102,.5)}
+.stamp--navy .stamp__place,.stamp--navy .stamp__no{color:var(--stamp-navy)}
+.stamp__no{font-size:9px;letter-spacing:.26em;color:var(--stamp-red)}
+.stamp__title{font-family:'Playfair Display',serif;font-weight:800;font-size:17px;line-height:1.05;margin:8px 0 6px}
+.stamp__place{font-size:11px;letter-spacing:.16em;color:var(--stamp-red);font-weight:bold}
+.stamp__date{margin-top:8px;display:inline-block;border:1.5px solid currentColor;border-radius:20px;padding:2px 12px;font-size:10px;letter-spacing:.16em}
+.stamp__go{margin-top:12px;font-size:10px;letter-spacing:.18em;opacity:.7}
+
+/* not-yet stamp (coming soon) */
+.stamp--tbd{border-style:dashed;border-color:#9a865f;background:rgba(120,90,50,.04);transform:rotate(var(--rot,2deg));cursor:default}
+.stamp--tbd::before{display:none}
+.stamp--tbd:hover{transform:rotate(var(--rot,2deg));box-shadow:none}
+.stamp--tbd .stamp__title,.stamp--tbd .stamp__place,.stamp--tbd .stamp__no{color:#8a7551}
+.stamp--tbd .stamp__date{border-color:#9a865f;color:#8a7551}
+
+.footer{text-align:center;margin-top:26px;color:var(--gold);opacity:.7;font-size:10px;letter-spacing:.22em}
+.footer .heart{color:var(--stamp-red);opacity:.9}
+</style>
 </head>
 <body>
-<div id="root"></div>
+<div class="wrap">
 
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <!-- ===================== COVER ===================== -->
+  <div class="cover" id="cover" role="button" tabindex="0" aria-label="Open the passport">
+    <div class="cover__foil">
+      <div class="cover__top foil">PASSPORT · PASSEPORT</div>
 
-<!-- Local assets carry a ?v=N cache-buster. Bump N on every deploy so
-     browsers re-fetch the .jsx/.css instead of serving a stale copy. -->
-<script type="text/babel" src="bits.jsx?v=12"></script>
-<script type="text/babel" src="screens.jsx?v=12"></script>
-<script type="text/babel" src="app.jsx?v=12"></script>
+      <svg class="crest" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e7c878"/><stop offset="1" stop-color="#a87f2e"/>
+          </linearGradient>
+        </defs>
+        <circle cx="60" cy="60" r="46" stroke="url(#g)" stroke-width="2"/>
+        <ellipse cx="60" cy="60" rx="20" ry="46" stroke="url(#g)" stroke-width="1.4"/>
+        <ellipse cx="60" cy="60" rx="38" ry="46" stroke="url(#g)" stroke-width="1.1" opacity=".7"/>
+        <line x1="14" y1="60" x2="106" y2="60" stroke="url(#g)" stroke-width="1.4"/>
+        <line x1="22" y1="38" x2="98" y2="38" stroke="url(#g)" stroke-width="1" opacity=".7"/>
+        <line x1="22" y1="82" x2="98" y2="82" stroke="url(#g)" stroke-width="1" opacity=".7"/>
+        <path d="M60 41 l4.6 11.6 12.5 .6 -9.8 7.8 3.3 12.1 -10.6 -6.7 -10.6 6.7 3.3 -12.1 -9.8 -7.8 12.5 -.6 Z" fill="url(#g)"/>
+      </svg>
+
+      <div class="cover__word foil">PASSPORT</div>
+      <div class="cover__sub foil">REPUBLIC OF GOOD DATES</div>
+
+      <div class="cover__rule"></div>
+
+      <div class="cover__holder"><small>THIS PASSPORT BELONGS TO</small>Josie</div>
+    </div>
+
+    <div class="cover__open">TAP TO OPEN <span>▾</span></div>
+  </div>
+
+  <!-- ===================== PAGES ===================== -->
+  <div class="pages" id="pages">
+
+    <!-- identity page -->
+    <section class="page">
+      <div class="page__edge"></div>
+      <div class="id__head">
+        <div class="id__type">TYPE&nbsp; P&nbsp;·&nbsp;ADVENTURES</div>
+        <div class="id__no">NO. MJ&nbsp;0001</div>
+      </div>
+
+      <h1 class="id__title">Identity Page</h1>
+
+      <div class="id__row">
+        <div class="field"><label>HOLDER</label><div class="v big">Josie Garay</div></div>
+        <div class="field"><label>ISSUED BY</label><div class="v big">Matt Yee</div></div>
+        <div class="field"><label>NATIONALITY</label><div class="v">Frequent Flyer</div></div>
+        <div class="field"><label>CLEARANCE</label><div class="v">Front Row, Naturally</div></div>
+        <div class="field"><label>DATE OF ISSUE</label><div class="v">JUN 2026</div></div>
+        <div class="field"><label>EXPIRES</label><div class="v">When the doodles say so</div></div>
+      </div>
+
+      <div class="sig">
+        <div><small>AUTHORIZED SIGNATURE</small><div class="name">Matt Yee</div></div>
+        <div style="text-align:right"><small>STAMPS COLLECTED</small><div class="name" id="stampCount">1</div></div>
+      </div>
+
+      <div class="mrz">P&lt;GOODDATES&lt;GARAY&lt;&lt;JOSIE&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br/>MATTYEE&lt;&lt;ADVENTURES&lt;&lt;ONGOING&lt;&lt;DOODLEAPPROVED&lt;&lt;</div>
+    </section>
+
+    <!-- stamps / destinations page -->
+    <section class="page">
+      <div class="page__edge"></div>
+      <div class="stamps__head">
+        <div class="stamps__kicker">ENTRY STAMPS</div>
+        <h2 class="stamps__title">Where We've Been</h2>
+        <p class="stamps__sub">Every stamp is a date. Tap one to go back and relive it.</p>
+      </div>
+
+      <div class="stamps" id="stamps"></div>
+    </section>
+
+    <div class="footer">ISSUING AUTHORITY: MATT YEE · ONE HOLDER · NO REFUNDS</div>
+  </div>
+
+</div>
+
+<script>
+/* The whole hub is data-driven: add a date here + create a folder of the
+   same `href`, and a new stamp appears automatically. Newest first. */
+var DESTINATIONS = [
+  {
+    no:'STAMP I',
+    title:'The Redemption Tour',
+    place:'CHICAGO · ILLINOIS',
+    date:'JUN 2026',
+    href:'redemptiontour/',
+    kind:'red',
+    rot:-3
+  }
+  // Next date? add: { no:'STAMP II', title:'…', place:'…', date:'…', href:'folder/', kind:'navy', rot:2 }
+];
+
+(function(){
+  var stampsEl = document.getElementById('stamps');
+  var html = '';
+  DESTINATIONS.forEach(function(d){
+    html += '<a class="stamp stamp--'+(d.kind||'red')+'" href="'+d.href+'" style="--rot:'+(d.rot||-2)+'deg" '+
+            'data-title="'+d.title+'">'+
+              '<div class="stamp__no">'+d.no+'</div>'+
+              '<div class="stamp__title">'+d.title+'</div>'+
+              '<div class="stamp__place">'+d.place+'</div>'+
+              '<div class="stamp__date">'+d.date+'</div>'+
+              '<div class="stamp__go">↦ RE-ENTER</div>'+
+            '</a>';
+  });
+  // a faded "next destination" placeholder so the collection feels alive
+  html += '<div class="stamp stamp--tbd" style="--rot:2deg">'+
+            '<div class="stamp__no">STAMP '+roman(DESTINATIONS.length+1)+'</div>'+
+            '<div class="stamp__title">To Be Determined</div>'+
+            '<div class="stamp__place">DESTINATION PENDING</div>'+
+            '<div class="stamp__date">COMING SOON</div>'+
+            '<div class="stamp__go">stay tuned ✦</div>'+
+          '</div>';
+  stampsEl.innerHTML = html;
+  document.getElementById('stampCount').textContent = DESTINATIONS.length;
+
+  // analytics: which date she re-enters
+  Array.prototype.forEach.call(document.querySelectorAll('.stamp[data-title]'), function(a){
+    a.addEventListener('click', function(){
+      if(window.posthog) window.posthog.capture('destination_clicked', { title: a.getAttribute('data-title') });
+    });
+  });
+
+  function roman(n){return ['','I','II','III','IV','V','VI','VII','VIII','IX','X'][n]||n;}
+
+  // open the passport
+  var cover = document.getElementById('cover');
+  function open(){
+    if(document.body.classList.contains('open')) return;
+    document.body.classList.add('open');
+    if(window.posthog) window.posthog.capture('passport_opened');
+    setTimeout(function(){
+      document.getElementById('pages').scrollIntoView({behavior:'smooth', block:'start'});
+    }, 120);
+  }
+  cover.addEventListener('click', open);
+  cover.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(); } });
+})();
+</script>
 </body>
 </html>
