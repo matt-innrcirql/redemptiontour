@@ -97,6 +97,19 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 @keyframes fxp{0%{transform:translate(0,0);opacity:1}100%{transform:translate(var(--dx),var(--dy));opacity:0}}
 .kissheart{position:absolute;font-size:28px;z-index:6;animation:kiss 1s ease-out forwards}
 @keyframes kiss{0%{transform:scale(.2);opacity:0}30%{opacity:1}100%{transform:scale(1.5) translateY(-18px);opacity:0}}
+/* post-kiss walk + facepalm */
+.figs.walkin{animation:strollin 1.7s cubic-bezier(.2,.7,.3,1) both}
+@keyframes strollin{from{transform:translateX(-30%)}to{transform:translateX(0)}}
+.fig.walking{animation:walkbob .55s ease-in-out infinite}
+@keyframes walkbob{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-4px) rotate(1.5deg)}}
+.fig--man.slump{transform:translateY(3px) rotate(-4deg)}
+.facepalm{position:absolute;left:40%;bottom:62%;font-size:34px;z-index:6;opacity:0;
+  transform:scale(.3) translateY(6px);transition:opacity .25s ease, transform .35s cubic-bezier(.2,.9,.3,1.5)}
+.facepalm.show{opacity:1;transform:scale(1) translateY(0);animation:fpshake .42s ease .35s 2}
+@keyframes fpshake{0%,100%{rotate:0deg}50%{rotate:-12deg}}
+.bubble--herwalk{left:40%;right:5%;bottom:72%;top:auto;--orig:bottom center;font-size:13px;line-height:1.4;
+  padding:9px 13px;background:#f6eed7;color:#2a1810;border-radius:14px}
+.bubble--herwalk::after{left:46%;right:auto;bottom:-8px;border:8px solid transparent;border-top-color:#f6eed7}
 .bubble{position:absolute;z-index:4;max-width:60%;background:#f6eed7;color:#2a1810;border-radius:14px;padding:10px 13px;
   font-size:13px;line-height:1.4;box-shadow:0 8px 20px rgba(0,0,0,.45);
   opacity:0;transform:scale(.5);transform-origin:var(--orig,bottom left);
@@ -312,6 +325,8 @@ var SCENES = [
     caption:'He couldn’t read your signals… so he just said it.',
     think:'If I just keep backing up every time he steps closer… he can’t set the mood and kiss me. Foolproof.',
     say:'I can’t read your body language… but I’d like to kiss you.' },
+  { tag:'After The Kiss', title:'The Walk', trains:true,
+    her:'do you like trains?' },
   { tag:'The After-Party', malort:true,
     intro:'No pizza, actually, just drinks. This is where you schooled me on Malört, Chicago’s most notorious shot.',
     prompt:'make Matt finally try it',
@@ -356,6 +371,7 @@ function renderRecap(){
   var last = sceneIdx === SCENES.length-1;
   if(s.dialogue){ return renderDialogue(s); }
   if(s.fireworks){ return renderFireworks(s); }
+  if(s.trains){ return renderTrains(s); }
   if(s.malort){ return renderMalort(s); }
   stage.innerHTML =
     '<div class="scene">'+
@@ -581,6 +597,46 @@ function renderFireworks(s){
       }, 1100);
     }, 450);
   }
+}
+
+/* Post-kiss walk on the Riverwalk: she asks "do you like trains?", Matt facepalms. */
+function renderTrains(s){
+  setProg(0);
+  stage.innerHTML =
+    '<div class="dscene dscene--night" id="dscene">'+
+      '<div class="dscene__tag">'+s.tag+'</div>'+
+      '<div class="dscene__title">'+s.title+'</div>'+
+      '<div class="dscene__art"><div class="vstage" id="vstage">'+RIVERWALK_SVG+
+        '<div class="figs walkin" id="figs">'+
+          '<div class="fig fig--man walking" id="manFig" style="left:34%">'+MAN_SVG+'</div>'+
+          '<div class="fig fig--woman walking" id="womanFig" style="left:50%">'+WOMAN_SVG+'</div>'+
+        '</div>'+
+        '<div class="facepalm" id="facepalm">🤦</div>'+
+        '<div class="bubble bubble--herwalk" id="bHer">'+s.her+'</div>'+
+      '</div></div>'+
+      '<div class="dscene__hint" id="dhint">&nbsp;</div>'+
+      '<div class="btnrow" id="twbtn"></div>'+
+    '</div>';
+  var dscene=document.getElementById('dscene');
+  var bHer=document.getElementById('bHer');
+  var facepalm=document.getElementById('facepalm');
+  var manFig=document.getElementById('manFig');
+  var womanFig=document.getElementById('womanFig');
+  var hint=document.getElementById('dhint');
+  var step=0;
+  function toHer(){ if(step>=1) return; step=1; bHer.classList.add('show'); }
+  function toPalm(){ if(step>=2) return; step=2;
+    manFig.classList.remove('walking'); womanFig.classList.remove('walking');
+    manFig.classList.add('slump'); facepalm.classList.add('show'); hint.textContent='Matt has no words.'; }
+  function toEnd(){ if(step>=3) return; step=3;
+    document.getElementById('twbtn').innerHTML='<button class="btn btn--big pulse" id="twGo">continue →</button>';
+    tap(document.getElementById('twGo'), function(){ sceneIdx++; renderRecap(); }); }
+  var t1=setTimeout(toHer,1700), t2=setTimeout(toPalm,3200), t3=setTimeout(toEnd,4100);
+  tap(dscene, function(){
+    if(step>=3) return;
+    clearTimeout(t1); clearTimeout(t2); clearTimeout(t3);
+    toHer(); toPalm(); setTimeout(toEnd, 600);
+  });
 }
 
 /* The Malört mini: tap to make Matt try the shot; he can't handle it. */
