@@ -203,8 +203,9 @@ body.open .pages{display:block}
 .stamp--tbd .stamp__place{color:#b89a5e;font-weight:bold}
 .tbd__lock{font-size:30px;display:block;margin:2px 0 6px;animation:lockwiggle 2.6s ease-in-out infinite}
 @keyframes lockwiggle{0%,88%,100%{transform:rotate(0)}92%{transform:rotate(-13deg)}96%{transform:rotate(13deg)}}
-.stamp__cta{margin-top:11px;display:inline-block;background:linear-gradient(180deg,var(--gold-2),var(--gold-deep));color:#3a1416;font-weight:bold;font-size:11px;letter-spacing:.12em;padding:8px 17px;border-radius:22px;box-shadow:0 5px 14px rgba(0,0,0,.35);animation:ctabounce 1.8s ease-in-out infinite}
-@keyframes ctabounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.stamp__cta{margin-top:8px;display:inline-block;max-width:94%;background:linear-gradient(180deg,var(--gold-2),var(--gold-deep));color:#3a1416;font-weight:bold;font-size:12px;letter-spacing:.03em;line-height:1.3;padding:9px 16px;border-radius:16px;box-shadow:0 5px 14px rgba(0,0,0,.35)}
+.next__hand{font-size:30px;margin:6px 0 2px;animation:handtap 1s ease-in-out infinite}
+@keyframes handtap{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
 
 .footer{text-align:center;margin-top:26px;color:var(--gold);opacity:.7;font-size:10px;letter-spacing:.22em}
 .footer .heart{color:var(--stamp-red);opacity:.9}
@@ -335,10 +336,8 @@ var DESTINATIONS = [
     html += '<a class="stamp stamp--tbd" id="tbdStamp" href="next/" style="--rot:2deg">'+
               '<div class="tbd__front">'+
                 '<div class="stamp__no">STAMP '+roman(DESTINATIONS.length+1)+'</div>'+
-                '<span class="tbd__lock">🔒</span>'+
-                '<div class="stamp__title">Your Next Date</div>'+
-                '<div class="stamp__place">SEALED · PLAY TO REVEAL</div>'+
-                '<span class="stamp__cta">▶ TAP TO UNLOCK</span>'+
+                '<div class="next__hand" aria-hidden="true">👇</div>'+
+                '<span class="stamp__cta">Press here to see your next date</span>'+
               '</div>'+
             '</a>';
   }
