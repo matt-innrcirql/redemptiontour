@@ -242,7 +242,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
    All client-side; safe on static hosting.
    ============================================================ */
 var MATT_PHONE = '+12028801652';      // from the tour's ticket confirm
-var ANSWER     = 'AGAIN';             // what Matt would like to do again (kiss her)
+var ANSWER     = 'KISS';              // what Matt would like to do again
+var LEN        = ANSWER.length;       // word length (board adapts; KISS = 4)
 
 /* The proposed date + fallback. Edit here to change days. */
 var PLAN = {
@@ -523,11 +524,11 @@ function renderFireworks(s){
       manFig.style.left='59%';                                             // he closes the gap
       var r=vstage.getBoundingClientRect();
       launch(r.width*0.5, r.height*0.26);                                  // finale burst
-      var h=document.createElement('div'); h.className='kissheart'; h.textContent='💋';
+      var h=document.createElement('div'); h.className='kissheart'; h.textContent='✨';
       h.style.left='64%'; h.style.bottom='58%'; fxlayer.appendChild(h);
       setTimeout(function(){ h.remove(); }, 1000);
       setTimeout(function(){
-        banner.innerHTML='💋';
+        banner.innerHTML='✨';
         document.getElementById('fwbtn').innerHTML='<button class="btn btn--big pulse" id="fwGo">continue →</button>';
         tap(document.getElementById('fwGo'), function(){ sceneIdx++; renderRecap(); });
       }, 1100);
@@ -569,8 +570,8 @@ function renderPuzzle(){
   setProg(1);
   guesses=[]; cur=''; solved=false; done=false; keyState={};
   var board='';
-  for(var r=0;r<6;r++){ board+='<div class="brow" data-r="'+r+'">';
-    for(var c=0;c<5;c++) board+='<div class="tile" data-r="'+r+'" data-c="'+c+'"></div>';
+  for(var r=0;r<6;r++){ board+='<div class="brow" data-r="'+r+'" style="grid-template-columns:repeat('+LEN+',1fr)">';
+    for(var c=0;c<LEN;c++) board+='<div class="tile" data-r="'+r+'" data-c="'+c+'"></div>';
     board+='</div>'; }
   var kbd='';
   KEYS.forEach(function(row,ri){
@@ -582,7 +583,7 @@ function renderPuzzle(){
   });
   stage.innerHTML =
     '<div class="puz">'+
-      '<div class="puz__h"><h2>One word: what I’d love to do again 😏</h2><p>Five letters · six tries. (Hint: think back to the fireworks…)</p></div>'+
+      '<div class="puz__h"><h2>One word: what I’d love to do again 😏</h2><p>'+LEN+' letters · six tries. (Hint: think back to the fireworks…)</p></div>'+
       '<div class="board">'+board+'</div>'+
       '<div class="memory" id="memory"></div>'+
       '<div class="kbd">'+kbd+'</div>'+
@@ -608,16 +609,16 @@ function press(k){
   if(done) return;
   if(k==='ENTER') return submit();
   if(k==='DEL'){ cur=cur.slice(0,-1); setTile(guesses.length, cur.length, ''); return; }
-  if(/^[A-Z]$/.test(k) && cur.length<5){ setTile(guesses.length, cur.length, k); cur+=k; }
+  if(/^[A-Z]$/.test(k) && cur.length<LEN){ setTile(guesses.length, cur.length, k); cur+=k; }
 }
 function submit(){
   var r=guesses.length;
-  if(cur.length<5){ var row=stage.querySelector('.brow[data-r="'+r+'"]'); row.classList.add('bad'); setTimeout(function(){row.classList.remove('bad');},400); return; }
-  var guess=cur, ans=ANSWER.split(''), res=new Array(5).fill('absent'), used=new Array(5).fill(false);
-  for(var i=0;i<5;i++){ if(guess[i]===ans[i]){ res[i]='correct'; used[i]=true; } }
-  for(var i=0;i<5;i++){ if(res[i]==='correct') continue;
-    for(var j=0;j<5;j++){ if(!used[j] && guess[i]===ans[j]){ res[i]='present'; used[j]=true; break; } } }
-  for(var i=0;i<5;i++){ (function(i){ setTimeout(function(){
+  if(cur.length<LEN){ var row=stage.querySelector('.brow[data-r="'+r+'"]'); row.classList.add('bad'); setTimeout(function(){row.classList.remove('bad');},400); return; }
+  var guess=cur, ans=ANSWER.split(''), res=new Array(LEN).fill('absent'), used=new Array(LEN).fill(false);
+  for(var i=0;i<LEN;i++){ if(guess[i]===ans[i]){ res[i]='correct'; used[i]=true; } }
+  for(var i=0;i<LEN;i++){ if(res[i]==='correct') continue;
+    for(var j=0;j<LEN;j++){ if(!used[j] && guess[i]===ans[j]){ res[i]='present'; used[j]=true; break; } } }
+  for(var i=0;i<LEN;i++){ (function(i){ setTimeout(function(){
       var t=stage.querySelector('.tile[data-r="'+r+'"][data-c="'+i+'"]'); t.classList.add('flip');
       setTimeout(function(){ setTile(r,i,guess[i],res[i]); upKey(guess[i],res[i]); },230);
     }, i*220); })(i); }
@@ -628,7 +629,7 @@ function submit(){
     if(win){ solved=true; done=true; capture('puzzle_won',{tries:guesses.length}); burst(); setTimeout(toReveal,900); }
     else if(guesses.length>=6){ done=true; capture('puzzle_lost'); setTimeout(toReveal,700); }
     else if(guesses.length>=2){ document.getElementById('skip').style.display='inline-block'; }
-  }, 5*220+260);
+  }, LEN*220+260);
 }
 function upKey(ch,cls){
   var rank={absent:0,present:1,correct:2};
@@ -644,7 +645,7 @@ function renderReveal(plan, isFallback){
   var scratch = !isFallback;
   stage.innerHTML =
     '<div class="reveal">'+
-      '<div class="reveal__k">'+(solved?'YOU GOT IT 💋':'THE WORD WAS “'+ANSWER+'” 💋')+'</div>'+
+      '<div class="reveal__k">'+(solved?'YOU GOT IT 🎟':'THE WORD WAS “'+ANSWER+'” 🎟')+'</div>'+
       '<div class="reveal__lead">'+(isFallback
           ? 'No problem at all. How about this one instead?'
           : 'Kiss you again, that is. 😏 And there’s a whole next night coming. Scratch the foil to reveal it:')+'</div>'+
