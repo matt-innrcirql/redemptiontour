@@ -120,6 +120,13 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 .bubble--say{left:14%;right:14%;bottom:80%;top:auto;--orig:bottom center;text-align:center;font-size:12.5px;line-height:1.4;padding:9px 13px;background:#f6eed7;color:#2a1810;border-radius:14px}
 .bubble--say::after{left:50%;right:auto;margin-left:-8px;bottom:-8px;border:8px solid transparent;border-top-color:#f6eed7}
 .dscene .btnrow{position:absolute;bottom:30px;left:18px;right:18px;z-index:7;margin:0}
+.fwbanner{position:absolute;bottom:96px;left:16px;right:16px;text-align:center;z-index:8;
+  background:rgba(20,8,9,.66);border:1px solid rgba(231,200,120,.5);color:var(--gold-2);
+  padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.35;box-shadow:0 6px 18px rgba(0,0,0,.4)}
+.fwbanner b{color:#fff}
+.skycue{position:absolute;top:12%;left:50%;transform:translateX(-50%);font-size:38px;z-index:4;
+  pointer-events:none;animation:skybob 1.1s ease-in-out infinite;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
+@keyframes skybob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-9px)}}
 .bubble__sig{display:block;margin-top:6px;text-align:right;font-family:'Caveat',cursive;font-style:normal;font-size:17px;color:#9c2c25}
 .dscene__cap{position:absolute;bottom:34px;left:0;right:0;text-align:center;font-size:12px;font-style:italic;color:var(--gold-2);z-index:3;padding:0 22px}
 .dscene__hint{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:.28em;color:var(--gold-2);opacity:.85;z-index:3;animation:pulse 2s infinite}
@@ -455,18 +462,20 @@ function renderFireworks(s){
           '<div class="fig fig--woman" id="womanFig">'+WOMAN_SVG+'</div>'+
         '</div>'+
         '<div class="fxlayer" id="fxlayer"></div>'+
+        '<div class="skycue" id="skycue">👆</div>'+
         '<div class="bubble bubble--think" id="bThink">'+s.think+'</div>'+
         '<div class="bubble bubble--say" id="bSay">'+s.say+'</div>'+
       '</div></div>'+
-      '<div class="dscene__hint" id="dhint">🎆 TAP THE SKY</div>'+
+      '<div class="fwbanner" id="fwbanner">👆 Tap the sky to set off the fireworks <b>(3 left)</b></div>'+
       '<div class="btnrow" id="fwbtn"></div>'+
     '</div>';
   var vstage=document.getElementById('vstage');
-  var hint=document.getElementById('dhint');
+  var banner=document.getElementById('fwbanner');
+  var skycue=document.getElementById('skycue');
   var fxlayer=document.getElementById('fxlayer');
   var manFig=document.getElementById('manFig');
   var womanFig=document.getElementById('womanFig');
-  var phase='play', taps=0, backs=0;
+  var phase='play', taps=0, backs=0, SKY=3, BACK=3;
 
   function launch(px,py){
     var b=document.createElement('div'); b.className='fxburst'; b.style.left=px+'px'; b.style.top=py+'px';
@@ -484,35 +493,43 @@ function renderFireworks(s){
   vstage.addEventListener('pointerup',function(e){
     if(phase!=='play') return;
     var r=vstage.getBoundingClientRect();
-    launch(e.clientX-r.left, e.clientY-r.top); taps++;   // any tap launches
-    if(taps>=3){ phase='back'; startBack(); }
+    launch(e.clientX-r.left, e.clientY-r.top); taps++;          // any tap launches
+    var left=SKY-taps;
+    if(left>0){ banner.innerHTML='🎆 Again! <b>('+left+' left)</b>'; }
+    else { phase='back'; if(skycue) skycue.remove(); startBack(); }
   });
 
   function startBack(){
-    hint.textContent='👀 HE’S LEANING IN…';
-    document.getElementById('fwbtn').innerHTML='<button class="btn btn--ghost" id="backBtn">← back away!</button>';
-    document.getElementById('backBtn').onclick=function(ev){ ev.stopPropagation(); doBack(); };
+    banner.innerHTML='😳 He’s leaning in to kiss you! <b>Tap BACK AWAY 👇</b>';
+    document.getElementById('fwbtn').innerHTML='<button class="btn btn--big btn--red pulse" id="backBtn">🙈 Back away!  ('+BACK+'×)</button>';
+    tap(document.getElementById('backBtn'), doBack);
   }
   function doBack(){
     backs++;
     womanFig.style.left=Math.min(52+backs*7,72)+'%';
     manFig.style.left=(20+backs*7)+'%';
-    if(backs>=3){ corner(); }
+    var left=BACK-backs;
+    if(left>0){
+      banner.innerHTML='😬 He keeps getting closer… <b>keep backing up!</b>';
+      var bb=document.getElementById('backBtn'); if(bb) bb.textContent='🙈 Keep backing up!  ('+left+'×)';
+    } else { corner(); }
   }
   function corner(){
-    phase='kiss'; hint.textContent=''; document.getElementById('fwbtn').innerHTML='';
+    phase='kiss'; document.getElementById('fwbtn').innerHTML='';
+    banner.innerHTML='😏 …cornered.';
     document.getElementById('bThink').classList.remove('show');
     setTimeout(function(){
-      document.getElementById('bSay').classList.add('show');
-      manFig.style.left='59%';                                   // he closes the gap
+      document.getElementById('bSay').classList.add('show');                // he says the line
+      manFig.style.left='59%';                                             // he closes the gap
       var r=vstage.getBoundingClientRect();
-      launch(r.width*0.5, r.height*0.26);                        // finale burst
+      launch(r.width*0.5, r.height*0.26);                                  // finale burst
       var h=document.createElement('div'); h.className='kissheart'; h.textContent='💋';
       h.style.left='64%'; h.style.bottom='58%'; fxlayer.appendChild(h);
       setTimeout(function(){ h.remove(); }, 1000);
       setTimeout(function(){
+        banner.innerHTML='💋';
         document.getElementById('fwbtn').innerHTML='<button class="btn btn--big pulse" id="fwGo">continue →</button>';
-        document.getElementById('fwGo').onclick=function(){ sceneIdx++; renderRecap(); };
+        tap(document.getElementById('fwGo'), function(){ sceneIdx++; renderRecap(); });
       }, 1100);
     }, 450);
   }
