@@ -192,7 +192,14 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 .key.correct{background:var(--tile-correct);color:#3a1416}
 .key.present{background:var(--tile-present)}
 .key.absent{background:#2a1b12;color:#6a5848}
-.puz__skip{margin-top:6px;font-size:11px;letter-spacing:.1em;color:var(--gold-2);opacity:.6;
+.puz__controls{display:flex;gap:14px;justify-content:center;align-items:center;margin-top:8px;flex-wrap:wrap}
+.puz__hint{background:rgba(231,200,120,.15);border:1px solid rgba(231,200,120,.55);color:var(--gold-2);
+  font-family:inherit;font-size:13px;letter-spacing:.04em;padding:9px 18px;border-radius:22px;cursor:pointer}
+.puz__hint:active{transform:translateY(1px)}
+.puz__hinttext{min-height:18px;text-align:center;font-size:13px;color:var(--gold-2);max-width:34ch;
+  margin:8px auto 0;opacity:0;transition:opacity .3s ease;font-style:italic}
+.puz__hinttext.show{opacity:1}
+.puz__skip{margin-top:0;font-size:11px;letter-spacing:.1em;color:var(--gold-2);opacity:.7;
   background:none;border:none;cursor:pointer;text-decoration:underline;font-family:inherit}
 
 /* ===================== REVEAL (ticket) ===================== */
@@ -587,12 +594,26 @@ function renderPuzzle(){
       '<div class="board">'+board+'</div>'+
       '<div class="memory" id="memory"></div>'+
       '<div class="kbd">'+kbd+'</div>'+
-      '<button class="puz__skip" id="skip" style="display:none">just show me the date →</button>'+
+      '<div class="puz__hinttext" id="hintText"></div>'+
+      '<div class="puz__controls">'+
+        '<button class="puz__hint" id="hintBtn">💡 Hint (2 left)</button>'+
+        '<button class="puz__skip" id="skip" style="display:none">give up · show me the date →</button>'+
+      '</div>'+
     '</div>';
   Array.prototype.forEach.call(stage.querySelectorAll('.key'),function(k){
     k.onclick=function(){ press(k.getAttribute('data-k')); };
   });
-  document.getElementById('skip').onclick=function(){ capture('puzzle_skipped'); toReveal(); };
+  var hints=['It’s 4 letters, and it’s the thing that almost didn’t happen at the fireworks. 😉','Starts with K… and rhymes with “miss.”'];
+  var hintsUsed=0;
+  var hintBtn=document.getElementById('hintBtn'), hintText=document.getElementById('hintText'), skipBtn=document.getElementById('skip');
+  tap(hintBtn,function(){
+    if(hintsUsed>=2) return;
+    hintText.textContent=hints[hintsUsed]; hintText.classList.add('show'); hintsUsed++;
+    capture('puzzle_hint',{n:hintsUsed});
+    if(hintsUsed>=2){ hintBtn.style.display='none'; skipBtn.style.display='inline-block'; }
+    else hintBtn.textContent='💡 Hint ('+(2-hintsUsed)+' left)';
+  });
+  tap(skipBtn,function(){ capture('puzzle_skipped'); toReveal(); });
   capture('puzzle_started');
 }
 
@@ -628,7 +649,6 @@ function submit(){
   setTimeout(function(){
     if(win){ solved=true; done=true; capture('puzzle_won',{tries:guesses.length}); burst(); setTimeout(toReveal,900); }
     else if(guesses.length>=6){ done=true; capture('puzzle_lost'); setTimeout(toReveal,700); }
-    else if(guesses.length>=2){ document.getElementById('skip').style.display='inline-block'; }
   }, LEN*220+260);
 }
 function upKey(ch,cls){
