@@ -242,7 +242,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
    All client-side; safe on static hosting.
    ============================================================ */
 var MATT_PHONE = '+12028801652';      // from the tour's ticket confirm
-var ANSWER     = 'NIGHT';             // the secret word (tour callback: "choose your night")
+var ANSWER     = 'AGAIN';             // what Matt would like to do again (kiss her)
 
 /* The proposed date + fallback. Edit here to change days. */
 var PLAN = {
@@ -582,7 +582,7 @@ function renderPuzzle(){
   });
   stage.innerHTML =
     '<div class="puz">'+
-      '<div class="puz__h"><h2>What was this whole tour?</h2><p>One word · six tries. (Hint: you got to pick yours.)</p></div>'+
+      '<div class="puz__h"><h2>One word: what I’d love to do again 😏</h2><p>Five letters · six tries. (Hint: think back to the fireworks…)</p></div>'+
       '<div class="board">'+board+'</div>'+
       '<div class="memory" id="memory"></div>'+
       '<div class="kbd">'+kbd+'</div>'+
@@ -644,10 +644,10 @@ function renderReveal(plan, isFallback){
   var scratch = !isFallback;
   stage.innerHTML =
     '<div class="reveal">'+
-      '<div class="reveal__k">'+(solved?'YOU DECODED IT 🎟':'THE THEME WAS “NIGHT” 🎟')+'</div>'+
+      '<div class="reveal__k">'+(solved?'YOU GOT IT 💋':'THE WORD WAS “'+ANSWER+'” 💋')+'</div>'+
       '<div class="reveal__lead">'+(isFallback
           ? 'No problem at all. How about this one instead?'
-          : 'Because there’s another one coming. Scratch the foil to reveal your next night:')+'</div>'+
+          : 'Kiss you again, that is. 😏 And there’s a whole next night coming. Scratch the foil to reveal it:')+'</div>'+
       '<div class="ticket">'+
         '<div class="ticket__brand">the redemption tour</div>'+
         '<div class="ticket__sub">SEASON TWO · ADMIT ONE (+1 GOLDENDOODLE)</div>'+
