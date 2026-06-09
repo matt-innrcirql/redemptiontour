@@ -83,9 +83,20 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 .dscene__tag{position:absolute;top:16px;left:0;right:0;text-align:center;font-family:'Anton',sans-serif;letter-spacing:.16em;font-size:12px;color:var(--gold-2);z-index:3}
 .dscene__title{position:absolute;top:33px;left:0;right:0;text-align:center;font-family:'Playfair Display',serif;font-weight:800;font-size:26px;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.6);z-index:3}
 .dscene__art{flex:1;position:relative;display:flex;align-items:center;justify-content:center}
-.dscene__art svg{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:360px;height:auto}
+.dscene__art > svg{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:360px;height:auto}
 .vstage{position:relative;width:100%;max-width:340px;aspect-ratio:320/260}
-.dscene__art .vstage svg{position:absolute;inset:0;left:0;bottom:auto;width:100%;height:100%;max-width:none;transform:none}
+.dscene__art .vstage > svg{position:absolute;inset:0;left:0;bottom:auto;width:100%;height:100%;max-width:none;transform:none;pointer-events:none}
+.figs{position:absolute;inset:0;pointer-events:none}
+.fig{position:absolute;bottom:6%;width:23%;transition:left .45s cubic-bezier(.3,.8,.4,1)}
+.fig svg{width:100%;height:auto;display:block}
+.fig--man{left:20%}
+.fig--woman{left:52%}
+.fxlayer{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+.fxburst{position:absolute;width:0;height:0}
+.fxp{position:absolute;left:0;top:0;width:6px;height:6px;border-radius:50%;animation:fxp .9s ease-out forwards}
+@keyframes fxp{0%{transform:translate(0,0);opacity:1}100%{transform:translate(var(--dx),var(--dy));opacity:0}}
+.kissheart{position:absolute;font-size:28px;z-index:6;animation:kiss 1s ease-out forwards}
+@keyframes kiss{0%{transform:scale(.2);opacity:0}30%{opacity:1}100%{transform:scale(1.5) translateY(-18px);opacity:0}}
 .bubble{position:absolute;z-index:4;max-width:60%;background:#f6eed7;color:#2a1810;border-radius:14px;padding:10px 13px;
   font-size:13px;line-height:1.4;box-shadow:0 8px 20px rgba(0,0,0,.45);
   opacity:0;transform:scale(.5);transform-origin:var(--orig,bottom left);
@@ -106,8 +117,9 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 @keyframes fwpop{0%{transform:scale(.15);opacity:0}14%{opacity:1}55%{transform:scale(1.1);opacity:.95}100%{transform:scale(1.32);opacity:0}}
 .bubble--think{left:30%;right:4%;bottom:72%;top:auto;--orig:bottom center;font-size:12px;line-height:1.4;padding:9px 12px;background:#f6eed7;color:#2a1810;border-radius:16px;font-style:italic}
 .bubble--think::after{left:44%;right:auto;bottom:-7px;border:none;width:9px;height:9px;border-radius:50%;background:#f6eed7;box-shadow:-9px 9px 0 -2px #f6eed7}
-.bubble--say{left:4%;right:40%;bottom:72%;top:auto;--orig:bottom center;font-size:12px;line-height:1.4;padding:9px 12px;background:#f6eed7;color:#2a1810;border-radius:14px}
-.bubble--say::after{left:50%;right:auto;bottom:-8px;border:8px solid transparent;border-top-color:#f6eed7}
+.bubble--say{left:14%;right:14%;bottom:80%;top:auto;--orig:bottom center;text-align:center;font-size:12.5px;line-height:1.4;padding:9px 13px;background:#f6eed7;color:#2a1810;border-radius:14px}
+.bubble--say::after{left:50%;right:auto;margin-left:-8px;bottom:-8px;border:8px solid transparent;border-top-color:#f6eed7}
+.dscene .btnrow{position:absolute;bottom:30px;left:18px;right:18px;z-index:7;margin:0}
 .bubble__sig{display:block;margin-top:6px;text-align:right;font-family:'Caveat',cursive;font-style:normal;font-size:17px;color:#9c2c25}
 .dscene__cap{position:absolute;bottom:34px;left:0;right:0;text-align:center;font-size:12px;font-style:italic;color:var(--gold-2);z-index:3;padding:0 22px}
 .dscene__hint{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:.28em;color:var(--gold-2);opacity:.85;z-index:3;animation:pulse 2s infinite}
@@ -125,6 +137,20 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 .btn.pulse{animation:btnpulse 1.6s ease-in-out infinite}
 @keyframes btnpulse{0%,100%{box-shadow:0 10px 26px rgba(0,0,0,.4)}50%{box-shadow:0 10px 40px rgba(231,200,120,.6)}}
 .btnrow{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+
+/* ---- Malört mini ---- */
+.malort{text-align:center;padding:4px}
+.malort__tag{font-family:'Anton',sans-serif;letter-spacing:.16em;font-size:12px;color:var(--gold-2);text-transform:uppercase}
+.malort__title{font-family:'Playfair Display',serif;font-weight:800;font-size:30px;color:#fff;margin:6px 0 10px}
+.malort__intro{font-size:14px;line-height:1.6;color:#f3ead7;max-width:34ch;margin:0 auto 20px}
+.malort__stage{position:relative;height:118px;display:flex;align-items:center;justify-content:center;gap:6px}
+.malort__face{font-size:74px;display:inline-block}
+.malort__glass{font-size:46px;display:inline-block;transition:transform .4s ease}
+.malort__glass.tip{transform:rotate(-58deg) translateY(-8px)}
+.malort__face.shake{animation:mshake .4s ease 3}
+@keyframes mshake{0%,100%{transform:translateX(0) rotate(0)}25%{transform:translateX(-6px) rotate(-7deg)}75%{transform:translateX(6px) rotate(7deg)}}
+.malort__react{min-height:28px;margin-top:12px;font-size:15px;color:var(--gold-2);opacity:0;transition:opacity .4s ease;font-style:italic}
+.malort__react.show{opacity:1}
 
 /* ===================== PUZZLE ===================== */
 .puz{display:flex;flex-direction:column;align-items:center;gap:14px}
@@ -176,6 +202,9 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 .ticket__sub{font-size:12px;letter-spacing:.18em;color:#6a5436}
 .ticket__perf{border-top:2px dashed var(--paper-line);margin:14px -18px;}
 .ticket__fine{font-size:11px;color:#6a5436;line-height:1.6;padding-top:2px}
+.scratchwrap{position:relative;display:inline-block;padding:4px 14px;min-width:230px}
+.scratchcv{position:absolute;inset:0;width:100%;height:100%;border-radius:8px;cursor:grab;touch-action:none}
+.scratch-hidden{opacity:0;max-height:0;overflow:hidden;transition:opacity .5s ease}
 .q{font-family:'Playfair Display',serif;font-weight:800;font-size:18px;color:var(--gold-2);margin:20px 0 4px}
 
 /* ===================== CONFIRM ===================== */
@@ -228,8 +257,10 @@ var SCENES = [
     caption:'He couldn’t read your signals… so he just said it.',
     think:'If I just keep backing up every time he steps closer… he can’t set the mood and kiss me. Foolproof.',
     say:'I can’t read your body language… but I’d like to kiss you.' },
-  { tag:'The After-Party', title:'Parlor<br>Pizza Bar', motif:'🍸',
-    note:'No pizza, actually, just drinks. And where you schooled me on Malört, Chicago’s most notorious shot. (I still haven’t worked up the nerve to try it.)' },
+  { tag:'The After-Party', malort:true,
+    intro:'No pizza, actually, just drinks. This is where you schooled me on Malört, Chicago’s most notorious shot.',
+    prompt:'make Matt finally try it',
+    react:'…nope. Still no nerve. Malört wins, you win. 🏳️' },
   { tag:'Season Two', title:'There’s a<br>Next Night.', motif:'✨',
     note:'Every good tour gets a second night. Decode the theme of the whole thing to unlock it…' }
 ];
@@ -267,6 +298,7 @@ function renderRecap(){
   var last = sceneIdx === SCENES.length-1;
   if(s.dialogue){ return renderDialogue(s); }
   if(s.fireworks){ return renderFireworks(s); }
+  if(s.malort){ return renderMalort(s); }
   stage.innerHTML =
     '<div class="scene">'+
       skyline()+
@@ -382,26 +414,30 @@ var RIVERWALK_SVG =
   '<line x1="0" y1="152" x2="320" y2="152" stroke="#3c4a63" stroke-width="3"/>'+
   '<g fill="#3c4a63"><rect x="28" y="152" width="3" height="13"/><rect x="98" y="152" width="3" height="13"/>'+
     '<rect x="168" y="152" width="3" height="13"/><rect x="238" y="152" width="3" height="13"/><rect x="300" y="152" width="3" height="13"/></g>'+
-  /* MAN — blue blazer, khaki slacks */
-  '<g>'+
-    '<rect x="102" y="178" width="9" height="58" rx="3" fill="#cbb487"/><rect x="114" y="178" width="9" height="58" rx="3" fill="#cbb487"/>'+
-    '<ellipse cx="106" cy="237" rx="7" ry="3.5" fill="#1c1c22"/><ellipse cx="119" cy="237" rx="7" ry="3.5" fill="#1c1c22"/>'+
-    '<rect x="86" y="120" width="11" height="52" rx="5" fill="#2a4a7c"/><rect x="127" y="120" width="11" height="52" rx="5" fill="#2a4a7c"/>'+
-    '<path d="M90 120 Q92 112 112 110 Q132 112 134 120 L132 184 L92 184 Z" fill="#2f5288"/>'+
-    '<path d="M105 116 L112 140 L119 116 Z" fill="#eef0ee"/><path d="M108 116 L112 130 L116 116 Z" fill="#27406a"/>'+
-    '<rect x="106" y="96" width="12" height="18" rx="5" fill="#e8b894"/><circle cx="112" cy="86" r="14" fill="#e8b894"/>'+
-    '<path d="M98 84 Q99 64 112 64 Q125 64 126 84 Q119 73 112 73 Q105 73 98 84 Z" fill="#2a1c14"/>'+
-  '</g>'+
-  /* WOMAN — black cocktail dress (a step back, to the right) */
-  '<g>'+
-    '<rect x="200" y="176" width="7" height="54" rx="3" fill="#e8b894"/><rect x="210" y="176" width="7" height="54" rx="3" fill="#e8b894"/>'+
-    '<path d="M197 231 l10 0 -1 5 -6 0 z" fill="#1c1c22"/><path d="M211 231 l10 0 -1 5 -6 0 z" fill="#1c1c22"/>'+
-    '<rect x="187" y="120" width="8" height="48" rx="4" fill="#e8b894"/><rect x="221" y="120" width="8" height="48" rx="4" fill="#e8b894"/>'+
-    '<path d="M191 118 Q194 112 208 110 Q222 112 225 118 L219 180 L197 180 Z" fill="#16110f"/>'+
-    '<path d="M197 120 Q208 130 219 120 Q213 113 208 113 Q202 113 197 120 Z" fill="#e8b894"/>'+
-    '<rect x="202" y="96" width="11" height="18" rx="5" fill="#e8b894"/><circle cx="208" cy="86" r="13" fill="#e8b894"/>'+
-    '<path d="M194 82 Q194 62 208 62 Q222 62 222 82 L225 132 Q215 124 212 108 Q210 92 208 92 Q206 92 204 108 Q201 124 191 132 Z" fill="#23160f"/>'+
-  '</g>'+
+'</svg>';
+
+/* Standalone figures (positioned + animated as HTML over the scene). */
+var MAN_SVG =
+'<svg viewBox="0 0 80 176" fill="none" aria-hidden="true">'+
+  '<rect x="30" y="100" width="9" height="70" rx="3" fill="#cbb487"/><rect x="41" y="100" width="9" height="70" rx="3" fill="#cbb487"/>'+
+  '<ellipse cx="34" cy="171" rx="7" ry="3.5" fill="#1c1c22"/><ellipse cx="46" cy="171" rx="7" ry="3.5" fill="#1c1c22"/>'+
+  '<rect x="14" y="50" width="11" height="52" rx="5" fill="#2a4a7c"/><rect x="55" y="50" width="11" height="52" rx="5" fill="#2a4a7c"/>'+
+  '<path d="M18 52 Q20 44 40 42 Q60 44 62 52 L60 104 L20 104 Z" fill="#2f5288"/>'+
+  '<rect x="35" y="30" width="10" height="14" rx="4" fill="#e8b894"/>'+
+  '<path d="M33 44 L40 68 L47 44 Z" fill="#eef0ee"/><path d="M36 44 L40 58 L44 44 Z" fill="#27406a"/>'+
+  '<circle cx="40" cy="20" r="13" fill="#e8b894"/>'+
+  '<path d="M27 19 Q28 5 40 5 Q52 5 53 19 Q47 9 40 9 Q33 9 27 19 Z" fill="#2a1c14"/>'+
+'</svg>';
+var WOMAN_SVG =
+'<svg viewBox="0 0 80 176" fill="none" aria-hidden="true">'+
+  '<rect x="32" y="104" width="7" height="64" rx="3" fill="#e8b894"/><rect x="41" y="104" width="7" height="64" rx="3" fill="#e8b894"/>'+
+  '<path d="M30 169 l9 0 -1 4 -6 0 z" fill="#1c1c22"/><path d="M42 169 l9 0 -1 4 -6 0 z" fill="#1c1c22"/>'+
+  '<rect x="18" y="50" width="8" height="46" rx="4" fill="#e8b894"/><rect x="54" y="50" width="8" height="46" rx="4" fill="#e8b894"/>'+
+  '<path d="M22 52 Q25 44 40 42 Q55 44 58 52 L52 106 L28 106 Z" fill="#16110f"/>'+
+  '<path d="M28 52 Q40 62 52 52 Q46 45 40 45 Q34 45 28 52 Z" fill="#e8b894"/>'+
+  '<rect x="35" y="30" width="10" height="14" rx="4" fill="#e8b894"/>'+
+  '<circle cx="40" cy="20" r="12.5" fill="#e8b894"/>'+
+  '<path d="M27 18 Q27 4 40 4 Q53 4 53 18 L55 72 Q47 64 44 48 Q42 32 40 32 Q38 32 36 48 Q33 64 25 72 Z" fill="#23160f"/>'+
 '</svg>';
 
 function renderFireworks(s){
@@ -410,25 +446,99 @@ function renderFireworks(s){
     '<div class="dscene dscene--night" id="dscene">'+
       '<div class="dscene__tag">'+s.tag+'</div>'+
       '<div class="dscene__title">'+s.title+'</div>'+
-      '<div class="dscene__art"><div class="vstage">'+RIVERWALK_SVG+
+      '<div class="dscene__art"><div class="vstage" id="vstage">'+RIVERWALK_SVG+
+        '<div class="figs">'+
+          '<div class="fig fig--man" id="manFig">'+MAN_SVG+'</div>'+
+          '<div class="fig fig--woman" id="womanFig">'+WOMAN_SVG+'</div>'+
+        '</div>'+
+        '<div class="fxlayer" id="fxlayer"></div>'+
         '<div class="bubble bubble--think" id="bThink">'+s.think+'</div>'+
         '<div class="bubble bubble--say" id="bSay">'+s.say+'</div>'+
       '</div></div>'+
-      '<div class="dscene__cap">'+s.caption+'</div>'+
-      '<div class="dscene__hint" id="dhint">&nbsp;</div>'+
+      '<div class="dscene__hint" id="dhint">🎆 TAP THE SKY</div>'+
+      '<div class="btnrow" id="fwbtn"></div>'+
     '</div>';
-  var step=0;
-  var dscene=document.getElementById('dscene');
+  var vstage=document.getElementById('vstage');
   var hint=document.getElementById('dhint');
-  var showThink=function(){ document.getElementById('bThink').classList.add('show'); hint.textContent='TAP TO CONTINUE'; if(step<1) step=1; };
-  var t=setTimeout(showThink, 750);
-  dscene.onclick=function(){
-    if(step===0){ clearTimeout(t); showThink(); }
-    else if(step===1){
-      document.getElementById('bThink').classList.remove('show');   // her thought fades…
-      document.getElementById('bSay').classList.add('show');        // …he says it anyway
-      step=2;
-    } else { sceneIdx++; renderRecap(); }
+  var fxlayer=document.getElementById('fxlayer');
+  var manFig=document.getElementById('manFig');
+  var womanFig=document.getElementById('womanFig');
+  var phase='play', taps=0, backs=0;
+
+  function launch(px,py){
+    var b=document.createElement('div'); b.className='fxburst'; b.style.left=px+'px'; b.style.top=py+'px';
+    var cols=['#ffd56e','#ff8f7c','#e7c878','#fff3cf'];
+    for(var i=0;i<14;i++){ var p=document.createElement('span'); p.className='fxp';
+      var a=i/14*6.2832, r=20+(i%3)*9;
+      p.style.setProperty('--dx',(Math.cos(a)*r).toFixed(1)+'px');
+      p.style.setProperty('--dy',(Math.sin(a)*r).toFixed(1)+'px');
+      p.style.background=cols[i%4]; b.appendChild(p); }
+    fxlayer.appendChild(b); setTimeout(function(){ b.remove(); }, 950);
+  }
+
+  setTimeout(function(){ if(phase==='play') document.getElementById('bThink').classList.add('show'); }, 800);
+
+  vstage.onclick=function(e){
+    if(phase!=='play') return;
+    var r=vstage.getBoundingClientRect();
+    var y=e.clientY-r.top;
+    if(y > r.height*0.62) return;           // only the sky launches
+    launch(e.clientX-r.left, y); taps++;
+    if(taps>=3){ phase='back'; startBack(); }
+  };
+
+  function startBack(){
+    hint.textContent='👀 HE’S LEANING IN…';
+    document.getElementById('fwbtn').innerHTML='<button class="btn btn--ghost" id="backBtn">← back away!</button>';
+    document.getElementById('backBtn').onclick=function(ev){ ev.stopPropagation(); doBack(); };
+  }
+  function doBack(){
+    backs++;
+    womanFig.style.left=Math.min(52+backs*7,72)+'%';
+    manFig.style.left=(20+backs*7)+'%';
+    if(backs>=3){ corner(); }
+  }
+  function corner(){
+    phase='kiss'; hint.textContent=''; document.getElementById('fwbtn').innerHTML='';
+    document.getElementById('bThink').classList.remove('show');
+    setTimeout(function(){
+      document.getElementById('bSay').classList.add('show');
+      manFig.style.left='59%';                                   // he closes the gap
+      var r=vstage.getBoundingClientRect();
+      launch(r.width*0.5, r.height*0.26);                        // finale burst
+      var h=document.createElement('div'); h.className='kissheart'; h.textContent='💋';
+      h.style.left='64%'; h.style.bottom='58%'; fxlayer.appendChild(h);
+      setTimeout(function(){ h.remove(); }, 1000);
+      setTimeout(function(){
+        document.getElementById('fwbtn').innerHTML='<button class="btn btn--big pulse" id="fwGo">continue →</button>';
+        document.getElementById('fwGo').onclick=function(){ sceneIdx++; renderRecap(); };
+      }, 1100);
+    }, 450);
+  }
+}
+
+/* The Malört mini: tap to make Matt try the shot; he can't handle it. */
+function renderMalort(s){
+  setProg(0);
+  stage.innerHTML =
+    '<div class="malort">'+
+      '<div class="malort__tag">'+s.tag+'</div>'+
+      '<h2 class="malort__title">Malört</h2>'+
+      '<p class="malort__intro">'+s.intro+'</p>'+
+      '<div class="malort__stage"><span class="malort__face" id="mFace">😏</span><span class="malort__glass" id="mGlass">🥃</span></div>'+
+      '<div class="malort__react" id="mReact"></div>'+
+      '<div class="btnrow" id="mbtn"><button class="btn btn--big pulse" id="mBtn">🥃 '+s.prompt+'</button></div>'+
+    '</div>';
+  document.getElementById('mBtn').onclick=function(){
+    var f=document.getElementById('mFace'), g=document.getElementById('mGlass'), r=document.getElementById('mReact');
+    g.classList.add('tip');
+    setTimeout(function(){ f.textContent='🤢'; f.classList.add('shake'); }, 350);
+    setTimeout(function(){ r.textContent=s.react; r.classList.add('show'); }, 750);
+    if(window.posthog) window.posthog.capture('malort_taken');
+    setTimeout(function(){
+      document.getElementById('mbtn').innerHTML='<button class="btn btn--big pulse" id="mGo">continue →</button>';
+      document.getElementById('mGo').onclick=function(){ sceneIdx++; renderRecap(); };
+    }, 1500);
   };
 }
 
@@ -513,26 +623,32 @@ var chosen=null;
 function toReveal(){ chosen=null; renderReveal(PLAN.primary, false); }
 function renderReveal(plan, isFallback){
   setProg(2);
+  var scratch = !isFallback;
   stage.innerHTML =
     '<div class="reveal">'+
       '<div class="reveal__k">'+(solved?'YOU DECODED IT 🎟':'THE THEME WAS “NIGHT” 🎟')+'</div>'+
       '<div class="reveal__lead">'+(isFallback
           ? 'No problem at all. How about this one instead?'
-          : 'Because there’s another one coming. Here’s your next night:')+'</div>'+
+          : 'Because there’s another one coming. Scratch the foil to reveal your next night:')+'</div>'+
       '<div class="ticket">'+
         '<div class="ticket__brand">the redemption tour</div>'+
         '<div class="ticket__sub">SEASON TWO · ADMIT ONE (+1 GOLDENDOODLE)</div>'+
-        '<div class="ticket__day">'+plan.day+'</div>'+
-        '<div class="ticket__sub">'+plan.date+' · 2026</div>'+
+        '<div class="scratchwrap" id="scratchwrap">'+
+          '<div class="ticket__day">'+plan.day+'</div>'+
+          '<div class="ticket__sub">'+plan.date+' · 2026</div>'+
+          (scratch?'<canvas class="scratchcv" id="scratchcv"></canvas>':'')+
+        '</div>'+
         '<div class="ticket__perf"></div>'+
         '<div class="ticket__fine">Venue: a surprise (texted after you confirm) · Doors TBD · Bring your smile and your personality.</div>'+
       '</div>'+
-      '<div class="q">Does '+plan.dow+' work?</div>'+
-      '<div class="btnrow">'+
-        '<button class="btn btn--big pulse" id="yes">Yes, '+plan.dow+' works ✓</button>'+
-        (isFallback
-          ? '<button class="btn btn--ghost" id="no">Neither night works…</button>'
-          : '<button class="btn btn--ghost" id="no">Hmm, '+plan.dow+'’s tough →</button>')+
+      '<div id="afterScratch"'+(scratch?' class="scratch-hidden"':'')+'>'+
+        '<div class="q">Does '+plan.dow+' work?</div>'+
+        '<div class="btnrow">'+
+          '<button class="btn btn--big pulse" id="yes">Yes, '+plan.dow+' works ✓</button>'+
+          (isFallback
+            ? '<button class="btn btn--ghost" id="no">Neither night works…</button>'
+            : '<button class="btn btn--ghost" id="no">Hmm, '+plan.dow+'’s tough →</button>')+
+        '</div>'+
       '</div>'+
     '</div>';
   document.getElementById('yes').onclick=function(){
@@ -542,6 +658,43 @@ function renderReveal(plan, isFallback){
     if(isFallback){ capture('date_neither'); renderConfirm(null,'neither'); }
     else { capture('date_swapped'); renderReveal(PLAN.fallback, true); }
   };
+  if(scratch){
+    initScratch(document.getElementById('scratchcv'), function(){
+      document.getElementById('afterScratch').classList.remove('scratch-hidden');
+      burst(); capture('date_scratched');
+    });
+  }
+}
+
+/* Canvas scratch-off: rub the gold foil away to reveal what's underneath. */
+function initScratch(cv, onDone){
+  if(!cv) return;
+  var wrap=cv.parentNode, w=wrap.clientWidth, h=wrap.clientHeight;
+  cv.width=w; cv.height=h;
+  var ctx=cv.getContext('2d');
+  var g=ctx.createLinearGradient(0,0,w,h);
+  g.addColorStop(0,'#e7c878'); g.addColorStop(.5,'#cba14a'); g.addColorStop(1,'#a87f2e');
+  ctx.fillStyle=g; ctx.fillRect(0,0,w,h);
+  ctx.fillStyle='rgba(58,20,22,.5)'; ctx.textAlign='center';
+  ctx.font='bold 12px "Special Elite", monospace';
+  ctx.fillText('✦ SCRATCH TO REVEAL ✦', w/2, h/2+4);
+  ctx.globalCompositeOperation='destination-out';
+  var drawing=false, done=false;
+  function pos(e){ var r=cv.getBoundingClientRect(), t=e.touches&&e.touches[0];
+    return {x:(t?t.clientX:e.clientX)-r.left, y:(t?t.clientY:e.clientY)-r.top}; }
+  function scratch(e){ if(!drawing) return; e.preventDefault(); var p=pos(e);
+    ctx.beginPath(); ctx.arc(p.x,p.y,19,0,6.2832); ctx.fill(); }
+  function pctClear(){ var d=ctx.getImageData(0,0,w,h).data, n=0, tot=0;
+    for(var i=3;i<d.length;i+=160){ tot++; if(d[i]===0) n++; } return n/tot; }
+  function end(){ if(!drawing) return; drawing=false;
+    if(!done && pctClear()>0.45){ done=true; cv.style.transition='opacity .4s'; cv.style.opacity=0;
+      setTimeout(function(){ cv.remove(); }, 420); onDone(); } }
+  cv.addEventListener('mousedown',function(e){ drawing=true; scratch(e); });
+  cv.addEventListener('mousemove',scratch);
+  window.addEventListener('mouseup',end);
+  cv.addEventListener('touchstart',function(e){ drawing=true; scratch(e); },{passive:false});
+  cv.addEventListener('touchmove',scratch,{passive:false});
+  cv.addEventListener('touchend',end);
 }
 
 /* ===================== CONFIRM / TEXT MATT ===================== */
