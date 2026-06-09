@@ -300,8 +300,8 @@ var LEN        = ANSWER.length;       // word length (board adapts; KISS = 4)
 
 /* The proposed date + fallback. Edit here to change days. */
 var PLAN = {
-  primary:  { day:'SATURDAY', date:'JUNE 13', dow:'Sat', short:'Sat · Jun 13' },
-  fallback: { day:'FRIDAY',   date:'JUNE 12', dow:'Fri', short:'Fri · Jun 12' }
+  primary:  { day:'SATURDAY', date:'JUNE 13', dow:'Sat', short:'Sat · Jun 13', dnum:13 },
+  fallback: { day:'FRIDAY',   date:'JUNE 12', dow:'Fri', short:'Fri · Jun 12', dnum:12 }
 };
 
 /* The Saturday plan — shown as a boarding-pass itinerary after she confirms. */
@@ -885,6 +885,7 @@ function renderItinerary(plan){
       '<div class="bp__shot">Screenshot this for admission.</div>'+
       '<div class="btnrow" style="position:static">'+
         '<a class="btn btn--big btn--red pulse" id="txt" href="'+sms+'">Tap to lock it in (text Matt)</a>'+
+        '<button class="btn btn--ghost" id="cal">Add it to my calendar</button>'+
       '</div>'+
       '<a class="backlink" href="../">← back to the passport</a>'+
     '</div>';
@@ -893,6 +894,27 @@ function renderItinerary(plan){
     try{ localStorage.setItem('next-date-rsvp', JSON.stringify({day:plan.short,mode:'yes'})); }catch(e){}
     var a=document.getElementById('txt'); setTimeout(function(){ a.textContent='✓ Sent. See you '+plan.dow; }, 400);
   });
+  tap(document.getElementById('cal'),function(){
+    addToCal(plan); var c=document.getElementById('cal');
+    setTimeout(function(){ c.textContent='✓ Added. Check your calendar'; }, 300);
+  });
+}
+
+/* Build + download an .ics for the chosen day so she can save the date. */
+function addToCal(plan){
+  var dd=(plan.dnum<10?'0':'')+plan.dnum;
+  function dt(h,mi){ return '202606'+dd+'T'+(h<10?'0':'')+h+(mi<10?'0':'')+mi+'00'; }
+  var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Redemption Tour//Season Two//EN','CALSCALE:GREGORIAN',
+    'BEGIN:VEVENT','UID:redemption-s2-'+plan.dnum+'@mattyeeredemptiontour.com',
+    'DTSTAMP:202606'+dd+'T120000Z','DTSTART:'+dt(17,0),'DTEND:'+dt(23,0),
+    'SUMMARY:Date with Matt · Redemption Tour Season Two','LOCATION:Chicago IL',
+    'DESCRIPTION:5:00 Chicago Boat Company (river cruise) / 7:45 Geja\'s Cafe (dinner) / 9:45 Torali at the Ritz-Carlton (rooftop). Uber covered both ways.',
+    'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  var url=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));
+  var a=document.createElement('a'); a.href=url; a.download='redemption-tour-season-two.ics';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  capture('add_to_calendar',{day:plan.short});
 }
 
 /* ===================== CONFIRM / TEXT MATT ===================== */
