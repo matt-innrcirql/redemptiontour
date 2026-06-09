@@ -252,6 +252,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 .bp__stubgrid .v{font-family:'Special Elite',monospace;font-size:12px}
 .bp__bars{height:34px;border-radius:2px;background:repeating-linear-gradient(90deg,#241a12 0 2px,transparent 2px 4px,#241a12 4px 5px,transparent 5px 8px,#241a12 8px 11px,transparent 11px 13px)}
 .bp__scan{text-align:center;font-size:9px;letter-spacing:.18em;color:#6a5436;margin-top:7px}
+.bp__shot{margin-top:11px;font-size:11px;letter-spacing:.1em;color:var(--gold-2);opacity:.85}
 
 /* ===================== CONFIRM ===================== */
 .done{text-align:center}
@@ -292,9 +293,9 @@ var PLAN = {
 
 /* The Saturday plan — shown as a boarding-pass itinerary after she confirms. */
 var ITINERARY = [
-  { time:'5:00 PM', place:'Chicago Boat Company', kind:'Sunset cruise on the river', attire:'👗 sundress' },
-  { time:'7:45 PM', place:'Geja’s Cafe', kind:'Dinner', attire:'👔 business / nice casual' },
-  { time:'9:45 PM', place:'Torali · The Ritz-Carlton', kind:'Rooftop nightcap', note:'…maybe we’ll make it this time 😉' }
+  { time:'5:00 PM', place:'Chicago Boat Company', kind:'River cruise', attire:'Outfit: sundress' },
+  { time:'7:45 PM', place:'Geja’s Cafe', kind:'Dinner', attire:'Outfit: business / nice casual (honestly, the sundress works here too)' },
+  { time:'9:45 PM', place:'Torali · The Ritz-Carlton', kind:'Rooftop nightcap', attire:'Outfit: dressy (your dinner look is perfect)', note:'…maybe we’ll make it this time' }
 ];
 
 /* Recap scenes — pulled from the real Chicago night. */
@@ -793,13 +794,13 @@ function renderItinerary(plan){
   var sms='sms:'+MATT_PHONE+(/(iphone|ipad|mac)/i.test(navigator.userAgent)?'&':'?')+'body='+encodeURIComponent(body);
   stage.innerHTML=
     '<div class="bpwrap">'+
-      '<div class="reveal__k">YOU’RE BOOKED ✈️</div>'+
+      '<div class="reveal__k">YOU’RE BOOKED</div>'+
       '<div class="boarding">'+
         '<div class="bp__main">'+
-          '<div class="bp__air"><span>✈ REDEMPTION AIRWAYS</span><span>BOARDING PASS</span></div>'+
+          '<div class="bp__air"><span>REDEMPTION AIRWAYS</span><span>BOARDING PASS</span></div>'+
           '<div class="bp__route">'+
             '<div class="bp__pt"><div class="code">JOS</div><div class="sub">Josie</div></div>'+
-            '<div class="bp__plane">✈</div>'+
+            '<div class="bp__plane">→</div>'+
             '<div class="bp__pt"><div class="code">CHI</div><div class="sub">a very good night</div></div>'+
           '</div>'+
           '<div class="bp__grid">'+
@@ -809,7 +810,10 @@ function renderItinerary(plan){
             '<div><label>SEAT</label><div class="v">1A · first class</div></div>'+
           '</div>'+
           '<div class="legs">'+legs+'</div>'+
-          '<div class="bag">🧳 Need a quick change between stops? You’re welcome to drop a bag at the Ritz-Carlton (my hotel), or I’ll hold one for you. hahah</div>'+
+          '<div class="bag">'+
+            '<div>Need a quick change between stops? You’re welcome to drop a bag at the Ritz-Carlton (my hotel), or I’ll hold one for you, hahah.</div>'+
+            '<div style="margin-top:7px">Your Uber is covered both ways, same as last time.</div>'+
+          '</div>'+
         '</div>'+
         '<div class="bp__perf"></div>'+
         '<div class="bp__stub">'+
@@ -822,8 +826,9 @@ function renderItinerary(plan){
           '<div class="bp__scan">BOARD AT 5:00 PM · NO REFUNDS</div>'+
         '</div>'+
       '</div>'+
+      '<div class="bp__shot">Screenshot this for admission.</div>'+
       '<div class="btnrow" style="position:static">'+
-        '<a class="btn btn--big btn--red pulse" id="txt" href="'+sms+'">👉 Tap to lock it in (text Matt) 📲</a>'+
+        '<a class="btn btn--big btn--red pulse" id="txt" href="'+sms+'">Tap to lock it in (text Matt)</a>'+
       '</div>'+
       '<a class="backlink" href="../">← back to the passport</a>'+
     '</div>';
