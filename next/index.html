@@ -26,7 +26,7 @@
   --red:#9c2c25; --navy:#274066;
   --tile:#3a2418; --tile-correct:#cba14a; --tile-present:#8a6d3b; --tile-absent:#2a1b12;
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;touch-action:manipulation}
 html,body{height:100%}
 body{
   font-family:'Special Elite',monospace;color:var(--cream);
@@ -279,6 +279,9 @@ var stage = document.getElementById('stage');
 var progEl = document.getElementById('prog');
 function setProg(n){ Array.prototype.forEach.call(progEl.children,function(i,k){ i.classList.toggle('on', k<=n); }); }
 
+/* Reliable tap on touch: pointerup fires instantly, no 300ms click delay. */
+function tap(el, fn){ if(el) el.addEventListener('pointerup', fn); }
+
 /* ---------------- skyline helper ---------------- */
 function skyline(){
   var b='', x=0, n=0;
@@ -315,9 +318,9 @@ function renderRecap(){
       : '<div class="scene__hint">TAP TO CONTINUE</div>');
 
   if(last){
-    document.getElementById('toPuz').onclick = function(){ capture('recap_finished'); renderPuzzle(); };
+    tap(document.getElementById('toPuz'), function(){ capture('recap_finished'); renderPuzzle(); });
   } else {
-    stage.querySelector('.scene').onclick = function(){ sceneIdx++; renderRecap(); };
+    tap(stage.querySelector('.scene'), function(){ sceneIdx++; renderRecap(); });
   }
 }
 
@@ -372,14 +375,14 @@ function renderDialogue(s){
   var hint=document.getElementById('dhint');
   var showMatt=function(){ document.getElementById('bMatt').classList.add('show'); hint.textContent='TAP TO CONTINUE'; };
   var t=setTimeout(showMatt, 650);
-  dscene.onclick=function(){
+  tap(dscene, function(){
     if(step===0){
       clearTimeout(t); showMatt();          // ensure Matt's line is up
       document.getElementById('bJosie').classList.add('show');
       dscene.classList.add('blushing');
       step=1;
     } else { sceneIdx++; renderRecap(); }
-  };
+  });
 }
 
 /* The fireworks vignette: two standing figures on the Riverwalk, her thought bubble. */
@@ -478,14 +481,12 @@ function renderFireworks(s){
 
   setTimeout(function(){ if(phase==='play') document.getElementById('bThink').classList.add('show'); }, 800);
 
-  vstage.onclick=function(e){
+  vstage.addEventListener('pointerup',function(e){
     if(phase!=='play') return;
     var r=vstage.getBoundingClientRect();
-    var y=e.clientY-r.top;
-    if(y > r.height*0.62) return;           // only the sky launches
-    launch(e.clientX-r.left, y); taps++;
+    launch(e.clientX-r.left, e.clientY-r.top); taps++;   // any tap launches
     if(taps>=3){ phase='back'; startBack(); }
-  };
+  });
 
   function startBack(){
     hint.textContent='👀 HE’S LEANING IN…';

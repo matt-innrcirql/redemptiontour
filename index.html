@@ -193,28 +193,18 @@ body.open .pages{display:block}
 .stamp__date{margin-top:8px;display:inline-block;border:1.5px solid currentColor;border-radius:20px;padding:2px 12px;font-size:10px;letter-spacing:.16em}
 .stamp__go{margin-top:12px;font-size:10px;letter-spacing:.18em;opacity:.7}
 
-/* not-yet stamp (coming soon) — tap to peek a teaser */
-.stamp--tbd{border-style:dashed;border-color:#9a865f;background:rgba(120,90,50,.04);transform:rotate(var(--rot,2deg));cursor:pointer;min-height:148px;display:flex;align-items:center;justify-content:center}
+/* next-date stamp — an inviting, obviously-tappable CTA (launches /next/) */
+.stamp--tbd{border-style:dashed;border-color:var(--gold);background:rgba(203,161,74,.08);transform:rotate(var(--rot,2deg));cursor:pointer;min-height:158px;display:flex;align-items:center;justify-content:center;text-align:center;animation:tbdpulse 2.4s ease-in-out infinite}
 .stamp--tbd::before{display:none}
-.stamp--tbd:hover{transform:rotate(0deg) scale(1.03);box-shadow:0 10px 24px rgba(0,0,0,.18)}
-.stamp--tbd .stamp__title,.stamp--tbd .stamp__place,.stamp--tbd .stamp__no{color:#8a7551}
-.stamp--tbd .stamp__date{border-color:#9a865f;color:#8a7551}
-
-.tbd__front{transition:opacity .25s ease}
-.stamp--tbd.peeked .tbd__front{opacity:.07}
-.tbd__reveal{
-  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:9px;padding:12px;text-align:center;
-  opacity:0;transform:scale(1.6) rotate(-10deg);pointer-events:none;
-  transition:opacity .28s ease, transform .28s cubic-bezier(.2,.9,.3,1.3);
-}
-.stamp--tbd.peeked .tbd__reveal{opacity:1;transform:scale(1) rotate(-5deg)}
-.tbd__seal{
-  font-family:'Playfair Display',serif;font-weight:800;letter-spacing:.18em;font-size:15px;
-  color:var(--stamp-red);border:2.5px solid var(--stamp-red);border-radius:6px;padding:3px 11px;
-  opacity:.92;
-}
-.tbd__msg{font-size:10.5px;line-height:1.55;color:#6a5436}
+@keyframes tbdpulse{0%,100%{box-shadow:0 0 0 rgba(231,200,120,0)}50%{box-shadow:0 8px 32px rgba(231,200,120,.4)}}
+.stamp--tbd:hover,.stamp--tbd:active{transform:rotate(0deg) scale(1.04);box-shadow:0 12px 30px rgba(231,200,120,.5)}
+.stamp--tbd .stamp__no{color:var(--gold)}
+.stamp--tbd .stamp__title{color:var(--gold-2);font-size:19px}
+.stamp--tbd .stamp__place{color:#b89a5e;font-weight:bold}
+.tbd__lock{font-size:30px;display:block;margin:2px 0 6px;animation:lockwiggle 2.6s ease-in-out infinite}
+@keyframes lockwiggle{0%,88%,100%{transform:rotate(0)}92%{transform:rotate(-13deg)}96%{transform:rotate(13deg)}}
+.stamp__cta{margin-top:11px;display:inline-block;background:linear-gradient(180deg,var(--gold-2),var(--gold-deep));color:#3a1416;font-weight:bold;font-size:11px;letter-spacing:.12em;padding:8px 17px;border-radius:22px;box-shadow:0 5px 14px rgba(0,0,0,.35);animation:ctabounce 1.8s ease-in-out infinite}
+@keyframes ctabounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 
 .footer{text-align:center;margin-top:26px;color:var(--gold);opacity:.7;font-size:10px;letter-spacing:.22em}
 .footer .heart{color:var(--stamp-red);opacity:.9}
@@ -345,10 +335,10 @@ var DESTINATIONS = [
     html += '<a class="stamp stamp--tbd" id="tbdStamp" href="next/" style="--rot:2deg">'+
               '<div class="tbd__front">'+
                 '<div class="stamp__no">STAMP '+roman(DESTINATIONS.length+1)+'</div>'+
-                '<div class="stamp__title">To Be Determined</div>'+
-                '<div class="stamp__place">SEALED UNTIL UNLOCKED</div>'+
-                '<div class="stamp__date">PLAY TO REVEAL</div>'+
-                '<div class="stamp__go">🔒 tap to unlock</div>'+
+                '<span class="tbd__lock">🔒</span>'+
+                '<div class="stamp__title">Your Next Date</div>'+
+                '<div class="stamp__place">SEALED · PLAY TO REVEAL</div>'+
+                '<span class="stamp__cta">▶ TAP TO UNLOCK</span>'+
               '</div>'+
             '</a>';
   }
