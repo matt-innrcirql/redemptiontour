@@ -304,8 +304,17 @@ var DESTINATIONS = [
     href:'redemptiontour/',
     kind:'red',
     rot:-3
+  },
+  {
+    no:'STAMP II',
+    title:'Season Two',
+    place:'CHICAGO · ILLINOIS',
+    date:'JUN 13 · 2026',
+    href:'next/',
+    kind:'navy',
+    rot:2
   }
-  // Next date? add: { no:'STAMP II', title:'…', place:'…', date:'…', href:'folder/', kind:'navy', rot:2 }
+  // Next date? add: { no:'STAMP IV', title:'…', place:'…', date:'…', href:'folder/', kind:'navy', rot:2 }
 ];
 
 (function(){
@@ -321,19 +330,19 @@ var DESTINATIONS = [
               '<div class="stamp__go">↦ RE-ENTER</div>'+
             '</a>';
   });
-  // the interactive "next destination" stamp — unlocks the Season Two experience.
-  // If she's already RSVP'd, reflect it instead of the locked teaser.
+  // the interactive "next destination" stamp — unlocks the Season Three experience (homeshow/).
+  // If she's already RSVP'd to Season Three, reflect it instead of the teaser.
   var rsvp=null; try{ rsvp=JSON.parse(localStorage.getItem('next-date-rsvp')); }catch(e){}
-  if(rsvp && rsvp.mode && rsvp.mode!=='neither'){
-    html += '<a class="stamp stamp--navy" href="next/" style="--rot:2deg" data-title="Season Two">'+
+  if(rsvp && rsvp.season==='three' && rsvp.mode && rsvp.mode!=='neither'){
+    html += '<a class="stamp stamp--red" href="homeshow/" style="--rot:-2deg" data-title="Season Three">'+
               '<div class="stamp__no">STAMP '+roman(DESTINATIONS.length+1)+'</div>'+
-              '<div class="stamp__title">Season Two</div>'+
-              '<div class="stamp__place">SURPRISE · TBD</div>'+
+              '<div class="stamp__title">Season Three</div>'+
+              '<div class="stamp__place">THE ONE AT JOSIE’S</div>'+
               '<div class="stamp__date">'+(rsvp.day||'').toUpperCase()+'</div>'+
               '<div class="stamp__go">✓ YOU’RE IN ↦</div>'+
             '</a>';
   } else {
-    html += '<a class="stamp stamp--tbd" id="tbdStamp" href="next/" style="--rot:2deg">'+
+    html += '<a class="stamp stamp--tbd" id="tbdStamp" href="homeshow/" style="--rot:-2deg">'+
               '<div class="tbd__front">'+
                 '<div class="stamp__no">STAMP '+roman(DESTINATIONS.length+1)+'</div>'+
                 '<div class="next__hand" aria-hidden="true">👇</div>'+
@@ -353,7 +362,7 @@ var DESTINATIONS = [
 
   function roman(n){return ['','I','II','III','IV','V','VI','VII','VIII','IX','X'][n]||n;}
 
-  // the "next destination" stamp links to the Season Two experience (next/)
+  // the "next destination" stamp links to the Season Three experience (homeshow/)
   var tbd = document.getElementById('tbdStamp');
   if(tbd){
     tbd.addEventListener('click', function(){

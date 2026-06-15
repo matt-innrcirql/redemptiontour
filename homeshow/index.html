@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>The One Where They Made It Exclusive · The Redemption Tour</title>
+<meta name="description" content="Previously on the Redemption Tour: the boat, the fondue, the question. Season 3, Episode 6." />
+
+<!-- PostHog (same public client token as the hub + tour). -->
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('phc_zhordsTx3ucwQ5EmMbxctXqdE4L7eqz8gE79R5fhAHBk', {
+    api_host: 'https://us.i.posthog.com', defaults: '2026-01-30',
+    autocapture: true, capture_pageview: true, session_recording: { maskAllInputs: true }
+  });
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Special+Elite&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --ink:#241a12; --burg:#5d1a1c; --burg2:#430f12; --gold:#cba14a; --gold-2:#e7c878;
+  --gold-deep:#a87f2e; --cream:#f3e7cb; --paper:#ece0c2; --paper-line:#d8c79e;
+  --red:#9c2c25; --navy:#274066;
+  --butter:#f4d27a; --kitchen:#3a2a1a;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;touch-action:manipulation}
+html,body{height:100%}
+body{
+  font-family:'Special Elite',monospace;color:var(--cream);
+  background:radial-gradient(1100px 700px at 50% -5%, #3a1416 0%, transparent 60%),
+             repeating-linear-gradient(135deg,#2a0f10 0 22px,#280e0f 22px 44px),#220c0d;
+  min-height:100%;overflow-x:hidden;
+}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+.app{max-width:560px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;padding:18px 18px 30px}
+
+/* ---- top brand + progress ---- */
+.brand{text-align:center;margin-bottom:10px}
+.brand__k{font-family:'Caveat',cursive;font-size:22px;color:var(--gold-2);line-height:1}
+.brand__t{font-family:'Anton',sans-serif;letter-spacing:.06em;font-size:13px;color:var(--gold);opacity:.85}
+.brand__u{font-family:'Anton',sans-serif;letter-spacing:.34em;font-size:9px;color:var(--gold-2);opacity:.7;margin-top:3px}
+.prog{display:flex;gap:6px;justify-content:center;margin:10px 0 6px}
+.prog i{width:26px;height:3px;border-radius:2px;background:rgba(231,200,120,.25);transition:background .3s}
+.prog i.on{background:var(--gold-2)}
+/* Friends-logo colored dots */
+.fdots{display:flex;gap:7px;justify-content:center;margin:7px 0 2px}
+.fdots i{width:7px;height:7px;border-radius:50%;display:inline-block;box-shadow:0 0 6px rgba(0,0,0,.4)}
+.fdots--lg{gap:11px;margin:10px 0}
+.fdots--lg i{width:11px;height:11px}
+
+.stage{flex:1;display:flex;flex-direction:column;justify-content:center;animation:fade .45s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ===================== RECAP SCENES ===================== */
+.scene{
+  position:relative;border-radius:18px;overflow:hidden;
+  min-height:62dvh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:26px 22px;color:#fff;cursor:pointer;
+  box-shadow:0 24px 60px rgba(0,0,0,.5);border:1px solid rgba(231,200,120,.25);
+  background:linear-gradient(180deg,#1a2540 0%,#3a2742 55%,#5a2a2c 100%);
+}
+.scene__motif{position:absolute;top:8%;left:50%;transform:translateX(-50%);font-size:74px;
+  filter:drop-shadow(0 8px 22px rgba(0,0,0,.5));opacity:.96}
+.scene__grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(20,8,9,.2) 60%,rgba(20,8,9,.9) 100%)}
+.scene__body{position:relative;z-index:2}
+.scene__tag{font-family:'Anton',sans-serif;letter-spacing:.16em;font-size:12px;color:var(--gold-2);text-transform:uppercase}
+.scene__title{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(26px,8vw,38px);line-height:1.04;margin:6px 0 8px;text-shadow:0 2px 18px rgba(0,0,0,.6)}
+.scene__note{font-size:14px;line-height:1.6;color:#f3ead7;max-width:34ch;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.scene__hint{position:relative;z-index:2;text-align:center;margin-top:16px;font-size:11px;letter-spacing:.28em;color:var(--gold-2);opacity:.85;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+/* Friends-style episode title card (purple door + gold peephole frame + couch) */
+.tcard{position:relative;border-radius:18px;overflow:hidden;min-height:62dvh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:30px 22px;cursor:pointer;
+  background:linear-gradient(180deg,#3a2152 0%,#2a1740 58%,#190d28 100%);
+  box-shadow:0 24px 60px rgba(0,0,0,.5);border:1px solid rgba(231,200,120,.25)}
+.tcard::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 2px,transparent 2px 27px)}
+.tcard__frame{position:relative;z-index:2;border:4px solid var(--gold-2);border-radius:6px;padding:22px 20px;text-align:center;
+  box-shadow:0 0 0 2px #190d28, inset 0 0 0 2px #190d28, 0 14px 40px rgba(0,0,0,.5);
+  background:linear-gradient(180deg,rgba(58,33,82,.45),rgba(25,13,40,.55))}
+.tcard__prev{font-family:'Special Elite',monospace;font-size:10px;letter-spacing:.26em;color:var(--gold-2);opacity:.9;text-transform:uppercase}
+.tcard__the{font-family:'Anton',sans-serif;letter-spacing:.16em;font-size:14px;color:#fff;margin-top:12px;opacity:.92}
+.tcard__one{font-family:'Playfair Display',serif;font-weight:800;font-style:italic;font-size:clamp(27px,8.6vw,40px);line-height:1.03;color:#fff;margin:5px 0 8px;text-shadow:0 2px 16px rgba(0,0,0,.6)}
+.tcard__couch{position:relative;z-index:2;width:150px;margin-top:22px;opacity:.96;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5))}
+.tcard__sig{position:relative;z-index:2;margin-top:14px;font-family:'Caveat',cursive;font-size:18px;color:var(--gold-2);text-align:center;max-width:30ch}
+
+/* generic interactive vignette frame (boat / bar / fondue / bed) */
+.dscene{position:relative;border-radius:18px;overflow:hidden;min-height:62dvh;display:flex;flex-direction:column;
+  box-shadow:0 24px 60px rgba(0,0,0,.5);border:1px solid rgba(231,200,120,.25);cursor:pointer;
+  background:radial-gradient(58% 46% at 50% 60%, #5a3320 0%, #34190f 52%, #1a0c08 100%);}
+.dscene--night{background:linear-gradient(180deg,#0a1430 0%,#15233f 48%,#1d2942 70%,#0c1525 100%)}
+.dscene--park{background:linear-gradient(180deg,#6a4a5a 0%,#7a5642 22%,#46553a 50%,#243a20 100%)}
+.dscene--river{background:linear-gradient(180deg,#0c1b32 0%,#13314e 55%,#0b2236 100%)}
+.dscene--bed{background:radial-gradient(60% 50% at 50% 40%,#2a1c34 0%,#1a1224 60%,#100a18 100%)}
+.dscene__tag{position:absolute;top:16px;left:0;right:0;text-align:center;font-family:'Anton',sans-serif;letter-spacing:.16em;font-size:12px;color:var(--gold-2);z-index:3}
+.dscene__title{position:absolute;top:33px;left:0;right:0;text-align:center;font-family:'Playfair Display',serif;font-weight:800;font-size:26px;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.6);z-index:3}
+.dscene__art{flex:1;position:relative;display:flex;align-items:center;justify-content:center}
+.vstage{position:relative;width:100%;max-width:340px;aspect-ratio:320/260}
+.vstage > svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.dscene__cap{position:absolute;bottom:34px;left:0;right:0;text-align:center;font-size:12px;font-style:italic;color:var(--gold-2);z-index:3;padding:0 22px}
+.dscene__hint{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:.28em;color:var(--gold-2);opacity:.85;z-index:3;animation:pulse 2s infinite}
+.skycue{position:absolute;top:14%;left:50%;transform:translateX(-50%);font-size:34px;z-index:4;
+  pointer-events:none;animation:skybob 1.1s ease-in-out infinite;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
+@keyframes skybob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-9px)}}
+
+/* speech / thought bubbles (shared) */
+.bubble{position:absolute;z-index:4;max-width:62%;background:#f6eed7;color:#2a1810;border-radius:14px;padding:10px 13px;
+  font-size:13px;line-height:1.4;box-shadow:0 8px 20px rgba(0,0,0,.45);
+  opacity:0;transform:scale(.5);transform-origin:var(--orig,bottom left);
+  transition:opacity .25s ease, transform .35s cubic-bezier(.2,.9,.3,1.5)}
+.bubble.show{opacity:1;transform:scale(1)}
+.bubble::after{content:"";position:absolute;bottom:-8px;border:8px solid transparent;border-top-color:#f6eed7}
+.bubble--matt{top:12%;left:5%;--orig:bottom left}
+.bubble--matt::after{left:26px}
+.bubble--josie{top:30%;right:5%;--orig:bottom right;font-family:'Caveat',cursive;font-size:23px;background:#fff0f0;color:#9c2c25;padding:6px 16px}
+.bubble--josie::after{right:26px;border-top-color:#fff0f0}
+.bubble__sig{display:block;margin-top:6px;text-align:right;font-family:'Caveat',cursive;font-style:normal;font-size:17px;color:#9c2c25}
+.bubble--think{left:28%;right:5%;bottom:70%;top:auto;--orig:bottom center;font-size:12px;font-style:italic;padding:9px 12px}
+.bubble--think::after{left:44%;right:auto;bottom:-7px;border:none;width:9px;height:9px;border-radius:50%;background:#f6eed7;box-shadow:-9px 9px 0 -2px #f6eed7}
+.blush{opacity:0;transition:opacity .4s ease}
+.blushing .blush{opacity:.7}
+.flicker{transform-box:fill-box;transform-origin:center bottom;animation:flick 1.3s ease-in-out infinite}
+@keyframes flick{0%,100%{opacity:.95;transform:scaleY(1)}50%{opacity:.62;transform:scaleY(.82)}}
+.bob{animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-7px) rotate(1deg)}}
+/* boat wave + splash */
+.wave{position:absolute;top:22%;left:100%;width:118px;margin-left:-59px;opacity:0;pointer-events:none;z-index:5}
+.wave.go{animation:waveroll 1.15s cubic-bezier(.35,.6,.3,1) forwards}
+@keyframes waveroll{0%{left:100%;opacity:0;transform:scaleX(.8)}25%{opacity:1}68%{left:53%;opacity:1;transform:scaleX(1)}100%{left:47%;opacity:0;transform:scale(1.28)}}
+.splashlayer{position:absolute;inset:0;pointer-events:none;z-index:6;overflow:hidden}
+.drop{position:absolute;font-size:15px;opacity:0;pointer-events:none;animation:dropfly .9s ease-out forwards}
+@keyframes dropfly{0%{transform:translate(0,0) scale(.5);opacity:0}20%{opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(1);opacity:0}}
+.rock{animation:rockboat 1s ease-in-out}
+@keyframes rockboat{0%,100%{transform:rotate(0)}20%{transform:rotate(-7deg)}55%{transform:rotate(6deg)}80%{transform:rotate(-3deg)}}
+.heart{position:absolute;z-index:6;opacity:0}
+@keyframes floatheart{0%{transform:scale(.2) translateY(0);opacity:0}25%{opacity:1}100%{transform:scale(1.4) translateY(-46px);opacity:0}}
+
+/* clink spark */
+.spark{position:absolute;font-size:26px;z-index:6;opacity:0}
+.spark.go{animation:sparkpop .7s ease-out forwards}
+@keyframes sparkpop{0%{transform:scale(.2);opacity:0}30%{opacity:1}100%{transform:scale(1.5) translateY(-14px);opacity:0}}
+.glassclink{transition:transform .18s ease}
+.glassclink.l.go{animation:clinkL .5s ease}
+.glassclink.r.go{animation:clinkR .5s ease}
+@keyframes clinkL{0%,100%{transform:translateX(0) rotate(0)}40%{transform:translateX(11px) rotate(8deg)}}
+@keyframes clinkR{0%,100%{transform:translateX(0) rotate(0)}40%{transform:translateX(-11px) rotate(-8deg)}}
+
+/* fondue fork */
+.fork{transition:transform .5s cubic-bezier(.3,.8,.3,1.2)}
+.fork.dip{transform:translateY(40px)}
+.fork.coat .berry{fill:#7a3b16}
+
+/* the rematch (bed) — the "mover" lump slides toward her side; tap to nudge back */
+.lump{transition:transform .45s cubic-bezier(.3,.8,.4,1)}
+.zzz{font-size:20px;opacity:.0;animation:zzz 2.4s ease-in-out infinite}
+@keyframes zzz{0%,100%{opacity:0;transform:translateY(0)}40%{opacity:.8;transform:translateY(-8px)}}
+
+/* ===================== PANCAKE GAME ===================== */
+.pg{display:flex;flex-direction:column;align-items:center;gap:12px}
+.pg__h{text-align:center}
+.pg__h h2{font-family:'Playfair Display',serif;font-weight:800;font-size:22px;color:var(--gold-2);line-height:1.15}
+.pg__h p{font-size:12.5px;opacity:.85;margin-top:5px;max-width:33ch}
+.griddle{position:relative;width:100%;max-width:340px;height:230px;border-radius:16px;overflow:hidden;
+  background:radial-gradient(70% 60% at 50% 28%, #3a2a1a 0%, #241712 60%, #160d09 100%);
+  border:1px solid rgba(231,200,120,.22);box-shadow:0 18px 40px rgba(0,0,0,.5)}
+.stack{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);width:120px;height:120px}
+.cake{position:absolute;left:50%;transform:translateX(-50%);width:104px;height:20px;border-radius:50%;
+  background:radial-gradient(50% 60% at 50% 35%, #f0b964, #c98a3e 70%, #a96f2c);
+  box-shadow:0 3px 0 #8a5a22, inset 0 2px 3px rgba(255,255,255,.3)}
+.cake.pop{animation:cakepop .4s cubic-bezier(.2,.9,.3,1.6)}
+@keyframes cakepop{0%{transform:translateX(-50%) scale(.5) translateY(-22px);opacity:.4}100%{transform:translateX(-50%) scale(1) translateY(0);opacity:1}}
+.pan{position:absolute;left:50%;top:30px;transform:translateX(-50%);width:150px;height:150px;pointer-events:none}
+.pancake-fly{position:absolute;left:50%;top:64px;transform:translateX(-50%);width:78px;height:16px;border-radius:50%;
+  background:radial-gradient(50% 60% at 50% 35%, #f3c071, #cf8f40 70%, #a96f2c);box-shadow:0 3px 0 #8a5a22}
+.pancake-fly.flip{animation:flipcake .62s ease}
+@keyframes flipcake{0%{transform:translateX(-50%) translateY(0) rotate(0)}45%{transform:translateX(-50%) translateY(-78px) rotate(380deg) scale(1.06)}100%{transform:translateX(-50%) translateY(0) rotate(720deg)}}
+.pancake-fly.miss{animation:misscake .6s ease}
+@keyframes misscake{0%{transform:translateX(-50%) translateY(0) rotate(0)}45%{transform:translateX(-30%) translateY(-50px) rotate(160deg)}100%{transform:translateX(40%) translateY(60px) rotate(220deg);opacity:0}}
+.splat{position:absolute;left:60%;bottom:18px;font-size:30px;opacity:0}
+.splat.go{animation:sparkpop .8s ease-out forwards}
+.meter{position:relative;width:100%;max-width:340px;height:30px;border-radius:16px;
+  background:repeating-linear-gradient(90deg,#2a1b12 0 10px,#311f14 10px 20px);
+  border:1px solid rgba(231,200,120,.25);overflow:hidden}
+.meter__zone{position:absolute;top:0;bottom:0;background:linear-gradient(180deg,rgba(120,210,120,.5),rgba(70,170,90,.65));
+  border-left:2px solid #bdf3bd;border-right:2px solid #bdf3bd}
+.meter__zone b{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:9px;letter-spacing:.1em;color:#0c2c12;white-space:nowrap}
+.meter__mark{position:absolute;top:-4px;width:6px;height:38px;background:var(--gold-2);border-radius:3px;box-shadow:0 0 10px rgba(231,200,120,.8)}
+.pg__cakesleft{display:flex;gap:7px;font-size:20px;min-height:24px}
+.pg__cakesleft i{opacity:.28;font-style:normal}
+.pg__cakesleft i.on{opacity:1}
+.pg__react{min-height:22px;text-align:center;font-size:13px;color:var(--gold-2);font-style:italic}
+.pg__skip{font-size:11px;letter-spacing:.1em;color:var(--gold-2);opacity:.7;background:none;border:none;cursor:pointer;text-decoration:underline;font-family:inherit}
+
+/* ===================== BUILD-OUR-SATURDAY PICKER ===================== */
+.picker{display:flex;flex-direction:column;gap:4px}
+.picker__h{text-align:center;margin-bottom:6px}
+.picker__h h2{font-family:'Playfair Display',serif;font-weight:800;font-size:22px;color:var(--gold-2)}
+.picker__h p{font-size:12.5px;opacity:.85;margin-top:4px;max-width:34ch;margin-left:auto;margin-right:auto}
+.prow{background:rgba(231,200,120,.06);border:1px solid rgba(231,200,120,.18);border-radius:14px;padding:11px 12px;margin-top:11px}
+.prow h4{font-family:'Anton',sans-serif;letter-spacing:.08em;font-size:12px;color:var(--gold-2);margin-bottom:9px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-family:'Special Elite',monospace;font-size:13px;color:var(--cream);cursor:pointer;
+  background:rgba(58,36,24,.5);border:1.5px solid rgba(231,200,120,.35);border-radius:18px;padding:9px 13px;transition:transform .12s ease,background .2s ease,border-color .2s ease}
+.chip:active{transform:scale(.94)}
+.chip.sel{background:linear-gradient(180deg,var(--gold-2),var(--gold-deep));color:#3a1416;border-color:var(--gold-2);font-weight:bold}
+.pick-react{min-height:18px;margin-top:8px;font-size:12px;color:var(--gold-2);font-style:italic;opacity:0;transition:opacity .3s ease}
+.pick-react.show{opacity:1}
+.pinput{width:100%;font-family:'Special Elite',monospace;font-size:14px;color:var(--cream);
+  background:rgba(58,36,24,.5);border:1.5px solid rgba(231,200,120,.35);border-radius:12px;padding:11px 13px;outline:none}
+.pinput:focus{border-color:var(--gold-2);background:rgba(58,36,24,.72)}
+.pinput::placeholder{color:rgba(243,231,203,.42)}
+
+/* generic big button */
+.btn{display:inline-block;border:none;cursor:pointer;font-family:'Special Elite',monospace;
+  background:linear-gradient(180deg,var(--gold-2),var(--gold-deep));color:#3a1416;
+  padding:15px 22px;border-radius:30px;font-size:15px;letter-spacing:.04em;font-weight:bold;
+  box-shadow:0 10px 26px rgba(0,0,0,.4);transition:transform .12s ease, box-shadow .12s ease;
+  text-decoration:none;text-align:center;width:100%}
+.btn:active{transform:translateY(2px)}
+.btn[disabled]{opacity:.4;cursor:default}
+.btn--ghost{background:transparent;color:var(--gold-2);border:1.5px solid rgba(231,200,120,.5);box-shadow:none}
+.btn--red{background:linear-gradient(180deg,#c0473f,#7d2019);color:#fff5ee}
+.btn--big{font-size:17px;padding:17px 22px}
+.btn.pulse{animation:btnpulse 1.6s ease-in-out infinite}
+@keyframes btnpulse{0%,100%{box-shadow:0 10px 26px rgba(0,0,0,.4)}50%{box-shadow:0 10px 40px rgba(231,200,120,.6)}}
+.btnrow{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+
+/* ===================== REVEAL (ticket) ===================== */
+.reveal{text-align:center}
+.reveal__k{font-family:'Anton',sans-serif;letter-spacing:.14em;color:var(--gold-2);font-size:13px}
+.reveal__lead{font-size:14px;line-height:1.6;margin:8px auto 18px;max-width:31ch;color:#f3ead7}
+.ticket{position:relative;background:linear-gradient(180deg,#f7eece,var(--cream));color:var(--ink);
+  border-radius:14px;padding:22px 18px;box-shadow:0 22px 50px rgba(0,0,0,.5);overflow:hidden}
+.ticket::before,.ticket::after{content:"";position:absolute;width:26px;height:26px;border-radius:50%;
+  background:#220c0d;top:50%;transform:translateY(-50%)}
+.ticket::before{left:-14px}.ticket::after{right:-14px}
+.ticket__brand{font-family:'Caveat',cursive;font-size:20px;color:var(--burg)}
+.ticket__day{font-family:'Anton',sans-serif;font-size:clamp(30px,11vw,52px);line-height:1;color:var(--burg);letter-spacing:.02em;margin:6px 0}
+.ticket__sub{font-size:12px;letter-spacing:.18em;color:#6a5436}
+.ticket__perf{border-top:2px dashed var(--paper-line);margin:14px -18px;}
+.ticket__fine{font-size:11px;color:#6a5436;line-height:1.6;padding-top:2px}
+.scratchwrap{position:relative;display:inline-block;padding:4px 14px;min-width:240px}
+.scratchcv{position:absolute;inset:0;width:100%;height:100%;border-radius:8px;cursor:grab;touch-action:none}
+.scratch-hidden{opacity:0;max-height:0;overflow:hidden;transition:opacity .5s ease}
+.q{font-family:'Playfair Display',serif;font-weight:800;font-size:18px;color:var(--gold-2);margin:20px 0 4px}
+
+/* ===================== SET LIST (itinerary) ===================== */
+.bpwrap{text-align:center}
+.setlist{position:relative;background:linear-gradient(180deg,#f7eece,var(--cream));color:var(--ink);
+  border-radius:14px;text-align:left;box-shadow:0 22px 50px rgba(0,0,0,.5);overflow:hidden;margin-top:10px}
+.sl__main{padding:16px 18px 14px}
+.sl__air{display:flex;justify-content:space-between;font-family:'Anton',sans-serif;letter-spacing:.08em;
+  font-size:12px;color:var(--burg);border-bottom:2px solid var(--paper-line);padding-bottom:8px}
+.sl__title{font-family:'Playfair Display',serif;font-weight:800;font-size:22px;color:var(--burg);margin:12px 0 2px;text-align:center}
+.sl__date{text-align:center;font-size:11px;letter-spacing:.18em;color:#6a5436;margin-bottom:6px}
+.legs{border-top:1.5px solid var(--paper-line);margin-top:8px;padding-top:10px;display:flex;flex-direction:column;gap:11px}
+.leg{display:flex;gap:12px;align-items:flex-start}
+.leg__time{font-family:'Anton',sans-serif;font-size:13px;color:var(--burg);min-width:78px;letter-spacing:.02em}
+.leg__place{font-family:'Playfair Display',serif;font-weight:800;font-size:15px;line-height:1.1}
+.leg__kind{font-size:11px;color:#6a5436;margin-top:1px}
+.bag{margin-top:13px;font-size:11.5px;line-height:1.55;color:#6a5436;background:rgba(120,90,50,.08);padding:9px 11px;border-radius:6px}
+.sl__perf{position:relative;border-top:2px dashed var(--paper-line)}
+.sl__perf::before,.sl__perf::after{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:#220c0d;top:-10px}
+.sl__perf::before{left:-10px}.sl__perf::after{right:-10px}
+.sl__stub{padding:12px 18px 14px;background:rgba(203,161,74,.12)}
+.sl__stubrow{display:flex;justify-content:space-between;font-family:'Special Elite',monospace;font-size:12px;color:var(--ink);margin-bottom:9px}
+.sl__stubrow label{display:block;font-size:8px;letter-spacing:.16em;color:#8a7551}
+.sl__bars{height:30px;border-radius:2px;background:repeating-linear-gradient(90deg,#241a12 0 2px,transparent 2px 4px,#241a12 4px 5px,transparent 5px 8px,#241a12 8px 11px,transparent 11px 13px)}
+.sl__scan{text-align:center;font-size:9px;letter-spacing:.18em;color:#6a5436;margin-top:7px}
+.sl__shot{margin-top:11px;font-size:11px;letter-spacing:.1em;color:var(--gold-2);opacity:.85}
+
+/* ===================== EASY-DAY PLAN (no big itinerary) ===================== */
+.easycard{position:relative;background:linear-gradient(180deg,#f7eece,var(--cream));color:var(--ink);
+  border-radius:14px;padding:20px 20px 22px;box-shadow:0 22px 50px rgba(0,0,0,.5);text-align:left;margin-top:10px}
+.easycard__brand{font-family:'Caveat',cursive;font-size:21px;color:var(--burg);text-align:center}
+.easycard__sub{text-align:center;font-size:10px;letter-spacing:.22em;color:#8a7551;margin-top:2px}
+.easycard__title{font-family:'Playfair Display',serif;font-weight:800;font-size:24px;color:var(--burg);text-align:center;margin:12px 0 2px}
+.easycard__date{text-align:center;font-size:11px;letter-spacing:.12em;color:#6a5436;margin-bottom:12px}
+.easylist{list-style:none;margin:0;padding:0;border-top:1.5px solid var(--paper-line)}
+.easylist li{position:relative;padding:10px 4px 10px 26px;font-size:14px;line-height:1.45;color:var(--ink);border-bottom:1px dashed var(--paper-line)}
+.easylist li::before{content:"♥";position:absolute;left:6px;top:11px;color:var(--burg);font-size:12px}
+.easycard__note{margin-top:14px;font-size:12px;line-height:1.6;color:#6a5436;font-style:italic}
+.ibtfy{display:block;margin-top:9px;font-style:normal;letter-spacing:.03em;color:var(--burg);font-family:'Special Elite',monospace}
+
+/* ===================== FRIENDS FRAMING CARDS (reused) ===================== */
+.fcard{position:relative;border-radius:18px;overflow:hidden;padding:26px 22px;text-align:center;
+  background:linear-gradient(180deg,#3a2152 0%,#2a1740 60%,#190d28 100%);
+  box-shadow:0 24px 60px rgba(0,0,0,.5);border:1px solid rgba(231,200,120,.25)}
+.fcard::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 2px,transparent 2px 27px)}
+.fcard>*{position:relative;z-index:2}
+.fcard--tap{cursor:pointer}
+.fcard__kicker{font-family:'Anton',sans-serif;letter-spacing:.18em;font-size:12px;color:var(--gold-2);text-transform:uppercase}
+.fcard__title{font-family:'Playfair Display',serif;font-weight:800;font-style:italic;font-size:clamp(24px,8vw,36px);line-height:1.05;color:#fff;margin:8px 0;text-shadow:0 2px 16px rgba(0,0,0,.6)}
+.fcard__lead{font-size:14px;line-height:1.6;color:#efe6f2;max-width:32ch;margin:6px auto 14px}
+.fcard__note{font-size:13px;line-height:1.6;color:#e7dcec;max-width:34ch;margin:12px auto 4px;font-style:italic}
+.fcard__note .ibtfy{color:var(--gold-2);font-style:normal}
+.fcard__date{font-size:11px;letter-spacing:.14em;color:var(--gold-2);margin:2px 0 8px}
+.fcard__couch{width:140px;margin:16px auto 8px;display:block;opacity:.96;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5))}
+.revealframe{position:relative;border:4px solid var(--gold-2);border-radius:8px;padding:20px 16px;margin:10px auto 4px;max-width:300px;min-height:118px;
+  box-shadow:0 0 0 2px #190d28, inset 0 0 0 2px #190d28;background:linear-gradient(180deg,rgba(58,33,82,.45),rgba(25,13,40,.55));
+  display:flex;align-items:center;justify-content:center}
+.rf__date{font-family:'Anton',sans-serif;font-size:21px;color:var(--gold-2);letter-spacing:.03em;margin-top:8px}
+.revealframe__cover{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:5px;
+  background:linear-gradient(180deg,#e7c878,#a87f2e);color:#3a1416;font-family:'Anton',sans-serif;letter-spacing:.14em;font-size:14px;
+  transition:opacity .5s ease;animation:pulse 2s infinite}
+.revealframe__cover.gone{opacity:0;pointer-events:none;animation:none}
+.flist{list-style:none;margin:14px 0 0;padding:0;text-align:left;border-top:1px solid rgba(231,200,120,.25)}
+.flist li{position:relative;padding:9px 4px 9px 24px;font-size:13.5px;line-height:1.45;color:#efe6f2;border-bottom:1px dashed rgba(231,200,120,.18)}
+.flist li::before{content:"♥";position:absolute;left:4px;top:10px;color:var(--gold-2);font-size:11px}
+
+/* ===================== CONFIRM ===================== */
+.done{text-align:center}
+.done__big{font-family:'Playfair Display',serif;font-weight:800;font-size:26px;color:var(--gold-2);line-height:1.15}
+.done__sub{font-size:14px;line-height:1.6;color:#f3ead7;margin:12px auto 22px;max-width:32ch}
+.backlink{display:inline-block;margin-top:22px;color:var(--gold-2);opacity:.7;font-size:12px;letter-spacing:.12em;text-decoration:none}
+
+/* confetti */
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:95;overflow:hidden}
+.confetti i{position:absolute;top:-12px;width:9px;height:14px;opacity:.9;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(108dvh) rotate(720deg);opacity:.9}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="brand">
+    <div class="brand__k">previously on…</div>
+    <div class="brand__t">THE REDEMPTION TOUR</div>
+    <div class="fdots"><i style="background:#e64b3c"></i><i style="background:#3aa0dc"></i><i style="background:#f4c542"></i><i style="background:#56b870"></i></div>
+    <div class="brand__u">SEASON 3 · EPISODE 6</div>
+  </div>
+  <div class="prog" id="prog"><i></i><i></i><i></i></div>
+  <div class="stage" id="stage"></div>
+</div>
+
+<script>
+/* ============================================================
+   Season Three — Unplugged
+   animated recap (the milestone night) → pancake game → build-our-
+   Saturday picker → reveal → set list → text Matt.
+   All client-side; safe on static hosting.
+   ============================================================ */
+var MATT_PHONE = '+12028801652';      // Matt's cell (same as Season Two confirm)
+
+/* The proposed day + fallback. Edit here to change days. */
+var PLAN = {
+  primary:  { day:'SATURDAY', date:'JUNE 20', dow:'Sat', short:'Sat · Jun 20', dnum:20 },
+  fallback: { day:'SUNDAY',   date:'JUNE 21', dow:'Sun', short:'Sun · Jun 21', dnum:21 }
+};
+
+/* Her picks flow into the easy-day plan. Everything optional except pancakes (defaults to plain). */
+var PICKS = { cake:'plain', build:'', afternoon:[], wildcard:'' };
+
+/* Shared Friends-theme bits, reused across every framing card. */
+var FDOTS='<i style="background:#e64b3c"></i><i style="background:#3aa0dc"></i><i style="background:#f4c542"></i><i style="background:#56b870"></i>';
+var COUCH_SVG='<svg viewBox="0 0 160 72" fill="none" aria-hidden="true" style="width:100%">'+
+  '<rect x="14" y="56" width="10" height="13" rx="2" fill="#4a1d10"/><rect x="136" y="56" width="10" height="13" rx="2" fill="#4a1d10"/>'+
+  '<rect x="6" y="28" width="148" height="30" rx="9" fill="#9c3a22"/>'+
+  '<rect x="0" y="22" width="24" height="40" rx="11" fill="#b5532b"/><rect x="136" y="22" width="24" height="40" rx="11" fill="#b5532b"/>'+
+  '<rect x="20" y="10" width="120" height="30" rx="10" fill="#b5532b"/>'+
+  '<rect x="26" y="32" width="52" height="17" rx="6" fill="#c4623a"/><rect x="82" y="32" width="52" height="17" rx="6" fill="#c4623a"/>'+
+'</svg>';
+
+/* ===================== helpers ===================== */
+var stage = document.getElementById('stage');
+var progEl = document.getElementById('prog');
+function setProg(n){ Array.prototype.forEach.call(progEl.children,function(i,k){ i.classList.toggle('on', k<=n); }); }
+function tap(el, fn){ if(el) el.addEventListener('pointerup', fn); }
+function capture(ev,props){ if(window.posthog) window.posthog.capture(ev, props||{}); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+function cap(s){ s=String(s||''); return s.charAt(0).toUpperCase()+s.slice(1); }
+function icsEsc(s){ return String(s||'').replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
+function joinNice(a){ a=a||[]; if(a.length<=1) return a[0]||''; if(a.length===2) return a[0]+' and '+a[1]; return a.slice(0,-1).join(', ')+', and '+a[a.length-1]; }
+
+/* ===================== RECAP ===================== */
+/* Each scene is either a simple motif card or a custom interactive vignette. */
+var SCENES = [
+  { kind:'title' },
+  { kind:'boat' },
+  { kind:'bar' },
+  { kind:'fondue' },
+  { kind:'kiss' },
+  { kind:'question' },
+  { kind:'rematch' },
+  { kind:'card', tag:'Next time on…', motif:'🛋️', title:'The One With<br>the Lazy Saturday',
+    note:'Season 3, Episode 6. No Central Perk, no rooftop. Just your place, my (plain) just-for-you famous pancakes, and a furniture box that won’t build itself. Could this BE any cozier? Unlock it…' }
+];
+
+var sceneIdx = 0;
+function renderRecap(){
+  setProg(0);
+  var s = SCENES[sceneIdx];
+  if(s.kind==='title')    return renderTitleCard(s);
+  if(s.kind==='boat')     return renderBoat(s);
+  if(s.kind==='bar')      return renderBar(s);
+  if(s.kind==='fondue')   return renderFondue(s);
+  if(s.kind==='kiss')     return renderKiss(s);
+  if(s.kind==='question') return renderQuestion(s);
+  if(s.kind==='rematch')  return renderRematch(s);
+  // Friends-themed framing card (e.g. "Next time on…")
+  var last = sceneIdx === SCENES.length-1;
+  stage.innerHTML =
+    '<div class="fcard'+(last?'':' fcard--tap')+'" id="scn">'+
+      '<div class="fdots fdots--lg">'+FDOTS+'</div>'+
+      '<div class="fcard__kicker">'+s.tag+'</div>'+
+      '<div class="fcard__title">'+s.title+'</div>'+
+      '<div class="fcard__couch">'+COUCH_SVG+'</div>'+
+      '<div class="fcard__note">'+s.note+'</div>'+
+      '<div class="fdots">'+FDOTS+'</div>'+
+    '</div>'+
+    (last
+      ? '<div class="btnrow"><button class="btn btn--big pulse" id="toGame">Unlock the next episode →</button></div>'
+      : '<div class="scene__hint">TAP TO CONTINUE</div>');
+  if(last){ tap(document.getElementById('toGame'), function(){ capture('recap_finished'); renderGame(); }); }
+  else { tap(document.getElementById('scn'), next); }
+}
+function next(){ sceneIdx++; renderRecap(); }
+function contBtn(id){ return '<div class="btnrow"><button class="btn btn--big pulse" id="'+id+'">continue →</button></div>'; }
+
+/* The Friends-style episode title card: "THE ONE WHERE THEY MADE IT EXCLUSIVE". */
+function renderTitleCard(){
+  setProg(0);
+  var COUCH='<svg viewBox="0 0 160 72" fill="none" aria-hidden="true" style="width:100%">'+
+    '<rect x="14" y="56" width="10" height="13" rx="2" fill="#4a1d10"/><rect x="136" y="56" width="10" height="13" rx="2" fill="#4a1d10"/>'+
+    '<rect x="6" y="28" width="148" height="30" rx="9" fill="#9c3a22"/>'+
+    '<rect x="0" y="22" width="24" height="40" rx="11" fill="#b5532b"/><rect x="136" y="22" width="24" height="40" rx="11" fill="#b5532b"/>'+
+    '<rect x="20" y="10" width="120" height="30" rx="10" fill="#b5532b"/>'+
+    '<rect x="26" y="32" width="52" height="17" rx="6" fill="#c4623a"/><rect x="82" y="32" width="52" height="17" rx="6" fill="#c4623a"/>'+
+  '</svg>';
+  var dots='<i style="background:#e64b3c"></i><i style="background:#3aa0dc"></i><i style="background:#f4c542"></i><i style="background:#56b870"></i>';
+  stage.innerHTML=
+    '<div class="tcard" id="scn">'+
+      '<div class="tcard__frame">'+
+        '<div class="tcard__prev">Season 3 · the recap</div>'+
+        '<div class="fdots fdots--lg">'+dots+'</div>'+
+        '<div class="tcard__the">THE ONE WHERE</div>'+
+        '<div class="tcard__one">They Made It<br>Exclusive</div>'+
+        '<div class="fdots fdots--lg">'+dots+'</div>'+
+      '</div>'+
+      '<div class="tcard__couch">'+COUCH+'</div>'+
+      '<div class="tcard__sig">…so naturally, I made you an episode about it.</div>'+
+      '<div class="scene__hint">TAP TO CONTINUE</div>'+
+    '</div>';
+  tap(document.getElementById('scn'), next);
+}
+
+/* ---- little reusable people (heads + shoulders) ---- */
+var MAN_HEAD = '<g><circle cx="0" cy="0" r="13" fill="#e8b894"/><path d="M-13 -1 Q-12 -15 0 -15 Q12 -15 13 -1 Q7 -9 0 -9 Q-7 -9 -13 -1 Z" fill="#2a1c14"/></g>';
+var WOMAN_HEAD = '<g><circle cx="0" cy="0" r="12.5" fill="#e8b894"/><circle class="blush" cx="-6" cy="4" r="3.4" fill="#e08a8a"/><circle class="blush" cx="6" cy="4" r="3.4" fill="#e08a8a"/><path d="M-13 -2 Q-13 -16 0 -16 Q13 -16 13 -2 L15 30 Q7 22 4 8 Q2 -4 0 -4 Q-2 -4 -4 8 Q-7 22 -15 30 Z" fill="#23160f"/></g>';
+
+/* ---------- 2: THE BOAT — they drove the river boat ---------- */
+function renderBoat(){
+  var ART =
+  '<svg viewBox="0 0 320 260" fill="none" aria-hidden="true">'+
+    /* skyline */
+    '<g fill="#0c1c33"><rect x="6" y="70" width="26" height="56"/><rect x="36" y="52" width="16" height="74"/>'+
+      '<rect x="56" y="84" width="30" height="42"/><rect x="232" y="60" width="20" height="66"/>'+
+      '<rect x="256" y="44" width="14" height="82"/><rect x="274" y="78" width="34" height="48"/></g>'+
+    '<g fill="#e7c878" opacity=".5"><rect x="12" y="80" width="3" height="4"/><rect x="22" y="92" width="3" height="4"/>'+
+      '<rect x="40" y="64" width="3" height="4"/><rect x="262" y="56" width="3" height="4"/><rect x="284" y="90" width="3" height="4"/></g>'+
+    /* river */
+    '<rect x="0" y="126" width="320" height="134" fill="#0e2b46"/>'+
+    '<g stroke="#1f4d74" stroke-width="2" opacity=".5"><line x1="20" y1="150" x2="70" y2="150"/><line x1="120" y1="168" x2="180" y2="168"/><line x1="220" y1="150" x2="280" y2="150"/><line x1="60" y1="196" x2="130" y2="196"/></g>'+
+  '</svg>';
+  /* boat: Josie LEFT (passenger princess — never drove), Matt RIGHT at the wheel */
+  var BOAT =
+  '<svg viewBox="0 0 200 120" fill="none" aria-hidden="true" style="width:100%">'+
+    '<ellipse cx="100" cy="104" rx="92" ry="12" fill="#0a2238" opacity=".6"/>'+
+    '<path d="M16 70 Q100 96 184 70 L172 92 Q100 110 28 92 Z" fill="#7b1f23"/>'+
+    '<path d="M22 64 L178 64 L172 74 Q100 92 28 74 Z" fill="#f3e7cb"/>'+
+    '<rect x="60" y="34" width="80" height="10" rx="4" fill="#cba14a"/>'+
+    '<line x1="66" y1="44" x2="66" y2="60" stroke="#cba14a" stroke-width="3"/>'+
+    '<line x1="134" y1="44" x2="134" y2="60" stroke="#cba14a" stroke-width="3"/>'+
+    /* Josie — LEFT, just riding */
+    '<g transform="translate(74,48)">'+WOMAN_HEAD+'</g>'+
+    /* Matt — RIGHT, hands on the wheel */
+    '<g transform="translate(126,46)">'+MAN_HEAD+'</g>'+
+    /* the wheel, on the right, in front of Matt */
+    '<g id="wheel" transform="translate(150,74)"><circle r="12" fill="none" stroke="#e7c878" stroke-width="3"/>'+
+      '<line x1="-12" y1="0" x2="12" y2="0" stroke="#e7c878" stroke-width="2"/><line x1="0" y1="-12" x2="0" y2="12" stroke="#e7c878" stroke-width="2"/></g>'+
+  '</svg>';
+  var WAVE =
+  '<svg viewBox="0 0 120 90" fill="none" aria-hidden="true" style="width:100%">'+
+    '<path d="M4 72 Q18 18 52 36 Q42 4 78 18 Q70 -4 104 14 Q122 26 116 72 Q60 88 4 72 Z" fill="#3a7fb0" opacity=".92"/>'+
+    '<path d="M14 64 Q40 32 70 44 Q98 28 110 58 Q70 76 14 64 Z" fill="#bfe6f5" opacity=".85"/>'+
+    '<circle cx="42" cy="28" r="4" fill="#eaf7ff"/><circle cx="66" cy="20" r="3" fill="#eaf7ff"/><circle cx="88" cy="30" r="4" fill="#eaf7ff"/>'+
+  '</svg>';
+  stage.innerHTML =
+    '<div class="dscene dscene--river" id="dscene">'+
+      '<div class="dscene__tag">The One With the Wave</div>'+
+      '<div class="dscene__title">I Drove.<br>You Rode.</div>'+
+      '<div class="dscene__art"><div class="vstage" id="vstage">'+ART+
+        '<div style="position:absolute;left:50%;top:40%;margin-left:-100px;width:200px;z-index:4" id="boatPos"><div class="bob" id="boatBob">'+BOAT+'</div></div>'+
+        '<div class="wave" id="wave">'+WAVE+'</div>'+
+        '<div class="splashlayer" id="splash"></div>'+
+        '<div class="skycue" id="cue">👆</div>'+
+        '<div class="bubble bubble--matt" id="b1" style="top:8%;max-width:66%">passenger princess, I’ve got the wheel…<span class="bubble__sig">Matt</span></div>'+
+        '<div class="bubble bubble--josie" id="b2" style="top:auto;bottom:30%;right:6%">you SAID it was calm!! 🌊</div>'+
+      '</div></div>'+
+      '<div class="dscene__cap" id="cap">I drove the whole time. You were, respectfully, cargo. Then a wave found us. Okay, mostly me.</div>'+
+      '<div class="dscene__hint" id="hint">TAP TO SEND A WAVE 🌊</div>'+
+    '</div>';
+  var step=0, dscene=document.getElementById('dscene');
+  var wave=document.getElementById('wave'), splash=document.getElementById('splash'), boatBob=document.getElementById('boatBob');
+  function makeDrops(){
+    // origin on Matt's side (~58%); most spray over Matt, only a few DRIFT toward Josie (never a direct hit)
+    var conf=[
+      {dx:6,dy:-32},{dx:18,dy:-26},{dx:30,dy:-18},{dx:40,dy:-6},{dx:12,dy:-38},
+      {dx:26,dy:-30},{dx:38,dy:-22},{dx:2,dy:-22},                 // over Matt
+      {dx:-24,dy:-12},{dx:-34,dy:-4},{dx:-46,dy:4}                 // drifting to Josie
+    ];
+    conf.forEach(function(s){
+      var d=document.createElement('div'); d.className='drop'; d.textContent='💧';
+      d.style.left='58%'; d.style.top='40%';
+      d.style.setProperty('--dx',s.dx+'px'); d.style.setProperty('--dy',s.dy+'px');
+      splash.appendChild(d); setTimeout(function(){ d.remove(); }, 950);
+    });
+    var big=document.createElement('div'); big.className='drop'; big.textContent='💦';
+    big.style.left='60%'; big.style.top='32%'; big.style.fontSize='32px';
+    big.style.setProperty('--dx','4px'); big.style.setProperty('--dy','-4px');
+    splash.appendChild(big); setTimeout(function(){ big.remove(); }, 950);
+  }
+  tap(dscene, function(){
+    if(step===0){ step=1;
+      var c=document.getElementById('cue'); if(c) c.remove();
+      wave.classList.add('go');
+      setTimeout(function(){
+        boatBob.classList.remove('bob'); boatBob.classList.add('rock');
+        makeDrops();
+        document.getElementById('b1').classList.add('show');
+        setTimeout(function(){ document.getElementById('b2').classList.add('show'); }, 520);
+      }, 680);
+      setTimeout(function(){ boatBob.classList.remove('rock'); boatBob.classList.add('bob'); }, 1750);
+      document.getElementById('hint').textContent='TAP TO CONTINUE';
+    } else { next(); }
+  });
+}
+
+/* ---------- 3: THE BAR — old fashioned + sangrita clink ---------- */
+function renderBar(){
+  var GLASSES =
+  '<svg viewBox="0 0 320 240" fill="none" aria-hidden="true">'+
+    /* bar backdrop */
+    '<rect x="0" y="0" width="320" height="240" fill="none"/>'+
+    '<g opacity=".5" stroke="#caa24f" stroke-width="1"><line x1="40" y1="20" x2="40" y2="120"/><line x1="120" y1="14" x2="120" y2="120"/><line x1="200" y1="14" x2="200" y2="120"/><line x1="280" y1="20" x2="280" y2="120"/></g>'+
+    '<g opacity=".45" fill="#8a6d3b"><rect x="28" y="40" width="24" height="60" rx="3"/><rect x="188" y="34" width="24" height="66" rx="3"/><rect x="268" y="44" width="22" height="56" rx="3"/></g>'+
+    /* bar top */
+    '<rect x="0" y="176" width="320" height="64" fill="#3a241a"/><rect x="0" y="170" width="320" height="8" fill="#5a3a26"/>'+
+    /* his — old fashioned (amber, square ice) */
+    '<g class="glassclink l" id="gL"><rect x="92" y="120" width="46" height="48" rx="4" fill="#7a4416" opacity=".82"/>'+
+      '<rect x="92" y="120" width="46" height="48" rx="4" fill="none" stroke="#e3d3a8" stroke-width="1.4"/>'+
+      '<rect x="103" y="128" width="18" height="18" rx="3" fill="#cfe6f0" opacity=".55"/>'+
+      '<circle cx="128" cy="132" r="5" fill="#b5532b"/></g>'+
+    /* hers — sangrita (red) */
+    '<g class="glassclink r" id="gR"><path d="M182 120 L226 120 L218 168 L190 168 Z" fill="#9c2c25" opacity=".85"/>'+
+      '<path d="M182 120 L226 120 L218 168 L190 168 Z" fill="none" stroke="#e3d3a8" stroke-width="1.4"/>'+
+      '<rect x="201" y="108" width="6" height="14" fill="#e3d3a8"/><circle cx="204" cy="106" r="5" fill="#e7c878"/></g>'+
+  '</svg>';
+  stage.innerHTML =
+    '<div class="dscene" id="dscene">'+
+      '<div class="dscene__tag">The One With the Old Fashioned</div>'+
+      '<div class="dscene__title">His &amp; Hers</div>'+
+      '<div class="dscene__art"><div class="vstage">'+GLASSES+
+        '<div class="spark" id="spark" style="left:48%;top:40%">✨</div>'+
+        '<div class="bubble bubble--matt" id="b1" style="top:8%">Old fashioned for me.<span class="bubble__sig">Matt</span></div>'+
+        '<div class="bubble bubble--josie" id="b2" style="top:24%">sangrita 🍷</div>'+
+      '</div></div>'+
+      '<div class="dscene__cap">An old fashioned and a sangrita. A toast to the worst signal-reading in Chicago history.</div>'+
+      '<div class="dscene__hint" id="hint">TAP TO CLINK 🥂</div>'+
+    '</div>';
+  var step=0, dscene=document.getElementById('dscene');
+  tap(dscene, function(){
+    if(step===0){ step=1;
+      document.getElementById('gL').classList.add('go');
+      document.getElementById('gR').classList.add('go');
+      var sp=document.getElementById('spark'); sp.classList.add('go');
+      document.getElementById('b1').classList.add('show');
+      setTimeout(function(){ document.getElementById('b2').classList.add('show'); }, 380);
+      document.getElementById('hint').textContent='TAP TO CONTINUE';
+    } else { next(); }
+  });
+}
+
+/* ---------- 4: GEJA'S FONDUE — dip the strawberry ---------- */
+function renderFondue(){
+  var ART =
+  '<svg viewBox="0 0 320 240" fill="none" aria-hidden="true">'+
+    /* table */
+    '<rect x="0" y="186" width="320" height="54" fill="#2b190f"/><ellipse cx="160" cy="186" rx="150" ry="20" fill="#3a241a"/>'+
+    /* fondue stand + pot */
+    '<rect x="146" y="150" width="28" height="20" fill="#4a3320"/>'+
+    '<ellipse class="flicker" cx="160" cy="150" rx="9" ry="14" fill="#ff9d3c"/>'+
+    '<path d="M120 92 Q160 86 200 92 L192 138 Q160 150 128 138 Z" fill="#caa24f"/>'+
+    '<path d="M120 92 Q160 86 200 92 L198 100 Q160 110 122 100 Z" fill="#7a3b16"/>'+
+    '<ellipse cx="160" cy="95" rx="40" ry="9" fill="#8a4a1c"/>'+
+    /* the fork + berry (animated dip) */
+    '<g class="fork" id="fork"><line x1="160" y1="40" x2="160" y2="74" stroke="#e3d3a8" stroke-width="3"/>'+
+      '<circle class="berry" cx="160" cy="80" r="9" fill="#c0303a"/><path d="M154 73 l6 -5 6 5 z" fill="#3f8f43"/></g>'+
+  '</svg>';
+  stage.innerHTML =
+    '<div class="dscene" id="dscene">'+
+      '<div class="dscene__tag">The One With the Fondue</div>'+
+      '<div class="dscene__title">Fondue.<br>Obviously.</div>'+
+      '<div class="dscene__art"><div class="vstage">'+ART+
+        '<div class="skycue" id="cue">👆</div>'+
+        '<div class="bubble bubble--josie" id="b2" style="top:auto;bottom:34%;right:8%">don’t drop it 😋</div>'+
+      '</div></div>'+
+      '<div class="dscene__cap">Candlelight, chocolate, and the way your eyes looked across the table.</div>'+
+      '<div class="dscene__hint" id="hint">TAP TO DIP 🍓</div>'+
+    '</div>';
+  var step=0, dscene=document.getElementById('dscene'), fork=document.getElementById('fork');
+  tap(dscene, function(){
+    if(step===0){ step=1;
+      document.getElementById('cue').remove();
+      fork.classList.add('dip');
+      setTimeout(function(){ fork.classList.add('coat'); fork.classList.remove('dip'); document.getElementById('b2').classList.add('show'); }, 560);
+      document.getElementById('hint').textContent='TAP TO CONTINUE';
+    } else { next(); }
+  });
+}
+
+/* ---------- 5: THE WALK IN THE PARK — he says he likes kissing her ---------- */
+function renderKiss(){
+  var ART =
+  '<svg viewBox="0 0 320 240" fill="none" aria-hidden="true">'+
+    /* golden-hour sun */
+    '<circle cx="252" cy="52" r="30" fill="#f4d27a" opacity=".35"/>'+
+    '<circle cx="252" cy="52" r="16" fill="#f6e2a4" opacity=".8"/>'+
+    /* distant tree line */
+    '<g fill="#2c4a2e" opacity=".55">'+
+      '<ellipse cx="38" cy="128" rx="34" ry="30"/><ellipse cx="92" cy="124" rx="26" ry="24"/>'+
+      '<ellipse cx="232" cy="126" rx="24" ry="22"/><ellipse cx="284" cy="128" rx="34" ry="30"/>'+
+    '</g>'+
+    /* grass */
+    '<path d="M0 166 Q160 150 320 166 L320 240 L0 240 Z" fill="#27401f"/>'+
+    '<path d="M0 178 Q160 164 320 178 L320 240 L0 240 Z" fill="#2f4d26"/>'+
+    /* winding path */
+    '<path d="M118 240 Q150 198 152 182 Q153 172 169 169 Q185 172 186 184 Q188 208 214 240 Z" fill="#c2a877" opacity=".9"/>'+
+    /* foreground trees */
+    '<g><rect x="30" y="100" width="9" height="44" rx="2" fill="#4a3320"/><ellipse cx="34" cy="90" rx="28" ry="32" fill="#34532c"/></g>'+
+    '<g><rect x="285" y="100" width="9" height="44" rx="2" fill="#4a3320"/><ellipse cx="290" cy="90" rx="28" ry="32" fill="#34532c"/></g>'+
+    /* a park bench */
+    '<g stroke="#5a3a26" stroke-width="3" stroke-linecap="round"><line x1="40" y1="186" x2="78" y2="186"/><line x1="42" y1="186" x2="42" y2="198"/><line x1="76" y1="186" x2="76" y2="198"/><line x1="40" y1="178" x2="78" y2="178"/></g>'+
+    /* the two of them on the path */
+    '<g transform="translate(150,176)"><rect x="-15" y="0" width="30" height="44" rx="13" fill="#3a4a6a"/></g>'+
+    '<g transform="translate(150,160)">'+MAN_HEAD+'</g>'+
+    '<g transform="translate(188,176)"><rect x="-14" y="0" width="28" height="44" rx="13" fill="#8a2f3e"/></g>'+
+    '<g transform="translate(188,160)">'+WOMAN_HEAD+'</g>'+
+  '</svg>';
+  stage.innerHTML =
+    '<div class="dscene dscene--park blushing" id="dscene">'+
+      '<div class="dscene__tag">The One Where He Said It</div>'+
+      '<div class="dscene__title">For the Record…</div>'+
+      '<div class="dscene__art"><div class="vstage">'+ART+
+        '<div class="heart" id="h1" style="left:50%;top:26%;font-size:24px">❤️</div>'+
+        '<div class="bubble bubble--matt" id="b1" style="top:10%;left:5%;max-width:64%">I really like kissing you.<span class="bubble__sig">Matt</span></div>'+
+        '<div class="bubble bubble--josie" id="b2" style="top:32%;right:6%">same 🥰</div>'+
+      '</div></div>'+
+      '<div class="dscene__cap">Just a walk in the park. I told you I like kissing you. You said it right back.</div>'+
+      '<div class="dscene__hint" id="hint">TAP TO CONTINUE</div>'+
+    '</div>';
+  var step=0, dscene=document.getElementById('dscene');
+  setTimeout(function(){ if(step===0) document.getElementById('b1').classList.add('show'); }, 600);
+  tap(dscene, function(){
+    if(step===0){ step=1;
+      document.getElementById('b1').classList.add('show');
+      document.getElementById('b2').classList.add('show');
+      document.getElementById('h1').style.animation='floatheart 1.3s ease-out forwards';
+    } else { next(); }
+  });
+}
+
+/* ---------- 6: THE QUESTION — exclusive (the sincere beat) ---------- */
+function renderQuestion(){
+  var ART =
+  '<svg viewBox="0 0 320 240" fill="none" aria-hidden="true">'+
+    '<g opacity=".5" stroke="#caa24f" stroke-width="1"><line x1="60" y1="10" x2="60" y2="110"/><line x1="160" y1="6" x2="160" y2="110"/><line x1="260" y1="10" x2="260" y2="110"/></g>'+
+    '<rect x="0" y="176" width="320" height="64" fill="#3a241a"/><rect x="0" y="170" width="320" height="8" fill="#5a3a26"/>'+
+    '<g transform="translate(120,150)"><rect x="-16" y="0" width="32" height="30" rx="12" fill="#26303f"/></g>'+
+    '<g transform="translate(120,134)">'+MAN_HEAD+'</g>'+
+    '<g transform="translate(186,150)"><rect x="-15" y="0" width="30" height="30" rx="12" fill="#16110f"/></g>'+
+    '<g transform="translate(186,134)">'+WOMAN_HEAD+'</g>'+
+    /* two glasses still on the bar */
+    '<rect x="150" y="150" width="14" height="18" rx="2" fill="#7a4416" opacity=".8" stroke="#e3d3a8" stroke-width="1"/>'+
+  '</svg>';
+  stage.innerHTML =
+    '<div class="dscene blushing" id="dscene" style="background:radial-gradient(58% 46% at 50% 56%, #4a2f5a 0%, #2a1830 52%, #160c1a 100%)">'+
+      '<div class="dscene__tag">The One Where They Made It Exclusive</div>'+
+      '<div class="dscene__title">One Question</div>'+
+      '<div class="dscene__art"><div class="vstage">'+ART+
+        '<div class="bubble bubble--matt" id="b1" style="top:8%;max-width:70%">No apps, I like you, I like where this is going… can it just be us?<span class="bubble__sig">Matt</span></div>'+
+        '<div class="bubble bubble--josie" id="b2" style="top:40%;right:6%">yes 🤍</div>'+
+        '<div class="heart" id="h1" style="left:46%;top:34%">🤍</div>'+
+        '<div class="heart" id="h2" style="left:56%;top:40%;font-size:20px">🤍</div>'+
+      '</div></div>'+
+      '<div class="dscene__cap" id="cap">No production. Just the truth, out loud. And you said yes.</div>'+
+      '<div class="dscene__hint" id="hint">TAP TO CONTINUE</div>'+
+    '</div>';
+  var step=0, dscene=document.getElementById('dscene');
+  setTimeout(function(){ if(step===0) document.getElementById('b1').classList.add('show'); }, 500);
+  tap(dscene, function(){
+    if(step===0){ step=1;
+      document.getElementById('b1').classList.add('show');
+      setTimeout(function(){
+        document.getElementById('b2').classList.add('show');
+        document.getElementById('h1').style.animation='floatheart 1.4s ease-out forwards';
+        document.getElementById('h2').style.animation='floatheart 1.4s ease-out .2s forwards';
+        burst();
+      }, 500);
+    } else { next(); }
+  });
+}
+
+/* ---------- 7: THE REMATCH — the "mover" bed joke ---------- */
+function renderRematch(){
+  var ART =
+  '<svg viewBox="0 0 320 240" fill="none" aria-hidden="true">'+
+    /* wall + window */
+    '<rect x="0" y="0" width="320" height="240" fill="none"/>'+
+    '<rect x="206" y="26" width="78" height="58" rx="4" fill="#101a30" stroke="#2c3c5a" stroke-width="2"/>'+
+    '<circle cx="245" cy="48" r="9" fill="#e7c878" opacity=".8"/>'+
+    /* headboard + bed */
+    '<rect x="28" y="96" width="264" height="20" rx="6" fill="#3a2740"/>'+
+    '<rect x="22" y="200" width="276" height="30" rx="6" fill="#241830"/>'+
+    /* mattress */
+    '<rect x="30" y="140" width="260" height="64" rx="10" fill="#2a1c34"/>'+
+    /* her pillow (left) + his pillow (right) */
+    '<rect x="44" y="118" width="92" height="34" rx="10" fill="#efe6cf"/>'+
+    '<rect x="184" y="118" width="92" height="34" rx="10" fill="#efe6cf"/>'+
+    /* blanket */
+    '<path d="M30 168 Q160 156 290 168 L290 204 L30 204 Z" fill="#5d1a1c"/>'+
+    '<path d="M30 168 Q160 156 290 168 L290 176 Q160 164 30 176 Z" fill="#7a2a2c"/>'+
+    /* her head (left, settled) */
+    '<g transform="translate(90,134)"><circle cx="0" cy="0" r="12" fill="#e8b894"/><path d="M-12 -2 Q-12 -15 0 -15 Q12 -15 12 -2 L13 6 Q7 0 0 0 Q-7 0 -13 6 Z" fill="#23160f"/></g>'+
+  '</svg>';
+  stage.innerHTML =
+    '<div class="dscene dscene--bed" id="dscene">'+
+      '<div class="dscene__tag">The One the Next Morning</div>'+
+      '<div class="dscene__title">The Rematch</div>'+
+      '<div class="dscene__art"><div class="vstage">'+ART+
+        /* his head — the "mover" — drifts toward her side; nudge it back */
+        '<div class="lump" id="mover" style="position:absolute;left:62%;top:50%;transform:translate(-50%,-50%);font-size:30px">😴</div>'+
+        '<div class="zzz" id="zzz" style="position:absolute;left:70%;top:40%">💤</div>'+
+        '<div class="bubble bubble--josie" id="b2" style="top:12%;right:5%">you sleep on the <i>left</i>?! 😅</div>'+
+        '<div class="bubble bubble--matt" id="b1" style="top:auto;bottom:64%;left:5%">in my defense, I was asleep.<span class="bubble__sig">Matt</span></div>'+
+      '</div></div>'+
+      '<div class="dscene__cap" id="cap">Verdict: I’m a “mover.” You got kicked. We’re calling round two a rematch. 😏</div>'+
+      '<div class="btnrow" id="rbtn"><button class="btn btn--big btn--red pulse" id="nudge">👈 Nudge the mover back (3×)</button></div>'+
+      '<div class="dscene__hint" id="hint">&nbsp;</div>'+
+    '</div>';
+  var mover=document.getElementById('mover'), nudges=0, left=3;
+  document.getElementById('b2').classList.add('show');
+  setTimeout(function(){ document.getElementById('zzz').classList.add('zzz'); }, 200);
+  tap(document.getElementById('nudge'), function(){
+    nudges++; left=3-nudges;
+    mover.style.transition='left .4s cubic-bezier(.3,.8,.4,1)';
+    mover.style.left=Math.max(62-nudges*12,26)+'%';
+    var btn=document.getElementById('nudge');
+    if(left>0){ btn.textContent='👈 He’s drifting back… ('+left+'×)'; }
+    else{
+      btn && btn.parentNode && (document.getElementById('rbtn').innerHTML='');
+      document.getElementById('b1').classList.add('show');
+      mover.textContent='😌';
+      document.getElementById('cap').innerHTML='There. His side. For now. ☺️';
+      setTimeout(function(){
+        document.getElementById('rbtn').innerHTML='<button class="btn btn--big pulse" id="rGo">continue →</button>';
+        tap(document.getElementById('rGo'), next);
+      }, 650);
+    }
+  });
+}
+
+/* ===================== PANCAKE GAME ===================== */
+/* timing meter: tap FLIP when the marker is in the green zone. Stack 3 to win. */
+function renderGame(){
+  setProg(1);
+  PICKS = { cake:'plain', build:'', afternoon:[], wildcard:'' };
+  stage.innerHTML =
+    '<div class="pg">'+
+      '<div class="pg__h"><h2>Flip my famous pancakes 🥞</h2>'+
+        '<p>I keep saying they’re famous. Tap FLIP when the marker’s in the green. Land <b>3</b> and you’ve earned breakfast.</p></div>'+
+      '<div class="pg__cakesleft" id="cakesLeft"><i>🥞</i><i>🥞</i><i>🥞</i></div>'+
+      '<div class="griddle" id="griddle">'+
+        '<div class="pancake-fly" id="flyCake"></div>'+
+        '<div class="splat" id="splat">💦</div>'+
+        '<div class="stack" id="stackArea"></div>'+
+        '<svg class="pan" viewBox="0 0 150 150" aria-hidden="true">'+
+          '<ellipse cx="75" cy="86" rx="60" ry="20" fill="#1c1206"/>'+
+          '<ellipse cx="75" cy="80" rx="60" ry="20" fill="#2c1d10" stroke="#0c0805" stroke-width="3"/>'+
+          '<ellipse cx="75" cy="78" rx="50" ry="15" fill="#3a2818"/>'+
+          '<rect x="132" y="74" width="58" height="9" rx="4" fill="#0c0805"/>'+
+        '</svg>'+
+      '</div>'+
+      '<div class="meter" id="meter">'+
+        '<div class="meter__zone" id="zone"><b>FLIP!</b></div>'+
+        '<div class="meter__mark" id="mark"></div>'+
+      '</div>'+
+      '<div class="pg__react" id="react">&nbsp;</div>'+
+      '<div class="btnrow" style="margin-top:6px"><button class="btn btn--big pulse" id="flipBtn">🔥 FLIP</button></div>'+
+      '<button class="pg__skip" id="skip">I trust you, chef. Skip to the date →</button>'+
+    '</div>';
+  capture('pancake_started');
+
+  var mark=document.getElementById('mark'), zoneEl=document.getElementById('zone');
+  var stackArea=document.getElementById('stackArea'), flyCake=document.getElementById('flyCake');
+  var react=document.getElementById('react'), cakesLeft=document.getElementById('cakesLeft');
+  var pos=0, dir=1, speed=0.8, raf=null, locked=false, made=0, target=3, zoneW=52, zoneStart=24;
+
+  function placeZone(){
+    zoneStart = 12 + Math.random()*(76-zoneW);   // keep zone fully on-track
+    zoneEl.style.left=zoneStart+'%'; zoneEl.style.width=zoneW+'%';
+  }
+  function loop(){
+    pos += dir*speed;
+    if(pos>=100){ pos=100; dir=-1; } if(pos<=0){ pos=0; dir=1; }
+    mark.style.left=pos+'%';
+    raf=requestAnimationFrame(loop);
+  }
+  placeZone(); loop();
+
+  var GOOD=['Chef. 👏','Beautiful flip.','Okay, show-off.','That one’s mine.','Flawless. Famous indeed.'];
+  function flip(){
+    if(locked) return; locked=true;
+    var center=pos, lo=zoneStart, hi=zoneStart+zoneW;
+    var win = center>=lo && center<=hi;
+    if(win){
+      made++;
+      flyCake.classList.add('flip');
+      setTimeout(function(){
+        flyCake.classList.remove('flip');
+        var c=document.createElement('div'); c.className='cake pop';
+        c.style.bottom=(8+(made-1)*15)+'px'; stackArea.appendChild(c);
+        cakesLeft.children[made-1] && cakesLeft.children[made-1].classList.add('on');
+        react.textContent=GOOD[(made-1)%GOOD.length];
+        zoneW=Math.max(40,zoneW-3); speed+=0.1; placeZone();    // gentle ramp
+        if(made>=target){ winGame(); } else { locked=false; }
+      }, 620);
+    } else {
+      flyCake.classList.add('miss');
+      var sp=document.getElementById('splat'); sp.classList.add('go');
+      react.textContent = center<lo ? 'Too early! Patience, chef.' : 'Too late! That one’s on the ceiling. 😬';
+      setTimeout(function(){ flyCake.classList.remove('miss'); sp.classList.remove('go'); locked=false; }, 650);
+    }
+  }
+  tap(document.getElementById('flipBtn'), flip);
+  // tapping the griddle also flips, for fun
+  tap(document.getElementById('griddle'), flip);
+
+  function winGame(){
+    if(raf) cancelAnimationFrame(raf);
+    react.innerHTML='🥞🥞🥞 <b>A perfect stack.</b> Famous confirmed.';
+    capture('pancake_won');
+    burst();
+    setTimeout(renderPicker, 1100);
+  }
+  tap(document.getElementById('skip'), function(){ if(raf) cancelAnimationFrame(raf); capture('pancake_skipped'); renderPicker(); });
+}
+
+/* ===================== BUILD-OUR-SATURDAY PICKER ===================== */
+var PICK_ROWS = [
+  { key:'cake', type:'chips', def:'plain', label:'THE PANCAKES (YOU LIKE ’EM PLAIN)', opts:[
+      {t:'🥞 Plain', v:'plain', r:'Plain. A purist. I respect the discipline. 🥞'},
+      {t:'🍓 Strawberries', v:'strawberries on top', r:'Branching out with strawberries? Look at you.'},
+      {t:'🍌 Banana', v:'banana on top', r:'Banana. Health conscious. Noted.'},
+      {t:'🧈 Extra butter', v:'extra butter', r:'Extra butter. Now we’re talking.'} ] },
+  { key:'build', type:'text', label:'WANT ME TO BUILD ANYTHING? (TOTALLY OPTIONAL)',
+      placeholder:'a desk, that dresser, or nothing at all…', r:'On it. You supervise. 🛠️' },
+  { key:'afternoon', type:'multi', label:'THE AFTERNOON (PICK AS MANY AS YOU WANT)', opts:[
+      {t:'🥕 Farmers market', v:'the farmers market'},
+      {t:'🥾 Nature trail', v:'a nature trail'},
+      {t:'🚶 A long walk', v:'a long walk'},
+      {t:'🛋 Stay in, be lazy', v:'staying in and doing nothing'} ] },
+  { key:'wildcard', type:'text', label:'ANYTHING YOU WANT TO DO… ANYTHING',
+      placeholder:'seriously, anything you want…', r:'Done. Your call goes on the list. ✨' }
+];
+function renderPicker(){
+  setProg(1);
+  PICKS = { cake:'plain', build:'', afternoon:[], wildcard:'' };
+  var rows='';
+  PICK_ROWS.forEach(function(row,ri){
+    var inner;
+    if(row.type==='chips'||row.type==='multi'){
+      var chips='';
+      row.opts.forEach(function(o,oi){
+        var pre=(row.type==='chips' && row.def===o.v) ? ' sel' : '';
+        chips+='<button class="chip'+pre+'" data-r="'+ri+'" data-o="'+oi+'">'+o.t+'</button>';
+      });
+      inner='<div class="chips">'+chips+'</div>';
+    } else {
+      inner='<input class="pinput" id="pin'+ri+'" data-r="'+ri+'" type="text" autocomplete="off" maxlength="90" placeholder="'+row.placeholder+'" />';
+    }
+    rows+='<div class="prow"><h4>'+(ri+1)+'. '+row.label+'</h4>'+inner+
+          '<div class="pick-react" id="pr'+ri+'">&nbsp;</div></div>';
+  });
+  stage.innerHTML =
+    '<div class="picker">'+
+      '<div class="picker__h"><h2>Build our famous lazy Saturday 🏡</h2>'+
+        '<p>Change anything you want, or change nothing. It’s a chill day either way.</p></div>'+
+      rows+
+      '<div class="btnrow"><button class="btn btn--big pulse" id="lockBtn">Lock in our Saturday →</button></div>'+
+    '</div>';
+  capture('picker_shown');
+  Array.prototype.forEach.call(stage.querySelectorAll('.chip'), function(ch){
+    tap(ch, function(){
+      var ri=+ch.getAttribute('data-r'), oi=+ch.getAttribute('data-o'), row=PICK_ROWS[ri], opt=row.opts[oi];
+      var pr=document.getElementById('pr'+ri);
+      if(row.type==='multi'){
+        ch.classList.toggle('sel');
+        var sel=[];
+        Array.prototype.forEach.call(stage.querySelectorAll('.chip[data-r="'+ri+'"].sel'), function(c){ sel.push(row.opts[+c.getAttribute('data-o')].v); });
+        PICKS[row.key]=sel;
+        pr.textContent = sel.length ? cap(joinNice(sel))+'. Love it.' : 'Pick as many as you like (or none).';
+        pr.classList.add('show');
+      } else {
+        Array.prototype.forEach.call(stage.querySelectorAll('.chip[data-r="'+ri+'"]'), function(c){ c.classList.remove('sel'); });
+        ch.classList.add('sel');
+        PICKS[row.key]=opt.v;
+        pr.textContent=opt.r; pr.classList.add('show');
+      }
+    });
+  });
+  PICK_ROWS.forEach(function(row,ri){
+    if(row.type!=='text') return;
+    var inp=document.getElementById('pin'+ri), pr=document.getElementById('pr'+ri);
+    inp.addEventListener('input', function(){
+      var v=inp.value.trim(); PICKS[row.key]=v;
+      if(v.length>0){ pr.textContent=row.r; pr.classList.add('show'); } else { pr.classList.remove('show'); }
+    });
+  });
+  tap(document.getElementById('lockBtn'), function(){
+    capture('picker_locked', {cake:PICKS.cake, build:PICKS.build, afternoon:(PICKS.afternoon||[]).join('+'), wildcard:PICKS.wildcard});
+    renderReveal(PLAN.primary,false);
+  });
+}
+
+/* ===================== REVEAL (scratch the date) ===================== */
+function renderReveal(plan){
+  setProg(2);
+  stage.innerHTML =
+    '<div class="fcard">'+
+      '<div class="fdots fdots--lg">'+FDOTS+'</div>'+
+      '<div class="fcard__kicker">Season 3 · Episode 6</div>'+
+      '<div class="fcard__lead">This one shoots on location at your place. Tap the frame to see when:</div>'+
+      '<div class="revealframe" id="revealFrame">'+
+        '<div>'+
+          '<div class="tcard__the">THE ONE WITH</div>'+
+          '<div class="fcard__title" style="margin:4px 0 0">the Lazy Saturday</div>'+
+          '<div class="rf__date">'+plan.day+' · '+plan.date+'</div>'+
+        '</div>'+
+        '<div class="revealframe__cover" id="rfCover">📺 TAP TO REVEAL</div>'+
+      '</div>'+
+      '<div class="fcard__note">Admit one, plus Dash 🐶.</div>'+
+      '<div class="btnrow" id="revealBtns"></div>'+
+    '</div>';
+  capture('reveal_shown',{day:plan.short});
+  var cover=document.getElementById('rfCover');
+  tap(cover, function(){
+    if(cover.classList.contains('gone')) return;
+    cover.classList.add('gone'); burst(); capture('date_revealed',{day:plan.short});
+    setTimeout(function(){
+      document.getElementById('revealBtns').innerHTML='<button class="btn btn--big pulse" id="toBooked">See the plan →</button>';
+      tap(document.getElementById('toBooked'), function(){ renderSetlist(plan); });
+    }, 550);
+  });
+}
+function initScratch(cv, onDone){
+  if(!cv) return;
+  var wrap=cv.parentNode, w=wrap.clientWidth, h=wrap.clientHeight;
+  cv.width=w; cv.height=h;
+  var ctx=cv.getContext('2d');
+  var g=ctx.createLinearGradient(0,0,w,h);
+  g.addColorStop(0,'#e7c878'); g.addColorStop(.5,'#cba14a'); g.addColorStop(1,'#a87f2e');
+  ctx.fillStyle=g; ctx.fillRect(0,0,w,h);
+  ctx.fillStyle='rgba(58,20,22,.5)'; ctx.textAlign='center';
+  ctx.font='bold 12px "Special Elite", monospace';
+  ctx.fillText('✦ SCRATCH TO REVEAL ✦', w/2, h/2+4);
+  ctx.globalCompositeOperation='destination-out';
+  var drawing=false, done=false;
+  function pos(e){ var r=cv.getBoundingClientRect(), t=e.touches&&e.touches[0];
+    return {x:(t?t.clientX:e.clientX)-r.left, y:(t?t.clientY:e.clientY)-r.top}; }
+  function scr(e){ if(!drawing) return; e.preventDefault(); var p=pos(e);
+    ctx.beginPath(); ctx.arc(p.x,p.y,19,0,6.2832); ctx.fill(); }
+  function pct(){ var d=ctx.getImageData(0,0,w,h).data, n=0, tot=0;
+    for(var i=3;i<d.length;i+=160){ tot++; if(d[i]===0) n++; } return n/tot; }
+  function end(){ if(!drawing) return; drawing=false;
+    if(!done && pct()>0.45){ done=true; cv.style.transition='opacity .4s'; cv.style.opacity=0;
+      setTimeout(function(){ cv.remove(); }, 420); onDone(); } }
+  cv.addEventListener('mousedown',function(e){ drawing=true; scr(e); });
+  cv.addEventListener('mousemove',scr);
+  window.addEventListener('mouseup',end);
+  cv.addEventListener('touchstart',function(e){ drawing=true; scr(e); },{passive:false});
+  cv.addEventListener('touchmove',scr,{passive:false});
+  cv.addEventListener('touchend',end);
+}
+
+/* ===================== SET LIST (itinerary) ===================== */
+function renderSetlist(plan){
+  setProg(2); burst();
+  var items=[];
+  items.push('Slow start with my (plain) just-for-you famous pancakes.');
+  items.push('I’ll build '+esc(PICKS.build||'whatever furniture needs building')+'. You supervise.');
+  items.push('A lazy Costco run for way too much stuff.');
+  if(PICKS.afternoon && PICKS.afternoon.length) items.push(cap(joinNice(PICKS.afternoon))+', only if we feel like it.');
+  if(PICKS.wildcard && PICKS.wildcard.length) items.push('Your call: '+esc(PICKS.wildcard)+'.');
+  items.push('Mostly though? Not leaving the couch. Dash, a blanket, zero agenda.');
+  var li=items.map(function(t){ return '<li>'+t+'</li>'; }).join('');
+  var body='🥞 IT’S ON. '+plan.short+' at mine. Pancakes plain, obviously. ;) And yes, I solved your little game. Get here, mover.';
+  var sms='sms:'+MATT_PHONE+(/(iphone|ipad|mac)/i.test(navigator.userAgent)?'&':'?')+'body='+encodeURIComponent(body);
+  stage.innerHTML=
+    '<div class="bpwrap">'+
+      '<div class="fcard">'+
+        '<div class="fdots fdots--lg">'+FDOTS+'</div>'+
+        '<div class="fcard__kicker">Season 3 · Ep 6 · You’re Booked</div>'+
+        '<div class="fcard__title" style="font-size:26px">The One At Josie’s</div>'+
+        '<div class="fcard__date">'+plan.dow.toUpperCase()+' · '+plan.date+' · 2026 · 10 AM · your place</div>'+
+        '<ul class="flist">'+li+'</ul>'+
+        '<div class="fcard__couch">'+COUCH_SVG+'</div>'+
+        '<div class="fcard__note">No schedule, no spending, no production. Just an easy day with you (and Dash).'+
+          '<span class="ibtfy">I’ll be there for you. 👏 👏 👏 👏</span></div>'+
+      '</div>'+
+      '<div class="sl__shot">Screenshot this for admission.</div>'+
+      '<div class="btnrow" style="position:static">'+
+        '<a class="btn btn--big btn--red pulse" id="txt" href="'+sms+'">Tap to lock it in (text Matt)</a>'+
+        '<button class="btn btn--ghost" id="cal">Add it to my calendar</button>'+
+      '</div>'+
+      '<a class="backlink" href="../">← back to the passport</a>'+
+    '</div>';
+  tap(document.getElementById('txt'),function(){
+    capture('text_matt_clicked',{mode:'yes',day:plan.short});
+    try{ localStorage.setItem('next-date-rsvp', JSON.stringify({day:plan.short,mode:'yes',season:'three'})); }catch(e){}
+    var a=document.getElementById('txt'); setTimeout(function(){ a.textContent='✓ Sent. See you '+plan.dow; }, 400);
+  });
+  tap(document.getElementById('cal'),function(){
+    addToCal(plan); var c=document.getElementById('cal');
+    setTimeout(function(){ c.textContent='✓ Added. Check your calendar'; }, 300);
+  });
+}
+function addToCal(plan){
+  var dd=(plan.dnum<10?'0':'')+plan.dnum;
+  function dt(h,mi){ return '202606'+dd+'T'+(h<10?'0':'')+h+(mi<10?'0':'')+mi+'00'; }
+  var aft=(PICKS.afternoon&&PICKS.afternoon.length)?PICKS.afternoon.join(', '):'mostly the couch';
+  var bits=[(PICKS.cake==='plain'?'plain pancakes':PICKS.cake+' pancakes'),'a Costco run'];
+  bits.push('Matt builds '+(PICKS.build||'some furniture'));
+  bits.push(aft);
+  if(PICKS.wildcard) bits.push(PICKS.wildcard);
+  var desc=icsEsc('An easy day in at Josie\'s: '+bits.join(', ')+'. Dash included.');
+  var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Redemption Tour//Season Three//EN','CALSCALE:GREGORIAN',
+    'BEGIN:VEVENT','UID:redemption-s3-'+plan.dnum+'@mattyeeredemptiontour.com',
+    'DTSTAMP:202606'+dd+'T120000Z','DTSTART:'+dt(10,0),'DTEND:'+dt(21,0),
+    'SUMMARY:A Day In with Matt · Redemption Tour (Unplugged)','LOCATION:Josie\'s place · Chicago area',
+    'DESCRIPTION:'+desc,
+    'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  var url=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));
+  var a=document.createElement('a'); a.href=url; a.download='redemption-tour-home-show.ics';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  capture('add_to_calendar',{day:plan.short});
+}
+
+/* ===================== CONFIRM (fallback / neither) ===================== */
+function renderConfirm(plan, mode){
+  burst();
+  var body, big, sub;
+  if(mode==='neither'){
+    big='Okay, name the day.';
+    sub='Tell Matt what actually works and he’ll fly in for it. Same plan, your call on the date.';
+    body='Hey Matt, those don’t quite work, but here’s what does: ';
+  } else {
+    big='It’s a date. 🥞';
+    sub=plan.day.charAt(0)+plan.day.slice(1).toLowerCase()+', '+plan.date+'. Send this to lock it in.';
+    body='🥞 IT’S ON. '+plan.short+' at mine. Get here, mover. ;)';
+  }
+  var sms='sms:'+MATT_PHONE+(/(iphone|ipad|mac)/i.test(navigator.userAgent)?'&':'?')+'body='+encodeURIComponent(body);
+  stage.innerHTML=
+    '<div class="done">'+
+      '<div class="done__big">'+big+'</div>'+
+      '<div class="done__sub">'+sub+'</div>'+
+      '<div class="btnrow"><a class="btn btn--big btn--red pulse" id="txt" href="'+sms+'">👉 Tap to text Matt 📲</a></div>'+
+      '<a class="backlink" href="../">← back to the passport</a>'+
+    '</div>';
+  document.getElementById('txt').onclick=function(){
+    capture('text_matt_clicked',{mode:mode, day:plan?plan.short:'none'});
+    try{ localStorage.setItem('next-date-rsvp', JSON.stringify({day:plan?plan.short:'tbd', mode:mode, season:'three'})); }catch(e){}
+    var a=document.getElementById('txt'); setTimeout(function(){ a.textContent='✓ Sent. See you then'; }, 400);
+  };
+}
+
+/* ---------------- confetti ---------------- */
+function burst(){
+  var cols=['#cba14a','#e7c878','#9c2c25','#f3e7cb'];
+  var wrap=document.createElement('div'); wrap.className='confetti';
+  for(var i=0;i<70;i++){ var p=document.createElement('i');
+    var l=(i*1.37*53)%100, dur=2.4+(i%5)*0.35, delay=(i%9)*0.07;
+    p.style.left=l+'%'; p.style.background=cols[i%4];
+    p.style.animationDuration=dur+'s'; p.style.animationDelay=delay+'s';
+    p.style.transform='rotate('+(i*47%360)+'deg)';
+    wrap.appendChild(p); }
+  document.body.appendChild(wrap);
+  setTimeout(function(){ wrap.remove(); }, 4200);
+}
+
+/* ---- theme song: "I'll Be There For You" — plays once, ~25s, fading out,
+   in the background. Starts on the first interaction (autoplay needs a gesture
+   on most browsers); best-effort autoplay attempted on load. One time only. ---- */
+(function(){
+  var theme=new Audio('theme.mp3'); theme.preload='auto';
+  var played=false;
+  function fadeInStop(){
+    theme.volume=0; var v=0;
+    var fin=setInterval(function(){ v+=0.06; theme.volume=Math.min(0.5,v); if(v>=0.5) clearInterval(fin); },70);
+    setTimeout(function(){
+      var fo=setInterval(function(){ var nv=theme.volume-0.05; if(nv<=0){ theme.volume=0; theme.pause(); clearInterval(fo); } else theme.volume=nv; },70);
+    },24300);   // ~25s total including the fade
+  }
+  function clearGestures(){ document.removeEventListener('pointerdown',start,true); document.removeEventListener('click',start,true); }
+  function start(){
+    if(played) return; played=true;
+    var p=theme.play();
+    if(p && p.then){ p.then(function(){ clearGestures(); fadeInStop(); capture('theme_played'); }).catch(function(){ played=false; }); }
+    else { clearGestures(); fadeInStop(); }
+  }
+  document.addEventListener('pointerdown',start,true);
+  document.addEventListener('click',start,true);
+  setTimeout(start,80);   // best-effort autoplay; otherwise her first tap starts it
+})();
+
+renderRecap();
+</script>
+</body>
+</html>
