@@ -1000,6 +1000,19 @@ function initScratch(cv, onDone){
 /* ===================== SET LIST (itinerary) ===================== */
 function renderSetlist(plan){
   setProg(2); burst();
+  // She reached the "screenshot this" screen — log it, plus a best-effort dwell
+  // time when she leaves it (app-switch / screenshot / close). Most honest
+  // mobile stand-in for "did she screenshot," since phones don't expose that.
+  capture('booked_card_viewed', { day: plan.short });
+  (function(){
+    var enteredAt = Date.now(), sent = false;
+    function dwell(reason){
+      if(sent) return; sent = true;
+      capture('booked_card_dwell', { seconds: Math.round((Date.now()-enteredAt)/1000), reason: reason, day: plan.short });
+    }
+    document.addEventListener('visibilitychange', function(){ if(document.visibilityState==='hidden') dwell('hidden'); });
+    window.addEventListener('pagehide', function(){ dwell('pagehide'); });
+  })();
   var items=[];
   items.push('A pancake competition: my (plain) just-for-you famous pancakes vs. yours. Loser does the dishes.');
   items.push('I’ll build '+esc(PICKS.build||'whatever furniture needs building')+'. You supervise.');
