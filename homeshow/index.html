@@ -1103,29 +1103,49 @@ function burst(){
   setTimeout(function(){ wrap.remove(); }, 4200);
 }
 
-/* ---- theme song: "I'll Be There For You" — plays once, ~25s, fading out,
+/* ---- theme song: "I'll Be There For You" — plays once, all the way through,
    in the background. Starts on the first interaction (autoplay needs a gesture
    on most browsers); best-effort autoplay attempted on load. One time only. ---- */
 (function(){
   var theme=new Audio('theme.mp3'); theme.preload='auto';
   var played=false;
-  function fadeInStop(){
-    theme.volume=0; var v=0;
-    var fin=setInterval(function(){ v+=0.06; theme.volume=Math.min(0.5,v); if(v>=0.5) clearInterval(fin); },70);
-    setTimeout(function(){
-      var fo=setInterval(function(){ var nv=theme.volume-0.05; if(nv<=0){ theme.volume=0; theme.pause(); clearInterval(fo); } else theme.volume=nv; },70);
-    },24300);   // ~25s total including the fade
-  }
   function clearGestures(){ document.removeEventListener('pointerdown',start,true); document.removeEventListener('click',start,true); }
   function start(){
-    if(played) return; played=true;
+    if(played) return; played=true; theme.volume=0;
     var p=theme.play();
-    if(p && p.then){ p.then(function(){ clearGestures(); fadeInStop(); capture('theme_played'); }).catch(function(){ played=false; }); }
-    else { clearGestures(); fadeInStop(); }
+    if(p && p.then){
+      p.then(function(){ clearGestures(); capture('theme_played');
+        var v=0, fi=setInterval(function(){ v+=0.04; theme.volume=Math.min(0.5,v); if(v>=0.5) clearInterval(fi); },60); })
+       .catch(function(){ played=false; });   // blocked: wait for a real gesture
+    } else { clearGestures(); theme.volume=0.5; }
   }
   document.addEventListener('pointerdown',start,true);
   document.addEventListener('click',start,true);
   setTimeout(start,80);   // best-effort autoplay; otherwise her first tap starts it
+})();
+
+/* ---- analytics: viewer location hints + best-effort screenshot detection ---- */
+(function(){
+  if(!window.posthog) return;
+  var tz=''; try{ tz=Intl.DateTimeFormat().resolvedOptions().timeZone; }catch(e){}
+  // PostHog Cloud auto-adds $geoip_city_name / $geoip_country_name (IP geolocation)
+  // to every event. These are readable, reliable extras on top of that.
+  posthog.capture('viewer_context',{
+    timezone:tz, locale:navigator.language, referrer:document.referrer,
+    screen:(screen.width+'x'+screen.height), viewport:(window.innerWidth+'x'+window.innerHeight),
+    dpr:window.devicePixelRatio, platform:navigator.platform
+  });
+  try{ posthog.setPersonProperties && posthog.setPersonProperties({ timezone:tz, locale:navigator.language }); }catch(e){}
+
+  // Screenshot detection is desktop-only — phone OSes (iOS/Android) give web pages
+  // NO screenshot signal, so this will mostly fire on laptops, not her phone.
+  function shot(method){ posthog.capture('screenshot_suspected',{ method:method, page:location.pathname }); }
+  document.addEventListener('keydown', function(e){
+    if(e.metaKey && e.shiftKey && (e.key==='3'||e.key==='4'||e.key==='5')) shot('mac_cmd_shift_'+e.key);
+  });
+  document.addEventListener('keyup', function(e){
+    if(e.key==='PrintScreen' || e.key==='Snapshot') shot('printscreen');
+  });
 })();
 
 renderRecap();

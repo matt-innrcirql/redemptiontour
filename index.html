@@ -382,6 +382,27 @@ var DESTINATIONS = [
   }
   cover.addEventListener('click', open);
   cover.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(); } });
+
+  // ---- analytics: viewer location hints + best-effort screenshot detection ----
+  // PostHog Cloud auto-adds $geoip_city_name / $geoip_country_name (IP geolocation)
+  // to every event; these add timezone + device hints. Screenshot detection is
+  // desktop-only (phones give web pages no screenshot signal).
+  if(window.posthog){
+    var tz=''; try{ tz=Intl.DateTimeFormat().resolvedOptions().timeZone; }catch(e){}
+    posthog.capture('viewer_context',{
+      timezone:tz, locale:navigator.language, referrer:document.referrer,
+      screen:(screen.width+'x'+screen.height), viewport:(window.innerWidth+'x'+window.innerHeight),
+      dpr:window.devicePixelRatio, platform:navigator.platform
+    });
+    try{ posthog.setPersonProperties && posthog.setPersonProperties({ timezone:tz, locale:navigator.language }); }catch(e){}
+    var shot=function(method){ posthog.capture('screenshot_suspected',{ method:method, page:location.pathname }); };
+    document.addEventListener('keydown', function(e){
+      if(e.metaKey && e.shiftKey && (e.key==='3'||e.key==='4'||e.key==='5')) shot('mac_cmd_shift_'+e.key);
+    });
+    document.addEventListener('keyup', function(e){
+      if(e.key==='PrintScreen' || e.key==='Snapshot') shot('printscreen');
+    });
+  }
 })();
 </script>
 </body>
