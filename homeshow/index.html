@@ -1001,7 +1001,7 @@ function initScratch(cv, onDone){
 function renderSetlist(plan){
   setProg(2); burst();
   var items=[];
-  items.push('Slow start with my (plain) just-for-you famous pancakes.');
+  items.push('A pancake competition: my (plain) just-for-you famous pancakes vs. yours. Loser does the dishes.');
   items.push('I’ll build '+esc(PICKS.build||'whatever furniture needs building')+'. You supervise.');
   items.push('A lazy Costco run for way too much stuff.');
   if(PICKS.afternoon && PICKS.afternoon.length) items.push(cap(joinNice(PICKS.afternoon))+', only if we feel like it.');
@@ -1043,7 +1043,7 @@ function addToCal(plan){
   var dd=(plan.dnum<10?'0':'')+plan.dnum;
   function dt(h,mi){ return '202606'+dd+'T'+(h<10?'0':'')+h+(mi<10?'0':'')+mi+'00'; }
   var aft=(PICKS.afternoon&&PICKS.afternoon.length)?PICKS.afternoon.join(', '):'mostly the couch';
-  var bits=[(PICKS.cake==='plain'?'plain pancakes':PICKS.cake+' pancakes'),'a Costco run'];
+  var bits=['a pancake competition','a Costco run'];
   bits.push('Matt builds '+(PICKS.build||'some furniture'));
   bits.push(aft);
   if(PICKS.wildcard) bits.push(PICKS.wildcard);
