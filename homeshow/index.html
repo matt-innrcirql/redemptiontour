@@ -1017,9 +1017,8 @@ function renderSetlist(plan){
   items.push('A pancake competition: my (plain) just-for-you famous pancakes vs. yours. Loser does the dishes.');
   items.push('I’ll build '+esc(PICKS.build||'whatever furniture needs building')+'. You supervise.');
   items.push('A lazy Costco run for way too much stuff.');
-  if(PICKS.afternoon && PICKS.afternoon.length) items.push(cap(joinNice(PICKS.afternoon))+', only if we feel like it.');
-  if(PICKS.wildcard && PICKS.wildcard.length) items.push('Your call: '+esc(PICKS.wildcard)+'.');
-  items.push('Mostly though? Not leaving the couch. Dash, a blanket, zero agenda.');
+  if(PICKS.afternoon && PICKS.afternoon.length) items.push('Then '+joinNice(PICKS.afternoon)+'.');
+  if(PICKS.wildcard && PICKS.wildcard.length) items.push('Plus your pick: '+esc(PICKS.wildcard)+'.');
   var li=items.map(function(t){ return '<li>'+t+'</li>'; }).join('');
   var body='🥞 IT’S ON. '+plan.short+' at mine. Pancakes plain, obviously. ;) And yes, I solved your little game. Get here, mover.';
   var sms='sms:'+MATT_PHONE+(/(iphone|ipad|mac)/i.test(navigator.userAgent)?'&':'?')+'body='+encodeURIComponent(body);
@@ -1055,7 +1054,7 @@ function renderSetlist(plan){
 function addToCal(plan){
   var dd=(plan.dnum<10?'0':'')+plan.dnum;
   function dt(h,mi){ return '202606'+dd+'T'+(h<10?'0':'')+h+(mi<10?'0':'')+mi+'00'; }
-  var aft=(PICKS.afternoon&&PICKS.afternoon.length)?PICKS.afternoon.join(', '):'mostly the couch';
+  var aft=(PICKS.afternoon&&PICKS.afternoon.length)?PICKS.afternoon.join(', '):'a slow afternoon';
   var bits=['a pancake competition','a Costco run'];
   bits.push('Matt builds '+(PICKS.build||'some furniture'));
   bits.push(aft);
