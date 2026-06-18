@@ -313,8 +313,17 @@ var DESTINATIONS = [
     href:'next/',
     kind:'navy',
     rot:2
+  },
+  {
+    no:'STAMP III',
+    title:'Season Three',
+    place:'THE ONE AT JOSIE’S',
+    date:'JUN 20 · 2026',
+    href:'homeshow/',
+    kind:'red',
+    rot:-2
   }
-  // Next date? add: { no:'STAMP IV', title:'…', place:'…', date:'…', href:'folder/', kind:'navy', rot:2 }
+  // Next date? add: { no:'STAMP V', title:'…', place:'…', date:'…', href:'folder/', kind:'navy', rot:2 }
 ];
 
 (function(){
@@ -330,23 +339,23 @@ var DESTINATIONS = [
               '<div class="stamp__go">↦ RE-ENTER</div>'+
             '</a>';
   });
-  // the interactive "next destination" stamp — unlocks the Season Three experience (homeshow/).
-  // If she's already RSVP'd to Season Three, reflect it instead of the teaser.
+  // the interactive "next destination" stamp, unlocks the Season Three Special
+  // Edition: After Dark (afterdark/). If she's already RSVP'd to it, reflect it.
   var rsvp=null; try{ rsvp=JSON.parse(localStorage.getItem('next-date-rsvp')); }catch(e){}
-  if(rsvp && rsvp.season==='three' && rsvp.mode && rsvp.mode!=='neither'){
-    html += '<a class="stamp stamp--red" href="homeshow/" style="--rot:-2deg" data-title="Season Three">'+
+  if(rsvp && rsvp.season==='four' && rsvp.mode && rsvp.mode!=='neither'){
+    html += '<a class="stamp stamp--navy" href="afterdark/" style="--rot:-2deg" data-title="After Dark">'+
               '<div class="stamp__no">STAMP '+roman(DESTINATIONS.length+1)+'</div>'+
-              '<div class="stamp__title">Season Three</div>'+
-              '<div class="stamp__place">THE ONE AT JOSIE’S</div>'+
+              '<div class="stamp__title">After Dark</div>'+
+              '<div class="stamp__place">DINNER &amp; A MOVIE</div>'+
               '<div class="stamp__date">'+(rsvp.day||'').toUpperCase()+'</div>'+
               '<div class="stamp__go">✓ YOU’RE IN ↦</div>'+
             '</a>';
   } else {
-    html += '<a class="stamp stamp--tbd" id="tbdStamp" href="homeshow/" style="--rot:-2deg">'+
+    html += '<a class="stamp stamp--tbd" id="tbdStamp" href="afterdark/" style="--rot:-2deg">'+
               '<div class="tbd__front">'+
                 '<div class="stamp__no">STAMP '+roman(DESTINATIONS.length+1)+'</div>'+
                 '<div class="next__hand" aria-hidden="true">👇</div>'+
-                '<span class="stamp__cta">Press here to see your next date</span>'+
+                '<span class="stamp__cta">Special edition · press here to unlock Saturday night</span>'+
               '</div>'+
             '</a>';
   }

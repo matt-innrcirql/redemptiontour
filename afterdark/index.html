@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>After Dark · The Redemption Tour</title>
+<meta name="description" content="The lazy Saturday isn't over. A special edition. Decode the night." />
+
+<!-- PostHog (same public client token as the hub + tour + home show). -->
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('phc_zhordsTx3ucwQ5EmMbxctXqdE4L7eqz8gE79R5fhAHBk', {
+    api_host: 'https://us.i.posthog.com', defaults: '2026-01-30',
+    autocapture: true, capture_pageview: true, session_recording: { maskAllInputs: true }
+  });
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Special+Elite&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --ink:#241a12; --burg:#5d1a1c; --burg2:#430f12; --gold:#cba14a; --gold-2:#e7c878;
+  --gold-deep:#a87f2e; --cream:#f3e7cb; --paper:#ece0c2; --paper-line:#d8c79e;
+  --red:#9c2c25; --navy:#274066;
+  --tile:#3a2418; --tile-correct:#cba14a; --tile-present:#8a6d3b; --tile-absent:#2a1b12;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;touch-action:manipulation}
+html,body{height:100%}
+body{
+  font-family:'Special Elite',monospace;color:var(--cream);
+  background:radial-gradient(1100px 700px at 50% -5%, #2a1230 0%, transparent 60%),
+             repeating-linear-gradient(135deg,#1d0c1a 0 22px,#1b0a18 22px 44px),#160814;
+  min-height:100%;overflow-x:hidden;
+}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+.app{max-width:560px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;padding:18px 18px 30px}
+
+/* ---- top brand + progress ---- */
+.brand{text-align:center;margin-bottom:10px}
+.brand__k{font-family:'Caveat',cursive;font-size:22px;color:var(--gold-2);line-height:1}
+.brand__t{font-family:'Anton',sans-serif;letter-spacing:.06em;font-size:13px;color:var(--gold);opacity:.85}
+.brand__u{font-family:'Anton',sans-serif;letter-spacing:.34em;font-size:9px;color:var(--gold-2);opacity:.7;margin-top:3px}
+.prog{display:flex;gap:6px;justify-content:center;margin:10px 0 6px}
+.prog i{width:26px;height:3px;border-radius:2px;background:rgba(231,200,120,.25);transition:background .3s}
+.prog i.on{background:var(--gold-2)}
+.fdots{display:flex;gap:7px;justify-content:center;margin:7px 0 2px}
+.fdots i{width:7px;height:7px;border-radius:50%;display:inline-block;box-shadow:0 0 6px rgba(0,0,0,.4)}
+.fdots--lg{gap:11px;margin:10px 0}
+.fdots--lg i{width:11px;height:11px}
+
+.stage{flex:1;display:flex;flex-direction:column;justify-content:center;animation:fade .45s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+
+/* ===================== FRIENDS TITLE / FRAMING CARDS ===================== */
+.tcard{position:relative;border-radius:18px;overflow:hidden;min-height:60dvh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:30px 22px;cursor:pointer;
+  background:linear-gradient(180deg,#3a2152 0%,#2a1740 58%,#190d28 100%);
+  box-shadow:0 24px 60px rgba(0,0,0,.5);border:1px solid rgba(231,200,120,.25)}
+.tcard::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 2px,transparent 2px 27px)}
+.tcard__frame{position:relative;z-index:2;border:4px solid var(--gold-2);border-radius:6px;padding:22px 20px;text-align:center;
+  box-shadow:0 0 0 2px #190d28, inset 0 0 0 2px #190d28, 0 14px 40px rgba(0,0,0,.5);
+  background:linear-gradient(180deg,rgba(58,33,82,.45),rgba(25,13,40,.55))}
+.tcard__prev{font-family:'Special Elite',monospace;font-size:10px;letter-spacing:.26em;color:var(--gold-2);opacity:.9;text-transform:uppercase}
+.tcard__the{font-family:'Anton',sans-serif;letter-spacing:.16em;font-size:14px;color:#fff;margin-top:12px;opacity:.92}
+.tcard__one{font-family:'Playfair Display',serif;font-weight:800;font-style:italic;font-size:clamp(26px,8.2vw,38px);line-height:1.03;color:#fff;margin:5px 0 8px;text-shadow:0 2px 16px rgba(0,0,0,.6)}
+.tcard__couch{position:relative;z-index:2;width:150px;margin-top:20px;opacity:.96;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5))}
+.tcard__sig{position:relative;z-index:2;margin-top:14px;font-family:'Caveat',cursive;font-size:18px;color:var(--gold-2);text-align:center;max-width:30ch}
+
+.fcard{position:relative;border-radius:18px;overflow:hidden;padding:26px 22px;text-align:center;
+  background:linear-gradient(180deg,#3a2152 0%,#2a1740 60%,#190d28 100%);
+  box-shadow:0 24px 60px rgba(0,0,0,.5);border:1px solid rgba(231,200,120,.25)}
+.fcard::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 2px,transparent 2px 27px)}
+.fcard>*{position:relative;z-index:2}
+.fcard__kicker{font-family:'Anton',sans-serif;letter-spacing:.18em;font-size:12px;color:var(--gold-2);text-transform:uppercase}
+.fcard__title{font-family:'Playfair Display',serif;font-weight:800;font-style:italic;font-size:clamp(24px,8vw,36px);line-height:1.05;color:#fff;margin:8px 0;text-shadow:0 2px 16px rgba(0,0,0,.6)}
+.fcard__lead{font-size:14px;line-height:1.6;color:#efe6f2;max-width:32ch;margin:6px auto 14px}
+.fcard__note{font-size:13px;line-height:1.6;color:#e7dcec;max-width:34ch;margin:12px auto 4px;font-style:italic}
+.fcard__note .ibtfy{color:var(--gold-2);font-style:normal}
+.fcard__date{font-size:11px;letter-spacing:.14em;color:var(--gold-2);margin:2px 0 8px}
+.fcard__couch{width:140px;margin:16px auto 8px;display:block;opacity:.96;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5))}
+.revealframe{position:relative;border:4px solid var(--gold-2);border-radius:8px;padding:20px 16px;margin:10px auto 4px;max-width:300px;min-height:118px;
+  box-shadow:0 0 0 2px #190d28, inset 0 0 0 2px #190d28;background:linear-gradient(180deg,rgba(58,33,82,.45),rgba(25,13,40,.55));
+  display:flex;align-items:center;justify-content:center}
+.rf__date{font-family:'Anton',sans-serif;font-size:20px;color:var(--gold-2);letter-spacing:.03em;margin-top:8px}
+.revealframe__cover{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:5px;
+  background:linear-gradient(180deg,#e7c878,#a87f2e);color:#3a1416;font-family:'Anton',sans-serif;letter-spacing:.14em;font-size:14px;
+  transition:opacity .5s ease;animation:pulse 2s infinite}
+.revealframe__cover.gone{opacity:0;pointer-events:none;animation:none}
+.flist{list-style:none;margin:14px 0 0;padding:0;text-align:left;border-top:1px solid rgba(231,200,120,.25)}
+.flist li{position:relative;padding:9px 4px 9px 24px;font-size:13.5px;line-height:1.45;color:#efe6f2;border-bottom:1px dashed rgba(231,200,120,.18)}
+.flist li::before{content:"♥";position:absolute;left:4px;top:10px;color:var(--gold-2);font-size:11px}
+
+/* ===================== WORDLE ===================== */
+.puz{display:flex;flex-direction:column;align-items:center;gap:12px}
+.puz__h{text-align:center}
+.puz__step{font-family:'Anton',sans-serif;letter-spacing:.18em;font-size:11px;color:var(--gold-2);opacity:.9;text-transform:uppercase}
+.puz__h h2{font-family:'Playfair Display',serif;font-weight:800;font-size:21px;color:var(--gold-2);margin-top:4px;line-height:1.15}
+.puz__clue{font-size:13px;line-height:1.5;color:#f3ead7;max-width:34ch;margin:7px auto 0;font-style:italic}
+.puz__clue b{color:var(--gold-2);font-style:normal}
+.board{display:grid;gap:6px;justify-content:center}
+.brow{display:grid;gap:6px}
+.tile{width:var(--ts,46px);height:var(--ts,46px);display:flex;align-items:center;justify-content:center;
+  font-family:'Anton',sans-serif;font-size:calc(var(--ts,46px)*0.5);color:#fff;text-transform:uppercase;
+  border:2px solid rgba(231,200,120,.3);border-radius:7px;background:rgba(58,36,24,.4);
+  transition:transform .15s ease, background .3s ease, border-color .3s ease}
+.tile.filled{border-color:rgba(231,200,120,.7);transform:scale(1.04)}
+.tile.correct{background:var(--tile-correct);border-color:var(--tile-correct);color:#3a1416}
+.tile.present{background:var(--tile-present);border-color:var(--tile-present)}
+.tile.absent{background:var(--tile-absent);border-color:var(--tile-absent);color:#8a7a6a}
+.tile.flip{animation:flip .5s ease}
+@keyframes flip{0%{transform:rotateX(0)}50%{transform:rotateX(90deg)}100%{transform:rotateX(0)}}
+.brow.bad{animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+
+.memory{min-height:20px;text-align:center;font-size:14px;color:var(--gold-2);max-width:34ch;
+  opacity:0;transition:opacity .4s ease;font-style:italic;line-height:1.45}
+.memory.show{opacity:1}
+
+.kbd{display:flex;flex-direction:column;gap:7px;width:100%;max-width:430px;margin-top:2px}
+.krow{display:flex;gap:5px;justify-content:center}
+.key{flex:1;min-width:0;height:48px;border:none;border-radius:7px;background:#6a4a36;color:#fff;
+  font-family:'Special Elite',monospace;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.key:active{transform:translateY(2px)}
+.key.wide{flex:1.6;font-size:11px;letter-spacing:.04em}
+.key.correct{background:var(--tile-correct);color:#3a1416}
+.key.present{background:var(--tile-present)}
+.key.absent{background:#2a1b12;color:#6a5848}
+.puz__controls{display:flex;gap:14px;justify-content:center;align-items:center;margin-top:4px;flex-wrap:wrap;min-height:24px}
+.puz__skip{font-size:11px;letter-spacing:.1em;color:var(--gold-2);opacity:.7;
+  background:none;border:none;cursor:pointer;text-decoration:underline;font-family:inherit}
+
+/* ===================== CHOICES (dinner + movie) ===================== */
+.picker{display:flex;flex-direction:column;gap:4px}
+.picker__h{text-align:center;margin-bottom:6px}
+.picker__h h2{font-family:'Playfair Display',serif;font-weight:800;font-size:22px;color:var(--gold-2)}
+.picker__h p{font-size:12.5px;opacity:.85;margin-top:4px;max-width:34ch;margin-left:auto;margin-right:auto}
+.prow{background:rgba(231,200,120,.06);border:1px solid rgba(231,200,120,.18);border-radius:14px;padding:11px 12px;margin-top:11px}
+.prow h4{font-family:'Anton',sans-serif;letter-spacing:.08em;font-size:12px;color:var(--gold-2);margin-bottom:9px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-family:'Special Elite',monospace;font-size:13px;color:var(--cream);cursor:pointer;text-align:left;
+  background:rgba(58,36,24,.5);border:1.5px solid rgba(231,200,120,.35);border-radius:18px;padding:9px 13px;transition:transform .12s ease,background .2s ease,border-color .2s ease}
+.chip:active{transform:scale(.94)}
+.chip.sel{background:linear-gradient(180deg,var(--gold-2),var(--gold-deep));color:#3a1416;border-color:var(--gold-2);font-weight:bold}
+.pick-react{min-height:18px;margin-top:8px;font-size:12px;color:var(--gold-2);font-style:italic;opacity:0;transition:opacity .3s ease}
+.pick-react.show{opacity:1}
+.lockhint{text-align:center;font-size:11.5px;color:var(--gold-2);opacity:.72;margin-top:-2px;font-style:italic}
+.pinput{width:100%;font-family:'Special Elite',monospace;font-size:14px;color:var(--cream);margin-top:9px;
+  background:rgba(58,36,24,.5);border:1.5px solid rgba(231,200,120,.35);border-radius:12px;padding:11px 13px;outline:none}
+.pinput:focus{border-color:var(--gold-2);background:rgba(58,36,24,.72)}
+.pinput::placeholder{color:rgba(243,231,203,.42)}
+
+/* generic big button */
+.btn{display:inline-block;border:none;cursor:pointer;font-family:'Special Elite',monospace;
+  background:linear-gradient(180deg,var(--gold-2),var(--gold-deep));color:#3a1416;
+  padding:15px 22px;border-radius:30px;font-size:15px;letter-spacing:.04em;font-weight:bold;
+  box-shadow:0 10px 26px rgba(0,0,0,.4);transition:transform .12s ease, box-shadow .12s ease;
+  text-decoration:none;text-align:center;width:100%}
+.btn:active{transform:translateY(2px)}
+.btn[disabled]{opacity:.4;cursor:default}
+.btn--ghost{background:transparent;color:var(--gold-2);border:1.5px solid rgba(231,200,120,.5);box-shadow:none}
+.btn--red{background:linear-gradient(180deg,#c0473f,#7d2019);color:#fff5ee}
+.btn--big{font-size:17px;padding:17px 22px}
+.btn.pulse{animation:btnpulse 1.6s ease-in-out infinite}
+@keyframes btnpulse{0%,100%{box-shadow:0 10px 26px rgba(0,0,0,.4)}50%{box-shadow:0 10px 40px rgba(231,200,120,.6)}}
+.btnrow{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+
+/* ===================== COOKING + MOVIE ANIMATION ===================== */
+.anim{display:flex;flex-direction:column;align-items:center}
+.anim__h{text-align:center;margin-bottom:8px}
+.anim__h h2{font-family:'Playfair Display',serif;font-weight:800;font-size:20px;color:var(--gold-2);line-height:1.15}
+.astage{position:relative;width:100%;max-width:360px;aspect-ratio:320/250;margin:2px auto}
+.ascene{position:absolute;inset:0;border-radius:16px;overflow:hidden;opacity:0;transition:opacity .8s ease;
+  border:1px solid rgba(231,200,120,.22);box-shadow:0 18px 40px rgba(0,0,0,.5)}
+.ascene.on{opacity:1}
+.ascene--kitchen{background:radial-gradient(70% 60% at 50% 30%, #3a2a1a 0%, #241712 60%, #160d09 100%)}
+.ascene--living{background:linear-gradient(180deg,#160a20 0%,#1d1030 55%,#0c0614 100%)}
+.ascene > svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.flicker{transform-box:fill-box;transform-origin:center bottom;animation:flick 1.1s ease-in-out infinite}
+@keyframes flick{0%,100%{opacity:.95;transform:scaleY(1)}50%{opacity:.6;transform:scaleY(.8)}}
+.steak{position:absolute;left:50%;top:50%;width:46px;height:26px;margin:-13px 0 0 -23px;
+  border-radius:46%;background:radial-gradient(60% 60% at 45% 35%,#8a4a2c,#5c2c18 70%,#3e1c10);
+  box-shadow:0 3px 0 #2a130b, inset 0 2px 4px rgba(255,255,255,.18);z-index:4}
+.steak::after{content:"";position:absolute;inset:24% 18%;border-radius:46%;
+  background:repeating-linear-gradient(58deg,rgba(40,16,8,.7) 0 3px,transparent 3px 9px)}
+.steak.flip{animation:steakflip .7s ease}
+@keyframes steakflip{0%{transform:translateY(0) rotate(0)}45%{transform:translateY(-58px) rotate(380deg) scale(1.05)}100%{transform:translateY(0) rotate(720deg)}}
+.sizzle{position:absolute;font-size:13px;opacity:0;pointer-events:none;z-index:5;animation:sizzfly .85s ease-out forwards}
+@keyframes sizzfly{0%{transform:translate(0,0) scale(.6);opacity:0}25%{opacity:.9}100%{transform:translate(var(--dx),var(--dy)) scale(1);opacity:0}}
+.tvglow{position:absolute;left:21.8%;top:12.5%;width:56.4%;height:40%;border-radius:3px;z-index:2;
+  background:linear-gradient(135deg,#3a5a8a,#6a3a7a 60%,#3a2a5a);opacity:0;transition:opacity .6s ease;
+  box-shadow:0 0 38px 10px rgba(120,140,220,.0)}
+.tvglow.on{opacity:1;box-shadow:0 0 42px 14px rgba(120,140,220,.35);animation:tvflicker 3.2s ease-in-out infinite}
+@keyframes tvflicker{0%,100%{filter:brightness(1)}45%{filter:brightness(1.18)}70%{filter:brightness(.92)}}
+.tvlabel{position:absolute;left:21.8%;top:12.5%;width:56.4%;height:40%;z-index:3;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;padding:6px;color:#fff;opacity:0;transition:opacity .6s ease}
+.tvlabel.on{opacity:1}
+.tvlabel .np{font-family:'Anton',sans-serif;letter-spacing:.2em;font-size:9px;color:#ffe9b8;opacity:.85}
+.tvlabel .mv{font-family:'Playfair Display',serif;font-weight:800;font-style:italic;font-size:14px;line-height:1.15;margin-top:3px;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.ahead{position:absolute;transition:transform .7s cubic-bezier(.3,.8,.4,1);z-index:4}
+.ah-heart{position:absolute;font-size:20px;opacity:0;z-index:6}
+@keyframes floatheart{0%{transform:scale(.2) translateY(0);opacity:0}25%{opacity:1}100%{transform:scale(1.35) translateY(-44px);opacity:0}}
+.popcorn{position:absolute;font-size:22px;z-index:5}
+.kfacepalm{position:absolute;left:20%;top:42%;font-size:36px;z-index:7;opacity:0;
+  transform:scale(.3) translateY(6px);transition:opacity .25s ease, transform .35s cubic-bezier(.2,.9,.3,1.5)}
+.kfacepalm.show{opacity:1;transform:scale(1) translateY(0);animation:fpshake .45s ease .35s 2}
+@keyframes fpshake{0%,100%{rotate:0deg}50%{rotate:-13deg}}
+.abubble{position:absolute;z-index:7;max-width:54%;background:#f6eed7;color:#2a1810;border-radius:13px;padding:8px 11px;
+  font-size:12.5px;line-height:1.35;box-shadow:0 8px 20px rgba(0,0,0,.45);
+  opacity:0;transform:scale(.5);transform-origin:bottom center;
+  transition:opacity .25s ease, transform .35s cubic-bezier(.2,.9,.3,1.5)}
+.abubble.show{opacity:1;transform:scale(1)}
+.abubble::after{content:"";position:absolute;bottom:-7px;left:50%;margin-left:-7px;border:7px solid transparent;border-top-color:#f6eed7}
+.abubble--josie{background:#fff0f0;color:#9c2c25;font-family:'Caveat',cursive;font-size:19px;padding:5px 13px}
+.abubble--josie::after{border-top-color:#fff0f0}
+.anim__cap{min-height:22px;text-align:center;font-size:13px;font-style:italic;color:var(--gold-2);margin-top:12px;max-width:34ch}
+.anim__skip{margin-top:2px;font-size:11px;letter-spacing:.1em;color:var(--gold-2);opacity:.7;background:none;border:none;cursor:pointer;text-decoration:underline;font-family:inherit}
+
+/* ===================== CONFIRM ===================== */
+.bpwrap{text-align:center}
+.sl__shot{margin-top:11px;font-size:11px;letter-spacing:.1em;color:var(--gold-2);opacity:.85}
+.done{text-align:center}
+.done__big{font-family:'Playfair Display',serif;font-weight:800;font-size:26px;color:var(--gold-2);line-height:1.15}
+.done__sub{font-size:14px;line-height:1.6;color:#f3ead7;margin:12px auto 22px;max-width:32ch}
+.backlink{display:inline-block;margin-top:22px;color:var(--gold-2);opacity:.7;font-size:12px;letter-spacing:.12em;text-decoration:none}
+
+/* confetti */
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:95;overflow:hidden}
+.confetti i{position:absolute;top:-12px;width:9px;height:14px;opacity:.9;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(108dvh) rotate(720deg);opacity:.9}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="brand">
+    <div class="brand__k">and now, after dark…</div>
+    <div class="brand__t">THE REDEMPTION TOUR</div>
+    <div class="fdots"><i style="background:#e64b3c"></i><i style="background:#3aa0dc"></i><i style="background:#f4c542"></i><i style="background:#56b870"></i></div>
+    <div class="brand__u">SEASON 3 · SPECIAL EDITION</div>
+  </div>
+  <div class="prog" id="prog"><i></i><i></i><i></i></div>
+  <div class="stage" id="stage"></div>
+</div>
+
+<script>
+/* ============================================================
+   Season Three. Special Edition: After Dark
+   intro → 3-word Wordle (sunflower / wet / steak) → reveal
+   (dinner + a movie) → choices → cooking + couch animation →
+   booked card → text Matt. All client-side; static-host safe.
+   ============================================================ */
+var MATT_PHONE = '+12028801652';      // same cell as every other confirm
+
+/* The night. Same Saturday she already said yes to, just the after-dark half. */
+var PLAN = { day:'SATURDAY', date:'JUNE 20', dow:'Sat', short:'Sat · Jun 20', dnum:20 };
+
+/* Her choices flow into the booked card + the movie on the TV. */
+var PICKS = { dinner:'cook the steak together', movie:'' };
+
+/* Shared Friends-theme bits. */
+var FDOTS='<i style="background:#e64b3c"></i><i style="background:#3aa0dc"></i><i style="background:#f4c542"></i><i style="background:#56b870"></i>';
+var COUCH_SVG='<svg viewBox="0 0 160 72" fill="none" aria-hidden="true" style="width:100%">'+
+  '<rect x="14" y="56" width="10" height="13" rx="2" fill="#4a1d10"/><rect x="136" y="56" width="10" height="13" rx="2" fill="#4a1d10"/>'+
+  '<rect x="6" y="28" width="148" height="30" rx="9" fill="#9c3a22"/>'+
+  '<rect x="0" y="22" width="24" height="40" rx="11" fill="#b5532b"/><rect x="136" y="22" width="24" height="40" rx="11" fill="#b5532b"/>'+
+  '<rect x="20" y="10" width="120" height="30" rx="10" fill="#b5532b"/>'+
+  '<rect x="26" y="32" width="52" height="17" rx="6" fill="#c4623a"/><rect x="82" y="32" width="52" height="17" rx="6" fill="#c4623a"/>'+
+'</svg>';
+
+/* little reusable people (heads + shoulders) */
+var MAN_HEAD = '<g><circle cx="0" cy="0" r="13" fill="#e8b894"/><path d="M-13 -1 Q-12 -15 0 -15 Q12 -15 13 -1 Q7 -9 0 -9 Q-7 -9 -13 -1 Z" fill="#2a1c14"/></g>';
+var WOMAN_HEAD = '<g><circle cx="0" cy="0" r="12.5" fill="#e8b894"/><circle cx="-6" cy="4" r="3.2" fill="#e08a8a" opacity=".7"/><circle cx="6" cy="4" r="3.2" fill="#e08a8a" opacity=".7"/><path d="M-13 -2 Q-13 -16 0 -16 Q13 -16 13 -2 L15 30 Q7 22 4 8 Q2 -4 0 -4 Q-2 -4 -4 8 Q-7 22 -15 30 Z" fill="#23160f"/></g>';
+/* clean, self-contained front-facing heads for the couch scene */
+var MAN_HEAD_S='<svg viewBox="0 0 30 32" width="30" height="32"><circle cx="15" cy="18" r="12" fill="#e8b894"/><path d="M3 18 Q3 4 15 4 Q27 4 27 18 Q21 10 15 10 Q9 10 3 18 Z" fill="#2a1c14"/></svg>';
+var WOMAN_HEAD_S='<svg viewBox="0 0 30 40" width="30" height="40"><circle cx="15" cy="16" r="12" fill="#e8b894"/><circle cx="9" cy="20" r="3" fill="#e08a8a" opacity=".7"/><circle cx="21" cy="20" r="3" fill="#e08a8a" opacity=".7"/><path d="M3 16 Q3 2 15 2 Q27 2 27 16 L29 38 Q22 30 19 18 Q17 8 15 8 Q13 8 11 18 Q8 30 1 38 Z" fill="#23160f"/></svg>';
+
+/* ===================== helpers ===================== */
+var stage = document.getElementById('stage');
+var progEl = document.getElementById('prog');
+function setProg(n){ Array.prototype.forEach.call(progEl.children,function(i,k){ i.classList.toggle('on', k<=n); }); }
+function tap(el, fn){ if(el) el.addEventListener('pointerup', fn); }
+/* nav: for "go to the next screen" buttons. Fires on pointerup OR click (some
+   mobile browsers drop one), but runs the handler exactly once. */
+function nav(el, fn){ if(!el) return; var fired=false;
+  function h(e){ if(el.disabled) return; if(fired) return; fired=true; fn(e); }
+  el.addEventListener('pointerup', h); el.addEventListener('click', h); }
+function capture(ev,props){ if(window.posthog) window.posthog.capture(ev, props||{}); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+function icsEsc(s){ return String(s||'').replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
+
+/* ===================== INTRO ===================== */
+function renderIntro(){
+  setProg(0);
+  stage.innerHTML=
+    '<div class="tcard" id="scn">'+
+      '<div class="tcard__frame">'+
+        '<div class="tcard__prev">Season 3 · after the credits</div>'+
+        '<div class="fdots fdots--lg">'+FDOTS+'</div>'+
+        '<div class="tcard__the">THE ONE THAT</div>'+
+        '<div class="tcard__one">Keeps Going</div>'+
+        '<div class="fdots fdots--lg">'+FDOTS+'</div>'+
+      '</div>'+
+      '<div class="tcard__couch">'+COUCH_SVG+'</div>'+
+      '<div class="tcard__sig">You said yes to the lazy Saturday. But Saturday doesn’t end at sundown. There’s a night portion. You have to crack it.</div>'+
+      '<div class="btnrow"><button class="btn btn--big pulse" id="go">Start decoding the night →</button></div>'+
+    '</div>';
+  nav(document.getElementById('go'), function(){ capture('afterdark_started'); wordIdx=0; renderWordle(); });
+}
+
+/* ===================== 3-WORD WORDLE ===================== */
+/* Three words. Each is one piece of Saturday night. */
+var WORDS = [
+  { word:'SUNFLOWER',
+    step:'Word 1 of 4 · the welcome',
+    head:'What’s waiting when you walk in 🌻',
+    clue:'Hint: <b>Josie’s favorite flower.</b>',
+    memory:'🌻 Sunflowers. A whole armful of them, waiting for you the second you walk in.' },
+  { word:'WET',
+    step:'Word 2 of 4 · the callback',
+    head:'A little something we’re NOT repeating 😅',
+    clue:'Hint: on the boat date, this is what we <b>both</b> ended up. (The boat is canceled. Forever.)',
+    memory:'💦 Soaked. Both of us. Respectfully, the boat is officially retired.' },
+  { word:'STEAK',
+    step:'Word 3 of 4 · the main event',
+    head:'What’s for dinner 🥩',
+    clue:'Hint: it sizzles on the pan, it’s what’s for dinner, and I’m the one cooking it (you just tell me how you want it done).',
+    memory:'🥩 Dinner is handled. I’m cooking you a steak.' },
+  { word:'SMILE',
+    step:'Word 4 of 4 · the honest one',
+    head:'Matt’s actual favorite part of you besides personality',
+    clue:'Hint: no joke on this one. Besides your personality, it’s the first thing I look for, and it lights up the whole room.',
+    memory:'😊 Your smile. Hand on heart, besides your personality, it’s my favorite thing about you.' }
+];
+var KEYS=['QWERTYUIOP','ASDFGHJKL','ZXCVBNM'];
+var ROWS=6;
+var wordIdx=0, ANSWER='', LEN=0, guesses=[], cur='', done=false, keyState={};
+
+function tileSize(len){
+  var w = Math.min(stage.clientWidth||340, 360);
+  var ts = Math.floor((w - 6 - (len-1)*6) / len);
+  return Math.max(26, Math.min(46, ts));
+}
+
+function renderWordle(){
+  setProg(0);
+  var W=WORDS[wordIdx];
+  ANSWER=W.word; LEN=ANSWER.length; guesses=[]; cur=''; done=false; keyState={};
+  var ts=tileSize(LEN);
+  var board='';
+  for(var r=0;r<ROWS;r++){ board+='<div class="brow" data-r="'+r+'" style="grid-template-columns:repeat('+LEN+','+ts+'px)">';
+    for(var c=0;c<LEN;c++) board+='<div class="tile" data-r="'+r+'" data-c="'+c+'"></div>';
+    board+='</div>'; }
+  var kbd='';
+  KEYS.forEach(function(row,ri){
+    kbd+='<div class="krow">';
+    if(ri===2) kbd+='<button class="key wide" data-k="ENTER">ENTER</button>';
+    row.split('').forEach(function(ch){ kbd+='<button class="key" data-k="'+ch+'">'+ch+'</button>'; });
+    if(ri===2) kbd+='<button class="key wide" data-k="DEL">⌫</button>';
+    kbd+='</div>';
+  });
+  stage.innerHTML=
+    '<div class="puz">'+
+      '<div class="puz__h">'+
+        '<div class="puz__step">'+W.step+'</div>'+
+        '<h2>'+W.head+'</h2>'+
+        '<div class="puz__clue">'+W.clue+'</div>'+
+      '</div>'+
+      '<div class="board" style="--ts:'+ts+'px">'+board+'</div>'+
+      '<div class="memory" id="memory"></div>'+
+      '<div class="kbd">'+kbd+'</div>'+
+      '<div class="puz__controls" id="controls">'+
+        '<button class="puz__skip" id="reveal" style="display:none">stuck? reveal this word →</button>'+
+      '</div>'+
+    '</div>';
+  Array.prototype.forEach.call(stage.querySelectorAll('.key'),function(k){
+    k.onclick=function(){ press(k.getAttribute('data-k')); };
+  });
+  tap(document.getElementById('reveal'), function(){ if(done) return; done=true; capture('word_revealed',{word:ANSWER}); wordDone(false); });
+  capture('word_started',{word:ANSWER, n:wordIdx+1});
+}
+
+function setTile(r,c,ch,cls){
+  var t=stage.querySelector('.tile[data-r="'+r+'"][data-c="'+c+'"]');
+  if(!t) return; t.textContent=ch||''; t.className='tile'+(ch?' filled':'')+(cls?' '+cls:'');
+}
+function press(k){
+  if(done) return;
+  if(k==='ENTER') return submit();
+  if(k==='DEL'){ cur=cur.slice(0,-1); setTile(guesses.length, cur.length, ''); return; }
+  if(/^[A-Z]$/.test(k) && cur.length<LEN){ setTile(guesses.length, cur.length, k); cur+=k; }
+}
+function submit(){
+  if(done) return;
+  var r=guesses.length;
+  if(cur.length<LEN){ var row=stage.querySelector('.brow[data-r="'+r+'"]'); if(row){ row.classList.add('bad'); setTimeout(function(){row.classList.remove('bad');},400);} return; }
+  var guess=cur, ans=ANSWER.split(''), res=new Array(LEN).fill('absent'), used=new Array(LEN).fill(false);
+  for(var i=0;i<LEN;i++){ if(guess[i]===ans[i]){ res[i]='correct'; used[i]=true; } }
+  for(var i=0;i<LEN;i++){ if(res[i]==='correct') continue;
+    for(var j=0;j<LEN;j++){ if(!used[j] && guess[i]===ans[j]){ res[i]='present'; used[j]=true; break; } } }
+  for(var i=0;i<LEN;i++){ (function(i){ setTimeout(function(){
+      var t=stage.querySelector('.tile[data-r="'+r+'"][data-c="'+i+'"]'); if(t) t.classList.add('flip');
+      setTimeout(function(){ setTile(r,i,guess[i],res[i]); upKey(guess[i],res[i]); },210);
+    }, i*120); })(i); }
+  guesses.push(guess); cur='';
+  var win = guess===ANSWER;
+  setTimeout(function(){
+    if(win){ done=true; capture('word_won',{word:ANSWER,tries:guesses.length}); burst(); wordDone(true); }
+    else if(guesses.length>=ROWS){ done=true; capture('word_lost',{word:ANSWER}); wordDone(false); }
+    else if(guesses.length>=2){ var rv=document.getElementById('reveal'); if(rv) rv.style.display='inline-block'; }
+  }, LEN*120+260);
+}
+function upKey(ch,cls){
+  var rank={absent:0,present:1,correct:2};
+  if((rank[cls]||0) >= (rank[keyState[ch]]||0)){ keyState[ch]=cls;
+    var k=stage.querySelector('.key[data-k="'+ch+'"]'); if(k){ k.classList.remove('absent','present','correct'); k.classList.add(cls); } }
+}
+/* word finished (solved or revealed): show its memory, then advance. */
+function wordDone(solved){
+  var W=WORDS[wordIdx], mem=document.getElementById('memory');
+  if(mem){ mem.innerHTML=(solved?'':'The word was <b>'+ANSWER+'</b>. ')+W.memory; mem.classList.add('show'); }
+  var controls=document.getElementById('controls');
+  var last = wordIdx>=WORDS.length-1;
+  controls.innerHTML='<button class="btn btn--big pulse" id="nextWord">'+(last?'Put it together →':'Next word →')+'</button>';
+  nav(document.getElementById('nextWord'), function(){
+    if(last){ renderThemeReveal(); }
+    else { wordIdx++; renderWordle(); }
+  });
+}
+
+/* ===================== REVEAL: dinner and a movie ===================== */
+function renderThemeReveal(){
+  setProg(1);
+  stage.innerHTML=
+    '<div class="fcard">'+
+      '<div class="fdots fdots--lg">'+FDOTS+'</div>'+
+      '<div class="fcard__kicker">Season 3 · Special Edition</div>'+
+      '<div class="fcard__lead">🌻 Sunflowers. 🚫 No boats. 🥩 Steak. 😊 And that smile I’m doing it all for. Here’s the night:</div>'+
+      '<div class="revealframe" id="revealFrame">'+
+        '<div>'+
+          '<div class="tcard__the">SATURDAY, AFTER DARK</div>'+
+          '<div class="fcard__title" style="margin:4px 0 0">Dinner and a Movie</div>'+
+          '<div class="rf__date">'+PLAN.day+' · '+PLAN.date+' · tonight’s finale</div>'+
+        '</div>'+
+        '<div class="revealframe__cover" id="rfCover">📺 TAP TO REVEAL</div>'+
+      '</div>'+
+      '<div class="fcard__note">Same Saturday you already said yes to. This is just the part after the sun goes down. If that’s okay with you. ;)</div>'+
+      '<div class="btnrow" id="revealBtns"></div>'+
+    '</div>';
+  capture('night_reveal_shown');
+  var cover=document.getElementById('rfCover');
+  tap(cover, function(){
+    if(cover.classList.contains('gone')) return;
+    cover.classList.add('gone'); burst(); capture('night_revealed');
+    setTimeout(function(){
+      document.getElementById('revealBtns').innerHTML='<button class="btn btn--big pulse" id="toChoices">Okay… I’m listening →</button>';
+      nav(document.getElementById('toChoices'), renderChoices);
+    }, 550);
+  });
+}
+
+/* ===================== CHOICES: how we do dinner + what we watch ===================== */
+var DINNER_OPTS=[
+  { t:'🔪 Cook the steak together', v:'cook the steak together', r:'Two chefs, one kitchen. I’ll let you boss me around. 🥩' },
+  { t:'🚪 Kick me out first', v:'kick Matt out first, then come back to dinner ready', r:'Say less. I vanish, you get the place to yourself, I’m back with dinner. 😄' },
+  { t:'🙄 Honestly, I’m tired of Matt', v:'too tired of Matt, so he leaves it at the door', r:'…brutal. Okay. I’ll leave the steak at your door and walk away. You and Dash, enjoy. 🐶🫡' }
+];
+var MOVIE_CHIPS=[
+  { t:'🍿 Your pick, always', v:'whatever you’re in the mood for' },
+  { t:'💕 A rom-com', v:'a rom-com' },
+  { t:'😱 Something scary', v:'something scary (so you grab my arm 😏)' },
+  { t:'🎲 Surprise me', v:'a surprise' }
+];
+function renderChoices(){
+  setProg(1);
+  PICKS={ dinner:'', movie:'' };                 // nothing pre-chosen: both are required
+  var dchips='';
+  DINNER_OPTS.forEach(function(o,oi){
+    dchips+='<button class="chip" data-d="'+oi+'">'+o.t+'</button>';
+  });
+  var mchips='';
+  MOVIE_CHIPS.forEach(function(o,oi){
+    mchips+='<button class="chip" data-m="'+oi+'">'+o.t+'</button>';
+  });
+  stage.innerHTML=
+    '<div class="picker">'+
+      '<div class="picker__h"><h2>Your call on the night 🌙</h2>'+
+        '<p>Two little decisions and the night is yours.</p></div>'+
+      '<div class="prow"><h4>1. DINNER: how should we do it?</h4>'+
+        '<div class="chips">'+dchips+'</div>'+
+        '<div class="pick-react" id="dr">&nbsp;</div></div>'+
+      '<div class="prow"><h4>2. THE MOVIE: what are we watching?</h4>'+
+        '<div class="chips">'+mchips+'</div>'+
+        '<input class="pinput" id="movieIn" type="text" autocomplete="off" maxlength="80" placeholder="or type the exact movie you want…" />'+
+        '<div class="pick-react" id="mr">&nbsp;</div></div>'+
+      '<div class="btnrow"><button class="btn btn--big" id="lock" disabled>Lock in the night →</button>'+
+        '<div class="lockhint" id="lockHint">Pick a dinner and a movie to lock it in.</div></div>'+
+    '</div>';
+  capture('choices_shown');
+  var movieIn=document.getElementById('movieIn'), mr=document.getElementById('mr');
+  function updateLock(){
+    var ready = !!PICKS.dinner && !!(PICKS.movie && PICKS.movie.trim());
+    var btn=document.getElementById('lock'), hint=document.getElementById('lockHint');
+    if(btn){ btn.disabled=!ready; btn.classList.toggle('pulse', ready); }
+    if(hint) hint.style.display = ready ? 'none' : 'block';
+  }
+  Array.prototype.forEach.call(stage.querySelectorAll('.chip[data-d]'), function(ch){
+    tap(ch, function(){
+      Array.prototype.forEach.call(stage.querySelectorAll('.chip[data-d]'),function(c){c.classList.remove('sel');});
+      ch.classList.add('sel');
+      var o=DINNER_OPTS[+ch.getAttribute('data-d')]; PICKS.dinner=o.v;
+      var dr=document.getElementById('dr'); dr.textContent=o.r; dr.classList.add('show');
+      updateLock();
+    });
+  });
+  Array.prototype.forEach.call(stage.querySelectorAll('.chip[data-m]'), function(ch){
+    tap(ch, function(){
+      Array.prototype.forEach.call(stage.querySelectorAll('.chip[data-m]'),function(c){c.classList.remove('sel');});
+      ch.classList.add('sel');
+      var o=MOVIE_CHIPS[+ch.getAttribute('data-m')]; PICKS.movie=o.v; movieIn.value='';
+      mr.textContent='Locked: '+o.v+'. 🍿'; mr.classList.add('show');
+      updateLock();
+    });
+  });
+  movieIn.addEventListener('input', function(){
+    var v=movieIn.value.trim();
+    Array.prototype.forEach.call(stage.querySelectorAll('.chip[data-m]'),function(c){c.classList.remove('sel');});
+    PICKS.movie=v;
+    if(v.length){ mr.textContent='“'+v+'” it is. 🍿'; mr.classList.add('show'); } else { mr.classList.remove('show'); }
+    updateLock();
+  });
+  nav(document.getElementById('lock'), function(){
+    if(!PICKS.dinner || !(PICKS.movie && PICKS.movie.trim())) return;   // both required
+    capture('choices_locked',{dinner:PICKS.dinner, movie:PICKS.movie});
+    renderAnimation();
+  });
+}
+
+/* ===================== COOKING + COUCH ANIMATION ===================== */
+var KITCHEN_SVG=
+'<svg viewBox="0 0 320 250" fill="none" aria-hidden="true">'+
+  /* window + night sky */
+  '<rect x="196" y="20" width="88" height="56" rx="4" fill="#0f1830" stroke="#3a2a1a" stroke-width="3"/>'+
+  '<circle cx="240" cy="40" r="8" fill="#e7c878" opacity=".8"/>'+
+  '<circle cx="216" cy="34" r="1.4" fill="#fff" opacity=".7"/><circle cx="266" cy="56" r="1.4" fill="#fff" opacity=".7"/>'+
+  /* upper cabinets */
+  '<rect x="14" y="14" width="150" height="42" rx="4" fill="#5a3a26"/>'+
+  '<line x1="89" y1="16" x2="89" y2="54" stroke="#3a2418" stroke-width="2"/>'+
+  '<rect x="22" y="32" width="10" height="4" rx="2" fill="#e7c878" opacity=".7"/><rect x="146" y="32" width="10" height="4" rx="2" fill="#e7c878" opacity=".7"/>'+
+  /* counter */
+  '<rect x="0" y="186" width="320" height="64" fill="#3a241a"/>'+
+  '<rect x="0" y="180" width="320" height="8" fill="#5a3a26"/>'+
+  /* stove burner */
+  '<rect x="126" y="168" width="68" height="20" rx="3" fill="#2a1b12"/>'+
+  /* flame */
+  '<ellipse class="flicker" cx="160" cy="166" rx="11" ry="15" fill="#ff9d3c"/>'+
+  '<ellipse class="flicker" cx="160" cy="168" rx="5" ry="9" fill="#ffd27a"/>'+
+  /* pan */
+  '<ellipse cx="160" cy="160" rx="36" ry="12" fill="#1c1206"/>'+
+  '<ellipse cx="160" cy="156" rx="36" ry="12" fill="#2c1d10" stroke="#0c0805" stroke-width="2"/>'+
+  '<rect x="194" y="152" width="42" height="7" rx="3" fill="#0c0805"/>'+
+  /* the two of them behind the counter */
+  '<g transform="translate(96,158)">'+MAN_HEAD+'</g>'+
+  '<g transform="translate(226,158)">'+WOMAN_HEAD+'</g>'+
+  /* little chef hats */
+  '<path d="M86 142 q0 -12 10 -12 q10 0 10 12 z" fill="#f3ead7"/><rect x="86" y="142" width="20" height="5" rx="2" fill="#e7dcec"/>'+
+  '<path d="M216 142 q0 -12 10 -12 q10 0 10 12 z" fill="#f3ead7"/><rect x="216" y="142" width="20" height="5" rx="2" fill="#e7dcec"/>'+
+'</svg>';
+
+var LIVING_SVG=
+'<svg viewBox="0 0 320 250" fill="none" aria-hidden="true">'+
+  /* TV on the wall */
+  '<rect x="62" y="24" width="196" height="116" rx="7" fill="#0a0f18" stroke="#3a2a1a" stroke-width="4"/>'+
+  '<rect x="150" y="140" width="20" height="14" fill="#2a1b12"/>'+
+  /* floor */
+  '<rect x="0" y="212" width="320" height="38" fill="#1c1020"/>'+
+  /* couch */
+  '<rect x="34" y="170" width="252" height="46" rx="14" fill="#9c3a22"/>'+
+  '<rect x="22" y="150" width="34" height="66" rx="15" fill="#b5532b"/><rect x="264" y="150" width="34" height="66" rx="15" fill="#b5532b"/>'+
+  '<rect x="48" y="146" width="224" height="36" rx="12" fill="#b5532b"/>'+
+  '<rect x="60" y="172" width="92" height="22" rx="8" fill="#c4623a"/><rect x="168" y="172" width="92" height="22" rx="8" fill="#c4623a"/>'+
+  /* blanket over their laps */
+  '<path d="M96 196 Q160 184 224 196 L224 214 L96 214 Z" fill="#5d1a1c"/>'+
+  '<path d="M96 196 Q160 184 224 196 L224 202 Q160 190 96 202 Z" fill="#7a2a2c"/>'+
+'</svg>';
+
+function renderAnimation(){
+  setProg(2);
+  var togetherCook = PICKS.dinner.indexOf('together')>-1;
+  var tiredOfMatt = PICKS.dinner.indexOf('tired')>-1;
+  stage.innerHTML=
+    '<div class="anim">'+
+      '<div class="anim__h"><h2>Roll the night 🎬</h2></div>'+
+      '<div class="astage" id="astage">'+
+        '<div class="ascene ascene--kitchen on" id="kitchen">'+KITCHEN_SVG+
+          '<div class="steak" id="steak"></div>'+
+          '<div class="kfacepalm" id="kfp" style="left:23%;top:44%">🤦</div>'+
+          '<div class="abubble" id="kb1" style="left:5%;top:19%">'+(togetherCook?'medium rare, right?':tiredOfMatt?'fine, I’ll leave it at the door 🫡':'almost ready for you 😌')+'</div>'+
+          '<div class="abubble abubble--josie" id="kb2" style="right:4%;top:45%">actually… medium well please 😇</div>'+
+        '</div>'+
+        '<div class="ascene ascene--living" id="living">'+LIVING_SVG+
+          '<div class="tvglow" id="tvglow"></div>'+
+          '<div class="tvlabel" id="tvlabel"><div class="np">NOW PLAYING</div><div class="mv" id="tvmovie"></div></div>'+
+          '<div class="ahead" id="hMan" style="left:36%;bottom:24%">'+MAN_HEAD_S+'</div>'+
+          '<div class="ahead" id="hWoman" style="left:52%;bottom:24%">'+WOMAN_HEAD_S+'</div>'+
+          '<div class="popcorn" id="popcorn" style="left:46%;bottom:20%">🍿</div>'+
+          '<div class="ah-heart" id="lvHeart" style="left:46%;bottom:46%">❤️</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="anim__cap" id="acap">'+(togetherCook?'Two chefs, one little kitchen.':tiredOfMatt?'Banished. The steak still gets made. 🫡':'You, the place to yourself. Me, plating dinner.')+'</div>'+
+      '<div class="btnrow" style="margin-top:10px"><button class="btn btn--big pulse" id="toBooked">Lock it in →</button></div>'+
+      '<button class="anim__skip" id="askip">skip the cutscene →</button>'+
+    '</div>';
+  document.getElementById('tvmovie').textContent = movieTitle();
+  capture('animation_shown',{dinner:PICKS.dinner, movie:PICKS.movie});
+
+  var astage=document.getElementById('astage');
+  var steak=document.getElementById('steak');
+  var kitchen=document.getElementById('kitchen'), living=document.getElementById('living');
+  var acap=document.getElementById('acap');
+  var timers=[], finished=false;
+  function T(fn,ms){ timers.push(setTimeout(fn,ms)); }
+  function sizzle(){
+    for(var i=0;i<7;i++){ var s=document.createElement('div'); s.className='sizzle'; s.textContent= i%2?'✨':'·';
+      s.style.left=(46+(i*7)%18)+'%'; s.style.top='58%';
+      s.style.setProperty('--dx',((i%3-1)*16)+'px'); s.style.setProperty('--dy',(-26-(i%4)*8)+'px');
+      kitchen.appendChild(s); (function(s){ setTimeout(function(){ s.remove(); }, 900); })(s); }
+  }
+  /* kitchen beats */
+  T(function(){ steak.classList.add('flip'); sizzle(); }, 500);
+  T(function(){ steak.classList.remove('flip'); }, 1250);
+  T(function(){ document.getElementById('kb1').classList.add('show'); }, 900);
+  T(function(){ document.getElementById('kb2').classList.add('show'); }, 1700);   // "medium well please"
+  /* the doneness facepalm */
+  T(function(){ steak.classList.add('flip'); sizzle();
+    document.getElementById('kfp').classList.add('show');
+    acap.textContent='Medium well?? …okay. For you, anything. 🤦'; }, 2600);
+  T(function(){ steak.classList.remove('flip'); }, 3350);
+  /* crossfade to the couch */
+  T(function(){
+    kitchen.classList.remove('on'); living.classList.add('on');
+    acap.textContent='Lights down. Best seat in the house.';
+  }, 4000);
+  T(function(){ document.getElementById('tvglow').classList.add('on'); document.getElementById('tvlabel').classList.add('on'); }, 4500);
+  T(function(){ /* he leans onto her shoulder, the "mover" callback */
+    var hMan=document.getElementById('hMan'); hMan.style.transform='translateX(11px) rotate(11deg)';
+    var h=document.getElementById('lvHeart'); h.style.animation='floatheart 1.5s ease-out forwards';
+    acap.textContent='…and somebody’s already a mover.';
+  }, 5100);
+
+  // "Lock it in" is ALWAYS available, so reaching the last page is never gated by
+  // the cutscene (and it survives a dropped pointerup via nav()).
+  nav(document.getElementById('toBooked'), function(){ capture('animation_finished'); renderBooked(); });
+
+  // tapping the scene (or "skip the cutscene") just fast-forwards the visuals to the couch
+  function jumpToEnd(){
+    if(finished) return; finished=true;
+    timers.forEach(clearTimeout);
+    kitchen.classList.remove('on'); living.classList.add('on');
+    document.getElementById('tvglow').classList.add('on'); document.getElementById('tvlabel').classList.add('on');
+    document.getElementById('hMan').style.transform='translateX(11px) rotate(11deg)';
+    acap.textContent='…and somebody’s already a mover.';
+  }
+  tap(document.getElementById('astage'), jumpToEnd);
+  tap(document.getElementById('askip'), jumpToEnd);
+}
+function movieTitle(){
+  var m=PICKS.movie||'whatever you’re in the mood for';
+  if(m==='whatever you’re in the mood for') return 'Your Pick';
+  if(m==='a surprise') return 'A Surprise';
+  if(/^(a |an |something)/i.test(m)) return m.charAt(0).toUpperCase()+m.slice(1);
+  return m;
+}
+/* movie value with any trailing parenthetical aside stripped, for the SMS + .ics
+   (keeps the flirty aside on the on-screen card, avoids nested parens in a text). */
+function movieShort(){ return (PICKS.movie||'').replace(/\s*\([^)]*\)\s*$/,''); }
+
+/* ===================== BOOKED CARD ===================== */
+function renderBooked(){
+  setProg(2); burst();
+  capture('booked_card_viewed',{day:PLAN.short});
+  (function(){
+    var enteredAt=Date.now(), sent=false;
+    function dwell(reason){ if(sent) return; sent=true;
+      capture('booked_card_dwell',{ seconds:Math.round((Date.now()-enteredAt)/1000), reason:reason, day:PLAN.short }); }
+    document.addEventListener('visibilitychange', function(){ if(document.visibilityState==='hidden') dwell('hidden'); });
+    window.addEventListener('pagehide', function(){ dwell('pagehide'); });
+  })();
+  var cookLine = PICKS.dinner.indexOf('together')>-1
+      ? 'Dinner: a steak, cooked together. Medium well for you (I won’t even flinch 🤦).'
+      : PICKS.dinner.indexOf('tired')>-1
+        ? 'Dinner: a steak, left at your door. You’re tired of me (fair), so it’s just you and Dash. Medium well. 🤦🫡'
+        : 'Dinner: a steak, ready when you’re back. Medium well, chef’s orders. 🤦';
+  var items=[];
+  items.push('Sunflowers waiting the moment you walk in. 🌻');
+  items.push(cookLine);
+  items.push('Movie: '+esc(PICKS.movie)+'. 🍿');
+  items.push('Couch, a blanket, and exactly zero boats. ⛴️🚫');
+  var li=items.map(function(t){ return '<li>'+t+'</li>'; }).join('');
+  var cook = PICKS.dinner.indexOf('together')>-1 ? 'We’re cooking it together. '
+      : PICKS.dinner.indexOf('tired')>-1 ? 'You’re tired of me (ouch, fair), so I’ll leave it at the door and disappear. 🫡 '
+      : 'And yes, you get to kick me out first. 😄 ';
+  var body='🥩🎬 IT’S ON. Saturday night, after the lazy day. Steak (medium well, sorry 😇) + a movie ('+movieShort()+'). '+cook+'Bring the sunflowers, get here, mover. ;)';
+  var sms='sms:'+MATT_PHONE+(/(iphone|ipad|mac)/i.test(navigator.userAgent)?'&':'?')+'body='+encodeURIComponent(body);
+  stage.innerHTML=
+    '<div class="bpwrap">'+
+      '<div class="fcard">'+
+        '<div class="fdots fdots--lg">'+FDOTS+'</div>'+
+        '<div class="fcard__kicker">Season 3 · After Dark · You’re In</div>'+
+        '<div class="fcard__title" style="font-size:26px">Dinner and a Movie</div>'+
+        '<div class="fcard__date">'+PLAN.dow.toUpperCase()+' · '+PLAN.date+' · 2026 · after the sun goes down</div>'+
+        '<ul class="flist">'+li+'</ul>'+
+        '<div class="fcard__couch">'+COUCH_SVG+'</div>'+
+        '<div class="fcard__note">No reservation, no rush, no production. Just the after-dark half of your Saturday.'+
+          '<span class="ibtfy">I’ll be there for you. 👏 👏 👏 👏</span></div>'+
+      '</div>'+
+      '<div class="sl__shot">Screenshot this for admission.</div>'+
+      '<div class="btnrow" style="position:static">'+
+        '<a class="btn btn--big btn--red pulse" id="txt" href="'+sms+'">Tap to lock it in (text Matt)</a>'+
+        '<button class="btn btn--ghost" id="cal">Add it to my calendar</button>'+
+      '</div>'+
+      '<a class="backlink" href="../">← back to the passport</a>'+
+    '</div>';
+  tap(document.getElementById('txt'),function(){
+    capture('text_matt_clicked',{mode:'yes',day:PLAN.short});
+    try{ localStorage.setItem('next-date-rsvp', JSON.stringify({day:PLAN.short,mode:'yes',season:'four'})); }catch(e){}
+    var a=document.getElementById('txt'); setTimeout(function(){ a.textContent='✓ Sent. See you '+PLAN.dow+' night'; }, 400);
+  });
+  tap(document.getElementById('cal'),function(){
+    addToCal(); var c=document.getElementById('cal');
+    setTimeout(function(){ c.textContent='✓ Added. Check your calendar'; }, 300);
+  });
+}
+function addToCal(){
+  var dd=(PLAN.dnum<10?'0':'')+PLAN.dnum;
+  function dt(h,mi){ return '202606'+dd+'T'+(h<10?'0':'')+h+(mi<10?'0':'')+mi+'00'; }
+  var cook = PICKS.dinner.indexOf('together')>-1 ? 'cooked together'
+      : PICKS.dinner.indexOf('tired')>-1 ? 'Matt leaves it at the door, just you and Dash'
+      : 'Matt cooks, you get the place to yourself first';
+  var desc=icsEsc('After-dark half of the lazy Saturday: sunflowers, a steak dinner medium well ('+cook+'), and a movie ('+movieShort()+') on the couch. No boats.');
+  var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Redemption Tour//Season Three Special Edition//EN','CALSCALE:GREGORIAN',
+    'BEGIN:VEVENT','UID:redemption-s3-afterdark-'+PLAN.dnum+'@mattyeeredemptiontour.com',
+    'DTSTAMP:202606'+dd+'T120000Z','DTSTART:'+dt(18,30),'DTEND:'+dt(23,0),
+    'SUMMARY:Dinner and a Movie with Matt · Redemption Tour (After Dark)','LOCATION:Josie\'s place',
+    'DESCRIPTION:'+desc,
+    'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  var url=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));
+  var a=document.createElement('a'); a.href=url; a.download='redemption-tour-after-dark.ics';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  capture('add_to_calendar',{day:PLAN.short});
+}
+
+/* ---------------- confetti ---------------- */
+function burst(){
+  var cols=['#cba14a','#e7c878','#9c2c25','#f3e7cb'];
+  var wrap=document.createElement('div'); wrap.className='confetti';
+  for(var i=0;i<70;i++){ var p=document.createElement('i');
+    var l=(i*1.37*53)%100, dur=2.4+(i%5)*0.35, delay=(i%9)*0.07;
+    p.style.left=l+'%'; p.style.background=cols[i%4];
+    p.style.animationDuration=dur+'s'; p.style.animationDelay=delay+'s';
+    p.style.transform='rotate('+(i*47%360)+'deg)';
+    wrap.appendChild(p); }
+  document.body.appendChild(wrap);
+  setTimeout(function(){ wrap.remove(); }, 4200);
+}
+
+/* ---- background song: "The Lazy Song", plays once, fades in, in the
+   background. Starts on the first interaction (autoplay needs a gesture on
+   most browsers); best-effort autoplay attempted on load. ---- */
+(function(){
+  var song=new Audio('lazysong.mp3'); song.preload='auto';
+  var played=false;
+  function clearGestures(){ document.removeEventListener('pointerdown',start,true); document.removeEventListener('click',start,true); }
+  function start(){
+    if(played) return; played=true; song.volume=0;
+    var p=song.play();
+    if(p && p.then){
+      p.then(function(){ clearGestures(); capture('song_played');
+        var v=0, fi=setInterval(function(){ v+=0.04; song.volume=Math.min(0.5,v); if(v>=0.5) clearInterval(fi); },60); })
+       .catch(function(){ played=false; });   // blocked: wait for a real gesture
+    } else { clearGestures(); song.volume=0.5; }
+  }
+  document.addEventListener('pointerdown',start,true);
+  document.addEventListener('click',start,true);
+  setTimeout(start,80);
+})();
+
+/* ---- analytics: viewer location hints + best-effort screenshot detection ---- */
+(function(){
+  if(!window.posthog) return;
+  var tz=''; try{ tz=Intl.DateTimeFormat().resolvedOptions().timeZone; }catch(e){}
+  posthog.capture('viewer_context',{
+    timezone:tz, locale:navigator.language, referrer:document.referrer,
+    screen:(screen.width+'x'+screen.height), viewport:(window.innerWidth+'x'+window.innerHeight),
+    dpr:window.devicePixelRatio, platform:navigator.platform
+  });
+  try{ posthog.setPersonProperties && posthog.setPersonProperties({ timezone:tz, locale:navigator.language }); }catch(e){}
+  function shot(method){ posthog.capture('screenshot_suspected',{ method:method, page:location.pathname }); }
+  document.addEventListener('keydown', function(e){
+    if(e.metaKey && e.shiftKey && (e.key==='3'||e.key==='4'||e.key==='5')) shot('mac_cmd_shift_'+e.key);
+  });
+  document.addEventListener('keyup', function(e){
+    if(e.key==='PrintScreen' || e.key==='Snapshot') shot('printscreen');
+  });
+})();
+
+/* physical keyboard (desktop) for the wordle */
+document.addEventListener('keydown',function(e){
+  if(!stage.querySelector('.board')) return;
+  if(e.key==='Enter') press('ENTER');
+  else if(e.key==='Backspace') press('DEL');
+  else if(/^[a-zA-Z]$/.test(e.key)) press(e.key.toUpperCase());
+});
+
+renderIntro();
+</script>
+</body>
+</html>
