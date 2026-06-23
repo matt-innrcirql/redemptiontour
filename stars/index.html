@@ -242,8 +242,12 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:6;opac
 .xc input.good{color:var(--tile-correct)}
 .xc .xn{position:absolute;top:1px;left:3px;font-size:9px;color:var(--gold-2);font-family:'Special Elite',monospace;pointer-events:none}
 .xb{aspect-ratio:1}
-.xclues{display:flex;gap:18px;font-size:11.5px;color:#e7dcec;max-width:330px;line-height:1.5;text-align:left}
-.xclues b{color:var(--gold-2);display:block;margin-bottom:4px;font-family:'Anton',sans-serif;letter-spacing:.06em}
+.xclues{display:flex;flex-direction:column;font-size:12px;color:#e7dcec;max-width:340px;width:100%;line-height:1.4;text-align:left}
+.xclues b{color:var(--gold-2);font-family:'Anton',sans-serif;letter-spacing:.04em;margin-right:5px}
+.xclue{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-bottom:1px dashed rgba(231,200,120,.15)}
+.xclue span{flex:1}
+.xhint{flex:none;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#231a0c;background:linear-gradient(180deg,var(--gold-2),var(--gold));border:none;border-radius:12px;padding:5px 11px;cursor:pointer;font-family:'Special Elite',monospace}
+.xhint:active{transform:translateY(1px)}
 .xmsg{min-height:16px;font-size:12px;color:#ff9a8a;font-style:italic}
 .xgiveup{margin-top:2px;font-size:11px;letter-spacing:.1em;color:var(--gold-2);opacity:.6;background:none;border:none;cursor:pointer;text-decoration:underline;font-family:inherit}
 </style>
@@ -338,11 +342,11 @@ var PLAN = {
   no:'STAMP IV', season:'Season Four',
   title:'Sparks Fly',
   line:'The night before the Fourth. Somewhere with a wide-open view of the sky, and my arm around you while it lights up.',
-  place:'LOCATION TBD',
+  place:'CHICAGO · ILLINOIS',
   dateLabel:'FRI · JUL 3 · 6:00 PM',
   day:'FRIDAY', short:'Fri · Jul 3', dow:'Fri', month:'07', dnum:3, startH:18, endH:23,
   icsSummary:'Date with Matt · Redemption Tour Season Four',
-  icsLoc:'TBD', icsDesc:'Season Four. Fireworks, the night before the Fourth.'
+  icsLoc:'Chicago, IL', icsDesc:'Season Four. Fireworks, the night before the Fourth.'
 };
 
 /* ---------- DOM ---------- */
@@ -929,8 +933,22 @@ function renderTimer(unlockAt){
 }
 var XW_SOL={'0,2':'P','1,0':'B','1,1':'E','1,2':'I','1,3':'G','1,4':'E','2,2':'N','2,3':'L','2,4':'L','3,2':'K','3,3':'E','3,4':'L','4,2':'Y','4,3':'N','4,4':'A'};
 var XW_NUM={'0,2':1,'1,0':2,'1,3':3,'1,4':4};
+var XW_CLUES=[
+  {n:'2A',ans:'BEIGE',cells:['1,0','1,1','1,2','1,3','1,4'],text:'The color of your boots the night we met.'},
+  {n:'1D',ans:'PINKY',cells:['0,2','1,2','2,2','3,2','4,2'],text:'The kind of promise you made me.'},
+  {n:'3D',ans:'GLEN',cells:['1,3','2,3','3,3','4,3'],text:'Your celeb crush, ___ Powell.'},
+  {n:'4D',ans:'ELLA',cells:['1,4','2,4','3,4','4,4'],text:'Your favorite artist, Ella ___ (first name).'}
+];
+var hintCount={};
+function hintWord(ans){
+  var c=null,i; for(i=0;i<XW_CLUES.length;i++){ if(XW_CLUES[i].ans===ans){ c=XW_CLUES[i]; break; } } if(!c) return;
+  var n=hintCount[ans]||0; if(n>=c.cells.length) return;
+  var inp=gstage.querySelector('.xc input[data-k="'+c.cells[n]+'"]');
+  if(inp){ inp.value=ans.charAt(n); inp.classList.remove('bad'); inp.classList.add('good'); }
+  hintCount[ans]=n+1; capture('crossword_hint',{word:ans,letter:n+1});
+}
 function renderCrossword(){
-  capture('crossword_shown'); var st=waitState(); st.stage='crossword'; saveWait(st);
+  capture('crossword_shown'); hintCount={}; var st=waitState(); st.stage='crossword'; saveWait(st);
   var grid='';
   for(var r=0;r<5;r++){ for(var c=0;c<5;c++){ var key=r+','+c;
     if(XW_SOL[key]){ var n=XW_NUM[key]?'<span class="xn">'+XW_NUM[key]+'</span>':'';
@@ -938,14 +956,13 @@ function renderCrossword(){
     } else grid+='<div class="xb"></div>'; } }
   gstage.innerHTML='<div class="xword"><div class="xtitle">One crossword between you and the next date.</div>'+
     '<div class="xgrid">'+grid+'</div>'+
-    '<div class="xclues"><div><b>Across</b>2. The color of your boots the night we met.</div>'+
-    '<div><b>Down</b>1. The kind of promise you made me.<br>3. Your celeb crush, ___ Powell.<br>4. Your favorite artist, Ella ___ (first name).</div></div>'+
+    '<div class="xclues">'+XW_CLUES.map(function(c){ return '<div class="xclue"><span><b>'+c.n+'</b>'+c.text+'</span><button class="xhint" data-ans="'+c.ans+'">hint</button></div>'; }).join('')+'</div>'+
     '<div class="gbtns"><button class="btn" id="xcheck">Check it</button></div>'+
     '<button class="xgiveup" id="xgiveup">stuck? fill it in for me</button>'+
     '<div class="xmsg" id="xmsg"></div></div>';
   var inputs=Array.prototype.slice.call(gstage.querySelectorAll('.xc input'));
   inputs.forEach(function(inp,i){
-    inp.addEventListener('input', function(){ inp.value=inp.value.toUpperCase().replace(/[^A-Z]/g,''); inp.classList.remove('bad'); if(inp.value && i<inputs.length-1) inputs[i+1].focus(); });
+    inp.addEventListener('input', function(){ inp.value=inp.value.toUpperCase().replace(/[^A-Z]/g,''); inp.classList.remove('bad','good'); if(inp.value && i<inputs.length-1) inputs[i+1].focus(); });
     inp.addEventListener('keydown', function(e){ if(e.key==='Backspace' && !inp.value && i>0) inputs[i-1].focus(); });
   });
   document.getElementById('xcheck').addEventListener('click', function(){ checkCrossword(inputs); });
@@ -953,6 +970,7 @@ function renderCrossword(){
     inputs.forEach(function(inp){ inp.value=XW_SOL[inp.getAttribute('data-k')]||''; inp.classList.remove('bad'); inp.classList.add('good'); });
     capture('crossword_gaveup'); setTimeout(showCrosswordDone, 1300);
   });
+  Array.prototype.forEach.call(gstage.querySelectorAll('.xhint'), function(b){ b.addEventListener('click', function(){ hintWord(b.getAttribute('data-ans')); }); });
 }
 function checkCrossword(inputs){
   var ok=true; inputs.forEach(function(inp){ var v=(inp.value||'').toUpperCase(); if(v===XW_SOL[inp.getAttribute('data-k')]){ inp.classList.remove('bad'); } else { ok=false; if(v) inp.classList.add('bad'); } });
