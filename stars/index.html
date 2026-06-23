@@ -245,6 +245,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:6;opac
 .xclues{display:flex;gap:18px;font-size:11.5px;color:#e7dcec;max-width:330px;line-height:1.5;text-align:left}
 .xclues b{color:var(--gold-2);display:block;margin-bottom:4px;font-family:'Anton',sans-serif;letter-spacing:.06em}
 .xmsg{min-height:16px;font-size:12px;color:#ff9a8a;font-style:italic}
+.xgiveup{margin-top:2px;font-size:11px;letter-spacing:.1em;color:var(--gold-2);opacity:.6;background:none;border:none;cursor:pointer;text-decoration:underline;font-family:inherit}
 </style>
 
 <!-- Supabase persistence. See /db.js + supabase-setup.sql. -->
@@ -938,14 +939,20 @@ function renderCrossword(){
   gstage.innerHTML='<div class="xword"><div class="xtitle">One crossword between you and the next date.</div>'+
     '<div class="xgrid">'+grid+'</div>'+
     '<div class="xclues"><div><b>Across</b>2. The color of your boots the night we met.</div>'+
-    '<div><b>Down</b>1. The kind of promise you made me.<br>3. Your celeb crush, ___ Powell.<br>4. Your favorite artist, Ella ___ (first name).</div></div>'+
-    '<div class="gbtns"><button class="btn" id="xcheck">Check it</button></div><div class="xmsg" id="xmsg"></div></div>';
+    '<div><b>Down</b>1. The promise I made you about the flowers (___ promise).<br>3. Your celeb crush, ___ Powell.<br>4. Your favorite artist, Ella ___ (first name).</div></div>'+
+    '<div class="gbtns"><button class="btn" id="xcheck">Check it</button></div>'+
+    '<button class="xgiveup" id="xgiveup">stuck? fill it in for me</button>'+
+    '<div class="xmsg" id="xmsg"></div></div>';
   var inputs=Array.prototype.slice.call(gstage.querySelectorAll('.xc input'));
   inputs.forEach(function(inp,i){
     inp.addEventListener('input', function(){ inp.value=inp.value.toUpperCase().replace(/[^A-Z]/g,''); inp.classList.remove('bad'); if(inp.value && i<inputs.length-1) inputs[i+1].focus(); });
     inp.addEventListener('keydown', function(e){ if(e.key==='Backspace' && !inp.value && i>0) inputs[i-1].focus(); });
   });
   document.getElementById('xcheck').addEventListener('click', function(){ checkCrossword(inputs); });
+  document.getElementById('xgiveup').addEventListener('click', function(){
+    inputs.forEach(function(inp){ inp.value=XW_SOL[inp.getAttribute('data-k')]||''; inp.classList.remove('bad'); inp.classList.add('good'); });
+    capture('crossword_gaveup'); setTimeout(showCrosswordDone, 1300);
+  });
 }
 function checkCrossword(inputs){
   var ok=true; inputs.forEach(function(inp){ var v=(inp.value||'').toUpperCase(); if(v===XW_SOL[inp.getAttribute('data-k')]){ inp.classList.remove('bad'); } else { ok=false; if(v) inp.classList.add('bad'); } });
