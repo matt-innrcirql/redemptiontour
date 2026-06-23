@@ -324,6 +324,10 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 .confetti i{position:absolute;top:-12px;width:9px;height:14px;opacity:.9;animation:fall linear forwards}
 @keyframes fall{to{transform:translateY(108dvh) rotate(720deg);opacity:.9}}
 </style>
+<!-- Supabase persistence — see /db.js + supabase-setup.sql. Loads before the page's
+     own scripts so window.DB is ready. Falls back to localStorage until keys are set. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/db.js"></script>
 </head>
 <body>
 <div class="app">
@@ -1044,6 +1048,7 @@ function renderSetlist(plan){
   tap(document.getElementById('txt'),function(){
     capture('text_matt_clicked',{mode:'yes',day:plan.short});
     try{ localStorage.setItem('next-date-rsvp', JSON.stringify({day:plan.short,mode:'yes',season:'three'})); }catch(e){}
+    try{ if(window.DB) DB.save('homeshow','rsvp',{day:plan.short,mode:'yes',season:'three'}); }catch(e){}
     var a=document.getElementById('txt'); setTimeout(function(){ a.textContent='✓ Sent. See you '+plan.dow; }, 400);
   });
   tap(document.getElementById('cal'),function(){
@@ -1097,6 +1102,7 @@ function renderConfirm(plan, mode){
   document.getElementById('txt').onclick=function(){
     capture('text_matt_clicked',{mode:mode, day:plan?plan.short:'none'});
     try{ localStorage.setItem('next-date-rsvp', JSON.stringify({day:plan?plan.short:'tbd', mode:mode, season:'three'})); }catch(e){}
+    try{ if(window.DB) DB.save('homeshow','rsvp',{day:plan?plan.short:'tbd', mode:mode, season:'three'}); }catch(e){}
     var a=document.getElementById('txt'); setTimeout(function(){ a.textContent='✓ Sent. See you then'; }, 400);
   };
 }

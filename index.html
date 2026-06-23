@@ -193,7 +193,7 @@ body.open .pages{display:block}
 .stamp__date{margin-top:8px;display:inline-block;border:1.5px solid currentColor;border-radius:20px;padding:2px 12px;font-size:10px;letter-spacing:.16em}
 .stamp__go{margin-top:12px;font-size:10px;letter-spacing:.18em;opacity:.7}
 
-/* next-date stamp — an inviting, obviously-tappable CTA (launches /next/) */
+/* next-date stamp: an inviting, obviously-tappable CTA (launches /next/) */
 .stamp--tbd{border-style:dashed;border-color:var(--gold);background:rgba(203,161,74,.08);transform:rotate(var(--rot,2deg));cursor:pointer;min-height:158px;display:flex;align-items:center;justify-content:center;text-align:center;animation:tbdpulse 2.4s ease-in-out infinite}
 .stamp--tbd::before{display:none}
 @keyframes tbdpulse{0%,100%{box-shadow:0 0 0 rgba(231,200,120,0)}50%{box-shadow:0 8px 32px rgba(231,200,120,.4)}}
@@ -204,12 +204,23 @@ body.open .pages{display:block}
 .tbd__lock{font-size:30px;display:block;margin:2px 0 6px;animation:lockwiggle 2.6s ease-in-out infinite}
 @keyframes lockwiggle{0%,88%,100%{transform:rotate(0)}92%{transform:rotate(-13deg)}96%{transform:rotate(13deg)}}
 .stamp__cta{margin-top:8px;display:inline-block;max-width:94%;background:linear-gradient(180deg,var(--gold-2),var(--gold-deep));color:#3a1416;font-weight:bold;font-size:12px;letter-spacing:.03em;line-height:1.3;padding:9px 16px;border-radius:16px;box-shadow:0 5px 14px rgba(0,0,0,.35)}
-.next__hand{font-size:30px;margin:6px 0 2px;animation:handtap 1s ease-in-out infinite}
-@keyframes handtap{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+.next__hand{font-size:38px;margin:4px 0 2px;animation:handtap 1s ease-in-out infinite;filter:drop-shadow(0 4px 10px rgba(0,0,0,.4))}
+@keyframes handtap{0%,100%{transform:translateY(0)}50%{transform:translateY(9px)}}
+
+/* Season Four full-screen overlay (launched from the passport, no page navigation) */
+.s4frame{position:fixed;inset:0;z-index:200;background:#04050d;opacity:0;pointer-events:none;transition:opacity .5s ease}
+.s4frame.show{opacity:1;pointer-events:auto}
+.s4frame iframe{width:100%;height:100%;border:0;display:block}
+.s4close{position:fixed;top:max(10px,env(safe-area-inset-top));right:12px;z-index:201;width:36px;height:36px;border-radius:50%;
+  border:1px solid rgba(231,200,120,.5);background:rgba(10,10,22,.55);color:#e7c878;font-size:16px;line-height:1;cursor:pointer}
 
 .footer{text-align:center;margin-top:26px;color:var(--gold);opacity:.7;font-size:10px;letter-spacing:.22em}
 .footer .heart{color:var(--stamp-red);opacity:.9}
 </style>
+<!-- Supabase persistence. See /db.js + supabase-setup.sql. Loads before the page's
+     own scripts so window.DB is ready. Falls back to localStorage until keys are set. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/db.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -322,8 +333,17 @@ var DESTINATIONS = [
     href:'homeshow/',
     kind:'red',
     rot:-2
+  },
+  {
+    no:'III · SPECIAL',
+    title:'After Dark',
+    place:'DINNER &amp; A MOVIE',
+    date:'JUN 20 · 2026',
+    href:'afterdark/',
+    kind:'navy',
+    rot:2
   }
-  // Next date? add: { no:'STAMP V', title:'…', place:'…', date:'…', href:'folder/', kind:'navy', rot:2 }
+  // Newest experience (Season Four) is the featured stamp below, rendered after this list.
 ];
 
 (function(){
@@ -339,27 +359,50 @@ var DESTINATIONS = [
               '<div class="stamp__go">↦ RE-ENTER</div>'+
             '</a>';
   });
-  // the interactive "next destination" stamp, unlocks the Season Three Special
-  // Edition: After Dark (afterdark/). If she's already RSVP'd to it, reflect it.
+  // The new headline experience: Season Four (stars/). Reflect "you're in" if she
+  // has finished it; otherwise a glowing "press here" stamp.
   var rsvp=null; try{ rsvp=JSON.parse(localStorage.getItem('next-date-rsvp')); }catch(e){}
-  if(rsvp && rsvp.season==='four' && rsvp.mode && rsvp.mode!=='neither'){
-    html += '<a class="stamp stamp--navy" href="afterdark/" style="--rot:-2deg" data-title="After Dark">'+
-              '<div class="stamp__no">STAMP '+roman(DESTINATIONS.length+1)+'</div>'+
-              '<div class="stamp__title">After Dark</div>'+
-              '<div class="stamp__place">DINNER &amp; A MOVIE</div>'+
-              '<div class="stamp__date">'+(rsvp.day||'').toUpperCase()+'</div>'+
+  if(rsvp && rsvp.stamp==='IV' && rsvp.mode && rsvp.mode!=='neither'){
+    html += '<a class="stamp stamp--navy" href="stars/" style="--rot:-2deg" data-title="Season Four">'+
+              '<div class="stamp__no">STAMP IV</div>'+
+              '<div class="stamp__title">Season Four</div>'+
+              '<div class="stamp__place">THE ONE WITH WED WOBBIN</div>'+
+              '<div class="stamp__date">'+((rsvp.day||'JUL 3')+'').toUpperCase()+'</div>'+
               '<div class="stamp__go">✓ YOU’RE IN ↦</div>'+
             '</a>';
   } else {
-    html += '<a class="stamp stamp--tbd" id="tbdStamp" href="afterdark/" style="--rot:-2deg">'+
+    html += '<a class="stamp stamp--tbd" id="tbdStamp" href="stars/" style="--rot:-2deg">'+
               '<div class="tbd__front">'+
-                '<div class="stamp__no">STAMP '+roman(DESTINATIONS.length+1)+'</div>'+
+                '<div class="stamp__no">STAMP IV</div>'+
                 '<div class="next__hand" aria-hidden="true">👇</div>'+
-                '<span class="stamp__cta">Special edition · press here to unlock Saturday night</span>'+
+                '<span class="stamp__cta">Season Four · press here and look up</span>'+
               '</div>'+
             '</a>';
   }
   stampsEl.innerHTML = html;
+
+  // Season Four launches as a full-screen overlay (no navigation) so the same tap
+  // that opens it also unlocks the song on iOS Safari.
+  stampsEl.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a.stamp[href="stars/"]');
+    if(a){ e.preventDefault(); openSeasonFour(); }
+  });
+  function fadeS4(au,to,ms){ var n=24,i=0,from=au.volume; var iv=setInterval(function(){ i++; au.volume=Math.max(0,Math.min(1,from+(to-from)*i/n)); if(i>=n) clearInterval(iv); }, ms/n); }
+  function openSeasonFour(){
+    if(window.posthog) window.posthog.capture('season_four_opened');
+    var fr=document.getElementById('s4frame');
+    fr.innerHTML='<button class="s4close" id="s4close" aria-label="close">✕</button>'+
+                 '<iframe src="stars/?embed=1" allow="autoplay; gyroscope; accelerometer; fullscreen"></iframe>';
+    fr.classList.add('show');
+    var song=document.getElementById('s4song');
+    try{ song.currentTime=0; song.volume=0; var p=song.play(); if(p&&p.then) p.then(function(){ fadeS4(song,0.85,1500); }).catch(function(){}); }catch(e){}
+    document.getElementById('s4close').addEventListener('click', closeSeasonFour);
+  }
+  function closeSeasonFour(){
+    var fr=document.getElementById('s4frame'); fr.classList.remove('show');
+    setTimeout(function(){ fr.innerHTML=''; }, 500);
+    var song=document.getElementById('s4song'); try{ song.pause(); }catch(e){}
+  }
   document.getElementById('stampCount').textContent = DESTINATIONS.length;
 
   // analytics: which date she re-enters
@@ -376,6 +419,28 @@ var DESTINATIONS = [
   if(tbd){
     tbd.addEventListener('click', function(){
       if(window.posthog) window.posthog.capture('next_experience_opened');
+    });
+  }
+
+  // Cross-device: if she finished Season Four on another device, reflect "you're in".
+  if(window.DB){
+    DB.load('stars','rsvp').then(function(r){
+      if(!r || !r.mode || r.mode==='neither') return;
+      var locked=document.getElementById('tbdStamp');
+      if(!locked) return; // localStorage already rendered the "you're in" stamp
+      var box=document.createElement('div');
+      box.innerHTML='<a class="stamp stamp--navy" href="stars/" style="--rot:-2deg" data-title="Season Four">'+
+          '<div class="stamp__no">STAMP IV</div>'+
+          '<div class="stamp__title">Season Four</div>'+
+          '<div class="stamp__place">THE ONE WITH WED WOBBIN</div>'+
+          '<div class="stamp__date">'+((r.day||'JUL 3')+'').toUpperCase()+'</div>'+
+          '<div class="stamp__go">✓ YOU’RE IN ↦</div>'+
+        '</a>';
+      var navy=box.firstChild;
+      locked.parentNode.replaceChild(navy, locked);
+      navy.addEventListener('click', function(){
+        if(window.posthog) window.posthog.capture('destination_clicked', { title:'Season Four' });
+      });
     });
   }
 
@@ -414,5 +479,7 @@ var DESTINATIONS = [
   }
 })();
 </script>
+<audio id="s4song" loop preload="auto" src="stars/song.mp3"></audio>
+<div id="s4frame" class="s4frame"></div>
 </body>
 </html>

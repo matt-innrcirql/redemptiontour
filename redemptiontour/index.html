@@ -37,5 +37,14 @@
 <script type="text/babel" src="bits.jsx?v=12"></script>
 <script type="text/babel" src="screens.jsx?v=12"></script>
 <script type="text/babel" src="app.jsx?v=12"></script>
+<script>
+/* analytics: viewer context (same shape as the hub + stamp 4) */
+(function(){ if(!window.posthog) return;
+  var tz=''; try{ tz=Intl.DateTimeFormat().resolvedOptions().timeZone; }catch(e){}
+  posthog.capture('viewer_context',{ timezone:tz, locale:navigator.language, referrer:document.referrer,
+    screen:(screen.width+'x'+screen.height), viewport:(window.innerWidth+'x'+window.innerHeight),
+    dpr:window.devicePixelRatio, platform:navigator.platform, page:'redemptiontour' });
+})();
+</script>
 </body>
 </html>

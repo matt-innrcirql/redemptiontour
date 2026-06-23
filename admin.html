@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,nofollow" />
+<title>· admin ·</title>
+
+<!-- No PostHog here on purpose. This page is yours, not part of the experience. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/db.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Special+Elite&display=swap" rel="stylesheet" />
+<style>
+:root{ --gold:#cba14a; --gold-2:#e7c878; --cream:#f3e7cb; --burg:#5d1a1c; --navy:#274066; --red:#9c2c25; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{ font-family:'Special Elite',monospace; color:var(--cream); background:#160814;
+  background-image:radial-gradient(900px 600px at 50% -10%, #2a1230 0%, transparent 60%); min-height:100dvh; }
+.wrap{ max-width:680px; margin:0 auto; padding:22px 18px 60px; }
+h1{ font-family:'Anton',sans-serif; letter-spacing:.06em; font-size:20px; color:var(--gold); }
+.sub{ font-size:12px; opacity:.7; margin-top:2px; }
+.banner{ margin:14px 0; padding:10px 12px; border:1px dashed var(--gold); border-radius:8px; font-size:12px; color:var(--gold-2); }
+label{ display:block; font-size:11px; letter-spacing:.12em; text-transform:uppercase; opacity:.7; margin:12px 0 4px; }
+input,select,textarea,button{ font-family:inherit; font-size:15px; color:var(--cream); background:#1e0f1c;
+  border:1px solid #4a2a44; border-radius:8px; padding:10px 12px; width:100%; }
+textarea{ min-height:90px; resize:vertical; }
+.row{ display:flex; gap:10px; } .row>*{ flex:1; }
+button{ cursor:pointer; background:var(--burg); border-color:#7a2a2c; color:#fff; letter-spacing:.04em; }
+button:hover{ filter:brightness(1.12); }
+button.primary{ background:var(--red); margin-top:14px; font-family:'Anton',sans-serif; letter-spacing:.06em; }
+.gate{ max-width:340px; margin:18vh auto 0; text-align:center; }
+.hide{ display:none !important; }
+.feed{ margin-top:26px; }
+.entry{ border:1px solid #3a233a; border-left:3px solid var(--navy); border-radius:8px; padding:10px 12px; margin:9px 0; }
+.entry.her{ border-left-color:var(--gold); }
+.entry .meta{ font-size:11px; opacity:.6; display:flex; gap:8px; flex-wrap:wrap; }
+.entry .who{ color:var(--gold-2); text-transform:uppercase; letter-spacing:.1em; }
+.entry .body{ margin-top:5px; font-size:14px; white-space:pre-wrap; word-break:break-word; }
+.empty{ opacity:.5; font-size:13px; margin-top:14px; }
+</style>
+</head>
+<body>
+
+<!-- passcode gate (soft, keeps the page from being usable by accident; the real
+     protection is RLS, which already blocks edits/deletes from the public key) -->
+<div class="gate" id="gate">
+  <h1>admin</h1>
+  <label for="pin">passcode</label>
+  <input id="pin" type="password" autocomplete="off" inputmode="numeric" />
+  <button class="primary" id="enter">Enter</button>
+  <div class="sub" id="gateMsg" style="margin-top:10px;color:#c98"></div>
+</div>
+
+<div class="wrap hide" id="app">
+  <h1>Redemption Tour · admin</h1>
+  <div class="sub">Write a note she reads back. Watch her responses land live.</div>
+  <div class="banner hide" id="offline">⚠ db.js has no Supabase keys yet, running in <b>localStorage-only</b> mode. Paste your keys into <code>db.js</code> to go live.</div>
+
+  <label>Drop a note for Josie</label>
+  <div class="row">
+    <select id="stamp">
+      <option value="afterdark">afterdark</option>
+      <option value="homeshow">homeshow</option>
+      <option value="next">next</option>
+      <option value="hub">hub</option>
+    </select>
+    <input id="stampCustom" placeholder="…or type a stamp" />
+  </div>
+  <label for="kind">kind</label>
+  <input id="kind" value="note" />
+  <label for="msg">message</label>
+  <textarea id="msg" placeholder="Something she'll see when she opens it…"></textarea>
+  <button class="primary" id="save">Save → she'll see it</button>
+
+  <div class="feed">
+    <label>Recent activity (hers + yours)</label>
+    <button id="refresh" style="margin:4px 0 6px;max-width:140px">↻ Refresh</button>
+    <div id="entries"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ---- soft passcode. Change this to your own secret. ----
+  var ADMIN_CODE = 'redemption';
+
+  var gate=document.getElementById('gate'), app=document.getElementById('app');
+  function unlock(){
+    gate.classList.add('hide'); app.classList.remove('hide');
+    DB.who='matt';                                   // everything you save is tagged who:'matt'
+    if(!DB.ready) document.getElementById('offline').classList.remove('hide');
+    load(); subscribe();
+  }
+  document.getElementById('enter').onclick=function(){
+    if(document.getElementById('pin').value===ADMIN_CODE){ try{ sessionStorage.setItem('rt-admin','1'); }catch(e){} unlock(); }
+    else document.getElementById('gateMsg').textContent='nope';
+  };
+  document.getElementById('pin').addEventListener('keydown',function(e){ if(e.key==='Enter') document.getElementById('enter').click(); });
+  try{ if(sessionStorage.getItem('rt-admin')==='1') unlock(); }catch(e){}
+
+  // ---- compose ----
+  document.getElementById('save').onclick=async function(){
+    var stamp=(document.getElementById('stampCustom').value.trim() || document.getElementById('stamp').value).trim();
+    var kind=(document.getElementById('kind').value.trim()||'note');
+    var text=document.getElementById('msg').value.trim();
+    if(!text){ return; }
+    var btn=document.getElementById('save'); btn.disabled=true; btn.textContent='Saving…';
+    var res=await DB.save(stamp, kind, { text:text });
+    btn.disabled=false; btn.textContent='Save → she\'ll see it';
+    if(res && res.ok===false && !res.offline){ alert('Save failed. Check the console.'); return; }
+    document.getElementById('msg').value='';
+    load();
+  };
+
+  // ---- feed ----
+  function esc(s){ return (s+'').replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); }
+  function fmt(v){ if(v==null) return ''; if(typeof v==='object') return v.text!=null?esc(v.text):esc(JSON.stringify(v)); return esc(v); }
+  function when(ts){ try{ return new Date(ts).toLocaleString(); }catch(e){ return ts||''; } }
+  function rowEl(r){
+    var her = (r.who||'josie')==='josie';
+    var div=document.createElement('div'); div.className='entry'+(her?' her':'');
+    div.innerHTML='<div class="meta"><span class="who">'+esc(r.who||'josie')+'</span>'+
+      '<span>'+esc(r.stamp||'')+'</span><span>'+esc(r.kind||'')+'</span><span>'+when(r.created_at)+'</span></div>'+
+      '<div class="body">'+fmt(r.value)+'</div>';
+    return div;
+  }
+  async function load(){
+    var box=document.getElementById('entries'); box.innerHTML='';
+    if(!DB.client){ box.innerHTML='<div class="empty">No Supabase connection, nothing to show yet.</div>'; return; }
+    var res=await DB.client.from('entries').select('*').order('created_at',{ascending:false}).limit(50);
+    var rows=(res&&res.data)||[];
+    if(!rows.length){ box.innerHTML='<div class="empty">No entries yet.</div>'; return; }
+    rows.forEach(function(r){ box.appendChild(rowEl(r)); });
+  }
+  function subscribe(){
+    if(!DB.client) return;
+    DB.client.channel('admin-feed')
+      .on('postgres_changes',{event:'INSERT',schema:'public',table:'entries'},function(p){
+        var box=document.getElementById('entries'); var first=box.querySelector('.entry');
+        var el=rowEl(p.new); first?box.insertBefore(el,first):box.appendChild(el);
+      }).subscribe();
+  }
+  document.getElementById('refresh').onclick=load;
+})();
+</script>
+</body>
+</html>
