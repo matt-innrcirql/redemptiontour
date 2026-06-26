@@ -1,4 +1,4 @@
-import{n as e,t}from"./index-CV7agEln.js";var n=`
+import{n as e,t}from"./index-kCAT2d_2.js";var n=`
 registerProcessor("aperture-brickwall-limiter", class extends AudioWorkletProcessor {
   process(inputs, outputs) {
     const input = inputs[0];
