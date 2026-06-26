@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>The Movie · The Redemption Tour</title>
+<meta name="description" content="The story so far. And a trailer for what's next." />
+
+<!-- PostHog (same public client token as every other stamp). -->
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('phc_zhordsTx3ucwQ5EmMbxctXqdE4L7eqz8gE79R5fhAHBk', {
+    api_host: 'https://us.i.posthog.com', defaults: '2026-01-30',
+    autocapture: true, capture_pageview: true, session_recording: { maskAllInputs: true }
+  });
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Special+Elite&display=swap" rel="stylesheet" />
+
+<!-- Supabase persistence (shared with every stamp). Degrades to localStorage. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/db.js"></script>
+
+<style>
+:root{
+  --gold:#cba14a; --gold-2:#e7c878; --gold-soft:#f0d99a; --cream:#f3e7cb;
+  --ink:#0a0c1a; --navy:#1a2747; --indigo:#171a3a; --red:#9c2c25; --burg:#5d1a1c;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;touch-action:manipulation}
+html,body{height:100%}
+body{
+  font-family:'Special Elite',monospace;color:var(--cream);
+  background:#04050d;min-height:100%;overflow:hidden;position:fixed;inset:0;
+}
+#bg{position:fixed;inset:0;display:block;z-index:0;width:100%;height:100%}
+
+/* letterbox bars + vignette: cinema framing */
+.bars{position:fixed;left:0;right:0;z-index:2;pointer-events:none;background:#04050d}
+.bars.top{top:0;height:max(34px,env(safe-area-inset-top))}
+.bars.bot{bottom:0;height:max(48px,env(safe-area-inset-bottom))}
+.vig{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(135% 110% at 50% 42%, transparent 50%, rgba(2,3,10,.72) 100%)}
+
+/* film grain, ties it to the other stamps */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:7;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+/* occasional projector flicker */
+.flick{position:fixed;inset:0;z-index:6;pointer-events:none;background:#fff;opacity:0;mix-blend-mode:overlay}
+
+/* ===== stage ===== */
+#stage{position:fixed;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:14vh 26px;pointer-events:none}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:15vh 26px;opacity:0;transform:translateY(14px);transition:opacity .9s ease,transform .9s ease}
+.scene.show{opacity:1;transform:none}
+.kicker{font-family:'Anton',sans-serif;letter-spacing:.22em;font-size:11px;color:var(--gold);opacity:.9;margin-bottom:6px}
+.date{font-size:10px;letter-spacing:.34em;color:var(--gold-2);opacity:.6;margin-bottom:22px}
+.lines{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,6.4vw,34px);line-height:1.32;
+  max-width:640px;text-shadow:0 2px 22px rgba(0,0,0,.85)}
+.lines .em{color:var(--gold-2)}
+.ex{margin-top:26px;max-width:560px;display:flex;flex-direction:column;gap:12px}
+.bubble{font-family:'Caveat',cursive;font-size:clamp(20px,5.4vw,27px);line-height:1.2;color:var(--cream);
+  background:rgba(10,14,30,.42);border:1px solid rgba(231,200,120,.22);border-radius:14px;padding:9px 15px;
+  text-shadow:0 1px 10px rgba(0,0,0,.6)}
+.bubble.me{align-self:flex-end;color:var(--gold-soft);border-color:rgba(231,200,120,.4)}
+.bubble.her{align-self:flex-start}
+.bubble b{display:block;font-family:'Anton',sans-serif;font-size:9px;letter-spacing:.2em;opacity:.55;margin-bottom:2px}
+.tag{margin-top:16px;font-family:'Special Elite';font-size:12px;letter-spacing:.04em;color:var(--gold);opacity:.7}
+
+/* ===== title / poster ===== */
+#poster{position:fixed;inset:0;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:12vh 28px;background:radial-gradient(120% 90% at 50% 30%,#1a0c10 0%,#0a0610 55%,#04050d 100%);
+  transition:opacity .7s ease}
+#poster.gone{opacity:0;pointer-events:none}
+.studio{font-family:'Anton',sans-serif;letter-spacing:.26em;font-size:11px;color:var(--gold);opacity:.85}
+.present{font-size:10px;letter-spacing:.4em;color:var(--gold-2);opacity:.6;margin-top:8px}
+.feature{font-family:'Playfair Display',serif;font-weight:800;font-style:italic;font-size:clamp(40px,13vw,76px);
+  line-height:.96;margin:26px 0 4px;background:linear-gradient(180deg,var(--gold-2),var(--gold) 55%,#a87f2e);
+  -webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 2px 0 rgba(0,0,0,.2)}
+.feature small{display:block;font-family:'Anton',sans-serif;-webkit-text-fill-color:var(--cream);color:var(--cream);
+  font-size:13px;letter-spacing:.4em;font-style:normal;opacity:.8;margin-top:14px}
+.rated{margin-top:26px;font-size:10px;letter-spacing:.28em;color:var(--gold);opacity:.55;max-width:330px;line-height:1.8}
+.play{margin-top:34px;pointer-events:auto;cursor:pointer;display:inline-flex;align-items:center;gap:12px;
+  font-family:'Anton',sans-serif;letter-spacing:.18em;font-size:14px;color:#2a160c;
+  background:linear-gradient(180deg,var(--gold-2),#a87f2e);padding:14px 30px;border-radius:30px;border:0;
+  box-shadow:0 10px 30px rgba(0,0,0,.5);animation:bob 2.4s ease-in-out infinite}
+.play .tri{width:0;height:0;border-left:14px solid #2a160c;border-top:9px solid transparent;border-bottom:9px solid transparent}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+/* film leader countdown */
+#leader{position:fixed;inset:0;z-index:9;display:none;align-items:center;justify-content:center;background:#04050d}
+#leader.show{display:flex}
+.count{font-family:'Anton',sans-serif;font-size:34vh;color:rgba(231,200,120,.16);position:relative}
+.count::before,.count::after{content:"";position:absolute;left:50%;top:50%;width:78vmin;height:78vmin;
+  transform:translate(-50%,-50%);border-radius:50%;border:2px solid rgba(231,200,120,.2)}
+.count::after{width:2px;height:78vmin;background:rgba(231,200,120,.2);border:0}
+
+/* ===== HUD ===== */
+.brand{position:fixed;top:calc(max(34px,env(safe-area-inset-top)) + 8px);left:0;right:0;z-index:5;text-align:center;pointer-events:none;opacity:0;transition:opacity .6s}
+.brand.show{opacity:1}
+.brand__k{font-family:'Caveat',cursive;font-size:20px;color:var(--gold-2);line-height:1;text-shadow:0 0 16px rgba(231,200,120,.35)}
+.brand__u{font-family:'Anton',sans-serif;letter-spacing:.3em;font-size:9px;color:var(--gold);opacity:.6;margin-top:2px}
+.dots{position:fixed;left:0;right:0;bottom:calc(max(48px,env(safe-area-inset-bottom)) + 14px);z-index:5;display:flex;gap:7px;justify-content:center;pointer-events:none;opacity:0;transition:opacity .6s}
+.dots.show{opacity:1}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(231,200,120,.25);transition:background .4s,transform .4s}
+.dot.on{background:var(--gold-2);transform:scale(1.35)}
+.tap{position:fixed;left:0;right:0;bottom:calc(max(48px,env(safe-area-inset-bottom)) + 34px);z-index:5;text-align:center;
+  font-size:11px;letter-spacing:.22em;color:var(--gold-soft);opacity:0;transition:opacity .6s;pointer-events:none}
+.tap.show{opacity:.7;animation:fade 2.6s ease-in-out infinite}
+@keyframes fade{0%,100%{opacity:.35}50%{opacity:.85}}
+.mute{position:fixed;top:calc(max(34px,env(safe-area-inset-top)) + 6px);right:14px;z-index:6;pointer-events:auto;cursor:pointer;
+  width:34px;height:34px;border-radius:50%;border:1px solid rgba(231,200,120,.4);background:rgba(10,10,22,.5);color:var(--gold-2);font-size:14px;opacity:0;transition:opacity .5s}
+.mute.show{opacity:1}
+
+/* ===== reveal / RSVP ===== */
+#reveal .feature{font-size:clamp(34px,11vw,62px)}
+.beats{margin:22px auto 0;max-width:480px;display:flex;flex-direction:column;gap:12px;text-align:left}
+.beat{display:flex;gap:13px;align-items:flex-start;background:rgba(10,14,30,.4);border:1px solid rgba(231,200,120,.18);
+  border-radius:12px;padding:11px 14px}
+.beat .when{font-family:'Anton',sans-serif;font-size:10px;letter-spacing:.12em;color:var(--gold-2);white-space:nowrap;padding-top:3px;min-width:74px}
+.beat .what{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px;line-height:1.3;color:var(--cream)}
+.rsvp{margin-top:26px;pointer-events:auto;display:flex;flex-direction:column;gap:12px;align-items:center}
+.rsvp__q{font-family:'Caveat',cursive;font-size:25px;color:var(--gold-2)}
+.btn{cursor:pointer;font-family:'Anton',sans-serif;letter-spacing:.14em;font-size:14px;color:#2a160c;
+  background:linear-gradient(180deg,var(--gold-2),#a87f2e);padding:13px 30px;border-radius:28px;border:0;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+.btn.ghost{background:transparent;color:var(--gold-2);border:1px solid rgba(231,200,120,.45);box-shadow:none;font-size:12px;padding:10px 22px}
+.done{font-family:'Caveat',cursive;font-size:30px;color:var(--gold-2);margin-top:8px;min-height:36px}
+
+.scene{pointer-events:none}
+.skip{position:fixed;bottom:calc(max(48px,env(safe-area-inset-bottom)) + 14px);right:16px;z-index:6;pointer-events:auto;cursor:pointer;
+  font-size:10px;letter-spacing:.18em;color:var(--gold);opacity:0;transition:opacity .5s;background:none;border:0}
+.skip.show{opacity:.5}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div class="vig"></div>
+<div class="flick" id="flick"></div>
+<div class="bars top"></div>
+<div class="bars bot"></div>
+
+<div class="brand" id="brand"><div class="brand__k">The Redemption Tour</div><div class="brand__u">SEASON FIVE · THE MOVIE</div></div>
+<button class="mute" id="mute" aria-label="sound">♪</button>
+
+<!-- the story plays here -->
+<div id="stage"></div>
+
+<div class="dots" id="dots"></div>
+<div class="tap" id="tapHint">TAP TO CONTINUE</div>
+<button class="skip" id="skip">skip to the trailer ↦</button>
+
+<!-- ===== poster / start ===== -->
+<div id="poster">
+  <div class="studio">REDEMPTION TOUR PICTURES</div>
+  <div class="present">PROUDLY PRESENTS</div>
+  <div class="feature">The Story<br/>So Far<small>A MATT &amp; JOSIE PICTURE</small></div>
+  <div class="rated">RATED PP · PASSENGER PRINCESS · FOR A LIMITED AUDIENCE OF ONE · NO CAMERAS THIS TIME</div>
+  <button class="play" id="play"><span class="tri"></span> PLAY</button>
+</div>
+
+<!-- film leader countdown -->
+<div id="leader"><div class="count" id="count">5</div></div>
+
+<audio id="song" loop preload="auto"></audio>
+
+<script>
+/* =======================================================================
+   SEASON FIVE - THE MOVIE
+   Everything you'd want to edit lives in CONFIG below: the scene captions,
+   the real text exchanges, and the next-date reveal. Add a photo by setting
+   `photo:'assets/whatever.jpg'` on a scene (drop the file in themovie/assets).
+   ======================================================================= */
+var CONFIG = {
+  song: '../stars/song.mp3',   // TODO: drop a themovie/song.mp3 and point here; placeholder reuses Season Four's track
+
+  scenes: [
+    {
+      id:'rainey', kicker:'RAINEY STREET · AUSTIN', date:'APRIL 2026', mood:'lights',
+      lines:['Two cities. One street. <span class="em">One night.</span>'],
+      tag:'You were filming a guy who would not explain himself.'
+    },
+    {
+      id:'dm', kicker:'THE FIRST MESSAGE · AUSTIN to CHICAGO', date:'APRIL 19', mood:'spark',
+      lines:['So I found you.'],
+      ex:[
+        {who:'MATT', side:'me', text:'too many coincidences here.. let me take you to dinner when I am back in May.'},
+        {who:'JOSIE', side:'her', text:'the coincidences are real so maybe I will take you up on that offer.. but no cameras this time haha'}
+      ]
+    },
+    {
+      id:'date1', kicker:'DATE ONE · ARLINGTON HEIGHTS', date:'MAY 8', mood:'warm',
+      lines:['The first dinner. We both said it out loud before the check came.'],
+      ex:[
+        {who:'MATT', side:'me', text:'I would love to see you again.'},
+        {who:'JOSIE', side:'her', text:'I would love to see you again too.'}
+      ],
+      tag:'(barely made the cut ;) )'
+    },
+    {
+      id:'almost', kicker:'DATE TWO · THE FUMBLE', date:'MAY 20', mood:'warm',
+      lines:['I went in for the hug. I <span class="em">meant</span> to kiss you.'],
+      ex:[
+        {who:'JOSIE', side:'her', text:'I am honored I could be part of such a historic moment haha'}
+      ],
+      tag:'And just like that, the Redemption Tour was born.'
+    },
+    {
+      id:'pass', kicker:'THE BOARDING PASS', date:'LATE MAY', mood:'gold',
+      lines:['So I made you earn the next one. Seat 1A. <span class="em">Passenger princess.</span>'],
+      ex:[
+        {who:'JOSIE', side:'her', text:'I actually have no words.. I got it right the first try ;)'}
+      ]
+    },
+    {
+      id:'kiss', kicker:'DATE FOUR · DOWNTOWN CHICAGO', date:'JUNE 6', mood:'fireworks',
+      lines:['Flowers, the river, fireworks. A walk that ran so long I threw out the plan.'],
+      ex:[
+        {who:'MATT', side:'me', text:'I cannot read your body language, but I would like to kiss you.'},
+        {who:'JOSIE', side:'her', text:'it took long enough.'}
+      ]
+    },
+    {
+      id:'chosen', kicker:'DATE FIVE · THE NIGHT WE CHOSE EACH OTHER', date:'JUNE 13', mood:'river',
+      lines:['We steered the boat ourselves. Fondue. A quiet bar.<br/><span class="em">Off the apps. Just us.</span>'],
+      ex:[
+        {who:'JOSIE', side:'her', text:'Looking forward to your famous pancakes ;)'},
+        {who:'MATT', side:'me', text:'cannot wait.'}
+      ]
+    },
+    {
+      id:'cook', kicker:'DATE SIX · THE ONE WITH WED WOBBIN', date:'JUNE 20', mood:'cozy',
+      lines:['Your place. Dash ran his inspection, then he picked me. Cards, wine, two years from now.'],
+      ex:[
+        {who:'MATT (the note)', side:'me', text:'you are one of the best things to happen to me this year.'},
+        {who:'JOSIE', side:'her', text:'I am happy you stayed.'}
+      ]
+    },
+    {
+      id:'arc', kicker:'THE STORY SO FAR', date:'62 DAYS', mood:'gold',
+      lines:['From <span class="em">too many coincidences</span><br/>to <span class="em">I am happy you stayed.</span>'],
+      tag:'Stranger. Coincidence. Now this.'
+    }
+  ],
+
+  // ===== the part that unlocks the next date (edit freely) =====
+  reveal: {
+    studio:'NOW BOOKING',
+    title:'Season Five',
+    sub:'JULY 2 & 3 · CHICAGO',
+    beats:[
+      {when:'JUL 2 · EVE', what:'Dinner at the Ritz, then something fun after I get off work. Just you and me.'},
+      {when:'JUL 3 · AM',  what:'You and a plus-one (sister or a friend) at the Ritz spa, on me. Sleep in.'},
+      {when:'JUL 3 · DAY', what:'A whole day together. Maybe a little Wrigley, Cubs vs Cardinals. Dinner to close it out.'}
+    ],
+    q:'So. Same answer as the boarding pass?',
+    yes:"I'm in",
+    yesNote:"front row, naturally. see you the 2nd. ❤"
+  }
+};
+
+/* ---------------- engine ---------------- */
+(function(){
+  var stage=document.getElementById('stage');
+  var dotsEl=document.getElementById('dots');
+  var brand=document.getElementById('brand');
+  var tapHint=document.getElementById('tapHint');
+  var skipBtn=document.getElementById('skip');
+  var song=document.getElementById('song');
+  var muteBtn=document.getElementById('mute');
+  var poster=document.getElementById('poster');
+  var leader=document.getElementById('leader');
+  var SC=CONFIG.scenes;
+  var idx=-1, started=false, muted=false;
+
+  /* ---- ambient canvas ---- */
+  var cv=document.getElementById('bg'), ctx=cv.getContext('2d'), W=0,H=0,DPR=1;
+  function size(){ DPR=Math.min(2,window.devicePixelRatio||1); W=cv.width=innerWidth*DPR; H=cv.height=innerHeight*DPR; }
+  size(); addEventListener('resize', size);
+  var palettes={
+    lights:{bg:['#2a1208','#0a0608'], p:['#ffce7a','#ffb24d','#e7c878'], n:46, speed:.16, size:[2,6], glow:1},
+    spark:{bg:['#101830','#06070f'], p:['#e7c878','#9ec5ff','#fff1c8'], n:40, speed:.22, size:[1,4], glow:1},
+    warm:{bg:['#2a160c','#0a0608'], p:['#ffce7a','#d8a25a','#e7c878'], n:34, speed:.12, size:[2,5], glow:.9},
+    gold:{bg:['#1e1407','#08060a'], p:['#e7c878','#f0d99a','#cba14a'], n:54, speed:.2, size:[1,4], glow:1},
+    fireworks:{bg:['#0c1430','#06070f'], p:['#ffd27a','#ff7a8a','#9ec5ff','#e7c878'], n:26, speed:.1, size:[1,3], glow:1, fw:true},
+    river:{bg:['#13233a','#070a14'], p:['#e7c878','#ffce7a','#bfe0ff'], n:42, speed:.14, size:[1,5], glow:1, water:true},
+    cozy:{bg:['#241408','#0a0708'], p:['#ffb24d','#ffce7a','#e0a85a'], n:30, speed:.09, size:[2,6], glow:.85}
+  };
+  var cur=palettes.gold, parts=[], fws=[];
+  function rnd(a,b){ return a+Math.random()*(b-a); }
+  function seed(){
+    parts=[]; var n=cur.n;
+    for(var i=0;i<n;i++) parts.push({x:rnd(0,W),y:rnd(0,H),r:rnd(cur.size[0],cur.size[1])*DPR,
+      vy:-rnd(cur.speed,cur.speed*2.4)*DPR, vx:rnd(-.12,.12)*DPR, a:rnd(.25,.85), tw:rnd(0,6.28),
+      c:cur.p[(Math.random()*cur.p.length)|0]});
+  }
+  function setMood(m){ cur=palettes[m]||palettes.gold; seed(); fws=[]; }
+  function firework(){
+    var cx=rnd(W*.2,W*.8), cy=rnd(H*.18,H*.5), c=cur.p[(Math.random()*cur.p.length)|0], k=22+((Math.random()*16)|0);
+    for(var i=0;i<k;i++){ var an=(i/k)*6.28, sp=rnd(1.4,3.6)*DPR; fws.push({x:cx,y:cy,vx:Math.cos(an)*sp,vy:Math.sin(an)*sp,a:1,c:c}); }
+  }
+  var fwT=0;
+  function frame(t){
+    var g=ctx.createLinearGradient(0,0,0,H); g.addColorStop(0,cur.bg[0]); g.addColorStop(1,cur.bg[1]);
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    ctx.globalCompositeOperation='lighter';
+    for(var i=0;i<parts.length;i++){ var p=parts[i];
+      p.y+=p.vy; p.x+=p.vx; p.tw+=.03;
+      if(p.y< -10){ p.y=H+10; p.x=rnd(0,W); }
+      var fl=cur.glow*(.6+.4*Math.sin(p.tw));
+      ctx.globalAlpha=p.a*fl;
+      ctx.fillStyle=p.c;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.28); ctx.fill();
+      if(cur.water){ ctx.globalAlpha=p.a*fl*.4; ctx.beginPath(); ctx.arc(p.x,H-(p.y%H),p.r*1.4,0,6.28); ctx.fill(); }
+    }
+    if(cur.fw){ fwT++; if(fwT>54){ fwT=0; firework(); }
+      for(var j=fws.length-1;j>=0;j--){ var f=fws[j]; f.x+=f.vx; f.y+=f.vy; f.vy+=.02*DPR; f.a-=.012;
+        if(f.a<=0){ fws.splice(j,1); continue; }
+        ctx.globalAlpha=f.a; ctx.fillStyle=f.c; ctx.beginPath(); ctx.arc(f.x,f.y,2*DPR,0,6.28); ctx.fill(); }
+    }
+    ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over';
+    requestAnimationFrame(frame);
+  }
+  setMood('gold'); requestAnimationFrame(frame);
+
+  /* ---- render a scene ---- */
+  function render(i){
+    var s=SC[i]; if(!s) return;
+    setMood(s.mood);
+    var ex=''; if(s.ex){ ex='<div class="ex">'; s.ex.forEach(function(b){
+      ex+='<div class="bubble '+(b.side||'her')+'"><b>'+b.who+'</b>'+b.text+'</div>'; }); ex+='</div>'; }
+    var html='<div class="scene" id="sc'+i+'">'+
+      '<div class="kicker">'+s.kicker+'</div>'+
+      '<div class="date">'+s.date+'</div>'+
+      '<div class="lines">'+s.lines.join(' ')+'</div>'+ ex +
+      (s.tag?'<div class="tag">'+s.tag+'</div>':'')+
+      '</div>';
+    stage.innerHTML=html;
+    var el=document.getElementById('sc'+i);
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add('show'); }); });
+    // dots
+    var dh=''; for(var d=0; d<SC.length; d++) dh+='<span class="dot'+(d===i?' on':'')+'"></span>';
+    dotsEl.innerHTML=dh;
+    if(window.posthog) posthog.capture('movie_scene', {scene:s.id, i:i});
+  }
+
+  function flicker(){ var f=document.getElementById('flick'); f.style.transition='none'; f.style.opacity='.5';
+    requestAnimationFrame(function(){ f.style.transition='opacity .5s ease'; f.style.opacity='0'; }); }
+
+  function next(){
+    if(!started) return;
+    idx++;
+    if(idx>=SC.length){ showReveal(); return; }
+    flicker(); render(idx);
+  }
+
+  /* ---- reveal / RSVP ---- */
+  function showReveal(){
+    setMood('gold');
+    dotsEl.classList.remove('show'); tapHint.classList.remove('show'); skipBtn.classList.remove('show');
+    var r=CONFIG.reveal;
+    var beats=''; r.beats.forEach(function(b){ beats+='<div class="beat"><div class="when">'+b.when+'</div><div class="what">'+b.what+'</div></div>'; });
+    stage.innerHTML='<div class="scene" id="reveal">'+
+      '<div class="studio">'+r.studio+'</div>'+
+      '<div class="feature">'+r.title+'<small>'+r.sub+'</small></div>'+
+      '<div class="beats">'+beats+'</div>'+
+      '<div class="rsvp">'+
+        '<div class="rsvp__q">'+r.q+'</div>'+
+        '<button class="btn" id="yes">'+r.yes+'</button>'+
+        '<div class="done" id="done"></div>'+
+      '</div>'+
+    '</div>';
+    var el=document.getElementById('reveal');
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add('show'); }); });
+    if(window.posthog) posthog.capture('movie_reveal_shown');
+    document.getElementById('yes').addEventListener('click', sayYes);
+    // if she already said yes before, reflect it
+    if(window.DB){ DB.load('themovie','rsvp').then(function(v){ if(v && v.mode==='yes') markIn(); }); }
+  }
+  function markIn(){
+    var y=document.getElementById('yes'); if(y) y.style.display='none';
+    var d=document.getElementById('done'); if(d) d.textContent=CONFIG.reveal.yesNote;
+  }
+  function sayYes(){
+    var rec={mode:'yes', at:Date.now()};
+    try{ localStorage.setItem('next-date-rsvp', JSON.stringify({stamp:'V', mode:'yes', day:'JUL 2'})); }catch(e){}
+    if(window.DB) DB.save('themovie','rsvp', rec);
+    if(window.posthog) posthog.capture('movie_rsvp_yes');
+    markIn();
+  }
+
+  /* ---- audio ---- */
+  function fade(au,to,ms){ var n=24,i=0,from=au.volume; var iv=setInterval(function(){ i++; au.volume=Math.max(0,Math.min(1,from+(to-from)*i/n)); if(i>=n) clearInterval(iv); }, ms/n); }
+  muteBtn.addEventListener('click', function(){ muted=!muted; muteBtn.textContent=muted?'♪̶':'♪';
+    if(muted){ song.pause(); } else { song.play().catch(function(){}); } });
+
+  /* ---- start sequence: poster tap -> audio + film leader -> scenes ---- */
+  function begin(){
+    if(started) return; started=true;
+    song.src=CONFIG.song;
+    try{ song.volume=0; var p=song.play(); if(p&&p.then) p.then(function(){ fade(song,.8,1600); }).catch(function(){}); }catch(e){}
+    poster.classList.add('gone');
+    if(window.posthog) posthog.capture('movie_started');
+    // quick film-leader countdown 3..2..1
+    leader.classList.add('show'); var c=document.getElementById('count'); var n=3; c.textContent=n;
+    var iv=setInterval(function(){ n--; if(n<=0){ clearInterval(iv); leader.classList.remove('show');
+        brand.classList.add('show'); dotsEl.classList.add('show'); tapHint.classList.add('show');
+        muteBtn.classList.add('show'); skipBtn.classList.add('show'); next();
+      } else { c.textContent=n; flicker(); } }, 760);
+  }
+  document.getElementById('play').addEventListener('click', begin);
+
+  /* ---- advance on tap anywhere (except buttons) ---- */
+  document.addEventListener('click', function(e){
+    if(!started) return;
+    if(e.target.closest('button')) return;
+    if(e.target.closest('.rsvp')) return;
+    next();
+  });
+  skipBtn.addEventListener('click', function(e){ e.stopPropagation(); idx=SC.length-1; showReveal(); });
+})();
+</script>
+</body>
+</html>
