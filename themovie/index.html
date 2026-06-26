@@ -46,7 +46,7 @@
       #gate .g2 { font-family: 'Anton', sans-serif; letter-spacing: .3em; font-size: 11px; opacity: .75; margin-top: 16px; }
       /* reveal / RSVP */
       #reveal { position: fixed; inset: 0; z-index: 8; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        text-align: center; padding: 12vh 26px; background: radial-gradient(120% 90% at 50% 30%, rgba(26,12,16,.7) 0%, rgba(4,5,13,.92) 70%);
+        text-align: center; padding: 10vh 26px; overflow-y: auto; background: radial-gradient(130% 95% at 50% 28%, rgba(22,11,14,.93) 0%, rgba(4,5,13,.99) 65%);
         opacity: 0; pointer-events: none; transition: opacity 1.2s ease; }
       #reveal.show { opacity: 1; pointer-events: auto; }
       #reveal .kick { font-family: 'Anton', sans-serif; letter-spacing: .3em; font-size: 11px; color: #cba14a; }
@@ -55,11 +55,22 @@
       .beat { max-width: 460px; display: flex; gap: 13px; align-items: flex-start; background: rgba(10,14,30,.45); border: 1px solid rgba(231,200,120,.2); border-radius: 12px; padding: 10px 14px; margin: 7px auto; text-align: left; }
       .beat .when { font-family: 'Anton', sans-serif; font-size: 10px; letter-spacing: .1em; color: #e7c878; white-space: nowrap; padding-top: 3px; min-width: 70px; }
       .beat .what { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 16px; line-height: 1.3; color: #f3e7cb; }
-      #rsvpQ { font-family: 'Caveat', cursive; font-size: 26px; color: #e7c878; margin-top: 20px; }
-      #rsvpBtn { cursor: pointer; font-family: 'Anton', sans-serif; letter-spacing: .14em; font-size: 15px; color: #2a160c; background: linear-gradient(180deg, #e7c878, #a87f2e); padding: 13px 32px; border-radius: 28px; border: 0; box-shadow: 0 8px 24px rgba(0,0,0,.45); margin-top: 12px; }
-      #rsvpDone { font-family: 'Caveat', cursive; font-size: 30px; color: #e7c878; margin-top: 10px; min-height: 36px; }
+      .rsvpStep { margin-top: 18px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+      .rsvpStep[hidden] { display: none; }
+      .rsvpQ { font-family: 'Caveat', cursive; font-size: 26px; color: #e7c878; }
+      .rsvpBtns { display: flex; gap: 14px; }
+      .btn { cursor: pointer; font-family: 'Anton', sans-serif; letter-spacing: .14em; font-size: 15px; color: #2a160c; background: linear-gradient(180deg, #e7c878, #a87f2e); padding: 13px 34px; border-radius: 28px; border: 0; box-shadow: 0 8px 24px rgba(0,0,0,.45); }
+      .btn.ghost { background: transparent; color: #e7c878; border: 1px solid rgba(231,200,120,.5); box-shadow: none; }
+      .rsvpNote { font-family: 'Special Elite', monospace; font-size: 13px; color: #e7c878; opacity: .9; min-height: 16px; max-width: 320px; }
+      .stars { font-size: 36px; letter-spacing: 8px; cursor: pointer; user-select: none; }
+      .stars .st { color: rgba(231,200,120,.28); transition: color .15s ease, transform .15s ease; }
+      .stars .st.on { color: #e7c878; transform: scale(1.15); text-shadow: 0 0 14px rgba(231,200,120,.6); }
+      .wishInput { font-family: 'Cormorant Garamond', serif; font-size: 18px; text-align: center; color: #fff; background: rgba(10,14,30,.6); border: 1px solid rgba(231,200,120,.45); border-radius: 12px; padding: 11px 16px; width: min(82vw, 360px); outline: none; }
+      .wishInput::placeholder { color: rgba(231,200,120,.5); }
+      .wishEcho { font-family: 'Caveat', cursive; font-size: 25px; color: #e7c878; min-height: 32px; max-width: 90vw; }
+      #rsvpDone { font-family: 'Caveat', cursive; font-size: 26px; color: #e7c878; margin-top: 6px; min-height: 30px; }
     </style>
-    <script type="module" crossorigin src="./assets/index-CBMs2nBW.js"></script>
+    <script type="module" crossorigin src="./assets/index-BgzHt0PB.js"></script>
   </head>
   <body>
     <canvas id="aperture"></canvas>
@@ -76,12 +87,26 @@
       <div class="feat">Season Five</div>
       <div class="featsub">JULY 2 &amp; 3 · CHICAGO</div>
       <div id="beats">
-        <div class="beat"><div class="when">JUL 2 · EVE</div><div class="what">Dinner at the Ritz, then something fun after I'm off work. Just you and me.</div></div>
-        <div class="beat"><div class="when">JUL 3 · AM</div><div class="what">You + a plus-one at the Ritz spa, on me. Sleep in.</div></div>
-        <div class="beat"><div class="when">JUL 3 · DAY</div><div class="what">A whole day together. Maybe a little Wrigley. Dinner to close it out.</div></div>
+        <div class="beat"><div class="when">JUL 2 · 7:30</div><div class="what">I come to you after work — then an Uber to Arlington Heights for dinner.</div></div>
+        <div class="beat"><div class="when">JUL 3 · AM</div><div class="what">The Ritz spa is yours (bring a +1 if she wants) while I wrap a couple hours of work.</div></div>
+        <div class="beat"><div class="when">JUL 3 · 4:00</div><div class="what">Early dinner at Tre Dita, Streeterville — Italian, a view, and a dress. I've been dying to try it.</div></div>
+        <div class="beat"><div class="when">JUL 3 · EVE</div><div class="what">The rest of the night is ours.</div></div>
       </div>
-      <div id="rsvpQ">So. Same answer as the boarding pass?</div>
-      <button id="rsvpBtn">I'm in</button>
+
+      <div id="rsvpStep1" class="rsvpStep">
+        <div class="rsvpQ">So… are you in?</div>
+        <div class="rsvpBtns"><button id="yesBtn" class="btn">Yes</button><button id="noBtn" class="btn ghost">No</button></div>
+        <div id="noMsg" class="rsvpNote"></div>
+      </div>
+      <div id="rsvpStep2" class="rsvpStep" hidden>
+        <div class="rsvpQ">How excited, honestly?</div>
+        <div id="stars" class="stars"><span class="st" data-v="1">★</span><span class="st" data-v="2">★</span><span class="st" data-v="3">★</span><span class="st" data-v="4">★</span><span class="st" data-v="5">★</span></div>
+      </div>
+      <div id="rsvpStep3" class="rsvpStep" hidden>
+        <div class="rsvpQ">One thing you want to do with me?</div>
+        <input id="wishInput" class="wishInput" maxlength="140" placeholder="type it here…" autocomplete="off" />
+        <div id="wishEcho" class="wishEcho"></div>
+      </div>
       <div id="rsvpDone"></div>
     </div>
 
