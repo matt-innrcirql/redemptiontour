@@ -127,6 +127,17 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:7;opac
   background:linear-gradient(180deg,var(--gold-2),#a87f2e);padding:13px 30px;border-radius:28px;border:0;box-shadow:0 8px 24px rgba(0,0,0,.45)}
 .btn.ghost{background:transparent;color:var(--gold-2);border:1px solid rgba(231,200,120,.45);box-shadow:none;font-size:12px;padding:10px 22px}
 .done{font-family:'Caveat',cursive;font-size:30px;color:var(--gold-2);margin-top:8px;min-height:36px}
+.rsvpStep{display:flex;flex-direction:column;gap:12px;align-items:center}
+.rsvpStep[hidden]{display:none}
+.rsvpBtns{display:flex;gap:14px}
+.stars{font-size:36px;letter-spacing:8px;cursor:pointer;user-select:none}
+.stars .st{color:rgba(231,200,120,.28);transition:color .15s ease, transform .15s ease}
+.stars .st.on{color:var(--gold-2);transform:scale(1.15);text-shadow:0 0 14px rgba(231,200,120,.6)}
+.wishInput{font-family:'Cormorant Garamond',serif;font-size:18px;text-align:center;color:#fff;background:rgba(10,14,30,.6);
+  border:1px solid rgba(231,200,120,.45);border-radius:12px;padding:11px 16px;width:min(82vw,360px);outline:none}
+.wishInput::placeholder{color:rgba(231,200,120,.5)}
+.wishEcho{font-family:'Caveat',cursive;font-size:25px;color:var(--gold-2);min-height:32px;max-width:90vw}
+.rsvpNote{font-family:'Special Elite';font-size:13px;color:var(--gold-2);opacity:.9;min-height:16px;max-width:320px;text-align:center}
 
 .scene{pointer-events:none}
 .skip{position:fixed;bottom:calc(max(48px,env(safe-area-inset-bottom)) + 14px);right:16px;z-index:6;pointer-events:auto;cursor:pointer;
@@ -173,25 +184,27 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:7;opac
    `photo:'assets/whatever.jpg'` on a scene (drop the file in themovie/assets).
    ======================================================================= */
 var CONFIG = {
-  song: '../stars/song.mp3',   // TODO: drop a themovie/song.mp3 and point here; placeholder reuses Season Four's track
+  song: 'song.mp3',   // same track as the WebGPU cut (themovie/song.mp3)
 
   scenes: [
     {
-      id:'rainey', kicker:'RAINEY STREET · AUSTIN', date:'APRIL 2026', mood:'lights',
+      id:'rainey', kicker:'RAINEY STREET · AUSTIN', date:'AUSTIN, TEXAS', mood:'lights',
       lines:['Two cities. One street. <span class="em">One night.</span>'],
-      tag:'You were filming a guy who would not explain himself.'
+      tag:'You were just standing there, looking beautiful.'
     },
     {
-      id:'dm', kicker:'THE FIRST MESSAGE · AUSTIN to CHICAGO', date:'APRIL 19', mood:'spark',
-      lines:['So I found you.'],
+      id:'dm', kicker:'TOO MANY COINCIDENCES', date:'APRIL · INSTAGRAM', mood:'spark',
+      lines:['Too many coincidences to ignore.'],
       ex:[
-        {who:'MATT', side:'me', text:'too many coincidences here.. let me take you to dinner when I am back in May.'},
-        {who:'JOSIE', side:'her', text:'the coincidences are real so maybe I will take you up on that offer.. but no cameras this time haha'}
+        {who:'MATT', side:'me', text:'I\'m one of the love is blind guys you took a video of lol.'},
+        {who:'MATT', side:'me', text:'Don\'t worry, I won\'t leak your number… but I can\'t promise I won\'t judge your Netflix edit 😂'},
+        {who:'MATT', side:'me', text:'too many coincidences here… let me take you to dinner when I\'m back.'},
+        {who:'JOSIE', side:'her', text:'the coincidences are real… but no cameras this time haha ❤'}
       ]
     },
     {
-      id:'date1', kicker:'DATE ONE · ARLINGTON HEIGHTS', date:'MAY 8', mood:'warm',
-      lines:['The first dinner. We both said it out loud before the check came.'],
+      id:'passero', kicker:'PASSERO · ARLINGTON HEIGHTS', date:'DINNER', mood:'warm',
+      lines:['Dinner that neither of us wanted to end.'],
       ex:[
         {who:'MATT', side:'me', text:'I would love to see you again.'},
         {who:'JOSIE', side:'her', text:'I would love to see you again too.'}
@@ -199,7 +212,7 @@ var CONFIG = {
       tag:'(barely made the cut ;) )'
     },
     {
-      id:'almost', kicker:'DATE TWO · THE FUMBLE', date:'MAY 20', mood:'warm',
+      id:'armands', kicker:'ARMAND\'S · THE FUMBLE', date:'THE REDEMPTION TOUR', mood:'warm',
       lines:['I went in for the hug. I <span class="em">meant</span> to kiss you.'],
       ex:[
         {who:'JOSIE', side:'her', text:'I am honored I could be part of such a historic moment haha'}
@@ -207,14 +220,14 @@ var CONFIG = {
       tag:'And just like that, the Redemption Tour was born.'
     },
     {
-      id:'pass', kicker:'THE BOARDING PASS', date:'LATE MAY', mood:'gold',
+      id:'pass', kicker:'THE BOARDING PASS', date:'FIRST CLASS', mood:'gold',
       lines:['So I made you earn the next one. Seat 1A. <span class="em">Passenger princess.</span>'],
       ex:[
         {who:'JOSIE', side:'her', text:'I actually have no words.. I got it right the first try ;)'}
       ]
     },
     {
-      id:'kiss', kicker:'DATE FOUR · DOWNTOWN CHICAGO', date:'JUNE 6', mood:'fireworks',
+      id:'kiss', kicker:'DOWNTOWN CHICAGO', date:'THE RIVERWALK', mood:'fireworks',
       lines:['Flowers, the river, fireworks. A walk that ran so long I threw out the plan.'],
       ex:[
         {who:'MATT', side:'me', text:'I cannot read your body language, but I would like to kiss you.'},
@@ -222,23 +235,21 @@ var CONFIG = {
       ]
     },
     {
-      id:'chosen', kicker:'DATE FIVE · THE NIGHT WE CHOSE EACH OTHER', date:'JUNE 13', mood:'river',
-      lines:['We steered the boat ourselves. Fondue. A quiet bar.<br/><span class="em">Off the apps. Just us.</span>'],
-      ex:[
-        {who:'JOSIE', side:'her', text:'Looking forward to your famous pancakes ;)'},
-        {who:'MATT', side:'me', text:'cannot wait.'}
-      ]
+      id:'chosen', kicker:'THE NIGHT WE CHOSE EACH OTHER', date:'THE RITZ-CARLTON', mood:'cozy',
+      lines:['A quiet drink. Your sangrita, my old fashioned.<br/><span class="em">Off the apps. Just us.</span>'],
+      tag:'You said yes.'
     },
     {
-      id:'cook', kicker:'DATE SIX · THE ONE WITH WED WOBBIN', date:'JUNE 20', mood:'cozy',
-      lines:['Your place. Dash ran his inspection, then he picked me. Cards, wine, two years from now.'],
+      id:'cook', kicker:'THE ONE WITH WED WOBBIN', date:'YOUR PLACE', mood:'cozy',
+      lines:['Your place. Dash ran his inspection, then he picked me.'],
       ex:[
         {who:'MATT (the note)', side:'me', text:'you are one of the best things to happen to me this year.'},
         {who:'JOSIE', side:'her', text:'I am happy you stayed.'}
-      ]
+      ],
+      tag:'(and a parking-lot "wed wobbin" that will never die.)'
     },
     {
-      id:'arc', kicker:'THE STORY SO FAR', date:'62 DAYS', mood:'gold',
+      id:'arc', kicker:'THE STORY SO FAR', date:'CHICAGO', mood:'gold',
       lines:['From <span class="em">too many coincidences</span><br/>to <span class="em">I am happy you stayed.</span>'],
       tag:'Stranger. Coincidence. Now this.'
     }
@@ -250,13 +261,18 @@ var CONFIG = {
     title:'Season Five',
     sub:'JULY 2 & 3 · CHICAGO',
     beats:[
-      {when:'JUL 2 · EVE', what:'Dinner at the Ritz, then something fun after I get off work. Just you and me.'},
-      {when:'JUL 3 · AM',  what:'You and a plus-one (sister or a friend) at the Ritz spa, on me. Sleep in.'},
-      {when:'JUL 3 · DAY', what:'A whole day together. Maybe a little Wrigley, Cubs vs Cardinals. Dinner to close it out.'}
+      {when:'JUL 2 · 7:30', what:'I come to you after work — then an Uber to Arlington Heights for dinner.'},
+      {when:'JUL 3 · AM',  what:'The Ritz spa is yours (bring a +1 if she wants) while I wrap a couple hours of work.'},
+      {when:'JUL 3 · 4:00', what:'Early dinner at Tre Dita, Streeterville — Italian, a view, and a dress. I\'ve been dying to try it.'},
+      {when:'JUL 3 · EVE', what:'The rest of the night is ours.'}
     ],
-    q:'So. Same answer as the boarding pass?',
-    yes:"I'm in",
-    yesNote:"front row, naturally. see you the 2nd. ❤"
+    q1:'So… are you in?',
+    yes:'Yes',
+    no:'No',
+    noMsg:'…the boarding pass said first class only. take your time 😉',
+    q2:'How excited, honestly?',
+    q3:'One thing you want to do with me?',
+    yesNote:'front row, naturally. see you the 2nd ❤'
   }
 };
 
@@ -272,7 +288,7 @@ var CONFIG = {
   var poster=document.getElementById('poster');
   var leader=document.getElementById('leader');
   var SC=CONFIG.scenes;
-  var idx=-1, started=false, muted=false;
+  var idx=-1, started=false, muted=false, revealed=false;
 
   /* ---- ambient canvas ---- */
   var cv=document.getElementById('bg'), ctx=cv.getContext('2d'), W=0,H=0,DPR=1;
@@ -357,6 +373,7 @@ var CONFIG = {
 
   /* ---- reveal / RSVP ---- */
   function showReveal(){
+    if(revealed) return; revealed=true;
     setMood('gold');
     dotsEl.classList.remove('show'); tapHint.classList.remove('show'); skipBtn.classList.remove('show');
     var r=CONFIG.reveal;
@@ -366,28 +383,66 @@ var CONFIG = {
       '<div class="feature">'+r.title+'<small>'+r.sub+'</small></div>'+
       '<div class="beats">'+beats+'</div>'+
       '<div class="rsvp">'+
-        '<div class="rsvp__q">'+r.q+'</div>'+
-        '<button class="btn" id="yes">'+r.yes+'</button>'+
+        '<div class="rsvpStep" id="rs1">'+
+          '<div class="rsvp__q">'+r.q1+'</div>'+
+          '<div class="rsvpBtns"><button class="btn" id="yes">'+r.yes+'</button><button class="btn ghost" id="no">'+r.no+'</button></div>'+
+          '<div class="rsvpNote" id="noMsg"></div>'+
+        '</div>'+
+        '<div class="rsvpStep" id="rs2" hidden>'+
+          '<div class="rsvp__q">'+r.q2+'</div>'+
+          '<div class="stars" id="stars"><span class="st" data-v="1">★</span><span class="st" data-v="2">★</span><span class="st" data-v="3">★</span><span class="st" data-v="4">★</span><span class="st" data-v="5">★</span></div>'+
+        '</div>'+
+        '<div class="rsvpStep" id="rs3" hidden>'+
+          '<div class="rsvp__q">'+r.q3+'</div>'+
+          '<input class="wishInput" id="wishInput" maxlength="140" placeholder="type it here…" autocomplete="off" />'+
+          '<div class="wishEcho" id="wishEcho"></div>'+
+        '</div>'+
         '<div class="done" id="done"></div>'+
       '</div>'+
     '</div>';
     var el=document.getElementById('reveal');
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add('show'); }); });
     if(window.posthog) posthog.capture('movie_reveal_shown');
-    document.getElementById('yes').addEventListener('click', sayYes);
-    // if she already said yes before, reflect it
-    if(window.DB){ DB.load('themovie','rsvp').then(function(v){ if(v && v.mode==='yes') markIn(); }); }
+    bindRsvp();
   }
-  function markIn(){
-    var y=document.getElementById('yes'); if(y) y.style.display='none';
-    var d=document.getElementById('done'); if(d) d.textContent=CONFIG.reveal.yesNote;
+  var rsvp={mode:null, stars:0, wish:''};
+  function saveRsvp(){
+    try{ localStorage.setItem('next-date-rsvp', JSON.stringify({stamp:'V', mode:rsvp.mode, day:'JUL 2'})); }catch(e){}
+    if(window.DB) DB.save('themovie','rsvp',{mode:rsvp.mode, stars:rsvp.stars, wish:rsvp.wish, at:Date.now()});
   }
-  function sayYes(){
-    var rec={mode:'yes', at:Date.now()};
-    try{ localStorage.setItem('next-date-rsvp', JSON.stringify({stamp:'V', mode:'yes', day:'JUL 2'})); }catch(e){}
-    if(window.DB) DB.save('themovie','rsvp', rec);
-    if(window.posthog) posthog.capture('movie_rsvp_yes');
-    markIn();
+  function bindRsvp(){
+    var r=CONFIG.reveal;
+    var s1=document.getElementById('rs1'), s2=document.getElementById('rs2'), s3=document.getElementById('rs3');
+    var done=document.getElementById('done'), noMsg=document.getElementById('noMsg');
+    document.getElementById('yes').addEventListener('click', function(){
+      rsvp.mode='yes'; saveRsvp();
+      if(window.posthog) posthog.capture('movie_rsvp_yes');
+      s1.hidden=true; s2.hidden=false;
+    });
+    document.getElementById('no').addEventListener('click', function(){
+      rsvp.mode='no'; saveRsvp();
+      if(window.posthog) posthog.capture('movie_rsvp_no');
+      noMsg.textContent=r.noMsg;
+    });
+    var sts=Array.prototype.slice.call(document.querySelectorAll('#stars .st'));
+    function paint(n){ for(var i=0;i<sts.length;i++) sts[i].classList.toggle('on', i<n); }
+    sts.forEach(function(st){
+      var v=+st.getAttribute('data-v');
+      st.addEventListener('mouseenter', function(){ paint(v); });
+      st.addEventListener('click', function(){
+        rsvp.stars=v; paint(v); saveRsvp();
+        if(window.posthog) posthog.capture('movie_rsvp_stars',{stars:v});
+        setTimeout(function(){ s2.hidden=true; s3.hidden=false; var wi=document.getElementById('wishInput'); try{ wi.focus(); }catch(e){} }, 450);
+      });
+    });
+    document.getElementById('stars').addEventListener('mouseleave', function(){ paint(rsvp.stars); });
+    var wishInput=document.getElementById('wishInput'), wishEcho=document.getElementById('wishEcho'), wt;
+    wishInput.addEventListener('input', function(){
+      rsvp.wish=wishInput.value;
+      wishEcho.textContent = rsvp.wish ? '“'+rsvp.wish+'”' : '';
+      done.textContent = rsvp.wish ? r.yesNote : '';
+      clearTimeout(wt); wt=setTimeout(saveRsvp, 600);
+    });
   }
 
   /* ---- audio ---- */
@@ -414,6 +469,7 @@ var CONFIG = {
   /* ---- advance on tap anywhere (except buttons) ---- */
   document.addEventListener('click', function(e){
     if(!started) return;
+    if(revealed) return;
     if(e.target.closest('button')) return;
     if(e.target.closest('.rsvp')) return;
     next();
