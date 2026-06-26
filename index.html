@@ -207,6 +207,15 @@ body.open .pages{display:block}
 .next__hand{font-size:38px;margin:4px 0 2px;animation:handtap 1s ease-in-out infinite;filter:drop-shadow(0 4px 10px rgba(0,0,0,.4))}
 @keyframes handtap{0%,100%{transform:translateY(0)}50%{transform:translateY(9px)}}
 
+/* glowing "tap to play" treatment for the featured Special Edition stamp */
+.stamp--glow{border-color:var(--gold);background:rgba(203,161,74,.09);animation:tbdpulse 2.2s ease-in-out infinite}
+.stamp--glow::before{border-color:rgba(231,200,120,.55)}
+.stamp--glow .stamp__no,.stamp--glow .stamp__place{color:var(--gold)}
+.stamp--glow .stamp__title{color:var(--gold-2)}
+.stamp--glow .stamp__date{color:var(--gold-2)}
+.stamp--glow .stamp__go{color:#3a1416;opacity:1;font-weight:bold;background:linear-gradient(180deg,var(--gold-2),var(--gold-deep));padding:6px 14px;border-radius:14px;box-shadow:0 5px 14px rgba(0,0,0,.35)}
+.stamp--glow:hover,.stamp--glow:active{transform:rotate(0deg) scale(1.04);box-shadow:0 12px 30px rgba(231,200,120,.5)}
+
 /* Season Four full-screen overlay (launched from the passport, no page navigation) */
 .s4frame{position:fixed;inset:0;z-index:200;background:#04050d;opacity:0;pointer-events:none;transition:opacity .5s ease}
 .s4frame.show{opacity:1;pointer-events:auto}
@@ -314,7 +323,8 @@ var DESTINATIONS = [
     date:'SEASON FIVE',
     href:'themovie/',
     kind:'navy',
-    rot:-3
+    rot:-3,
+    glow:true
   },
   {
     no:'STAMP I',
@@ -359,13 +369,15 @@ var DESTINATIONS = [
   var stampsEl = document.getElementById('stamps');
   var html = '';
   DESTINATIONS.forEach(function(d){
-    html += '<a class="stamp stamp--'+(d.kind||'red')+'" href="'+d.href+'" style="--rot:'+(d.rot||-2)+'deg" '+
+    var glow = d.glow ? ' stamp--glow' : '';
+    var go = d.glow ? '▶ TAP TO PLAY' : '↦ RE-ENTER';
+    html += '<a class="stamp stamp--'+(d.kind||'red')+glow+'" href="'+d.href+'" style="--rot:'+(d.rot||-2)+'deg" '+
             'data-title="'+d.title+'">'+
               '<div class="stamp__no">'+d.no+'</div>'+
               '<div class="stamp__title">'+d.title+'</div>'+
               '<div class="stamp__place">'+d.place+'</div>'+
               '<div class="stamp__date">'+d.date+'</div>'+
-              '<div class="stamp__go">↦ RE-ENTER</div>'+
+              '<div class="stamp__go">'+go+'</div>'+
             '</a>';
   });
   // The new headline experience: Season Four (stars/). Reflect "you're in" if she
