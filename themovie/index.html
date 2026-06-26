@@ -30,6 +30,9 @@
       .bars.b { bottom: 0; height: max(42px, env(safe-area-inset-bottom)); }
       #grain { position: fixed; inset: 0; z-index: 4; pointer-events: none; opacity: .05;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+      #grade { position: fixed; inset: 0; z-index: 5; pointer-events: none;
+        background: radial-gradient(128% 86% at 50% 42%, transparent 40%, rgba(0,0,0,.34) 78%, rgba(0,0,0,.62) 100%),
+          linear-gradient(rgba(255,168,108,.05), rgba(26,52,92,.14)); }
       #title { position: fixed; inset: 0; z-index: 6; display: flex; align-items: center; justify-content: center; pointer-events: none; opacity: 1; transition: opacity 1.2s ease;
         background: radial-gradient(65% 42% at 50% 50%, rgba(2,3,8,.72) 0%, transparent 72%); }
       #title span { font-family: 'Cormorant Garamond', serif; font-weight: 600; letter-spacing: .18em; font-size: clamp(28px, 7vw, 60px); color: #fff; text-transform: uppercase; text-shadow: 0 2px 4px rgba(0,0,0,.98), 0 2px 28px rgba(0,0,0,.95); }
@@ -70,7 +73,7 @@
       .wishEcho { font-family: 'Caveat', cursive; font-size: 25px; color: #e7c878; min-height: 32px; max-width: 90vw; }
       #rsvpDone { font-family: 'Caveat', cursive; font-size: 26px; color: #e7c878; margin-top: 6px; min-height: 30px; }
     </style>
-    <script type="module" crossorigin src="./assets/index-BgzHt0PB.js"></script>
+    <script type="module" crossorigin src="./assets/index-CGkCM4f-.js"></script>
   </head>
   <body>
     <canvas id="aperture"></canvas>
@@ -78,6 +81,7 @@
     <div class="bars t"></div>
     <div class="bars b"></div>
     <div id="grain"></div>
+    <div id="grade"></div>
     <div id="title"><span>AUSTIN, TEXAS</span></div>
     <div id="capscrim"></div>
     <div id="cap"><div id="sub"></div><div id="line"></div></div>
