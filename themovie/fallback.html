@@ -13,6 +13,7 @@
     api_host: 'https://us.i.posthog.com', defaults: '2026-01-30',
     autocapture: true, capture_pageview: true, person_profiles: 'always', session_recording: { maskAllInputs: true }
   });
+  posthog.capture('movie_pageview', { page: 'themovie', variant: 'fallback', path: location.pathname });
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
