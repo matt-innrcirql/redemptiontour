@@ -69,6 +69,31 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:7;opac
 .bubble b{display:block;font-family:'Anton',sans-serif;font-size:9px;letter-spacing:.2em;opacity:.55;margin-bottom:2px}
 .tag{margin-top:16px;font-family:'Special Elite';font-size:12px;letter-spacing:.04em;color:var(--gold);opacity:.7}
 
+.scene--dm .lines{margin-bottom:10px}
+.msgRoute{position:relative;width:min(92vw,390px);display:grid;grid-template-columns:1fr 38px 1fr;align-items:center;gap:8px;
+  margin:10px auto 12px;color:var(--gold-2);text-shadow:0 2px 14px rgba(0,0,0,.85)}
+.msgRoute::before{content:"";position:absolute;left:24%;right:24%;top:50%;height:1px;
+  background:linear-gradient(90deg,rgba(231,200,120,.16),rgba(231,200,120,.78),rgba(158,197,255,.52))}
+.msgCity{position:relative;z-index:1;font-family:'Anton',sans-serif;font-size:10px;letter-spacing:.2em}
+.msgCity small{display:block;margin-top:3px;font-family:'Special Elite';font-size:9px;letter-spacing:.06em;color:rgba(243,231,203,.75)}
+.msgCity.chi{text-align:right;color:#9ec5ff}
+.msgArrow{position:relative;z-index:1;height:22px}
+.msgArrow::after{content:"";position:absolute;top:50%;left:4px;width:10px;height:10px;margin-top:-5px;border-radius:50%;
+  background:var(--gold-2);box-shadow:0 0 18px rgba(231,200,120,.9);animation:sendPulse 2.2s ease-in-out infinite}
+@keyframes sendPulse{0%{transform:translateX(0) scale(.7);opacity:.15}24%{opacity:1}100%{transform:translateX(24px) scale(1.05);opacity:.15}}
+.scene--dm .ex{width:min(92vw,390px);max-width:390px;margin-top:0;padding:0;background:transparent;border:0;box-shadow:none;
+  backdrop-filter:none;gap:7px}
+.scene--dm .ex::before{content:"";display:none}
+.scene--dm .bubble{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;font-size:clamp(12px,2.7vw,14px);
+  line-height:1.25;text-shadow:none;max-width:79%;padding:8px 12px 9px;border-radius:17px;border:0;opacity:0;
+  transform:translateY(12px) scale(.96);filter:blur(3px);animation:bubbleIn .48s cubic-bezier(.2,.9,.25,1.25) forwards;
+  animation-delay:calc(.24s + var(--i,0) * .72s)}
+.scene--dm .bubble.me{margin-left:auto;align-self:flex-end;color:#fff;background:linear-gradient(180deg,#1d8dff,#006be6);border-bottom-right-radius:5px}
+.scene--dm .bubble.her{margin-right:auto;align-self:flex-start;color:#0c1018;background:linear-gradient(180deg,#f2f4f8,#cfd4dd);border-bottom-left-radius:5px}
+.scene--dm .bubble b{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;font-size:9px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;opacity:.62;color:inherit}
+@keyframes bubbleIn{to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+
 /* ===== title / poster ===== */
 #poster{position:fixed;inset:0;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;
   text-align:center;padding:12vh 28px;background:radial-gradient(120% 90% at 50% 30%,#1a0c10 0%,#0a0610 55%,#04050d 100%);
@@ -197,7 +222,7 @@ var CONFIG = {
       lines:['Too many coincidences to ignore.'],
       ex:[
         {who:'MATT', side:'me', text:'I\'m one of the love is blind guys you took a video of lol.'},
-        {who:'MATT', side:'me', text:'Don\'t worry, I won\'t leak your number… but I can\'t promise I won\'t judge your Netflix edit 😂'},
+        {who:'JOSIE', side:'her', text:'Don\'t worry, I won\'t leak your number… but I can\'t promise I won\'t judge your Netflix edit 😂'},
         {who:'MATT', side:'me', text:'too many coincidences here… let me take you to dinner when I\'m back.'},
         {who:'JOSIE', side:'her', text:'the coincidences are real… but no cameras this time haha ❤'}
       ]
@@ -344,12 +369,18 @@ var CONFIG = {
   function render(i){
     var s=SC[i]; if(!s) return;
     setMood(s.mood);
-    var ex=''; if(s.ex){ ex='<div class="ex">'; s.ex.forEach(function(b){
-      ex+='<div class="bubble '+(b.side||'her')+'"><b>'+b.who+'</b>'+b.text+'</div>'; }); ex+='</div>'; }
-    var html='<div class="scene" id="sc'+i+'">'+
+    var ex=''; if(s.ex){ ex='<div class="ex">'; s.ex.forEach(function(b, bi){
+      var who = b.who;
+      if(s.id==='dm') who += b.side==='me' ? ' · Austin -> Chicago' : ' · Chicago -> Austin';
+      var side = s.id==='dm' ? (b.side==='me' ? 'her' : 'me') : (b.side||'her');
+      ex+='<div class="bubble '+side+'" style="--i:'+bi+'"><b>'+who+'</b>'+b.text+'</div>'; }); ex+='</div>'; }
+    var route=s.id==='dm'
+      ? '<div class="msgRoute"><div class="msgCity">AUSTIN<small>Matt sends</small></div><div class="msgArrow" aria-hidden="true"></div><div class="msgCity chi">CHICAGO<small>Josie receives</small></div></div>'
+      : '';
+    var html='<div class="scene scene--'+s.id+'" id="sc'+i+'">'+
       '<div class="kicker">'+s.kicker+'</div>'+
       '<div class="date">'+s.date+'</div>'+
-      '<div class="lines">'+s.lines.join(' ')+'</div>'+ ex +
+      '<div class="lines">'+s.lines.join(' ')+'</div>'+ route + ex +
       (s.tag?'<div class="tag">'+s.tag+'</div>':'')+
       '</div>';
     stage.innerHTML=html;
