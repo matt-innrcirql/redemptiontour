@@ -22,60 +22,79 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Special+Elite&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Caveat:wght@600;700&amp;family=Cormorant+Garamond:ital,wght@0,600;1,600&amp;family=Special+Elite&amp;display=swap" rel="stylesheet" />
 
     <!-- shared persistence (same as every stamp); degrades to localStorage -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="/db.js"></script>
 
     <style>
-      html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #04050d; }
-      #aperture { display: block; width: 100vw; height: 100vh; }
-      .bars { position: fixed; left: 0; right: 0; background: #04050d; z-index: 2; pointer-events: none; }
+      html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #02030a; color-scheme: dark; }
+      #aperture { display: block; width: 100vw; height: 100vh; background: #02030a; filter: saturate(1.08) contrast(1.06) brightness(.92); transform: translateZ(0); }
+      .bars { position: fixed; left: 0; right: 0; background: linear-gradient(180deg, #02030a, #03040b); z-index: 2; pointer-events: none; }
       .bars.t { top: 0; height: max(30px, env(safe-area-inset-top)); }
       .bars.b { bottom: 0; height: max(42px, env(safe-area-inset-bottom)); }
-      #grain { position: fixed; inset: 0; z-index: 4; pointer-events: none; opacity: .05;
+      #grain { position: fixed; inset: 0; z-index: 4; pointer-events: none; opacity: .055; mix-blend-mode: overlay;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
       #grade { position: fixed; inset: 0; z-index: 5; pointer-events: none;
-        background: radial-gradient(128% 86% at 50% 42%, transparent 40%, rgba(0,0,0,.34) 78%, rgba(0,0,0,.62) 100%),
-          linear-gradient(rgba(255,168,108,.05), rgba(26,52,92,.14)); }
-      #title { position: fixed; inset: 0; z-index: 6; display: flex; align-items: center; justify-content: center; pointer-events: none; opacity: 1; transition: opacity 1.2s ease;
+        background: radial-gradient(126% 86% at 50% 42%, rgba(255,236,184,.035) 0%, transparent 38%, rgba(0,0,0,.38) 78%, rgba(0,0,0,.68) 100%),
+          linear-gradient(180deg, rgba(2,3,10,.34), transparent 18%, transparent 76%, rgba(2,3,10,.72)),
+          linear-gradient(135deg, rgba(255,168,108,.07), rgba(22,45,94,.18)); }
+      #filmFrame { position: fixed; inset: max(30px, env(safe-area-inset-top)) 0 max(42px, env(safe-area-inset-bottom)); z-index: 5; pointer-events: none; opacity: .86;
+        box-shadow: inset 0 0 0 1px rgba(243,231,203,.045), inset 0 0 92px rgba(0,0,0,.38); }
+      #filmFrame::before { content: ""; position: absolute; inset: 0;
+        background: linear-gradient(90deg, rgba(2,3,10,.42), transparent 8%, transparent 92%, rgba(2,3,10,.42)),
+          linear-gradient(180deg, rgba(255,230,172,.05), transparent 14%, transparent 86%, rgba(0,0,0,.22)); }
+      #filmFrame::after { content: ""; position: absolute; left: max(18px, 4vw); right: max(18px, 4vw); top: 50%; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(243,231,203,.18), transparent); opacity: .18; }
+      #title { position: fixed; inset: 0; z-index: 6; display: flex; align-items: center; justify-content: center; pointer-events: none; opacity: 1; transition: opacity 1.2s ease; padding: 0 18px;
         background: radial-gradient(65% 42% at 50% 50%, rgba(2,3,8,.72) 0%, transparent 72%); }
-      #title span { font-family: 'Cormorant Garamond', serif; font-weight: 600; letter-spacing: .18em; font-size: clamp(28px, 7vw, 60px); color: #fff; text-transform: uppercase; text-shadow: 0 2px 4px rgba(0,0,0,.98), 0 2px 28px rgba(0,0,0,.95); }
+      #title span { font-family: 'Cormorant Garamond', serif; font-weight: 600; letter-spacing: clamp(.08em, .9vw, .18em); font-size: clamp(24px, 6.4vw, 60px); color: #f8f1df; text-transform: uppercase; text-shadow: 0 2px 4px rgba(0,0,0,.98), 0 2px 28px rgba(0,0,0,.95), 0 0 18px rgba(231,200,120,.14); max-width: min(92vw, 760px); line-height: 1; text-align: center; text-wrap: balance; }
       /* letters on the theater marquee (over the lit 3D sign), shown during the reveal scene */
-      #marquee { position: fixed; left: 0; right: 0; top: 40%; z-index: 7; text-align: center; pointer-events: none; opacity: 0; transition: opacity 1s ease; }
-      #marquee.show { opacity: 1; }
-      #marquee .mq1 { font-family: 'Anton', sans-serif; font-size: clamp(30px, 9.2vw, 60px); letter-spacing: .01em; color: #2a160c; line-height: 0.95; white-space: nowrap; }
-      #marquee .mq2 { font-family: 'Anton', sans-serif; font-size: clamp(13px, 3.7vw, 24px); letter-spacing: .26em; color: #7a1f12; margin-top: 7px; }
+      #marquee { position: fixed; left: 0; right: 0; top: 40%; z-index: 7; text-align: center; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity 1s ease, visibility 0s linear 1s; padding: 0 18px; }
+      #marquee.show { opacity: 1; visibility: visible; transition-delay: 0s; }
+      #marquee .mq1 { font-family: 'Anton', sans-serif; font-size: clamp(30px, 9.2vw, 60px); letter-spacing: .01em; color: #2a160c; line-height: 0.95; white-space: nowrap; max-width: 100%; }
+      #marquee .mq2 { font-family: 'Anton', sans-serif; font-size: clamp(13px, 3.7vw, 24px); letter-spacing: clamp(.18em, .8vw, .26em); color: #7a1f12; margin-top: 7px; }
       /* boarding-pass label (over the 3D pass) so the scene reads as a first-class ticket */
-      #pass { position: fixed; left: 0; right: 0; top: 31%; z-index: 7; text-align: center; pointer-events: none; opacity: 0; transition: opacity 1s ease; }
-      #pass.show { opacity: 1; }
-      #pass .bp1 { font-family: 'Anton', sans-serif; letter-spacing: .2em; font-size: clamp(12px, 3.4vw, 20px); color: #2a160c; }
-      #pass .bp2 { font-family: 'Anton', sans-serif; letter-spacing: .05em; font-size: clamp(19px, 5.6vw, 36px); color: #2a160c; margin-top: 9px; }
-      #pass .bp2 b { color: #a8121e; font-weight: 400; }
-      #pass .bp3 { font-family: 'Anton', sans-serif; letter-spacing: .16em; font-size: clamp(11px, 3vw, 18px); color: #7a1f12; margin-top: 9px; }
+      #pass { position: fixed; left: 0; right: 0; top: 31%; z-index: 7; text-align: center; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity 1s ease, visibility 0s linear 1s; padding: 0 18px; }
+      #pass.show { opacity: 1; visibility: visible; transition-delay: 0s; }
+      #pass .bp-card { display: inline-flex; flex-direction: column; align-items: center; max-width: min(92vw, 560px); transform: rotate(-.6deg); filter: drop-shadow(0 2px 1px rgba(255,239,190,.2)) drop-shadow(0 7px 18px rgba(42,22,12,.16)); }
+      #pass .bp1 { display: flex; align-items: center; justify-content: center; gap: .55em; font-family: 'Anton', sans-serif; letter-spacing: clamp(.12em, .8vw, .2em); font-size: clamp(10px, 2.7vw, 18px); color: #2a160c; line-height: 1; }
+      #pass .plane { font-size: .9em; transform: translateY(-.06em) rotate(-6deg); }
+      #pass .bp2 { display: flex; align-items: center; justify-content: center; gap: clamp(8px, 2.8vw, 18px); font-family: 'Anton', sans-serif; letter-spacing: .04em; font-size: clamp(20px, 6vw, 40px); color: #2a160c; margin-top: clamp(7px, 1.3vw, 11px); line-height: .95; white-space: nowrap; }
+      #pass .bp2 b { color: #a8121e; font-weight: 400; transform: translateY(-.04em); }
+      #pass .bp3 { font-family: 'Anton', sans-serif; letter-spacing: clamp(.1em, .7vw, .16em); font-size: clamp(10px, 2.5vw, 16px); color: #7a1f12; margin-top: clamp(7px, 1.3vw, 11px); }
+      #pass .bp-meta { display: flex; justify-content: center; gap: 5px 12px; flex-wrap: wrap; margin-top: clamp(7px, 1.4vw, 12px); font-family: 'Anton', sans-serif; letter-spacing: clamp(.08em, .55vw, .14em); font-size: clamp(8px, 2vw, 11px); color: #2a160c; opacity: .76; }
       #capscrim { position: fixed; left: 0; right: 0; bottom: 0; height: 44vh; z-index: 3; pointer-events: none;
         background: linear-gradient(to top, rgba(2,3,8,.92) 0%, rgba(2,3,8,.62) 38%, transparent 100%); }
-      #cap { position: fixed; left: 0; right: 0; bottom: 12vh; z-index: 6; text-align: center; pointer-events: none; padding: 0 24px; }
-      #sub { font-family: 'Anton', sans-serif; letter-spacing: .24em; font-size: 12px; color: #e7c878; opacity: .95; margin-bottom: 11px; min-height: 14px; text-shadow: 0 1px 6px rgba(0,0,0,.98); }
-      #line { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: clamp(22px, 5.8vw, 34px); color: #fff; line-height: 1.32; text-shadow: 0 2px 4px rgba(0,0,0,.98), 0 2px 18px rgba(0,0,0,.95); transition: opacity .5s ease; opacity: 0; }
+      #cap { position: fixed; left: 0; right: 0; bottom: max(11vh, 86px); z-index: 6; display: flex; flex-direction: column; align-items: center; text-align: center; pointer-events: none; padding: 0 24px; }
+      #sub { font-family: 'Anton', sans-serif; letter-spacing: clamp(.18em, .8vw, .24em); font-size: 11px; color: #e7c878; opacity: .95; margin-bottom: 10px; min-height: 14px; text-shadow: 0 1px 6px rgba(0,0,0,.98); }
+      #line { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: clamp(22px, 5.8vw, 34px); color: #fffdf5; line-height: 1.28; text-shadow: 0 2px 5px rgba(0,0,0,1), 0 4px 24px rgba(0,0,0,.98), 0 0 34px rgba(0,0,0,.86); transition: opacity .5s ease; opacity: 0; max-width: min(720px, calc(100vw - 44px)); text-wrap: balance; }
       /* tap-to-begin gate (carries the iOS audio gesture) */
-      #gate { position: fixed; inset: 0; z-index: 9; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        background: radial-gradient(120% 90% at 50% 35%, #1a0c10 0%, #04050d 72%); color: #e7c878; cursor: pointer; transition: opacity .9s ease; }
-      #gate.gone { opacity: 0; pointer-events: none; }
-      #gate .g0 { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(18px, 4.6vw, 27px); color: #f3e7cb; line-height: 1.55; max-width: 82vw; margin-bottom: 34px; opacity: .96; text-shadow: 0 2px 18px rgba(0,0,0,.9); }
-      #gate .g1 { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600; font-size: clamp(24px, 6.5vw, 42px); letter-spacing: .04em; }
+      #gate { position: fixed; inset: 0; z-index: 9; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; isolation: isolate;
+        background: radial-gradient(90% 64% at 50% 42%, #211016 0%, #0c0912 58%, #02030a 100%); color: #e7c878; cursor: pointer; transition: opacity .9s ease, visibility 0s linear 0s; visibility: visible; }
+      #gate::before { content: ""; position: absolute; inset: max(34px, env(safe-area-inset-top)) 18px max(46px, env(safe-area-inset-bottom)); border: 1px solid rgba(231,200,120,.18);
+        box-shadow: inset 0 0 52px rgba(231,200,120,.035), 0 0 52px rgba(0,0,0,.34); }
+      #gate::after { content: "PRIVATE SCREENING"; position: absolute; top: calc(max(34px, env(safe-area-inset-top)) + 28px); left: 0; right: 0; text-align: center;
+        font-family: 'Anton', sans-serif; font-size: 10px; letter-spacing: .42em; color: rgba(231,200,120,.54); }
+      #gate > * { position: relative; z-index: 1; }
+      #gate.gone { opacity: 0; pointer-events: none; visibility: hidden; transition: opacity .9s ease, visibility 0s linear .9s; }
+      #gate .g0 { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(18px, 4.6vw, 27px); color: #f3e7cb; line-height: 1.55; max-width: min(82vw, 560px); margin-bottom: 34px; opacity: .96; text-shadow: 0 2px 18px rgba(0,0,0,.9); }
+      #gate .g1 { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600; font-size: clamp(28px, 7vw, 48px); letter-spacing: .04em; text-shadow: 0 0 28px rgba(231,200,120,.12); }
       #gate .g2 { font-family: 'Anton', sans-serif; letter-spacing: .3em; font-size: 11px; opacity: .75; margin-top: 16px; }
       #ps { font-family: 'Special Elite', monospace; font-style: italic; font-size: 12px; color: #cba14a; opacity: .82; margin-top: 22px; max-width: 340px; line-height: 1.6; }
       /* reveal / RSVP */
       #reveal { position: fixed; inset: 0; z-index: 8; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        text-align: center; padding: 10vh 26px; overflow-y: auto; background: radial-gradient(130% 95% at 50% 28%, rgba(22,11,14,.93) 0%, rgba(4,5,13,.99) 65%);
-        opacity: 0; pointer-events: none; transition: opacity 1.2s ease; }
-      #reveal.show { opacity: 1; pointer-events: auto; }
+        text-align: center; padding: max(64px, 9vh) 26px max(48px, 8vh); overflow-y: auto; background: radial-gradient(100% 72% at 50% 26%, rgba(40,15,18,.94) 0%, rgba(7,8,18,.985) 68%, #02030a 100%);
+        opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 1.2s ease, visibility 0s linear 1.2s; overscroll-behavior: contain; }
+      #reveal.show { opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
+      #reveal::before { content: ""; position: fixed; inset: max(30px, env(safe-area-inset-top)) 18px max(42px, env(safe-area-inset-bottom)); pointer-events: none; border: 1px solid rgba(231,200,120,.12); }
+      #reveal > * { position: relative; }
       #reveal .kick { font-family: 'Anton', sans-serif; letter-spacing: .3em; font-size: 11px; color: #cba14a; }
       #reveal .feat { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600; font-size: clamp(34px, 10vw, 60px); color: #e7c878; margin: 8px 0 2px; }
       #reveal .featsub { font-family: 'Anton', sans-serif; letter-spacing: .26em; font-size: 12px; color: #f3e7cb; opacity: .85; margin-bottom: 18px; }
-      .beat { max-width: 460px; display: flex; gap: 13px; align-items: flex-start; background: rgba(10,14,30,.45); border: 1px solid rgba(231,200,120,.2); border-radius: 12px; padding: 10px 14px; margin: 7px auto; text-align: left; }
+      #beats { width: min(100%, 460px); }
+      .beat { max-width: 460px; display: flex; gap: 13px; align-items: flex-start; background: rgba(10,14,30,.5); border: 1px solid rgba(231,200,120,.22); border-radius: 8px; padding: 10px 14px; margin: 7px auto; text-align: left; backdrop-filter: blur(8px); }
       .beat .when { font-family: 'Anton', sans-serif; font-size: 10px; letter-spacing: .1em; color: #e7c878; white-space: nowrap; padding-top: 3px; min-width: 70px; }
       .beat .what { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 16px; line-height: 1.3; color: #f3e7cb; }
       .rsvpStep { margin-top: 18px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
@@ -88,12 +107,27 @@
       .stars { font-size: 36px; letter-spacing: 8px; cursor: pointer; user-select: none; }
       .stars .st { color: rgba(231,200,120,.28); transition: color .15s ease, transform .15s ease; }
       .stars .st.on { color: #e7c878; transform: scale(1.15); text-shadow: 0 0 14px rgba(231,200,120,.6); }
-      .wishInput { font-family: 'Cormorant Garamond', serif; font-size: 18px; text-align: center; color: #fff; background: rgba(10,14,30,.6); border: 1px solid rgba(231,200,120,.45); border-radius: 12px; padding: 11px 16px; width: min(82vw, 360px); outline: none; }
+      .wishInput { font-family: 'Cormorant Garamond', serif; font-size: 18px; text-align: center; color: #fff; background: rgba(10,14,30,.6); border: 1px solid rgba(231,200,120,.45); border-radius: 8px; padding: 11px 16px; width: min(82vw, 360px); outline: none; }
+      .btn:focus-visible, .wishInput:focus-visible { outline: 2px solid #f3e7cb; outline-offset: 3px; }
       .wishInput::placeholder { color: rgba(231,200,120,.5); }
       .wishEcho { font-family: 'Caveat', cursive; font-size: 25px; color: #e7c878; min-height: 32px; max-width: 90vw; }
       #rsvpDone { font-family: 'Caveat', cursive; font-size: 26px; color: #e7c878; margin-top: 6px; min-height: 30px; }
+      @media (max-width: 620px) {
+        #title span { font-size: clamp(21px, 5.6vw, 32px); letter-spacing: .08em; line-height: 1.08; max-width: 88vw; }
+        #cap { bottom: max(8.8vh, 60px); padding: 0 18px; }
+        #line { font-size: clamp(23px, 6vw, 31px); line-height: 1.24; max-width: calc(100vw - 36px); }
+      }
+      @media (max-width: 430px) {
+        #title span { font-size: clamp(22px, 6.1vw, 30px); }
+        #pass { top: 30%; }
+        #pass .bp-card { transform: rotate(-.45deg) scale(.96); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #title, #marquee, #pass, #line, #gate, #reveal, .stars .st { transition: none; }
+        #aperture { filter: saturate(1.02) contrast(1.02) brightness(.94); }
+      }
     </style>
-    <script type="module" crossorigin src="./assets/index-Db-dcd_2.js"></script>
+    <script type="module" crossorigin src="./assets/index-9X0LNVET.js"></script>
   </head>
   <body>
     <canvas id="aperture"></canvas>
@@ -102,13 +136,21 @@
     <div class="bars b"></div>
     <div id="grain"></div>
     <div id="grade"></div>
-    <div id="title"><span>AUSTIN, TEXAS</span></div>
-    <div id="marquee"><div class="mq1">MATT &amp; JOSIE</div><div class="mq2">NOW PLAYING</div></div>
-    <div id="pass"><div class="bp1">&#9992;&nbsp;&nbsp;REDEMPTION AIRWAYS</div><div class="bp2">AUSTIN <b>&#8594;</b> CHICAGO</div><div class="bp3">SEAT 1A &middot; FIRST CLASS</div></div>
+    <div id="filmFrame" aria-hidden="true"></div>
+    <div id="title" aria-hidden="true"><span>AUSTIN, TEXAS</span></div>
+    <div id="marquee" aria-hidden="true"><div class="mq1">MATT &amp; JOSIE</div><div class="mq2">NOW PLAYING</div></div>
+    <div id="pass" aria-hidden="true">
+      <div class="bp-card" aria-label="Redemption Airways boarding pass, Austin to Chicago, seat 1A first class">
+        <div class="bp1"><span class="plane" aria-hidden="true">&#9992;</span> REDEMPTION AIRWAYS</div>
+        <div class="bp2"><span>AUSTIN</span><b>&#8594;</b><span>CHICAGO</span></div>
+        <div class="bp3">SEAT 1A &middot; FIRST CLASS</div>
+        <div class="bp-meta"><span>FLIGHT RT-05</span><span>JULY 2</span><span>BOARDING SOON</span></div>
+      </div>
+    </div>
     <div id="capscrim"></div>
     <div id="cap"><div id="sub"></div><div id="line"></div></div>
 
-    <div id="reveal">
+    <div id="reveal" aria-hidden="true">
       <div class="kick">NOW BOOKING</div>
       <div class="feat">Season Five</div>
       <div class="featsub">JULY 2 &amp; 3 · CHICAGO</div>
