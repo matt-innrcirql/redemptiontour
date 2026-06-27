@@ -224,6 +224,8 @@
       .wishInput::placeholder { color: rgba(231,200,120,.5); }
       .wishEcho { font-family: 'Caveat', cursive; font-size: 25px; color: #e7c878; min-height: 32px; max-width: 90vw; }
       #rsvpDone { font-family: 'Caveat', cursive; font-size: 26px; color: #e7c878; margin-top: 6px; min-height: 30px; }
+      .confirmLink { display: inline-flex; align-items: center; justify-content: center; margin-top: 2px; min-height: 48px; max-width: min(88vw, 380px); line-height: 1.15; text-align: center; text-decoration: none; white-space: normal; opacity: 0; visibility: hidden; transform: translateY(8px) scale(.98); transition: opacity .28s ease, transform .28s ease, visibility 0s linear .28s; }
+      .confirmLink.show { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
       @media (max-width: 620px) {
         #title span { font-size: clamp(21px, 5.6vw, 32px); letter-spacing: .08em; line-height: 1.08; max-width: 88vw; }
         #capscrim { height: 39dvh; }
@@ -250,7 +252,7 @@
         #aperture { filter: saturate(1.02) contrast(1.02) brightness(.94); }
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-BfDzb1gr.js"></script>
+    <script type="module" crossorigin src="./assets/index-CExfgWnD.js"></script>
   </head>
   <body data-scene="rainey">
     <canvas id="aperture"></canvas>
@@ -315,6 +317,7 @@
         <div class="rsvpQ">One thing you want to do with me?</div>
         <input id="wishInput" class="wishInput" maxlength="140" placeholder="type it here…" autocomplete="off" />
         <div id="wishEcho" class="wishEcho"></div>
+        <a id="confirmLink" class="btn confirmLink" href="sms:+12028801652">Hurry! This time tap here to confirm</a>
       </div>
       <div id="rsvpDone"></div>
       <div id="ps">ps, i made every one of these little scenes myself, learning as i went on the plane. so give me some grace ;)</div>

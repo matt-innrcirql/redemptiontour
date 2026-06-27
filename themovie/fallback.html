@@ -164,6 +164,9 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:7;opac
 .wishInput::placeholder{color:rgba(231,200,120,.5)}
 .wishEcho{font-family:'Caveat',cursive;font-size:25px;color:var(--gold-2);min-height:32px;max-width:90vw}
 .rsvpNote{font-family:'Special Elite';font-size:13px;color:var(--gold-2);opacity:.9;min-height:16px;max-width:320px;text-align:center}
+.confirmLink{display:inline-flex;align-items:center;justify-content:center;min-height:48px;max-width:min(88vw,380px);margin-top:2px;line-height:1.15;text-align:center;text-decoration:none;white-space:normal;opacity:0;visibility:hidden;
+  transform:translateY(8px) scale(.98);transition:opacity .28s ease,transform .28s ease,visibility 0s linear .28s}
+.confirmLink.show{opacity:1;visibility:visible;transform:none;transition-delay:0s}
 
 .scene{pointer-events:none}
 .skip{position:fixed;bottom:calc(max(48px,env(safe-area-inset-bottom)) + 14px);right:16px;z-index:6;pointer-events:auto;cursor:pointer;
@@ -428,6 +431,7 @@ var CONFIG = {
           '<div class="rsvp__q">'+r.q3+'</div>'+
           '<input class="wishInput" id="wishInput" maxlength="140" placeholder="type it here…" autocomplete="off" />'+
           '<div class="wishEcho" id="wishEcho"></div>'+
+          '<a class="btn confirmLink" id="confirmLink" href="sms:+12028801652">Hurry! This time tap here to confirm</a>'+
         '</div>'+
         '<div class="done" id="done"></div>'+
       '</div>'+
@@ -468,7 +472,31 @@ var CONFIG = {
       });
     });
     document.getElementById('stars').addEventListener('mouseleave', function(){ paint(rsvp.stars); });
-    var wishInput=document.getElementById('wishInput'), wishEcho=document.getElementById('wishEcho'), wt, lastWishCapture='';
+    var wishInput=document.getElementById('wishInput'), wishEcho=document.getElementById('wishEcho'), confirmLink=document.getElementById('confirmLink'), wt, lastWishCapture='';
+    function confirmationHref(){
+      var wish=(rsvp.wish||'').trim();
+      var body="I'm in for July 2 & 3.";
+      if(wish) body+=' One thing I want to do: '+wish;
+      return 'sms:+12028801652&body='+encodeURIComponent(body);
+    }
+    function updateConfirmationLink(){
+      var hasWish=(rsvp.wish||'').trim().length>0;
+      confirmLink.href=confirmationHref();
+      confirmLink.classList.toggle('show', hasWish);
+      confirmLink.setAttribute('aria-hidden', hasWish?'false':'true');
+      confirmLink.tabIndex=hasWish?0:-1;
+    }
+    confirmLink.addEventListener('click', function(){
+      saveRsvp();
+      if(window.posthog) posthog.capture('movie_text_matt_confirm', {
+        wish:(rsvp.wish||'').trim(),
+        wish_length:(rsvp.wish||'').trim().length,
+        mode:rsvp.mode,
+        stars:rsvp.stars,
+        day:'JUL 2'
+      }, {transport:'sendBeacon', send_instantly:true});
+    });
+    updateConfirmationLink();
     function saveAndCaptureWish(){
       saveRsvp();
       var wish=(rsvp.wish||'').trim();
@@ -486,6 +514,7 @@ var CONFIG = {
       rsvp.wish=wishInput.value;
       wishEcho.textContent = rsvp.wish ? '“'+rsvp.wish+'”' : '';
       done.textContent = rsvp.wish ? r.yesNote : '';
+      updateConfirmationLink();
       clearTimeout(wt); wt=setTimeout(saveAndCaptureWish, 700);
     });
   }
