@@ -332,7 +332,7 @@ var CONFIG = {
     river:{bg:['#13233a','#070a14'], p:['#e7c878','#ffce7a','#bfe0ff'], n:42, speed:.14, size:[1,5], glow:1, water:true},
     cozy:{bg:['#241408','#0a0708'], p:['#ffb24d','#ffce7a','#e0a85a'], n:30, speed:.09, size:[2,6], glow:.85}
   };
-  var cur=palettes.gold, parts=[], fws=[];
+  var cur=palettes.gold, parts=[], fws=[], rockets=[];
   function rnd(a,b){ return a+Math.random()*(b-a); }
   function seed(){
     parts=[]; var n=cur.n;
@@ -340,10 +340,20 @@ var CONFIG = {
       vy:-rnd(cur.speed,cur.speed*2.4)*DPR, vx:rnd(-.12,.12)*DPR, a:rnd(.25,.85), tw:rnd(0,6.28),
       c:cur.p[(Math.random()*cur.p.length)|0]});
   }
-  function setMood(m){ cur=palettes[m]||palettes.gold; seed(); fws=[]; }
-  function firework(){
-    var cx=rnd(W*.2,W*.8), cy=rnd(H*.18,H*.5), c=cur.p[(Math.random()*cur.p.length)|0], k=22+((Math.random()*16)|0);
-    for(var i=0;i<k;i++){ var an=(i/k)*6.28, sp=rnd(1.4,3.6)*DPR; fws.push({x:cx,y:cy,vx:Math.cos(an)*sp,vy:Math.sin(an)*sp,a:1,c:c}); }
+  function setMood(m){
+    cur=palettes[m]||palettes.gold; seed(); fws=[]; rockets=[]; fwT=cur.fw?18:0;
+    if(cur.fw){ launchFirework(0); launchFirework(18); launchFirework(30); }
+  }
+  function explode(cx, cy, c){
+    var k=34+((Math.random()*18)|0);
+    for(var i=0;i<k;i++){
+      var an=(i/k)*6.28, sp=rnd(2.2,6.2)*DPR;
+      fws.push({x:cx,y:cy,px:cx,py:cy,vx:Math.cos(an)*sp,vy:Math.sin(an)*sp,a:1,c:c,r:rnd(1.8,3.8)*DPR});
+    }
+  }
+  function launchFirework(seedLife){
+    var sx=rnd(W*.18,W*.82), sy=H*.86, tx=sx+rnd(-W*.08,W*.08), ty=rnd(H*.14,H*.42), c=cur.p[(Math.random()*cur.p.length)|0];
+    rockets.push({x:sx,y:sy,tx:tx,ty:ty,life:seedLife||0,dur:rnd(30,46),c:c,h:[]});
   }
   var fwT=0;
   function frame(t){
@@ -359,10 +369,19 @@ var CONFIG = {
       ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.28); ctx.fill();
       if(cur.water){ ctx.globalAlpha=p.a*fl*.4; ctx.beginPath(); ctx.arc(p.x,H-(p.y%H),p.r*1.4,0,6.28); ctx.fill(); }
     }
-    if(cur.fw){ fwT++; if(fwT>54){ fwT=0; firework(); }
-      for(var j=fws.length-1;j>=0;j--){ var f=fws[j]; f.x+=f.vx; f.y+=f.vy; f.vy+=.02*DPR; f.a-=.012;
+    if(cur.fw){
+      fwT++; if(fwT>22){ fwT=0; launchFirework(); }
+      for(var r=rockets.length-1;r>=0;r--){ var rk=rockets[r]; rk.life++; var pr=Math.min(1,rk.life/rk.dur), ep=1-Math.pow(1-pr,2.3);
+        rk.x=rk.x+(rk.tx-rk.x)*.08; rk.y=H*.86+(rk.ty-H*.86)*ep; rk.h.unshift({x:rk.x,y:rk.y}); if(rk.h.length>9) rk.h.pop();
+        ctx.lineWidth=2.2*DPR; ctx.strokeStyle=rk.c; ctx.globalAlpha=.62; ctx.beginPath(); ctx.moveTo(rk.x,rk.y);
+        for(var hi=0;hi<rk.h.length;hi++){ var hp=rk.h[hi]; ctx.lineTo(hp.x,hp.y+hi*3*DPR); }
+        ctx.stroke(); ctx.globalAlpha=1; ctx.fillStyle=rk.c; ctx.beginPath(); ctx.arc(rk.x,rk.y,2.8*DPR,0,6.28); ctx.fill();
+        if(pr>=1){ explode(rk.tx,rk.ty,rk.c); rockets.splice(r,1); }
+      }
+      for(var j=fws.length-1;j>=0;j--){ var f=fws[j]; f.px=f.x; f.py=f.y; f.x+=f.vx; f.y+=f.vy; f.vx*=.988; f.vy=f.vy*.988+.035*DPR; f.a-=.011;
         if(f.a<=0){ fws.splice(j,1); continue; }
-        ctx.globalAlpha=f.a; ctx.fillStyle=f.c; ctx.beginPath(); ctx.arc(f.x,f.y,2*DPR,0,6.28); ctx.fill(); }
+        ctx.globalAlpha=f.a*.68; ctx.strokeStyle=f.c; ctx.lineWidth=Math.max(1.2,DPR*1.2); ctx.beginPath(); ctx.moveTo(f.px,f.py); ctx.lineTo(f.x,f.y); ctx.stroke();
+        ctx.globalAlpha=f.a; ctx.fillStyle=f.c; ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,6.28); ctx.fill(); }
     }
     ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over';
     requestAnimationFrame(frame);
