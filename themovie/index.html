@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Season Five · The Redemption Tour</title>
 
     <!-- WebGPU required (iPhone needs iOS 26+). Fall back to the Canvas2D film. -->
@@ -29,8 +29,9 @@
     <script src="/db.js"></script>
 
     <style>
-      html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #02030a; color-scheme: dark; }
-      #aperture { display: block; width: 100vw; height: 100vh; background: #02030a; filter: saturate(1.08) contrast(1.06) brightness(.92); transform: translateZ(0); }
+      html, body { margin: 0; width: 100%; height: 100%; min-height: 100svh; overflow: hidden; background: #02030a; color-scheme: dark; }
+      body { height: 100dvh; }
+      #aperture { display: block; width: 100vw; height: 100vh; height: 100dvh; background: #02030a; filter: saturate(1.08) contrast(1.06) brightness(.92); transform: translateZ(0); }
       .bars { position: fixed; left: 0; right: 0; background: linear-gradient(180deg, #02030a, #03040b); z-index: 2; pointer-events: none; }
       .bars.t { top: 0; height: max(30px, env(safe-area-inset-top)); }
       .bars.b { bottom: 0; height: max(42px, env(safe-area-inset-bottom)); }
@@ -65,7 +66,7 @@
       #pass .bp2 b { color: #a8121e; font-weight: 400; transform: translateY(-.04em); }
       #pass .bp3 { font-family: 'Anton', sans-serif; letter-spacing: clamp(.1em, .7vw, .16em); font-size: clamp(10px, 2.5vw, 16px); color: #7a1f12; margin-top: clamp(7px, 1.3vw, 11px); }
       #pass .bp-meta { display: flex; justify-content: center; gap: 5px 12px; flex-wrap: wrap; margin-top: clamp(7px, 1.4vw, 12px); font-family: 'Anton', sans-serif; letter-spacing: clamp(.08em, .55vw, .14em); font-size: clamp(8px, 2vw, 11px); color: #2a160c; opacity: .76; }
-      #dmThread { position: fixed; left: 50%; top: max(72px, 10vh); z-index: 7; width: min(91vw, 460px); transform: translateX(-50%) translateY(12px); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .55s ease, transform .55s ease, visibility 0s linear .55s; }
+      #dmThread { position: fixed; left: 50%; top: max(calc(env(safe-area-inset-top) + 48px), 10dvh); z-index: 7; width: min(91vw, 460px); transform: translateX(-50%) translateY(12px); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .55s ease, transform .55s ease, visibility 0s linear .55s; }
       #dmThread.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); transition-delay: 0s; }
       .dmRoute { position: relative; display: grid; grid-template-columns: 1fr 44px 1fr; align-items: center; gap: 8px; margin: 0 auto 12px; color: #e7c878; text-shadow: 0 2px 14px rgba(0,0,0,.9); }
       .dmRoute::before { content: ""; position: absolute; left: 24%; right: 24%; top: 50%; height: 1px; background: linear-gradient(90deg, rgba(231,200,120,.12), rgba(231,200,120,.74), rgba(158,197,255,.4)); box-shadow: 0 0 16px rgba(231,200,120,.3); }
@@ -93,9 +94,9 @@
       .dmTyping i:nth-child(2) { animation-delay: .12s; }
       .dmTyping i:nth-child(3) { animation-delay: .24s; }
       @keyframes dmDot { 0%, 100% { transform: translateY(0); opacity: .45; } 45% { transform: translateY(-3px); opacity: 1; } }
-      #capscrim { position: fixed; left: 0; right: 0; bottom: 0; height: 44vh; z-index: 3; pointer-events: none;
+      #capscrim { position: fixed; left: 0; right: 0; bottom: 0; height: 44dvh; z-index: 3; pointer-events: none;
         background: linear-gradient(to top, rgba(2,3,8,.92) 0%, rgba(2,3,8,.62) 38%, transparent 100%); }
-      #cap { position: fixed; left: 0; right: 0; bottom: max(11vh, 86px); z-index: 6; display: flex; flex-direction: column; align-items: center; text-align: center; pointer-events: none; padding: 0 24px; }
+      #cap { position: fixed; left: 0; right: 0; bottom: max(11dvh, calc(env(safe-area-inset-bottom) + 64px)); z-index: 6; display: flex; flex-direction: column; align-items: center; text-align: center; pointer-events: none; padding: 0 24px; }
       #sub { font-family: 'Anton', sans-serif; letter-spacing: clamp(.18em, .8vw, .24em); font-size: 11px; color: #e7c878; opacity: .95; margin-bottom: 10px; min-height: 14px; text-shadow: 0 1px 6px rgba(0,0,0,.98); }
       #line { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: clamp(22px, 5.8vw, 34px); color: #fffdf5; line-height: 1.28; text-shadow: 0 2px 5px rgba(0,0,0,1), 0 4px 24px rgba(0,0,0,.98), 0 0 34px rgba(0,0,0,.86); transition: opacity .5s ease; opacity: 0; max-width: min(720px, calc(100vw - 44px)); text-wrap: balance; }
       /* tap-to-begin gate (carries the iOS audio gesture) */
@@ -112,8 +113,8 @@
       #gate .g2 { font-family: 'Anton', sans-serif; letter-spacing: .3em; font-size: 11px; opacity: .75; margin-top: 16px; }
       #ps { font-family: 'Special Elite', monospace; font-style: italic; font-size: 12px; color: #cba14a; opacity: .82; margin-top: 22px; max-width: 340px; line-height: 1.6; }
       /* reveal / RSVP */
-      #reveal { position: fixed; inset: 0; z-index: 8; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        text-align: center; padding: max(64px, 9vh) 26px max(48px, 8vh); overflow-y: auto; background: radial-gradient(100% 72% at 50% 26%, rgba(40,15,18,.94) 0%, rgba(7,8,18,.985) 68%, #02030a 100%);
+      #reveal { position: fixed; inset: 0; min-height: 100dvh; z-index: 8; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        text-align: center; padding: max(calc(env(safe-area-inset-top) + 34px), 9dvh) 26px max(calc(env(safe-area-inset-bottom) + 30px), 8dvh); overflow-y: auto; background: radial-gradient(100% 72% at 50% 26%, rgba(40,15,18,.94) 0%, rgba(7,8,18,.985) 68%, #02030a 100%);
         opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 1.2s ease, visibility 0s linear 1.2s; overscroll-behavior: contain; }
       #reveal.show { opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
       #reveal::before { content: ""; position: fixed; inset: max(30px, env(safe-area-inset-top)) 18px max(42px, env(safe-area-inset-bottom)); pointer-events: none; border: 1px solid rgba(231,200,120,.12); }
@@ -142,16 +143,23 @@
       #rsvpDone { font-family: 'Caveat', cursive; font-size: 26px; color: #e7c878; margin-top: 6px; min-height: 30px; }
       @media (max-width: 620px) {
         #title span { font-size: clamp(21px, 5.6vw, 32px); letter-spacing: .08em; line-height: 1.08; max-width: 88vw; }
-        #cap { bottom: max(8.8vh, 60px); padding: 0 18px; }
-        #line { font-size: clamp(23px, 6vw, 31px); line-height: 1.24; max-width: calc(100vw - 36px); }
+        #capscrim { height: 39dvh; }
+        #cap { bottom: max(6.5dvh, calc(env(safe-area-inset-bottom) + 48px)); padding: 0 16px; }
+        #sub { font-size: 9px; min-height: 11px; margin-bottom: 6px; }
+        #line { font-size: clamp(20px, 5.2vw, 26px); line-height: 1.18; max-width: calc(100vw - 30px); }
       }
       @media (max-width: 430px) {
         #title span { font-size: clamp(22px, 6.1vw, 30px); }
-        #pass { top: 30%; }
-        #pass .bp-card { transform: rotate(-.45deg) scale(.96); }
-        #dmThread { top: max(64px, 8vh); width: min(94vw, 390px); }
-        .dmPhone { padding: 12px 11px 14px; border-radius: 21px; }
-        .dmBubble { max-width: 82%; }
+        #marquee { top: 38%; }
+        #pass { top: 28%; }
+        #pass .bp-card { transform: rotate(-.35deg) scale(.86); transform-origin: center; }
+        #dmThread { top: max(calc(env(safe-area-inset-top) + 12px), 5.5dvh); width: min(94vw, 360px); }
+        .dmRoute { margin-bottom: 9px; grid-template-columns: 1fr 38px 1fr; gap: 6px; }
+        .dmCity { font-size: 9px; letter-spacing: .16em; }
+        .dmCity small { font-size: 8px; }
+        .dmPhone { padding: 0; border-radius: 0; }
+        .dmBubble { max-width: 86%; margin: 6px 0; padding: 7px 10px 8px; font-size: clamp(11px, 3.15vw, 13px); }
+        .dmFrom { font-size: 8px; }
       }
       @media (prefers-reduced-motion: reduce) {
         #title, #marquee, #pass, #dmThread, #line, #gate, #reveal, .stars .st, .dmBubble, .dmTyping { transition: none; }
@@ -159,7 +167,7 @@
         #aperture { filter: saturate(1.02) contrast(1.02) brightness(.94); }
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-M0uofhVo.js"></script>
+    <script type="module" crossorigin src="./assets/index-D0aiVjZB.js"></script>
   </head>
   <body>
     <canvas id="aperture"></canvas>
