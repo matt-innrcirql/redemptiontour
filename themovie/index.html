@@ -41,6 +41,32 @@
         background: radial-gradient(126% 86% at 50% 42%, rgba(255,236,184,.035) 0%, transparent 38%, rgba(0,0,0,.38) 78%, rgba(0,0,0,.68) 100%),
           linear-gradient(180deg, rgba(2,3,10,.34), transparent 18%, transparent 76%, rgba(2,3,10,.72)),
           linear-gradient(135deg, rgba(255,168,108,.07), rgba(22,45,94,.18)); }
+      #sceneWash { position: fixed; inset: 0; z-index: 5; pointer-events: none; mix-blend-mode: screen; opacity: .54; transition: background 1s ease, opacity 1s ease;
+        background: linear-gradient(125deg, rgba(255,153,112,.08), transparent 38%, rgba(53,91,154,.12)); }
+      body[data-scene="rainey"] #sceneWash { background: linear-gradient(130deg, rgba(255,105,166,.1), transparent 42%, rgba(255,205,116,.08)); }
+      body[data-scene="dm"] #sceneWash { background: linear-gradient(130deg, rgba(83,153,255,.16), transparent 45%, rgba(255,190,91,.08)); opacity: .62; }
+      body[data-scene="passero"] #sceneWash { background: linear-gradient(135deg, rgba(255,187,94,.13), transparent 44%, rgba(123,30,34,.08)); }
+      body[data-scene="armands"] #sceneWash { background: linear-gradient(120deg, rgba(255,68,127,.12), transparent 43%, rgba(255,220,146,.07)); }
+      body[data-scene="pass"] #sceneWash { background: linear-gradient(125deg, rgba(255,219,128,.18), transparent 46%, rgba(84,126,196,.08)); }
+      body[data-scene="kiss"] #sceneWash { background: linear-gradient(135deg, rgba(73,133,222,.12), transparent 42%, rgba(255,83,141,.11)); }
+      body[data-scene="chosen"] #sceneWash { background: linear-gradient(125deg, rgba(255,184,103,.12), transparent 45%, rgba(88,161,202,.1)); }
+      body[data-scene="cook"] #sceneWash { background: linear-gradient(130deg, rgba(255,187,105,.12), transparent 42%, rgba(174,78,83,.09)); }
+      body[data-scene="reveal"] #sceneWash { background: linear-gradient(125deg, rgba(194,26,36,.13), transparent 42%, rgba(255,210,109,.14)); opacity: .66; }
+      #cutFlash { position: fixed; inset: 0; z-index: 8; pointer-events: none; opacity: 0; background: linear-gradient(90deg, transparent, rgba(255,244,210,.62), transparent); transform: translateX(-34%); }
+      #cutFlash::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(2,3,10,.08), rgba(255,244,210,.16), rgba(2,3,10,.12)); }
+      body.cutting #cutFlash { animation: cutFlash .92s cubic-bezier(.2,.8,.2,1) both; }
+      #lensHit { position: fixed; inset: 0; z-index: 6; pointer-events: none; opacity: 0; background: linear-gradient(100deg, transparent 0%, rgba(255,246,215,.3) 48%, transparent 58%); mix-blend-mode: screen; }
+      body.beatHit #lensHit { animation: lensHit .64s ease-out both; }
+      @keyframes cutFlash {
+        0% { opacity: 0; transform: translateX(-42%); filter: blur(14px); }
+        22% { opacity: .75; }
+        100% { opacity: 0; transform: translateX(42%); filter: blur(2px); }
+      }
+      @keyframes lensHit {
+        0% { opacity: 0; transform: translateX(-18%) skewX(-8deg); }
+        35% { opacity: .44; }
+        100% { opacity: 0; transform: translateX(18%) skewX(-8deg); }
+      }
       #filmFrame { position: fixed; inset: max(30px, env(safe-area-inset-top)) 0 max(42px, env(safe-area-inset-bottom)); z-index: 5; pointer-events: none; opacity: .86;
         box-shadow: inset 0 0 0 1px rgba(243,231,203,.045), inset 0 0 92px rgba(0,0,0,.38); }
       #filmFrame::before { content: ""; position: absolute; inset: 0;
@@ -99,6 +125,17 @@
       #cap { position: fixed; left: 0; right: 0; bottom: max(11dvh, calc(env(safe-area-inset-bottom) + 64px)); z-index: 6; display: flex; flex-direction: column; align-items: center; text-align: center; pointer-events: none; padding: 0 24px; }
       #sub { font-family: 'Anton', sans-serif; letter-spacing: clamp(.18em, .8vw, .24em); font-size: 11px; color: #e7c878; opacity: .95; margin-bottom: 10px; min-height: 14px; text-shadow: 0 1px 6px rgba(0,0,0,.98); }
       #line { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: clamp(22px, 5.8vw, 34px); color: #fffdf5; line-height: 1.28; text-shadow: 0 2px 5px rgba(0,0,0,1), 0 4px 24px rgba(0,0,0,.98), 0 0 34px rgba(0,0,0,.86); transition: opacity .5s ease; opacity: 0; max-width: min(720px, calc(100vw - 44px)); text-wrap: balance; }
+      #line.pop { animation: captionPop .72s cubic-bezier(.2,.9,.22,1) both; }
+      #sub.pop { animation: subPop .58s ease-out both; }
+      @keyframes captionPop {
+        0% { filter: blur(9px); transform: translateY(12px) scale(.985); opacity: 0; }
+        58% { filter: blur(0); opacity: 1; }
+        100% { filter: blur(0); transform: translateY(0) scale(1); opacity: 1; }
+      }
+      @keyframes subPop {
+        0% { filter: blur(5px); transform: translateY(6px); opacity: 0; }
+        100% { filter: blur(0); transform: translateY(0); opacity: .95; }
+      }
       /* tap-to-begin gate (carries the iOS audio gesture) */
       #gate { position: fixed; inset: 0; z-index: 9; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; isolation: isolate;
         background: radial-gradient(90% 64% at 50% 42%, #211016 0%, #0c0912 58%, #02030a 100%); color: #e7c878; cursor: pointer; transition: opacity .9s ease, visibility 0s linear 0s; visibility: visible; }
@@ -162,20 +199,23 @@
         .dmFrom { font-size: 8px; }
       }
       @media (prefers-reduced-motion: reduce) {
-        #title, #marquee, #pass, #dmThread, #line, #gate, #reveal, .stars .st, .dmBubble, .dmTyping { transition: none; }
-        .dmArrow::after, .dmTyping i { animation: none; }
+        #title, #marquee, #pass, #dmThread, #line, #gate, #reveal, #sceneWash, .stars .st, .dmBubble, .dmTyping { transition: none; }
+        .dmArrow::after, .dmTyping i, #cutFlash, #lensHit, #line.pop, #sub.pop { animation: none; }
         #aperture { filter: saturate(1.02) contrast(1.02) brightness(.94); }
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-D0aiVjZB.js"></script>
+    <script type="module" crossorigin src="./assets/index-Kgsh6qMK.js"></script>
   </head>
-  <body>
+  <body data-scene="rainey">
     <canvas id="aperture"></canvas>
     <audio id="song" preload="auto" src="song.mp3"></audio>
     <div class="bars t"></div>
     <div class="bars b"></div>
     <div id="grain"></div>
     <div id="grade"></div>
+    <div id="sceneWash" aria-hidden="true"></div>
+    <div id="cutFlash" aria-hidden="true"></div>
+    <div id="lensHit" aria-hidden="true"></div>
     <div id="filmFrame" aria-hidden="true"></div>
     <div id="title" aria-hidden="true"><span>AUSTIN, TEXAS</span></div>
     <div id="marquee" aria-hidden="true"><div class="mq1">MATT &amp; JOSIE</div><div class="mq2">NOW PLAYING</div></div>
