@@ -222,16 +222,16 @@ function makeCoverTexture() {
     ctx.fill();
     ctx.restore();
 
-    ctx.font = '800 110px Playfair Display, Georgia, serif';
+    ctx.font = '800 128px Playfair Display, Georgia, serif';
     ctx.fillText('PASSPORT', w / 2, 600);
-    ctx.font = '700 24px Courier New, monospace';
+    ctx.font = '700 28px Courier New, monospace';
     trackedText(ctx, 'REPUBLIC OF GOOD DATES', w / 2, 680, 10);
-    ctx.font = '700 18px Courier New, monospace';
+    ctx.font = '700 22px Courier New, monospace';
     trackedText(ctx, 'THIS PASSPORT BELONGS TO', w / 2, 780, 7);
-    ctx.font = '700 64px Caveat, cursive';
+    ctx.font = '700 82px Caveat, cursive';
     ctx.fillText('Josie', w / 2, 845);
-    ctx.font = '700 20px Courier New, monospace';
-    trackedText(ctx, 'TAP TO OPEN', w / 2, 958, 8);
+    ctx.font = '900 48px Courier New, monospace';
+    trackedText(ctx, 'TAP TO OPEN', w / 2, 958, 10);
   });
 }
 
@@ -386,49 +386,49 @@ function makeStampTexture(destination) {
 }
 
 function makeMovieCalloutTexture() {
-  return makeTexture(900, 430, (ctx, w, h) => {
+  return makeTexture(1100, 560, (ctx, w, h) => {
     ctx.clearRect(0, 0, w, h);
     ctx.strokeStyle = COLORS.goldBright;
-    ctx.fillStyle = 'rgba(93,26,28,.9)';
-    ctx.lineWidth = 8;
+    ctx.fillStyle = 'rgba(93,26,28,.96)';
+    ctx.lineWidth = 12;
     ctx.lineJoin = 'round';
 
-    roundedRect(ctx, 235, 44, 600, 160, 28);
+    roundedRect(ctx, 104, 40, 890, 238, 34);
     ctx.fill();
     ctx.stroke();
     ctx.strokeStyle = 'rgba(241,217,134,.48)';
-    ctx.lineWidth = 3;
-    roundedRect(ctx, 260, 68, 550, 112, 18);
+    ctx.lineWidth = 5;
+    roundedRect(ctx, 136, 72, 826, 174, 24);
     ctx.stroke();
 
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillStyle = COLORS.goldBright;
-    ctx.font = '800 42px Courier New, monospace';
-    trackedText(ctx, 'JOSIE', 535, 104, 10);
-    ctx.font = '800 44px Playfair Display, Georgia, serif';
-    ctx.fillText('tap here', 535, 152);
+    ctx.font = '900 78px Courier New, monospace';
+    trackedText(ctx, 'JOSIE', 550, 120, 16);
+    ctx.font = '900 78px Playfair Display, Georgia, serif';
+    ctx.fillText('TAP THE MOVIE', 550, 196);
 
     ctx.strokeStyle = COLORS.goldBright;
     ctx.fillStyle = COLORS.goldBright;
-    ctx.lineWidth = 12;
+    ctx.lineWidth = 20;
     ctx.lineCap = 'round';
     ctx.beginPath();
-    ctx.moveTo(350, 214);
-    ctx.bezierCurveTo(300, 270, 230, 318, 132, 358);
+    ctx.moveTo(442, 286);
+    ctx.bezierCurveTo(370, 360, 268, 420, 128, 486);
     ctx.stroke();
     ctx.beginPath();
-    ctx.moveTo(118, 362);
-    ctx.lineTo(174, 318);
-    ctx.lineTo(166, 390);
+    ctx.moveTo(108, 494);
+    ctx.lineTo(202, 424);
+    ctx.lineTo(182, 532);
     ctx.closePath();
     ctx.fill();
 
     ctx.strokeStyle = 'rgba(36,26,18,.24)';
-    ctx.lineWidth = 4;
+    ctx.lineWidth = 6;
     ctx.beginPath();
-    ctx.moveTo(351, 224);
-    ctx.bezierCurveTo(304, 278, 234, 324, 145, 361);
+    ctx.moveTo(444, 300);
+    ctx.bezierCurveTo(374, 368, 278, 430, 148, 486);
     ctx.stroke();
   });
 }
@@ -645,7 +645,7 @@ buildStampMeshes();
 
 const movieCallout = new THREE.Group();
 const movieCalloutSign = new THREE.Mesh(
-  new THREE.PlaneGeometry(3.45, 1.64),
+  new THREE.PlaneGeometry(3.9, 1.98),
   new THREE.MeshStandardMaterial({
     map: makeMovieCalloutTexture(),
     transparent: true,
@@ -658,10 +658,12 @@ const movieCalloutSign = new THREE.Mesh(
 movieCalloutSign.renderOrder = 18;
 movieCalloutSign.userData.destination = destinations[0];
 movieCallout.add(movieCalloutSign);
-movieCallout.position.set(-1.46, 2.45, 0.46);
+movieCallout.position.set(-1.34, 2.43, 0.48);
 movieCallout.rotation.z = THREE.MathUtils.degToRad(-5);
 movieCallout.userData.base = movieCallout.position.clone();
 movieCallout.userData.baseScale = 1;
+movieCallout.userData.mobileBase = new THREE.Vector3(-1.02, 2.42, 0.72);
+movieCallout.userData.mobileScale = 1.42;
 stampGroup.add(movieCallout);
 
 function makeParticleField(count, radius, height, zMin, zMax) {
@@ -996,7 +998,8 @@ function animate(now) {
 
   stampMeshes.forEach((mesh, index) => {
     const phase = mesh.userData.phase;
-    const hoverScale = hovered === mesh ? 1.08 : 1;
+    const primaryMobileScale = compact && index === 0 ? 1.16 : 1;
+    const hoverScale = (hovered === mesh ? 1.08 : 1) * primaryMobileScale;
     const drift = openProgress * (0.012 + Math.sin(t * 0.8 + phase) * 0.018);
     mesh.position.x = mesh.userData.base.x + Math.sin(t * 0.55 + phase) * drift;
     mesh.position.y = mesh.userData.base.y + Math.sin(t * 0.7 + phase) * drift;
@@ -1007,9 +1010,13 @@ function animate(now) {
     mesh.material.emissive.setHex(hovered === mesh ? 0x2d2106 : 0x000000);
     mesh.material.emissiveIntensity = hovered === mesh ? 0.2 : 0;
   });
-  movieCallout.position.y = movieCallout.userData.base.y + Math.sin(t * 1.2) * 0.035;
+  const calloutBase = new THREE.Vector3().lerpVectors(movieCallout.userData.base, movieCallout.userData.mobileBase, mobileMix);
+  movieCallout.position.x = calloutBase.x;
+  movieCallout.position.y = calloutBase.y + Math.sin(t * 1.2) * (compact ? 0.05 : 0.035);
+  movieCallout.position.z = calloutBase.z;
   movieCallout.rotation.z = THREE.MathUtils.degToRad(-5) + Math.sin(t * 0.9) * 0.018;
-  movieCallout.scale.setScalar(movieCallout.userData.baseScale * (1 + Math.sin(t * 2.0) * 0.035));
+  const calloutScale = THREE.MathUtils.lerp(movieCallout.userData.baseScale, movieCallout.userData.mobileScale, mobileMix);
+  movieCallout.scale.setScalar(calloutScale * (1 + Math.sin(t * 2.0) * 0.035));
 
   particles.rotation.y = Math.sin(t * 0.08) * 0.11 + openProgress * 0.06;
   particles.rotation.x = Math.sin(t * 0.05) * 0.035;
