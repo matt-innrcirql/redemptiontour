@@ -206,6 +206,23 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:7;opac
 <audio id="song" loop preload="auto"></audio>
 
 <script>
+(function(){
+  function stopMovieAudio(){
+    var song = document.getElementById('song');
+    if(!song) return;
+    try{
+      song.pause();
+      song.muted = true;
+      song.volume = 0;
+    }catch(e){}
+  }
+  window.addEventListener('pagehide', stopMovieAudio, {capture:true});
+  window.addEventListener('beforeunload', stopMovieAudio, {capture:true});
+  document.addEventListener('visibilitychange', function(){
+    if(document.visibilityState === 'hidden') stopMovieAudio();
+  }, {capture:true});
+})();
+
 /* =======================================================================
    SEASON FIVE - THE MOVIE
    Everything you'd want to edit lives in CONFIG below: the scene captions,

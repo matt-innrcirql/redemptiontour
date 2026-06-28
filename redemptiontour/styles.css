@@ -34,6 +34,35 @@ body{
   overflow-x:hidden;
 }
 
+#stamp-stage{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  width:100vw;
+  height:100vh;
+  height:100dvh;
+  min-height:100svh;
+  display:block;
+  pointer-events:none;
+  background:#100b08;
+  transform:translateZ(0);
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    radial-gradient(70% 62% at 50% 8%, rgba(255,210,118,.18), transparent 55%),
+    radial-gradient(60% 52% at 12% 24%, rgba(207,58,34,.16), transparent 60%),
+    radial-gradient(50% 46% at 86% 22%, rgba(31,111,104,.18), transparent 60%),
+    linear-gradient(180deg, rgba(10,7,3,.08), rgba(10,7,3,.64) 82%, rgba(10,7,3,.9));
+  mix-blend-mode:screen;
+  opacity:.82;
+}
+
 /* film-grain + halftone overlays applied app-wide */
 .grain{
   position:fixed; inset:0; z-index:9000; pointer-events:none;
@@ -89,7 +118,7 @@ body{
 /* ===========================================================
    STAGE / SCALING
    =========================================================== */
-#root{ position:relative; z-index:1; }
+#root{ position:relative; z-index:2; }
 .stage{
   min-height:100vh; width:100%;
   display:flex; align-items:flex-start; justify-content:center;
@@ -120,10 +149,34 @@ body{
 .poster{
   width:100%; max-width:780px; margin-top:24px;
   border:3px solid var(--ink);
-  box-shadow:0 30px 70px -20px var(--shadow), 0 4px 0 var(--gold);
+  box-shadow:
+    0 42px 90px -26px rgba(0,0,0,.78),
+    0 0 0 1px rgba(255,220,130,.24),
+    0 4px 0 var(--gold);
   padding:30px 30px 26px;
+  isolation:isolate;
+  overflow:hidden;
 }
-.poster__frame{ border:2px solid var(--ink); padding:26px 26px 22px; position:relative; }
+.poster::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  pointer-events:none;
+  background:
+    linear-gradient(115deg, transparent 0 20%, rgba(255,246,205,.24) 32%, transparent 44% 100%),
+    radial-gradient(circle at 14% 0%, rgba(194,144,31,.2), transparent 26%),
+    radial-gradient(circle at 96% 12%, rgba(31,111,104,.14), transparent 28%);
+  mix-blend-mode:multiply;
+  opacity:.7;
+}
+.poster__frame{
+  border:2px solid var(--ink);
+  padding:26px 26px 22px;
+  position:relative;
+  background:rgba(239,227,204,.82);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.22);
+  backdrop-filter:blur(2px);
+}
 .poster__tape{
   position:absolute; width:120px; height:30px; background:rgba(207,180,120,.45);
   border:1px dashed rgba(80,60,20,.4);
@@ -156,7 +209,8 @@ body{
 .headliner{
   position:relative; margin:20px auto 8px; width:min(380px,82%);
   border:3px solid var(--ink); background:var(--ink);
-  box-shadow:6px 6px 0 var(--gold);
+  box-shadow:6px 6px 0 var(--gold), 0 18px 35px -24px #000;
+  transform:translateZ(0) rotate(-.35deg);
 }
 .headliner img{ display:block; width:100%; aspect-ratio:3/4; height:auto;
   object-fit:cover; object-position:center top; filter:contrast(1.06) saturate(1.05); }
@@ -202,6 +256,13 @@ body{
 }
 .cta-stamp:hover{ transform:translate(-2px,-2px); box-shadow:7px 7px 0 var(--ink); }
 .cta-stamp:active{ transform:translate(4px,4px); box-shadow:1px 1px 0 var(--ink); }
+.cta-stamp:focus-visible,
+.poster__itinerary:focus-visible,
+.btn:focus-visible,
+.star:focus-visible{
+  outline:3px solid var(--gold);
+  outline-offset:4px;
+}
 
 /* ===========================================================
    GENERIC PANEL (dates / rider / ticket screens)
@@ -437,6 +498,11 @@ body{
 .soldout{ font-size:clamp(30px,11vw,46px); }
 
 @media(max-width:620px){
+  #stamp-stage{
+    z-index:7000;
+    opacity:.64;
+    mix-blend-mode:screen;
+  }
   .stage{ padding:42px 12px 64px; }
   .poster{ padding:16px 14px 16px; margin-top:14px;
     box-shadow:0 18px 44px -18px var(--shadow), 0 3px 0 var(--gold); }
@@ -476,6 +542,10 @@ body{
   .ticket__order{ font-size:9px; gap:6px; flex-wrap:wrap; }
   .ticket__stub{ padding:16px 12px; flex-direction:row; flex-wrap:wrap;
     justify-content:space-around; gap:10px; }
+}
+
+@media(prefers-reduced-motion:reduce){
+  #stamp-stage{ opacity:.72; }
 }
 
 /* phones: stack ticket holder block, keep details readable */
