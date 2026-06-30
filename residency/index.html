@@ -77,6 +77,56 @@ body{
 .taphint{text-align:center;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);
   margin:16px 0 0;opacity:.85;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:.45}50%{opacity:1}}
+
+/* beat 2: verdict stamp */
+.verdict{position:absolute;top:42%;left:50%;z-index:30;transform:translate(-50%,-50%) rotate(-15deg) scale(2.6);
+  opacity:0;border:6px double var(--red);color:var(--red);padding:8px 20px;font-family:var(--f-display);
+  font-size:clamp(26px,8vw,44px);letter-spacing:.08em;text-transform:uppercase;pointer-events:none;
+  border-radius:6px;background:rgba(239,227,204,.04);text-align:center;line-height:.95}
+.verdict small{display:block;font-family:var(--f-type);font-size:11px;letter-spacing:.12em;opacity:.85;margin-bottom:4px}
+.poster.is-stamped .verdict{animation:stampIn .5s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes stampIn{0%{opacity:0;transform:translate(-50%,-50%) rotate(-15deg) scale(2.6)}
+  100%{opacity:.92;transform:translate(-50%,-50%) rotate(-15deg) scale(1)}}
+
+/* beat 3: strike-through of the script title */
+.ptitle__script .strike{position:absolute;left:-4%;top:52%;height:5px;width:0;background:var(--red);
+  border-radius:3px;transform:rotate(-4deg);box-shadow:0 1px 0 rgba(0,0,0,.25)}
+.poster.is-struck .ptitle__script .strike{animation:strike .5s ease forwards}
+@keyframes strike{to{width:108%}}
+.poster.is-struck .kicker{color:var(--ink-soft)}
+
+/* beat 4: re-bill to THE RESIDENCY */
+.residency{display:none;text-align:center;margin-top:4px}
+.poster.is-rebilled .ptitle{display:none}
+.poster.is-rebilled .residency{display:block;animation:fadeUp .6s ease both}
+.residency__concluded{font-family:var(--f-type);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft)}
+.residency__name{font-family:var(--f-display);text-transform:uppercase;color:var(--ink);
+  font-size:clamp(48px,15vw,120px);line-height:.86;letter-spacing:.01em;margin:6px 0 2px}
+.residency__name em{font-style:normal;color:var(--red)}
+.residency__tag{font-family:var(--f-script);font-weight:700;color:var(--red);font-size:clamp(26px,8vw,52px);
+  line-height:.9;transform:rotate(-2deg)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* beat 5: she said yes */
+.poster.is-yes .headliner__tab{color:var(--red)}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:8500;overflow:hidden}
+.confetti i{position:absolute;top:-20px;width:9px;height:14px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(108vh) rotate(720deg);opacity:.9}}
+
+@media(prefers-reduced-motion:reduce){
+  .poster.is-stamped .verdict{animation:none;opacity:.92;transform:translate(-50%,-50%) rotate(-15deg) scale(1)}
+  .poster.is-struck .ptitle__script .strike{animation:none;width:108%}
+  .poster.is-rebilled .residency{animation:none}
+  .confetti{display:none}
+  .ticker__track{animation:none}
+  .taphint{animation:none}
+}
+
+@media(max-width:620px){
+  .stage{padding:46px 12px 70px}
+  .poster{padding:16px 13px 16px}
+  .poster__frame{padding:18px 12px 14px}
+}
 </style>
 </head>
 <body>
@@ -88,12 +138,18 @@ body{
   <div class="poster" id="poster">
     <div class="poster__frame">
       <div class="tape"></div>
+      <div class="verdict"><small>the verdict is in</small>✓ Mission: Redeemed</div>
       <div class="presents">The City of Chicago (unofficially) presents</div>
       <div class="kicker" id="kicker">A Live Redemption Event</div>
 
       <div class="ptitle" id="ptitle">
         <span class="ptitle__l1">One <em>Date</em> · One Shot</span>
-        <span class="ptitle__script" id="scriptTitle">the redemption tour</span>
+        <span class="ptitle__script" id="scriptTitle">the redemption tour<span class="strike"></span></span>
+      </div>
+      <div class="residency" id="residency">
+        <div class="residency__concluded">Tour concluded. Now announcing</div>
+        <div class="residency__name">The <em>Residency</em></div>
+        <div class="residency__tag">now playing · indefinitely</div>
       </div>
 
       <div class="headliner">
@@ -111,12 +167,73 @@ body{
 </div>
 
 <script>
-/* ticker seed (beat 1 copy) */
-(function(){
-  var t = document.getElementById('tickerTrack');
-  var msg = '<span>THE REDEMPTION TOUR <b>·</b> ONE DATE, ONE SHOT <b>·</b> LIVE IN CHICAGO <b>·</b> </span>';
-  t.innerHTML = msg + msg; // duplicated for seamless marquee
-})();
+var poster = document.getElementById('poster');
+var ticker = document.getElementById('ticker');
+var trackEl = document.getElementById('tickerTrack');
+var headliner = document.getElementById('headlinerName');
+var kicker = document.getElementById('kicker');
+var finefoot = document.getElementById('finefoot');
+var taphint = document.getElementById('taphint');
+var stage = document.getElementById('stage');
+
+function setTicker(msg, yes){
+  trackEl.innerHTML = msg + msg;
+  ticker.classList.toggle('is-yes', !!yes);
+}
+setTicker('<span>THE REDEMPTION TOUR <b>·</b> ONE DATE, ONE SHOT <b>·</b> LIVE IN CHICAGO <b>·</b> </span>', false);
+
+function fireConfetti(){
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var wrap = document.createElement('div'); wrap.className='confetti';
+  var cols = ['#cf3a22','#c2901f','#1f6f68','#efe3cc'];
+  for(var i=0;i<80;i++){
+    var p = document.createElement('i');
+    p.style.left = (i/80*100) + '%';
+    p.style.background = cols[i%4];
+    p.style.animationDuration = (2.2 + (i%5)*0.5) + 's';
+    p.style.animationDelay = ((i%9)*0.08) + 's';
+    wrap.appendChild(p);
+  }
+  document.body.appendChild(wrap);
+  setTimeout(function(){ wrap.remove(); }, 6000);
+}
+
+var STEPS = [
+  function(){ // beat 2: verdict stamp
+    poster.classList.add('is-stamped');
+    kicker.textContent = 'A Live Redemption Event';
+    taphint.textContent = 'tap to continue';
+  },
+  function(){ // beat 3: cross out the old name
+    poster.classList.add('is-struck');
+    kicker.textContent = 'The tour did its job';
+    setTicker('<span>TOUR CONCLUDED <b>·</b> THE REDEMPTION TOUR <b>·</b> MISSION ACCOMPLISHED <b>·</b> </span>', false);
+  },
+  function(){ // beat 4: re-bill to The Residency
+    poster.classList.add('is-rebilled');
+    finefoot.textContent = 'He is done touring. One venue. One person. No end date.';
+    setTicker('<span>NOW PLAYING <b>·</b> THE RESIDENCY <b>·</b> ONE VENUE, ONE PERSON, NO END DATE <b>·</b> </span>', false);
+  },
+  function(){ // beat 5: she said yes
+    poster.classList.add('is-yes');
+    headliner.innerHTML = 'Matt <em>&</em> Josie';
+    document.querySelector('.headliner__tab').textContent = 'Now Co-Headlining';
+    finefoot.textContent = 'No refunds. No last call. No encore needed. She said yes.';
+    setTicker('<span>SHE SAID <b>YES</b> <b>·</b> THE RESIDENCY IS OFFICIAL <b>·</b> MATT &amp; JOSIE <b>·</b> </span>', true);
+    fireConfetti();
+    taphint.textContent = 'tap to see the lineup';
+  }
+  /* Task 3 appends the lineup + footer step here */
+];
+
+var step = 0;
+function advance(){
+  if(step >= STEPS.length){ return; }
+  STEPS[step]();
+  step++;
+  if(step >= STEPS.length){ taphint.style.display='none'; }
+}
+stage.addEventListener('pointerup', advance);
 </script>
 </body>
 </html>
