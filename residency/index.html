@@ -124,6 +124,7 @@ body{
   .confetti{display:none}
   .ticker__track{animation:none}
   .taphint{animation:none}
+  .lineup.show{animation:none}
 }
 
 @media(max-width:620px){
@@ -134,7 +135,7 @@ body{
 
 /* beat 6: the lineup */
 .lineup{display:none;max-width:680px;margin:22px auto 0;width:100%}
-.poster.is-lineup ~ .lineup, .lineup.show{display:block;animation:fadeUp .6s ease both}
+.lineup.show{display:block;animation:fadeUp .6s ease both}
 .lineup__card{border:3px solid var(--ink);background:var(--paper);
   box-shadow:0 30px 70px -20px rgba(10,7,3,.55),0 4px 0 var(--gold);padding:22px 20px 20px}
 .lineup__head{text-align:center;font-family:var(--f-display);text-transform:uppercase;color:var(--ink);
@@ -285,11 +286,11 @@ var STEPS = [
     fireConfetti();
     taphint.textContent = 'tap to see the lineup';
   }
-  /* Task 3 appends the lineup + footer step here */
   ,function(){ // beat 6 + 7: reveal lineup and past tours
     document.getElementById('lineup').classList.add('show');
     document.getElementById('pastwrap').style.display = 'block';
-    document.getElementById('lineup').scrollIntoView({behavior:'smooth', block:'start'});
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.getElementById('lineup').scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block:'start'});
   }
 ];
 
@@ -301,7 +302,10 @@ function advance(){
   capture('residency_beat', { beat: step });
   if(step >= STEPS.length){ taphint.style.display='none'; }
 }
-stage.addEventListener('pointerup', advance);
+stage.addEventListener('click', advance);
+document.addEventListener('keydown', function(e){
+  if((e.key === 'Enter' || e.key === ' ') && step < STEPS.length){ e.preventDefault(); advance(); }
+});
 </script>
 </body>
 </html>
