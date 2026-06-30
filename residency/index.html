@@ -91,6 +91,10 @@ body{
 .poster.is-stamped .verdict{animation:stampIn .5s cubic-bezier(.2,1.6,.4,1) both}
 @keyframes stampIn{0%{opacity:0;transform:translate(-50%,-50%) rotate(-15deg) scale(2.6)}
   100%{opacity:.92;transform:translate(-50%,-50%) rotate(-15deg) scale(1)}}
+/* the stamp clears on the next beat so it never collides with the re-bill */
+.poster.is-struck .verdict{animation:stampOut .45s ease forwards}
+@keyframes stampOut{0%{opacity:.92;transform:translate(-50%,-50%) rotate(-15deg) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-50%) rotate(-15deg) scale(1.5)}}
 
 /* beat 3: strike-through of the script title */
 .ptitle__script .strike{position:absolute;left:-4%;top:52%;height:5px;width:0;background:var(--red);
@@ -102,6 +106,7 @@ body{
 /* beat 4: re-bill to THE RESIDENCY */
 .residency{display:none;text-align:center;margin-top:4px}
 .poster.is-rebilled .ptitle{display:none}
+.poster.is-rebilled .presents,.poster.is-rebilled .kicker{display:none}
 .poster.is-rebilled .residency{display:block;animation:fadeUp .6s ease both}
 .residency__concluded{font-family:var(--f-type);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft)}
 .residency__name{font-family:var(--f-display);text-transform:uppercase;color:var(--ink);
@@ -119,6 +124,7 @@ body{
 
 @media(prefers-reduced-motion:reduce){
   .poster.is-stamped .verdict{animation:none;opacity:.92;transform:translate(-50%,-50%) rotate(-15deg) scale(1)}
+  .poster.is-struck .verdict{animation:none;opacity:0}
   .poster.is-struck .ptitle__script .strike{animation:none;width:108%}
   .poster.is-rebilled .residency{animation:none}
   .confetti{display:none}
