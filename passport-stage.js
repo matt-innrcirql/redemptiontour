@@ -4,6 +4,10 @@ const canvas = document.getElementById('passport-stage');
 const frame = document.getElementById('s4frame');
 const song = document.getElementById('s4song');
 const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Opening the passport leads straight into the current reveal (The Residency),
+// unless we arrived in "browse mode" (?tours) from the Past Tours button, which
+// keeps the stamp archive reachable without a redirect loop.
+const browseMode = /[?&](tours|past|passport|browse)/i.test(location.search);
 
 const COLORS = {
   burgundy: '#5d1a1c',
@@ -875,6 +879,12 @@ function raycastInteractive(event) {
 
 function openPassport() {
   if (opened) return;
+  // Tap-to-open now leads into The Residency reveal (unless browsing past tours).
+  if (!browseMode) {
+    capture('passport_to_residency');
+    window.location.href = 'residency/';
+    return;
+  }
   opened = true;
   document.body.classList.add('open');
   if (!openedCaptured) {
