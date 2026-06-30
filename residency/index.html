@@ -8,6 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Special+Elite&display=swap" rel="stylesheet" />
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister getFeatureFlag isFeatureEnabled onFeatureFlags reloadFeatureFlags identify setPersonProperties group reset get_distinct_id".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('phc_zhordsTx3ucwQ5EmMbxctXqdE4L7eqz8gE79R5fhAHBk',{api_host:'https://us.i.posthog.com',defaults:'2026-01-30',autocapture:true,capture_pageview:true});
+</script>
 <style>
 :root{
   --wall:#15110c; --wall-2:#1d1810;
@@ -19,7 +23,7 @@
   --f-script:'Caveat',cursive;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;min-height:100%}
+html,body{margin:0;padding:0;min-height:100%;overflow-x:hidden}
 body{
   background:radial-gradient(120% 90% at 50% -10%, #241d14 0%, var(--wall) 55%, #0e0b07 100%);
   color:var(--ink); font-family:var(--f-type); min-height:100vh; overflow-x:hidden;
@@ -222,6 +226,9 @@ body{
 </div>
 
 <script>
+function capture(name, props){ try{ if(window.posthog) window.posthog.capture(name, props||{}); }catch(e){} }
+capture('residency_revealed', {page:'residency'});
+
 var poster = document.getElementById('poster');
 var ticker = document.getElementById('ticker');
 var trackEl = document.getElementById('tickerTrack');
@@ -291,6 +298,7 @@ function advance(){
   if(step >= STEPS.length){ return; }
   STEPS[step]();
   step++;
+  capture('residency_beat', { beat: step });
   if(step >= STEPS.length){ taphint.style.display='none'; }
 }
 stage.addEventListener('pointerup', advance);
