@@ -107,7 +107,7 @@ body{
 <section class="payoff" id="payoff" aria-hidden="true">
   <div class="payoff__lead">
     <div class="payoff__yes">She said yes.</div>
-    <div class="payoff__sub">The Residency &middot; now playing, indefinitely</div>
+    <div class="payoff__sub">The Residency</div>
   </div>
 
   <div class="lineup">
@@ -115,7 +115,7 @@ body{
       <div class="lineup__head">Now Playing &middot; The <em>Residency</em></div>
       <div class="lrow"><span class="lrow__k">Headlining</span><span class="lrow__v red">Matt &amp; Josie</span></div>
       <div class="lrow"><span class="lrow__k">Opening Night</span><span class="lrow__v">Chicago, the night she said yes</span></div>
-      <div class="lrow"><span class="lrow__k">The Run</span><span class="lrow__v">indefinite, no last show</span></div>
+      <div class="lrow"><span class="lrow__k">The Run</span><span class="lrow__v">no last show</span></div>
       <div class="lineup__billhead">the recurring bill</div>
       <ul class="bill">
         <li><b>Passenger Princess</b>, nightly</li>
@@ -300,7 +300,7 @@ renderer.toneMappingExposure=1.18;
 renderer.outputColorSpace=THREE.SRGBColorSpace;
 
 const scene=new THREE.Scene();
-scene.fog=new THREE.FogExp2(0x0a0706, 0.07);
+scene.fog=new THREE.FogExp2(0x0a0706, 0.03);
 
 const camera=new THREE.PerspectiveCamera(40, 1, 0.1, 100);
 camera.position.set(0,0,7.8);
@@ -350,9 +350,16 @@ function showPayoff(){
   capture('residency_reveal_complete');
 }
 
+let fitZ=7.2;
 function resize(){
   const w=window.innerWidth, h=window.innerHeight;
   renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
+  // pull the camera back far enough that the 4x2 ticket fits the screen WIDTH
+  // (portrait phones have a narrow horizontal frustum) and leaves caption room.
+  const vFov=camera.fov*Math.PI/180;
+  const dW=(2.0*1.06)/(Math.tan(vFov/2)*camera.aspect);
+  const dH=(1.0*1.6)/Math.tan(vFov/2);
+  fitZ=Math.max(dW, dH, 5.0);
 }
 window.addEventListener('resize', resize);
 
@@ -406,9 +413,9 @@ function frame(){
 
   /* camera */
   const push=smooth(T.introA,T.hold,e), set=smooth(T.setA,T.setB,e), rev=smooth(T.revA,T.revB,e);
-  camera.position.z = lerp(7.8,7.0,push) + lerp(0,0.7,rev) + lerp(0,0.9,set);
+  camera.position.z = fitZ - lerp(0,0.6,push) + lerp(0,0.5,rev) + lerp(0,0.7,set);
   camera.position.y = lerp(0,0.1,push) + Math.sin(e*0.5)*0.03;
-  camera.lookAt(0, lerp(0,0.0,1), 0);
+  camera.lookAt(0, 0, 0);
 
   /* captions */
   if(e>=T.introA+0.2 && e<T.hold-0.1) setCap('previously, on the redemption tour');
@@ -446,6 +453,20 @@ document.getElementById('replay').addEventListener('click', ()=>{
   const el=document.getElementById('payoff'); el.classList.remove('show'); el.setAttribute('aria-hidden','true');
   document.getElementById('skip').style.opacity='1';
   capture('residency_replay');
+});
+</script>
+
+<script>
+/* Watchdog: if the cinematic never starts rendering (e.g. import maps are
+   unsupported on older iOS Safari, the three.js CDN is blocked, or WebGL init
+   fails), fall back to the flat reveal so Josie never sees a blank screen. */
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    if(!(window.__residencyFrames > 0) && location.pathname.indexOf('fallback') === -1){
+      try{ if(window.posthog) posthog.capture('residency_fallback', { reason:'no-frames-watchdog' }); }catch(e){}
+      window.location.replace('fallback.html');
+    }
+  }, 5000);
 });
 </script>
 </body>
