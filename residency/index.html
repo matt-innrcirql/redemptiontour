@@ -5,145 +5,64 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>The Residency · Matt & Josie</title>
 <meta name="description" content="The Redemption Tour is over. A new one begins." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Special+Elite&display=swap" rel="stylesheet" />
 <script>
   !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister getFeatureFlag isFeatureEnabled onFeatureFlags reloadFeatureFlags identify setPersonProperties group reset get_distinct_id".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
   posthog.init('phc_zhordsTx3ucwQ5EmMbxctXqdE4L7eqz8gE79R5fhAHBk',{api_host:'https://us.i.posthog.com',defaults:'2026-01-30',autocapture:true,capture_pageview:true});
 </script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Special+Elite&display=swap" rel="stylesheet" />
 <style>
 :root{
-  --wall:#15110c; --wall-2:#1d1810;
-  --paper:#efe3cc; --paper-2:#e7d8b9; --paper-3:#ddc9a3;
-  --ink:#1b1611; --ink-soft:#4a3f31;
-  --red:#cf3a22; --red-dk:#a82a16; --gold:#c2901f; --teal:#1f6f68;
+  --paper:#efe3cc; --ink:#1b1611; --ink-soft:#4a3f31;
+  --red:#cf3a22; --red-dk:#a82a16; --gold:#c2901f; --gold-2:#e7c878; --teal:#1f6f68;
   --f-display:'Anton','Arial Narrow',sans-serif;
   --f-type:'Special Elite','Courier New',monospace;
   --f-script:'Caveat',cursive;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;min-height:100%;overflow-x:hidden}
+html,body{margin:0;padding:0;height:100%;overflow-x:hidden;background:#0a0706}
 body{
-  background:radial-gradient(120% 90% at 50% -10%, #241d14 0%, var(--wall) 55%, #0e0b07 100%);
-  color:var(--ink); font-family:var(--f-type); min-height:100vh; overflow-x:hidden;
+  background:radial-gradient(120% 90% at 50% 32%, #20160e 0%, #0e0a07 55%, #060403 100%);
+  color:var(--paper); font-family:var(--f-type); min-height:100vh;
 }
-.grain{position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.06;mix-blend-mode:multiply;
-  background-image:radial-gradient(var(--ink) 1px,transparent 1.2px);background-size:6px 6px}
-.vignette{position:fixed;inset:0;z-index:8999;pointer-events:none;box-shadow:inset 0 0 220px 60px rgba(0,0,0,.7)}
+#scene{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;display:block;z-index:1;touch-action:manipulation}
 
-/* top marquee ticker */
-.ticker{position:fixed;top:0;left:0;right:0;z-index:8000;background:var(--ink);color:var(--paper);
-  border-bottom:2px solid var(--gold);overflow:hidden;white-space:nowrap;font-family:var(--f-type);
-  font-size:12px;letter-spacing:.28em;text-transform:uppercase;height:30px;display:flex;align-items:center}
-.ticker__track{display:inline-flex;animation:marq 32s linear infinite;will-change:transform}
-.ticker__track span{padding:0 26px}
-.ticker__track span b{color:var(--gold);font-weight:400}
-@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.ticker.is-yes{background:var(--red-dk);border-bottom-color:var(--paper)}
-.ticker.is-yes .ticker__track span b{color:#fff}
+/* film grain + vignette over the canvas */
+.grain{position:fixed;inset:0;z-index:6;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:radial-gradient(#fff 1px,transparent 1.2px);background-size:5px 5px}
+.vignette{position:fixed;inset:0;z-index:6;pointer-events:none;box-shadow:inset 0 0 240px 70px rgba(0,0,0,.82)}
 
-.stage{min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:54px 18px 90px}
+/* cinematic caption */
+.cap{position:fixed;left:0;right:0;bottom:16%;z-index:7;text-align:center;pointer-events:none;
+  padding:0 24px;opacity:0;transition:opacity .5s ease}
+.cap.show{opacity:1}
+.cap__t{font-family:var(--f-script);font-weight:700;color:var(--gold-2);
+  font-size:clamp(28px,8vw,52px);line-height:1.05;text-shadow:0 2px 24px rgba(0,0,0,.8)}
+.cap.yes .cap__t{color:#fff;font-size:clamp(40px,12vw,86px)}
 
-/* poster */
-.poster{position:relative;width:100%;max-width:680px;margin-top:18px;border:3px solid var(--ink);
-  background:linear-gradient(180deg,rgba(255,255,255,.25),rgba(0,0,0,.05)),var(--paper);
-  box-shadow:0 42px 90px -26px rgba(0,0,0,.78),0 0 0 1px rgba(255,220,130,.24),0 4px 0 var(--gold);
-  padding:26px 24px 22px;isolation:isolate;overflow:hidden}
-.poster__frame{position:relative;border:2px solid var(--ink);padding:24px 20px 20px;background:rgba(239,227,204,.82)}
-.tape{position:absolute;width:120px;height:30px;background:rgba(207,180,120,.45);
-  border:1px dashed rgba(80,60,20,.4);top:-16px;left:50%;margin-left:-60px;transform:rotate(-4deg)}
+/* skip / replay controls */
+.skip{position:fixed;top:max(12px,env(safe-area-inset-top));right:14px;z-index:8;
+  font-family:var(--f-type);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(231,200,120,.7);background:rgba(10,8,6,.4);border:1px solid rgba(231,200,120,.3);
+  padding:7px 12px;border-radius:20px;cursor:pointer;transition:opacity .4s ease}
+.skip:hover{color:var(--gold-2)}
 
-.presents{text-align:center;color:var(--ink-soft);font-size:11px;letter-spacing:.3em;text-transform:uppercase;margin-bottom:6px}
-.kicker{text-align:center;font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--red);margin:8px 0 6px}
+/* the readable payoff (revealed after the cinematic) */
+.payoff{position:relative;z-index:10;min-height:100dvh;display:flex;flex-direction:column;
+  align-items:center;justify-content:flex-start;padding:64px 16px 90px;gap:18px;
+  opacity:0;pointer-events:none;transition:opacity 1.1s ease;
+  background:linear-gradient(180deg, rgba(8,5,4,0) 0%, rgba(8,5,4,.55) 16%, rgba(8,5,4,.9) 40%, #0a0706 70%)}
+.payoff.show{opacity:1;pointer-events:auto}
+.payoff__lead{text-align:center;max-width:680px}
+.payoff__yes{font-family:var(--f-script);font-weight:700;color:var(--gold-2);
+  font-size:clamp(40px,11vw,78px);line-height:.9}
+.payoff__sub{font-family:var(--f-type);letter-spacing:.24em;text-transform:uppercase;
+  color:var(--gold);font-size:12px;margin-top:8px}
 
-.ptitle{text-align:center;position:relative}
-.ptitle__l1{font-family:var(--f-display);font-size:clamp(34px,9vw,64px);color:var(--ink);
-  text-transform:uppercase;line-height:.9;display:block;letter-spacing:.01em}
-.ptitle__l1 em{font-style:normal;color:var(--red)}
-.ptitle__script{position:relative;display:inline-block;font-family:var(--f-script);font-weight:700;
-  color:var(--red);font-size:clamp(40px,12vw,92px);line-height:.8;transform:rotate(-3deg);margin:2px 0}
-
-.headliner{text-align:center;margin:18px 0 6px}
-.headliner__tab{font-family:var(--f-type);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-soft)}
-.headliner__name{font-family:var(--f-display);text-transform:uppercase;font-size:clamp(30px,8vw,52px);
-  line-height:.95;letter-spacing:.02em;color:var(--ink);margin-top:2px}
-.headliner__name em{font-style:normal;color:var(--red)}
-
-.venue{text-align:center;font-family:var(--f-display);text-transform:uppercase;font-size:clamp(18px,5vw,28px);
-  letter-spacing:.04em;color:var(--ink);margin-top:8px}
-.dates{text-align:center;font-family:var(--f-display);font-size:clamp(24px,7vw,44px);letter-spacing:.05em;color:var(--ink)}
-.dates .yr{color:var(--red)} .dates .dot{color:var(--gold)}
-
-.finefoot{text-align:center;font-size:10.5px;letter-spacing:.05em;color:var(--ink-soft);margin-top:14px;line-height:1.5}
-
-/* tap hint */
-.taphint{text-align:center;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);
-  margin:16px 0 0;opacity:.85;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:.45}50%{opacity:1}}
-
-/* beat 2: verdict stamp */
-.verdict{position:absolute;top:42%;left:50%;z-index:30;transform:translate(-50%,-50%) rotate(-15deg) scale(2.6);
-  opacity:0;border:6px double var(--red);color:var(--red);padding:8px 20px;font-family:var(--f-display);
-  font-size:clamp(26px,8vw,44px);letter-spacing:.08em;text-transform:uppercase;pointer-events:none;
-  border-radius:6px;background:rgba(239,227,204,.04);text-align:center;line-height:.95}
-.verdict small{display:block;font-family:var(--f-type);font-size:11px;letter-spacing:.12em;opacity:.85;margin-bottom:4px}
-.poster.is-stamped .verdict{animation:stampIn .5s cubic-bezier(.2,1.6,.4,1) both}
-@keyframes stampIn{0%{opacity:0;transform:translate(-50%,-50%) rotate(-15deg) scale(2.6)}
-  100%{opacity:.92;transform:translate(-50%,-50%) rotate(-15deg) scale(1)}}
-/* the stamp clears on the next beat so it never collides with the re-bill */
-.poster.is-struck .verdict{animation:stampOut .45s ease forwards}
-@keyframes stampOut{0%{opacity:.92;transform:translate(-50%,-50%) rotate(-15deg) scale(1)}
-  100%{opacity:0;transform:translate(-50%,-50%) rotate(-15deg) scale(1.5)}}
-
-/* beat 3: strike-through of the script title */
-.ptitle__script .strike{position:absolute;left:-4%;top:52%;height:5px;width:0;background:var(--red);
-  border-radius:3px;transform:rotate(-4deg);box-shadow:0 1px 0 rgba(0,0,0,.25)}
-.poster.is-struck .ptitle__script .strike{animation:strike .5s ease forwards}
-@keyframes strike{to{width:108%}}
-.poster.is-struck .kicker{color:var(--ink-soft)}
-
-/* beat 4: re-bill to THE RESIDENCY */
-.residency{display:none;text-align:center;margin-top:4px}
-.poster.is-rebilled .ptitle{display:none}
-.poster.is-rebilled .presents,.poster.is-rebilled .kicker{display:none}
-.poster.is-rebilled .residency{display:block;animation:fadeUp .6s ease both}
-.residency__concluded{font-family:var(--f-type);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft)}
-.residency__name{font-family:var(--f-display);text-transform:uppercase;color:var(--ink);
-  font-size:clamp(48px,15vw,120px);line-height:.86;letter-spacing:.01em;margin:6px 0 2px}
-.residency__name em{font-style:normal;color:var(--red)}
-.residency__tag{font-family:var(--f-script);font-weight:700;color:var(--red);font-size:clamp(26px,8vw,52px);
-  line-height:.9;transform:rotate(-2deg)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-
-/* beat 5: she said yes */
-.poster.is-yes .headliner__tab{color:var(--red)}
-.confetti{position:fixed;inset:0;pointer-events:none;z-index:8500;overflow:hidden}
-.confetti i{position:absolute;top:-20px;width:9px;height:14px;animation:fall linear forwards}
-@keyframes fall{to{transform:translateY(108vh) rotate(720deg);opacity:.9}}
-
-@media(prefers-reduced-motion:reduce){
-  .poster.is-stamped .verdict{animation:none;opacity:.92;transform:translate(-50%,-50%) rotate(-15deg) scale(1)}
-  .poster.is-struck .verdict{animation:none;opacity:0}
-  .poster.is-struck .ptitle__script .strike{animation:none;width:108%}
-  .poster.is-rebilled .residency{animation:none}
-  .confetti{display:none}
-  .ticker__track{animation:none}
-  .taphint{animation:none}
-  .lineup.show{animation:none}
-}
-
-@media(max-width:620px){
-  .stage{padding:46px 12px 70px}
-  .poster{padding:16px 13px 16px}
-  .poster__frame{padding:18px 12px 14px}
-}
-
-/* beat 6: the lineup */
-.lineup{display:none;max-width:680px;margin:22px auto 0;width:100%}
-.lineup.show{display:block;animation:fadeUp .6s ease both}
-.lineup__card{border:3px solid var(--ink);background:var(--paper);
-  box-shadow:0 30px 70px -20px rgba(10,7,3,.55),0 4px 0 var(--gold);padding:22px 20px 20px}
+.lineup{max-width:560px;width:100%}
+.lineup__card{border:3px solid var(--ink);background:var(--paper);color:var(--ink);
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.7),0 4px 0 var(--gold);padding:22px 20px 20px}
 .lineup__head{text-align:center;font-family:var(--f-display);text-transform:uppercase;color:var(--ink);
   font-size:clamp(22px,6vw,34px);letter-spacing:.04em;border-bottom:2px solid var(--ink);padding-bottom:10px}
 .lineup__head em{font-style:normal;color:var(--red)}
@@ -161,156 +80,372 @@ body{
 .bill b{color:var(--ink)}
 .lineup__foot{text-align:center;font-size:11px;letter-spacing:.05em;color:var(--ink-soft);margin-top:14px;line-height:1.6}
 
-/* beat 7: past tours */
-.pastwrap{text-align:center;margin:22px auto 0;max-width:680px}
-.pasttours{display:inline-block;cursor:pointer;text-decoration:none;background:var(--ink);color:var(--paper);
+.pastwrap{text-align:center;margin:4px auto 0;max-width:560px}
+.pasttours{display:inline-block;cursor:pointer;text-decoration:none;background:var(--paper);color:var(--ink);
   font-family:var(--f-display);text-transform:uppercase;font-size:clamp(18px,5vw,24px);letter-spacing:.06em;
   padding:14px 26px;box-shadow:5px 5px 0 var(--gold);transition:transform .08s,box-shadow .08s}
 .pasttours:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--gold)}
 .pasttours:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--gold)}
-.pastnote{font-family:var(--f-script);font-weight:700;color:var(--gold);font-size:clamp(20px,5vw,26px);
+.pastnote{font-family:var(--f-script);font-weight:700;color:var(--gold-2);font-size:clamp(20px,5vw,26px);
   margin-top:14px;line-height:1.2;transform:rotate(-1.5deg)}
+.replay{display:inline-block;margin:6px auto 0;font-family:var(--f-type);font-size:12px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--gold);background:none;border:1px solid rgba(194,144,31,.5);
+  padding:10px 18px;border-radius:22px;cursor:pointer}
+.replay:hover{color:var(--gold-2);border-color:var(--gold-2)}
+
+@media(max-width:620px){ .payoff{padding:54px 12px 70px} }
 </style>
 </head>
 <body>
+<canvas id="scene" aria-label="The Redemption Tour ticket crumples and a new one, The Residency, is revealed"></canvas>
 <div class="grain"></div>
 <div class="vignette"></div>
-<div class="ticker" id="ticker"><div class="ticker__track" id="tickerTrack"></div></div>
 
-<div class="stage" id="stage">
-  <div class="poster" id="poster">
-    <div class="poster__frame">
-      <div class="tape"></div>
-      <div class="verdict"><small>the verdict is in</small>✓ Mission: Redeemed</div>
-      <div class="presents">The City of Chicago (unofficially) presents</div>
-      <div class="kicker" id="kicker">A Live Redemption Event</div>
+<div class="cap" id="cap"><div class="cap__t" id="capText"></div></div>
+<button class="skip" id="skip">skip &#9656;</button>
 
-      <div class="ptitle" id="ptitle">
-        <span class="ptitle__l1">One <em>Date</em> · One Shot</span>
-        <span class="ptitle__script" id="scriptTitle">the redemption tour<span class="strike"></span></span>
-      </div>
-      <div class="residency" id="residency">
-        <div class="residency__concluded">Tour concluded. Now announcing</div>
-        <div class="residency__name">The <em>Residency</em></div>
-        <div class="residency__tag">now playing · indefinitely</div>
-      </div>
+<section class="payoff" id="payoff" aria-hidden="true">
+  <div class="payoff__lead">
+    <div class="payoff__yes">She said yes.</div>
+    <div class="payoff__sub">The Residency &middot; now playing, indefinitely</div>
+  </div>
 
-      <div class="headliner">
-        <div class="headliner__tab">Headlining</div>
-        <div class="headliner__name" id="headlinerName">Matt Yee</div>
-      </div>
-
-      <div class="venue">Live in Chicago, Illinois</div>
-      <div class="dates">JUN 3 <span class="dot">·</span> 4 <span class="dot">·</span> 5 <span class="dot">·</span> 6 <span class="yr">'26</span></div>
-
-      <div class="finefoot" id="finefoot">Doors 6:00 PM · No refunds · One redemption per customer</div>
-      <div class="taphint" id="taphint">tap to continue</div>
+  <div class="lineup">
+    <div class="lineup__card">
+      <div class="lineup__head">Now Playing &middot; The <em>Residency</em></div>
+      <div class="lrow"><span class="lrow__k">Headlining</span><span class="lrow__v red">Matt &amp; Josie</span></div>
+      <div class="lrow"><span class="lrow__k">Opening Night</span><span class="lrow__v">Chicago, the night she said yes</span></div>
+      <div class="lrow"><span class="lrow__k">The Run</span><span class="lrow__v">indefinite, no last show</span></div>
+      <div class="lineup__billhead">the recurring bill</div>
+      <ul class="bill">
+        <li><b>Passenger Princess</b>, nightly</li>
+        <li><b>Dash &amp; Osito</b>, co-headlining (veto rights retained)</li>
+        <li><b>Wed Wobbin</b>, residency favorite</li>
+        <li><b>The Josie Fund</b>, now fully vested</li>
+        <li><b>Pancake-Off / Costco Sundays</b></li>
+      </ul>
+      <div class="lineup__foot">No refunds. No last call. No encore needed. She said yes.</div>
     </div>
   </div>
-</div>
 
-<div class="lineup" id="lineup">
-  <div class="lineup__card">
-    <div class="lineup__head">Now Playing · The <em>Residency</em></div>
-    <div class="lrow"><span class="lrow__k">Headlining</span><span class="lrow__v red">Matt &amp; Josie</span></div>
-    <div class="lrow"><span class="lrow__k">Opening Night</span><span class="lrow__v">Chicago, the night she said yes</span></div>
-    <div class="lrow"><span class="lrow__k">The Run</span><span class="lrow__v">indefinite, no last show</span></div>
-    <div class="lineup__billhead">the recurring bill</div>
-    <ul class="bill">
-      <li><b>Passenger Princess</b>, nightly</li>
-      <li><b>Dash &amp; Osito</b>, co-headlining (veto rights retained)</li>
-      <li><b>Wed Wobbin</b>, residency favorite</li>
-      <li><b>The Josie Fund</b>, now fully vested</li>
-      <li><b>Pancake-Off / Costco Sundays</b></li>
-    </ul>
-    <div class="lineup__foot">No refunds. No last call. No encore needed. She said yes.</div>
+  <div class="pastwrap">
+    <a class="pasttours" href="/" target="_blank" rel="noopener" id="pastBtn">&#127915; Past Tours &rarr;</a>
+    <div class="pastnote">yeah, the URL still says redemptiontour. some names you keep. &#10084;&#65039;</div>
   </div>
-</div>
-
-<div class="pastwrap" id="pastwrap" style="display:none">
-  <a class="pasttours" href="/" target="_blank" rel="noopener" id="pastBtn">🎟 Past Tours →</a>
-  <div class="pastnote">yeah, the URL still says redemptiontour. some names you keep. ❤️</div>
-</div>
+  <button class="replay" id="replay">&#9654; replay the reveal</button>
+</section>
 
 <script>
+/* analytics (guarded) */
 function capture(name, props){ try{ if(window.posthog) window.posthog.capture(name, props||{}); }catch(e){} }
-capture('residency_revealed', {page:'residency'});
+capture('residency_revealed', {page:'residency', mode:'cinematic'});
 
-var poster = document.getElementById('poster');
-var ticker = document.getElementById('ticker');
-var trackEl = document.getElementById('tickerTrack');
-var headliner = document.getElementById('headlinerName');
-var kicker = document.getElementById('kicker');
-var finefoot = document.getElementById('finefoot');
-var taphint = document.getElementById('taphint');
-var stage = document.getElementById('stage');
-
-function setTicker(msg, yes){
-  trackEl.innerHTML = msg + msg;
-  ticker.classList.toggle('is-yes', !!yes);
-}
-setTicker('<span>THE REDEMPTION TOUR <b>·</b> ONE DATE, ONE SHOT <b>·</b> LIVE IN CHICAGO <b>·</b> </span>', false);
-
-function fireConfetti(){
-  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var wrap = document.createElement('div'); wrap.className='confetti';
-  var cols = ['#cf3a22','#c2901f','#1f6f68','#efe3cc'];
-  for(var i=0;i<80;i++){
-    var p = document.createElement('i');
-    p.style.left = (i/80*100) + '%';
-    p.style.background = cols[i%4];
-    p.style.animationDuration = (2.2 + (i%5)*0.5) + 's';
-    p.style.animationDelay = ((i%9)*0.08) + 's';
-    wrap.appendChild(p);
+/* Graceful fallback: no WebGL or reduced-motion -> the flat reveal. */
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var glOK = (function(){ try{ var c=document.createElement('canvas');
+    return !!(window.WebGLRenderingContext && (c.getContext('webgl')||c.getContext('experimental-webgl'))); }
+    catch(e){ return false; } })();
+  if(reduce || !glOK){
+    capture('residency_fallback', { reason: reduce ? 'reduced-motion' : 'no-webgl' });
+    window.location.replace('fallback.html');
   }
-  document.body.appendChild(wrap);
-  setTimeout(function(){ wrap.remove(); }, 6000);
+})();
+</script>
+
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+
+/* ---------- small helpers ---------- */
+const clamp = (x,a,b)=> Math.max(a, Math.min(b, x));
+const smooth = (a,b,x)=>{ const t = clamp((x-a)/(b-a),0,1); return t*t*(3-2*t); };
+const lerp = (a,b,t)=> a + (b-a)*t;
+const easeOut = t => 1-Math.pow(1-t,3);
+const easeInOut = t => t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+
+/* ---------- ticket textures (canvas) ---------- */
+function makeTicketTexture(kind){
+  const W=1024, H=512, c=document.createElement('canvas'); c.width=W; c.height=H;
+  const x=c.getContext('2d');
+  const cream='#efe3cc', ink='#1b1611', red='#cf3a22', gold='#b07f1f', soft='#5a4a36';
+  // body
+  x.fillStyle=cream; x.fillRect(0,0,W,H);
+  // foxing speckle
+  x.globalAlpha=.05; x.fillStyle=soft;
+  for(let i=0;i<260;i++){ x.beginPath(); x.arc(Math.random()*W,Math.random()*H,Math.random()*1.6,0,7); x.fill(); }
+  x.globalAlpha=1;
+  // inner border
+  x.strokeStyle=ink; x.lineWidth=6; x.strokeRect(16,16,W-32,H-32);
+  x.lineWidth=2; x.strokeRect(28,28,W-56,H-56);
+  // stub divider (perforation) near right
+  const sx=748;
+  x.setLineDash([10,10]); x.strokeStyle=ink; x.lineWidth=3;
+  x.beginPath(); x.moveTo(sx,28); x.lineTo(sx,H-28); x.stroke(); x.setLineDash([]);
+  // notches
+  x.fillStyle='#0e0a07'; x.beginPath(); x.arc(sx,16,16,0,7); x.fill();
+  x.beginPath(); x.arc(sx,H-16,16,0,7); x.fill();
+
+  const cx=(sx)/2; // center of the main panel
+  x.textAlign='center';
+
+  if(kind==='old'){
+    x.fillStyle=soft; x.font='600 30px "Special Elite", monospace';
+    x.fillText('A D M I T   O N E', cx, 92);
+    x.fillStyle=ink; x.font='400 132px "Anton", sans-serif';
+    x.fillText('REDEMPTION', cx, 232);
+    x.fillStyle=red; x.font='400 96px "Anton", sans-serif';
+    x.fillText('TOUR', cx, 320);
+    x.fillStyle=soft; x.font='600 26px "Special Elite", monospace';
+    x.fillText('MATT YEE  ·  LIVE IN CHICAGO', cx, 388);
+    x.fillStyle=ink; x.font='400 34px "Anton", sans-serif';
+    x.fillText('ONE DATE, ONE SHOT', cx, 440);
+    // REDEEMED stamp
+    x.save(); x.translate(cx,250); x.rotate(-0.32); x.globalAlpha=.72;
+    x.strokeStyle=red; x.lineWidth=7; x.strokeRect(-210,-58,420,116);
+    x.lineWidth=3; x.strokeRect(-198,-46,396,92);
+    x.fillStyle=red; x.font='400 84px "Anton", sans-serif'; x.globalAlpha=.82;
+    x.fillText('REDEEMED', 0, 30); x.restore(); x.globalAlpha=1;
+    // stub
+    x.fillStyle=ink; x.font='400 58px "Anton", sans-serif';
+    x.fillText('ADMIT', (sx+W)/2, 150); x.fillText('ONE', (sx+W)/2, 208);
+    barcode(x,(sx+30),(W-44),300, ink);
+    x.fillStyle=soft; x.font='600 18px "Special Elite", monospace';
+    x.fillText('THE REDEMPTION TOUR', (sx+W)/2, 470);
+  } else {
+    x.fillStyle=gold; x.font='600 30px "Special Elite", monospace';
+    x.fillText('A D M I T   O N E   + 1', cx, 92);
+    x.fillStyle=ink; x.font='400 150px "Anton", sans-serif';
+    x.fillText('THE', cx, 222);
+    x.fillStyle=red; x.font='400 124px "Anton", sans-serif';
+    x.fillText('RESIDENCY', cx, 332);
+    x.fillStyle=soft; x.font='600 28px "Special Elite", monospace';
+    x.fillText('MATT  &  JOSIE', cx, 392);
+    x.fillStyle=gold; x.font='400 40px "Anton", sans-serif';
+    x.fillText('NO END DATE  ·  NO LAST SHOW', cx, 444);
+    // stub
+    x.fillStyle=red; x.font='400 56px "Anton", sans-serif';
+    x.fillText('FRONT', (sx+W)/2, 150); x.fillText('ROW', (sx+W)/2, 206);
+    barcode(x,(sx+30),(W-44),300, ink);
+    x.fillStyle=gold; x.font='600 18px "Special Elite", monospace';
+    x.fillText('BESIDE HER', (sx+W)/2, 470);
+  }
+  const t=new THREE.CanvasTexture(c);
+  t.colorSpace=THREE.SRGBColorSpace; t.anisotropy=8;
+  return t;
+}
+function barcode(x,x0,x1,y,col){
+  x.fillStyle=col; let px=x0;
+  while(px<x1){ const w=1+ (Math.floor((px*37)%5)); x.fillRect(px,y,w,70); px+=w+2+Math.floor((px*13)%3); }
 }
 
-var STEPS = [
-  function(){ // beat 2: verdict stamp
-    poster.classList.add('is-stamped');
-    kicker.textContent = 'A Live Redemption Event';
-    taphint.textContent = 'tap to continue';
-  },
-  function(){ // beat 3: cross out the old name
-    poster.classList.add('is-struck');
-    kicker.textContent = 'The tour did its job';
-    setTicker('<span>TOUR CONCLUDED <b>·</b> THE REDEMPTION TOUR <b>·</b> MISSION ACCOMPLISHED <b>·</b> </span>', false);
-  },
-  function(){ // beat 4: re-bill to The Residency
-    poster.classList.add('is-rebilled');
-    finefoot.textContent = 'He is done touring. One venue. One person. No end date.';
-    setTicker('<span>NOW PLAYING <b>·</b> THE RESIDENCY <b>·</b> ONE VENUE, ONE PERSON, NO END DATE <b>·</b> </span>', false);
-  },
-  function(){ // beat 5: she said yes
-    poster.classList.add('is-yes');
-    headliner.innerHTML = 'Matt <em>&</em> Josie';
-    document.querySelector('.headliner__tab').textContent = 'Now Co-Headlining';
-    finefoot.textContent = 'No refunds. No last call. No encore needed. She said yes.';
-    setTicker('<span>SHE SAID <b>YES</b> <b>·</b> THE RESIDENCY IS OFFICIAL <b>·</b> MATT &amp; JOSIE <b>·</b> </span>', true);
-    fireConfetti();
-    taphint.textContent = 'tap to see the lineup';
-  }
-  ,function(){ // beat 6 + 7: reveal lineup and past tours
-    document.getElementById('lineup').classList.add('show');
-    document.getElementById('pastwrap').style.display = 'block';
-    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    document.getElementById('lineup').scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block:'start'});
-  }
-];
-
-var step = 0;
-function advance(){
-  if(step >= STEPS.length){ return; }
-  STEPS[step]();
-  step++;
-  capture('residency_beat', { beat: step });
-  if(step >= STEPS.length){ taphint.style.display='none'; }
+/* radial glow texture for the halo */
+function makeGlowTexture(){
+  const S=256, c=document.createElement('canvas'); c.width=S; c.height=S;
+  const x=c.getContext('2d'); const g=x.createRadialGradient(S/2,S/2,0,S/2,S/2,S/2);
+  g.addColorStop(0,'rgba(255,226,150,.95)'); g.addColorStop(.35,'rgba(231,200,120,.45)');
+  g.addColorStop(1,'rgba(231,200,120,0)');
+  x.fillStyle=g; x.fillRect(0,0,S,S);
+  const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; return t;
 }
-stage.addEventListener('click', advance);
-document.addEventListener('keydown', function(e){
-  if((e.key === 'Enter' || e.key === ' ') && step < STEPS.length){ e.preventDefault(); advance(); }
+
+/* ---------- ticket factory (plane + crumple machinery) ---------- */
+function makeTicket(texture){
+  const geom=new THREE.PlaneGeometry(4,2,64,32);
+  const pos=geom.attributes.position;
+  const n=pos.count;
+  const orig=new Float32Array(n*3);
+  const rdir=new Float32Array(n*3);
+  const rmag=new Float32Array(n);
+  for(let i=0;i<n;i++){
+    orig[i*3]=pos.getX(i); orig[i*3+1]=pos.getY(i); orig[i*3+2]=pos.getZ(i);
+    // deterministic pseudo-random per vertex
+    const s=Math.sin(i*12.9898)*43758.5453; const r1=s-Math.floor(s);
+    const s2=Math.sin(i*78.233)*12543.124; const r2=s2-Math.floor(s2);
+    const s3=Math.sin(i*39.425)*9123.77;   const r3=s3-Math.floor(s3);
+    const vx=r1-0.5, vy=r2-0.5, vz=r3-0.5;
+    const L=Math.hypot(vx,vy,vz)||1;
+    rdir[i*3]=vx/L; rdir[i*3+1]=vy/L; rdir[i*3+2]=vz/L;
+    rmag[i]=0.4+r1*0.8;
+  }
+  const mat=new THREE.MeshStandardMaterial({ map:texture, roughness:.82, metalness:0.0,
+    side:THREE.DoubleSide, transparent:true });
+  const mesh=new THREE.Mesh(geom,mat);
+  function setCrumple(a){ // a in [0,1]
+    for(let i=0;i<n;i++){
+      const ox=orig[i*3], oy=orig[i*3+1];
+      // shrink toward centre + crease folds + random jitter
+      let px=ox*(1-0.55*a);
+      let py=oy*(1-0.55*a);
+      let pz=Math.sin(ox*7.0+oy*5.0)*0.28*a + Math.cos(ox*3.0-oy*9.0)*0.18*a;
+      px+=rdir[i*3]*rmag[i]*0.55*a;
+      py+=rdir[i*3+1]*rmag[i]*0.55*a;
+      pz+=rdir[i*3+2]*rmag[i]*0.65*a;
+      pos.setXYZ(i,px,py,pz);
+    }
+    pos.needsUpdate=true; geom.computeVertexNormals();
+  }
+  return { mesh, mat, setCrumple };
+}
+
+/* ---------- scene ---------- */
+const canvas=document.getElementById('scene');
+const renderer=new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 2));
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.18;
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+
+const scene=new THREE.Scene();
+scene.fog=new THREE.FogExp2(0x0a0706, 0.07);
+
+const camera=new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+camera.position.set(0,0,7.8);
+
+const amb=new THREE.AmbientLight(0x4a3a28, 0.7); scene.add(amb);
+const key=new THREE.DirectionalLight(0xffe9c4, 1.5); key.position.set(-3,4,6); scene.add(key);
+const beam=new THREE.SpotLight(0xffe1a0, 0.0, 30, 0.55, 0.7, 1.2);
+beam.position.set(0,7,4); scene.add(beam); scene.add(beam.target);
+
+const embers=(function(){
+  const N=150, g=new THREE.BufferGeometry(), p=new Float32Array(N*3), sp=new Float32Array(N);
+  for(let i=0;i<N;i++){ p[i*3]=(Math.random()-0.5)*16; p[i*3+1]=(Math.random()-0.5)*12;
+    p[i*3+2]=(Math.random()-0.5)*6-1; sp[i]=0.2+Math.random()*0.6; }
+  g.setAttribute('position', new THREE.BufferAttribute(p,3));
+  const m=new THREE.PointsMaterial({color:0xe7c878, size:0.045, transparent:true, opacity:.0,
+    blending:THREE.AdditiveBlending, depthWrite:false});
+  const pts=new THREE.Points(g,m); scene.add(pts);
+  return { pts, g, sp, mat:m };
+})();
+
+const glowTex=makeGlowTexture();
+const glow=new THREE.Mesh(new THREE.PlaneGeometry(9,9),
+  new THREE.MeshBasicMaterial({map:glowTex, transparent:true, opacity:0, blending:THREE.AdditiveBlending, depthWrite:false}));
+glow.position.set(0,0,-0.6); scene.add(glow);
+
+let oldT=null, newT=null;
+
+/* ---------- timeline ---------- */
+const T={ introA:0.3, introB:2.2, hold:3.2, crumpA:3.3, crumpB:5.1, revA:5.1, revB:8.0, setA:8.0, setB:9.4 };
+let clock=null, started=false, payoffShown=false, timeOffset=0;
+
+/* captions */
+const capEl=document.getElementById('cap'), capText=document.getElementById('capText');
+let curCap='', capTimer=null;
+function setCap(text, isYes){
+  if(text===curCap) return; curCap=text;
+  capEl.classList.remove('show'); capEl.classList.toggle('yes', !!isYes);
+  if(capTimer) clearTimeout(capTimer);
+  capTimer=setTimeout(()=>{ capText.textContent=text||''; if(text) capEl.classList.add('show'); }, 260);
+}
+
+function showPayoff(){
+  if(payoffShown) return; payoffShown=true;
+  const el=document.getElementById('payoff');
+  el.classList.add('show'); el.setAttribute('aria-hidden','false');
+  document.getElementById('skip').style.opacity='0';
+  capture('residency_reveal_complete');
+}
+
+function resize(){
+  const w=window.innerWidth, h=window.innerHeight;
+  renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
+}
+window.addEventListener('resize', resize);
+
+/* frame counter for verification */
+window.__residencyFrames=0;
+
+function frame(){
+  requestAnimationFrame(frame);
+  const e=clock.getElapsedTime()+timeOffset;
+
+  /* embers drift */
+  const ep=embers.g.attributes.position;
+  for(let i=0;i<embers.sp.length;i++){
+    let y=ep.getY(i)+embers.sp[i]*0.006; if(y>6.5) y=-6.5; ep.setY(i,y);
+  }
+  ep.needsUpdate=true;
+  embers.mat.opacity=lerp(0.0, 0.7, smooth(T.introA, T.hold, e));
+
+  /* OLD ticket */
+  if(oldT){
+    const intro=smooth(T.introA,T.introB,e);
+    const cp=smooth(T.crumpA,T.crumpB,e);
+    oldT.setCrumple(cp);
+    const sc=lerp(0.6,1,easeOut(intro))*lerp(1,0.34,easeInOut(cp));
+    oldT.mesh.scale.setScalar(sc);
+    oldT.mesh.position.set( lerp(0,1.2,cp), lerp(0,1.4,easeInOut(cp))+Math.sin(e*0.8)*0.04*(1-cp),
+                            lerp(lerp(-2.4,0,easeOut(intro)),2.6,easeInOut(cp)) );
+    oldT.mesh.rotation.set( lerp(0,2.4,cp)+ -0.04, lerp(0.5,0.0,easeOut(intro))+lerp(0,3.0,cp), lerp(0,1.6,cp) );
+    oldT.mat.opacity = lerp(0,1,smooth(T.introA,T.introA+0.6,e)) * (1-smooth(T.crumpB-0.5,T.crumpB,e));
+    oldT.mesh.visible = e < T.crumpB+0.05;
+  }
+
+  /* NEW ticket */
+  if(newT){
+    const rp=smooth(T.revA,T.revB,e);
+    newT.mesh.visible = e>=T.revA-0.05;
+    if(newT.mesh.visible){
+      newT.setCrumple(1-easeOut(rp));
+      const set=smooth(T.setA,T.setB,e);
+      const sc=lerp(0.25,1,easeOut(rp));
+      newT.mesh.scale.setScalar(sc);
+      newT.mesh.position.set(0, lerp(-3.2,0,easeOut(rp))+Math.sin(e*0.7)*0.05*set, lerp(-0.4,0.2,easeOut(rp)));
+      newT.mesh.rotation.set(lerp(0.25,0,easeInOut(rp)), lerp(0.9,0,easeInOut(rp)), lerp(0.35,0,easeInOut(rp)));
+      newT.mat.opacity = smooth(T.revA,T.revA+0.5,e);
+      glow.position.copy(newT.mesh.position); glow.position.z-=0.6;
+      glow.material.opacity = lerp(0,0.9,rp) * lerp(1,0.6,set) + Math.sin(e*1.6)*0.05*rp;
+      beam.intensity = lerp(0, 7.0, rp);
+      beam.target.position.copy(newT.mesh.position);
+    }
+  }
+
+  /* camera */
+  const push=smooth(T.introA,T.hold,e), set=smooth(T.setA,T.setB,e), rev=smooth(T.revA,T.revB,e);
+  camera.position.z = lerp(7.8,7.0,push) + lerp(0,0.7,rev) + lerp(0,0.9,set);
+  camera.position.y = lerp(0,0.1,push) + Math.sin(e*0.5)*0.03;
+  camera.lookAt(0, lerp(0,0.0,1), 0);
+
+  /* captions */
+  if(e>=T.introA+0.2 && e<T.hold-0.1) setCap('previously, on the redemption tour');
+  else if(e>=T.crumpA+0.1 && e<T.revA+0.1) setCap('the redemption tour is over.');
+  else if(e>=T.revA+1.4 && e<T.setA+0.5) setCap('she said yes.', true);
+  else setCap('');
+
+  if(e>=T.setA+0.25) showPayoff();
+
+  window.__residencyFrames++;
+  renderer.render(scene,camera);
+}
+
+async function boot(){
+  try{ await document.fonts.ready;
+    await Promise.all([
+      document.fonts.load('400 100px "Anton"'),
+      document.fonts.load('600 30px "Special Elite"'),
+      document.fonts.load('700 40px "Caveat"')
+    ]);
+  }catch(e){}
+  oldT=makeTicket(makeTicketTexture('old')); oldT.mesh.visible=false; scene.add(oldT.mesh);
+  newT=makeTicket(makeTicketTexture('new')); newT.mesh.visible=false; scene.add(newT.mesh);
+  resize();
+  clock=new THREE.Clock(); started=true;
+  frame();
+}
+boot();
+
+/* controls */
+function jumpToEnd(){ if(!clock) return; timeOffset = T.setA+0.3 - clock.getElapsedTime(); }
+document.getElementById('skip').addEventListener('click', jumpToEnd);
+document.getElementById('replay').addEventListener('click', ()=>{
+  payoffShown=false; timeOffset=0; if(clock) clock.start();
+  const el=document.getElementById('payoff'); el.classList.remove('show'); el.setAttribute('aria-hidden','true');
+  document.getElementById('skip').style.opacity='1';
+  capture('residency_replay');
 });
 </script>
 </body>
