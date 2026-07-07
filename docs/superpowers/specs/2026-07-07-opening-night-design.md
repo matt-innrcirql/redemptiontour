@@ -21,8 +21,7 @@ static-hosting safe. Mobile-first at iPhone width.
 
 Night one, Thursday July 2:
 1. Matt arrives; Dash (her dog) and Josie's smile at the door.
-2. They drive out and look at two houses.
-3. Dinner at Armand's, Arlington Heights. It starts raining.
+2. Dinner at Armand's, Arlington Heights. It starts raining.
 4. They leave Armand's for ice cream, rain picking up.
 5. The twist: a flashback to May 20, the last time they were at Armand's,
    when Matt hugged her goodnight instead of kissing her. The stumble that
@@ -44,8 +43,7 @@ Finale: a letter card. Unexpected, a lot of right place right time.
 
 1. Title card: SEASON 5 / THE ONE WHERE / She Said Yes
 2. The Door (tap to knock: door opens, Dash bounds out, her smile)
-3. The Houses (tap to tour: windows light up in two houses)
-4. Armand's (tap: first raindrops streak the window)
+3. Armand's (tap: first raindrops streak the window)
 5. Ice Cream (tap for a scoop; rain heavier)
 6. The Flashback (rewind treatment, sepia; May 20, the hug)
 7. The Crosswalk (pouring rain; the ask; TAP for the yes; hearts + downpour)
@@ -77,3 +75,8 @@ Same public PostHog token. Events: `openingnight_scene` {scene},
 - No em dashes anywhere in copy.
 - No WebGL dependency; CSS/SVG only, so no fallback page is needed.
 - Decorative animations respect prefers-reduced-motion (continuous loops off).
+
+## Revisions (2026-07-07, post-ship)
+
+- Door caption says Chicago, not Illinois.
+- The two-houses scene was removed at Matt's request; the reel is 12 scenes.

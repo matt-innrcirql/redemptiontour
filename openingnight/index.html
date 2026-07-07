@@ -77,7 +77,6 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
   box-shadow:0 24px 60px rgba(0,0,0,.5);border:1px solid rgba(231,200,120,.25);cursor:pointer;
   background:radial-gradient(58% 46% at 50% 60%, #5a3320 0%, #34190f 52%, #1a0c08 100%);}
 .dscene--door{background:linear-gradient(180deg,#25314e 0%,#3a3350 40%,#4a2c28 100%)}
-.dscene--houses{background:linear-gradient(180deg,#5a6d8c 0%,#7d798c 45%,#3c4a36 78%,#22301e 100%)}
 .dscene--armands{background:radial-gradient(58% 46% at 50% 58%, #4a2418 0%, #2c130d 55%, #170a06 100%)}
 .dscene--icecream{background:linear-gradient(180deg,#2a3a56 0%,#3c3a58 55%,#2c2338 100%)}
 .dscene--flashback{background:linear-gradient(180deg,#3a3226 0%,#2c2118 55%,#1a120c 100%)}
@@ -137,8 +136,6 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 .doorpanel.open{transform:scaleX(.12) skewY(-4deg)}
 .hidegreet{opacity:0;transition:opacity .5s ease .35s}
 .hidegreet.show{opacity:1}
-.win{transition:fill .45s ease}
-.win.lit{fill:#f1d986}
 .heart{position:absolute;z-index:6;opacity:0}
 @keyframes floatheart{0%{transform:scale(.2) translateY(0);opacity:0}25%{opacity:1}100%{transform:scale(1.4) translateY(-46px);opacity:0}}
 .flicker{transform-box:fill-box;transform-origin:center bottom;animation:flick 1.3s ease-in-out infinite}
@@ -256,6 +253,7 @@ var stage = document.getElementById('stage');
 var progEl = document.getElementById('prog');
 function setProg(n){ Array.prototype.forEach.call(progEl.children,function(i,k){ i.classList.toggle('on', k<=n); }); }
 function tap(el, fn){ if(el) el.addEventListener('pointerup', fn); }
+function showLater(id, ms){ setTimeout(function(){ var el=document.getElementById(id); if(el) el.classList.add('show'); }, ms); }
 function capture(ev,props){ if(window.posthog) window.posthog.capture(ev, props||{}); }
 var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -312,8 +310,8 @@ function sparkles(layer, cx, cy){
 }
 
 /* ===================== the scene reel ===================== */
-var SCENES = ['title','door','houses','armands','icecream','flashback','crosswalk','perfect','spa','brunch','potter','tredita','letter'];
-var PHASE  = { title:0, door:0, houses:0, armands:0, icecream:0, flashback:1, crosswalk:1, perfect:1, spa:2, brunch:2, potter:2, tredita:2, letter:3 };
+var SCENES = ['title','door','armands','icecream','flashback','crosswalk','perfect','spa','brunch','potter','tredita','letter'];
+var PHASE  = { title:0, door:0, armands:0, icecream:0, flashback:1, crosswalk:1, perfect:1, spa:2, brunch:2, potter:2, tredita:2, letter:3 };
 var sceneIdx = 0;
 
 function render(){
@@ -321,7 +319,7 @@ function render(){
   setProg(PHASE[name]);
   capture('openingnight_scene', { scene: name, index: sceneIdx });
   window.scrollTo(0, 0);
-  ({ title: renderTitle, door: renderDoor, houses: renderHouses, armands: renderArmands,
+  ({ title: renderTitle, door: renderDoor, armands: renderArmands,
      icecream: renderIceCream, flashback: renderFlashback, crosswalk: renderCrosswalk,
      perfect: renderPerfect, spa: renderSpa, brunch: renderBrunch, potter: renderPotter,
      tredita: renderTreDita, letter: renderLetter })[name]();
@@ -394,7 +392,7 @@ function renderDoor(){
         '<div class="bubble bubble--matt" id="b1" style="top:9%;max-width:66%">kinda missed seeing Dash… I mean you.<span class="bubble__sig">Matt</span></div>'+
         '<div class="bubble bubble--josie" id="b2" style="top:34%;right:4%">we both missed you 🐾</div>'+
       '</div></div>'+
-      '<div class="dscene__cap" id="cap">I knocked. The door opened on Dash losing his mind and you already smiling. Best welcome in Illinois.</div>'+
+      '<div class="dscene__cap" id="cap">I knocked. The door opened on Dash losing his mind and you already smiling. Best welcome in Chicago.</div>'+
       '<div class="dscene__hint" id="hint">TAP TO KNOCK 🚪</div>'+
     '</div>';
   var step=0, dscene=document.getElementById('dscene');
@@ -403,70 +401,8 @@ function renderDoor(){
       var c=document.getElementById('cue'); if(c) c.remove();
       document.getElementById('door').classList.add('open');
       document.getElementById('greet').classList.add('show');
-      setTimeout(function(){ document.getElementById('b1').classList.add('show'); }, 650);
-      setTimeout(function(){ document.getElementById('b2').classList.add('show'); }, 1150);
-      document.getElementById('hint').textContent='TAP TO CONTINUE';
-    } else { next(); }
-  });
-}
-
-/* ---------- 3: THE HOUSES - two viewings from the car ---------- */
-function renderHouses(){
-  var ART =
-  '<svg viewBox="0 0 320 260" fill="none" aria-hidden="true">'+
-    /* soft afternoon clouds */
-    '<ellipse cx="70" cy="34" rx="34" ry="12" fill="#e8e4ea" opacity=".5"/><ellipse cx="240" cy="24" rx="42" ry="13" fill="#e8e4ea" opacity=".4"/>'+
-    /* house one (left) */
-    '<g><path d="M22 106 L84 62 L146 106 Z" fill="#6e3b30"/>'+
-    '<rect x="34" y="106" width="100" height="74" fill="#d8c79e"/>'+
-    '<rect class="win" id="w1" x="46" y="120" width="24" height="22" fill="#3a3348"/>'+
-    '<rect class="win" id="w2" x="98" y="120" width="24" height="22" fill="#3a3348"/>'+
-    '<rect x="72" y="140" width="24" height="40" fill="#5a3a26"/>'+
-    '<rect x="120" y="70" width="12" height="26" fill="#5a4a44"/></g>'+
-    /* house two (right) */
-    '<g><path d="M176 112 L236 70 L296 112 Z" fill="#3f4a5c"/>'+
-    '<rect x="188" y="112" width="96" height="68" fill="#c9c2ae"/>'+
-    '<rect class="win" id="w3" x="200" y="126" width="22" height="20" fill="#3a3348"/>'+
-    '<rect class="win" id="w4" x="248" y="126" width="22" height="20" fill="#3a3348"/>'+
-    '<rect x="224" y="144" width="22" height="36" fill="#4a3320"/></g>'+
-    /* yard sign */
-    '<g transform="translate(160,168)"><rect x="-2" y="0" width="4" height="26" fill="#8a7551"/>'+
-    '<rect x="-30" y="-18" width="60" height="22" rx="3" fill="#f3e7cb"/>'+
-    '<text x="0" y="-3" text-anchor="middle" font-family="Courier New, monospace" font-weight="bold" font-size="10" fill="#5d1a1c">A SIGN.</text></g>'+
-    /* street */
-    '<rect x="0" y="196" width="320" height="64" fill="#3a3f4a"/>'+
-    '<g stroke="#e8e4ea" stroke-width="3" opacity=".5" stroke-dasharray="14 12"><line x1="0" y1="228" x2="320" y2="228"/></g>'+
-    /* their car, two heads in it */
-    '<g transform="translate(96,204)">'+
-      '<path d="M14 22 Q18 4 44 2 L98 2 Q122 4 128 22 L134 24 Q140 26 138 34 L4 34 Q2 26 8 24 Z" fill="#7b1f23"/>'+
-      '<path d="M42 6 L96 6 Q108 6 114 20 L30 20 Q34 8 42 6 Z" fill="#bcd2e8" opacity=".85"/>'+
-      '<circle cx="34" cy="36" r="10" fill="#241a12"/><circle cx="34" cy="36" r="4" fill="#8a8f9c"/>'+
-      '<circle cx="108" cy="36" r="10" fill="#241a12"/><circle cx="108" cy="36" r="4" fill="#8a8f9c"/>'+
-      '<g transform="translate(60,10) scale(.62)">'+MAN_HEAD+'</g>'+
-      '<g transform="translate(86,10) scale(.62)"><circle cx="0" cy="0" r="13" fill="#e8b894"/><path d="M-13 -1 Q-13 -16 0 -16 Q13 -16 13 -1 Q6 -9 0 -9 Q-6 -9 -13 -1 Z" fill="#23160f"/></g>'+
-    '</g>'+
-  '</svg>';
-  stage.innerHTML =
-    '<div class="dscene dscene--houses" id="dscene">'+
-      '<div class="dscene__tag">Scene Two</div>'+
-      '<div class="dscene__title">Open House,<br>Open Question</div>'+
-      '<div class="dscene__art"><div class="vstage">'+ART+
-        '<div class="skycue" id="cue">👆</div>'+
-        '<div class="bubble bubble--matt" id="b1" style="top:6%;max-width:60%">just looking. for now ;)<span class="bubble__sig">Matt</span></div>'+
-        '<div class="bubble bubble--josie" id="b2" style="top:26%;right:3%">good bones 🏡</div>'+
-      '</div></div>'+
-      '<div class="dscene__cap">Two houses in one afternoon. Call it window shopping for a someday.</div>'+
-      '<div class="dscene__hint" id="hint">TAP TO TOUR 🔑</div>'+
-    '</div>';
-  var step=0, dscene=document.getElementById('dscene');
-  tap(dscene, function(){
-    if(step===0){ step=1;
-      var c=document.getElementById('cue'); if(c) c.remove();
-      ['w1','w2','w3','w4'].forEach(function(id,i){
-        setTimeout(function(){ document.getElementById(id).classList.add('lit'); }, 160*i);
-      });
-      setTimeout(function(){ document.getElementById('b1').classList.add('show'); }, 700);
-      setTimeout(function(){ document.getElementById('b2').classList.add('show'); }, 1200);
+      showLater('b1', 650);
+      showLater('b2', 1150);
       document.getElementById('hint').textContent='TAP TO CONTINUE';
     } else { next(); }
   });
@@ -519,8 +455,8 @@ function renderArmands(){
     if(step===0){ step=1;
       var c=document.getElementById('cue'); if(c) c.remove();
       makeRain(document.getElementById('winRain'), 16, 1.1);
-      setTimeout(function(){ document.getElementById('b2').classList.add('show'); }, 500);
-      setTimeout(function(){ document.getElementById('b1').classList.add('show'); }, 1050);
+      showLater('b2', 500);
+      showLater('b1', 1050);
       document.getElementById('hint').textContent='TAP TO CONTINUE';
     } else { next(); }
   });
@@ -570,8 +506,8 @@ function renderIceCream(){
     if(step===0){ step=1;
       var c=document.getElementById('cue'); if(c) c.remove();
       document.getElementById('scoop').classList.add('plop');
-      setTimeout(function(){ document.getElementById('b2').classList.add('show'); }, 420);
-      setTimeout(function(){ document.getElementById('b1').classList.add('show'); }, 950);
+      showLater('b2', 420);
+      showLater('b1', 950);
       document.getElementById('hint').textContent='TAP TO CONTINUE';
     } else { next(); }
   });
@@ -630,7 +566,7 @@ function renderFlashback(){
       '<div class="dscene__hint" id="hint">TAP TO REMEMBER</div>'+
     '</div>';
   var step=0, dscene=document.getElementById('dscene');
-  setTimeout(function(){ document.getElementById('b1').classList.add('show'); }, 700);
+  showLater('b1', 700);
   tap(dscene, function(){
     if(step===0){ step=1;
       document.getElementById('b1').classList.add('show');
@@ -745,8 +681,8 @@ function renderSpa(){
         var el=document.getElementById(id);
         el.classList.add('go'); el.style.animationDelay=(i*0.5)+'s';
       });
-      setTimeout(function(){ document.getElementById('b2').classList.add('show'); }, 450);
-      setTimeout(function(){ document.getElementById('b1').classList.add('show'); }, 1000);
+      showLater('b2', 450);
+      showLater('b1', 1000);
       document.getElementById('hint').textContent='TAP TO CONTINUE';
     } else { next(); }
   });
@@ -798,7 +734,7 @@ function renderBrunch(){
       document.getElementById('gR').classList.add('go');
       document.getElementById('spark').classList.add('go');
       document.getElementById('b1').classList.add('show');
-      setTimeout(function(){ document.getElementById('b2').classList.add('show'); }, 420);
+      showLater('b2', 420);
       document.getElementById('hint').textContent='TAP TO CONTINUE';
     } else { next(); }
   });
@@ -853,8 +789,8 @@ function renderPotter(){
       document.getElementById('wandtip').classList.add('go');
       document.getElementById('snitch').classList.add('go');
       sparkles(document.getElementById('sparkLayer'), '46%', '52%');
-      setTimeout(function(){ document.getElementById('b1').classList.add('show'); }, 750);
-      setTimeout(function(){ document.getElementById('b2').classList.add('show'); }, 1450);
+      showLater('b1', 750);
+      showLater('b2', 1450);
       document.getElementById('hint').textContent='TAP TO CONTINUE';
     } else { next(); }
   });
@@ -903,7 +839,7 @@ function renderTreDita(){
     if(step===0){ step=1;
       document.getElementById('b1').classList.add('show');
       document.getElementById('h1').style.animation='floatheart 1.4s ease-out .3s forwards';
-      setTimeout(function(){ document.getElementById('b2').classList.add('show'); }, 700);
+      showLater('b2', 700);
       document.getElementById('hint').textContent='TAP TO CONTINUE';
     } else { next(); }
   });
