@@ -71,7 +71,20 @@ function seasonFourFromRsvp(source) {
   };
 }
 
-let destinations = [...BASE_DESTINATIONS, seasonFourFromRsvp()];
+// The newest stamp in the book: the July 2-3 weekend, filed under The Residency.
+const OPENING_NIGHT = {
+  no: 'THE RESIDENCY',
+  title: 'Opening Night',
+  place: 'THE ONE WHERE SHE SAID YES',
+  date: 'JUL 2-3 2026',
+  href: 'openingnight/',
+  kind: 'gold',
+  rot: -2,
+  glow: true,
+  go: 'RELIVE IT',
+};
+
+let destinations = [...BASE_DESTINATIONS, seasonFourFromRsvp(), OPENING_NIGHT];
 
 function roundedRect(ctx, x, y, width, height, radius) {
   const r = Math.min(radius, width / 2, height / 2);
@@ -608,6 +621,7 @@ const stampPositions = [
   [2.28, 0.22, 0.15],
   [-2.28, -1.22, 0.16],
   [2.28, -1.22, 0.16],
+  [-2.28, -2.42, 0.17],
 ];
 
 function clearStampMeshes() {
@@ -932,7 +946,7 @@ document.addEventListener('keydown', (event) => {
 if (window.DB) {
   window.DB.load('stars', 'rsvp').then((rsvp) => {
     if (!rsvp || !rsvp.mode || rsvp.mode === 'neither') return;
-    destinations = [...BASE_DESTINATIONS, seasonFourFromRsvp({ ...rsvp, stamp: 'IV' })];
+    destinations = [...BASE_DESTINATIONS, seasonFourFromRsvp({ ...rsvp, stamp: 'IV' }), OPENING_NIGHT];
     buildStampMeshes();
   }).catch(() => {});
 }

@@ -129,6 +129,11 @@ body{
   </div>
 
   <div class="pastwrap">
+    <a class="pasttours" href="/openingnight/" id="openingNightBtn" style="box-shadow:5px 5px 0 var(--red)">&#127903;&#65039; Opening Night, the recap &rarr;</a>
+    <div class="pastnote">the night you said yes + the day after, now a collector&#8217;s item.</div>
+  </div>
+
+  <div class="pastwrap">
     <a class="pasttours" href="/?tours" target="_blank" rel="noopener" id="pastBtn">&#127915; Past Tours &rarr;</a>
     <div class="pastnote">yeah, the URL still says redemptiontour. some names you keep. &#10084;&#65039;</div>
   </div>
@@ -448,6 +453,7 @@ boot();
 /* controls */
 function jumpToEnd(){ if(!clock) return; timeOffset = T.setA+0.3 - clock.getElapsedTime(); }
 document.getElementById('skip').addEventListener('click', jumpToEnd);
+document.getElementById('openingNightBtn').addEventListener('click', ()=>{ capture('residency_to_openingnight'); });
 document.getElementById('replay').addEventListener('click', ()=>{
   payoffShown=false; timeOffset=0; if(clock) clock.start();
   const el=document.getElementById('payoff'); el.classList.remove('show'); el.setAttribute('aria-hidden','true');

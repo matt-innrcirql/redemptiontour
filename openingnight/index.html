@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>The One Where She Said Yes · The Residency</title>
+<meta name="description" content="Opening night of The Residency: the night she said yes, and the first day after." />
+
+<!-- PostHog (same public client token as the hub + tour). -->
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('phc_zhordsTx3ucwQ5EmMbxctXqdE4L7eqz8gE79R5fhAHBk', {
+    api_host: 'https://us.i.posthog.com', defaults: '2026-01-30',
+    autocapture: true, capture_pageview: true, session_recording: { maskAllInputs: true }
+  });
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Special+Elite&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --ink:#241a12; --burg:#5d1a1c; --burg2:#430f12; --gold:#cba14a; --gold-2:#e7c878;
+  --gold-deep:#a87f2e; --cream:#f3e7cb; --paper:#ece0c2; --paper-line:#d8c79e;
+  --red:#9c2c25; --navy:#274066; --rainblue:#a9c6e2;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;touch-action:manipulation}
+html,body{height:100%}
+body{
+  font-family:'Special Elite',monospace;color:var(--cream);
+  background:radial-gradient(1100px 700px at 50% -5%, #1e2a42 0%, transparent 58%),
+             repeating-linear-gradient(135deg,#2a0f10 0 22px,#280e0f 22px 44px),#220c0d;
+  min-height:100%;overflow-x:hidden;
+}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+.app{max-width:560px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;padding:18px 18px 30px}
+
+/* ---- top brand + progress ---- */
+.brand{text-align:center;margin-bottom:10px}
+.brand__k{font-family:'Caveat',cursive;font-size:22px;color:var(--gold-2);line-height:1}
+.brand__t{font-family:'Anton',sans-serif;letter-spacing:.06em;font-size:13px;color:var(--gold);opacity:.85}
+.brand__u{font-family:'Anton',sans-serif;letter-spacing:.34em;font-size:9px;color:var(--gold-2);opacity:.7;margin-top:3px}
+.prog{display:flex;gap:6px;justify-content:center;margin:10px 0 6px}
+.prog i{width:26px;height:3px;border-radius:2px;background:rgba(231,200,120,.25);transition:background .3s}
+.prog i.on{background:var(--gold-2)}
+.fdots{display:flex;gap:7px;justify-content:center;margin:7px 0 2px}
+.fdots i{width:7px;height:7px;border-radius:50%;display:inline-block;box-shadow:0 0 6px rgba(0,0,0,.4)}
+.fdots--lg{gap:11px;margin:10px 0}
+.fdots--lg i{width:11px;height:11px}
+
+.stage{flex:1;display:flex;flex-direction:column;justify-content:center;animation:fade .45s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.scene__hint{position:relative;z-index:6;text-align:center;margin-top:16px;font-size:11px;letter-spacing:.28em;color:var(--gold-2);opacity:.85;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+
+/* ---- Friends-style title card ---- */
+.tcard{position:relative;border-radius:18px;overflow:hidden;min-height:62dvh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:30px 22px;cursor:pointer;
+  background:linear-gradient(180deg,#3a2152 0%,#2a1740 58%,#190d28 100%);
+  box-shadow:0 24px 60px rgba(0,0,0,.5);border:1px solid rgba(231,200,120,.25)}
+.tcard::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 2px,transparent 2px 27px)}
+.tcard__frame{position:relative;z-index:2;border:4px solid var(--gold-2);border-radius:6px;padding:22px 20px;text-align:center;
+  box-shadow:0 0 0 2px #190d28, inset 0 0 0 2px #190d28, 0 14px 40px rgba(0,0,0,.5);
+  background:linear-gradient(180deg,rgba(58,33,82,.45),rgba(25,13,40,.55))}
+.tcard__prev{font-family:'Special Elite',monospace;font-size:10px;letter-spacing:.26em;color:var(--gold-2);opacity:.9;text-transform:uppercase}
+.tcard__the{font-family:'Anton',sans-serif;letter-spacing:.16em;font-size:14px;color:#fff;margin-top:12px;opacity:.92}
+.tcard__one{font-family:'Playfair Display',serif;font-weight:800;font-style:italic;font-size:clamp(27px,8.6vw,40px);line-height:1.03;color:#fff;margin:5px 0 8px;text-shadow:0 2px 16px rgba(0,0,0,.6)}
+.tcard__couch{position:relative;z-index:2;width:150px;margin-top:22px;opacity:.96;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5))}
+.tcard__sig{position:relative;z-index:2;margin-top:14px;font-family:'Caveat',cursive;font-size:18px;color:var(--gold-2);text-align:center;max-width:30ch}
+
+/* ---- interactive vignette frame ---- */
+.dscene{position:relative;border-radius:18px;overflow:hidden;min-height:62dvh;display:flex;flex-direction:column;
+  box-shadow:0 24px 60px rgba(0,0,0,.5);border:1px solid rgba(231,200,120,.25);cursor:pointer;
+  background:radial-gradient(58% 46% at 50% 60%, #5a3320 0%, #34190f 52%, #1a0c08 100%);}
+.dscene--door{background:linear-gradient(180deg,#25314e 0%,#3a3350 40%,#4a2c28 100%)}
+.dscene--houses{background:linear-gradient(180deg,#5a6d8c 0%,#7d798c 45%,#3c4a36 78%,#22301e 100%)}
+.dscene--armands{background:radial-gradient(58% 46% at 50% 58%, #4a2418 0%, #2c130d 55%, #170a06 100%)}
+.dscene--icecream{background:linear-gradient(180deg,#2a3a56 0%,#3c3a58 55%,#2c2338 100%)}
+.dscene--flashback{background:linear-gradient(180deg,#3a3226 0%,#2c2118 55%,#1a120c 100%)}
+.dscene--crosswalk{background:linear-gradient(180deg,#131c30 0%,#1d2740 50%,#131826 100%)}
+.dscene--spa{background:linear-gradient(180deg,#274a48 0%,#1d3a3a 55%,#122424 100%)}
+.dscene--brunch{background:linear-gradient(180deg,#6d5436 0%,#4a3320 55%,#2a1a0e 100%)}
+.dscene--potter{background:linear-gradient(180deg,#241a30 0%,#31203c 55%,#180f20 100%)}
+.dscene--tredita{background:radial-gradient(60% 50% at 50% 42%, #3c2418 0%, #241209 60%, #120804 100%)}
+.dscene__tag{position:absolute;top:16px;left:0;right:0;text-align:center;font-family:'Anton',sans-serif;letter-spacing:.16em;font-size:12px;color:var(--gold-2);z-index:6}
+.dscene__title{position:absolute;top:33px;left:0;right:0;text-align:center;font-family:'Playfair Display',serif;font-weight:800;font-size:26px;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.6);z-index:6}
+.dscene__art{flex:1;position:relative;display:flex;align-items:center;justify-content:center}
+.vstage{position:relative;width:100%;max-width:340px;aspect-ratio:320/260}
+.vstage > svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.dscene__cap{position:absolute;bottom:34px;left:0;right:0;text-align:center;font-size:12px;font-style:italic;color:var(--gold-2);z-index:6;padding:0 22px}
+.dscene__hint{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:.28em;color:var(--gold-2);opacity:.85;z-index:6;animation:pulse 2s infinite}
+.skycue{position:absolute;top:14%;left:50%;transform:translateX(-50%);font-size:34px;z-index:5;
+  pointer-events:none;animation:skybob 1.1s ease-in-out infinite;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
+@keyframes skybob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-9px)}}
+
+/* speech bubbles */
+.bubble{position:absolute;z-index:6;max-width:62%;background:#f6eed7;color:#2a1810;border-radius:14px;padding:10px 13px;
+  font-size:13px;line-height:1.4;box-shadow:0 8px 20px rgba(0,0,0,.45);
+  opacity:0;transform:scale(.5);transform-origin:var(--orig,bottom left);
+  transition:opacity .25s ease, transform .35s cubic-bezier(.2,.9,.3,1.5)}
+.bubble.show{opacity:1;transform:scale(1)}
+.bubble::after{content:"";position:absolute;bottom:-8px;border:8px solid transparent;border-top-color:#f6eed7}
+.bubble--matt{top:12%;left:5%;--orig:bottom left}
+.bubble--matt::after{left:26px}
+.bubble--josie{top:30%;right:5%;--orig:bottom right;font-family:'Caveat',cursive;font-size:23px;background:#fff0f0;color:#9c2c25;padding:6px 16px}
+.bubble--josie::after{right:26px;border-top-color:#fff0f0}
+.bubble__sig{display:block;margin-top:6px;text-align:right;font-family:'Caveat',cursive;font-style:normal;font-size:17px;color:#9c2c25}
+.bubble--think{font-size:12px;font-style:italic;padding:9px 12px}
+.bubble--think::after{left:44%;right:auto;bottom:-7px;border:none;width:9px;height:9px;border-radius:50%;background:#f6eed7;box-shadow:-9px 9px 0 -2px #f6eed7}
+
+/* ---- rain ---- */
+.rain{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:4}
+.rain i{position:absolute;top:-26px;width:2px;border-radius:1px;
+  background:linear-gradient(180deg,rgba(169,198,226,0),rgba(169,198,226,.7));
+  animation:rainfall linear infinite}
+@keyframes rainfall{to{transform:translateY(72dvh)}}
+.rain--window{z-index:2;border-radius:8px}
+.puddleshine{position:absolute;left:12%;right:12%;bottom:8%;height:8px;border-radius:50%;z-index:3;
+  background:radial-gradient(50% 100% at 50% 50%, rgba(169,198,226,.28), transparent 70%);pointer-events:none}
+
+/* ---- flashback treatment ---- */
+.dscene--flashback .vstage{filter:sepia(.65) contrast(.92) brightness(.92)}
+.filmlines{position:absolute;inset:0;pointer-events:none;z-index:5;opacity:.5;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.12) 0 2px,transparent 2px 5px)}
+.rewindtag{position:absolute;top:64px;left:0;right:0;text-align:center;z-index:6;
+  font-family:'Special Elite',monospace;font-size:11px;letter-spacing:.3em;color:#efe3cc;opacity:.75;animation:flickerop 1.4s steps(2) infinite}
+@keyframes flickerop{0%,100%{opacity:.75}50%{opacity:.4}}
+
+/* ---- scene-specific animation bits ---- */
+.wag{transform-box:fill-box;transform-origin:bottom right;animation:wag .5s ease-in-out infinite}
+@keyframes wag{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(18deg)}}
+.doorpanel{transform-box:fill-box;transform-origin:left center;transition:transform .7s cubic-bezier(.4,.9,.3,1)}
+.doorpanel.open{transform:scaleX(.12) skewY(-4deg)}
+.hidegreet{opacity:0;transition:opacity .5s ease .35s}
+.hidegreet.show{opacity:1}
+.win{transition:fill .45s ease}
+.win.lit{fill:#f1d986}
+.heart{position:absolute;z-index:6;opacity:0}
+@keyframes floatheart{0%{transform:scale(.2) translateY(0);opacity:0}25%{opacity:1}100%{transform:scale(1.4) translateY(-46px);opacity:0}}
+.flicker{transform-box:fill-box;transform-origin:center bottom;animation:flick 1.3s ease-in-out infinite}
+@keyframes flick{0%,100%{opacity:.95;transform:scaleY(1)}50%{opacity:.62;transform:scaleY(.82)}}
+.spark{position:absolute;font-size:26px;z-index:6;opacity:0}
+.spark.go{animation:sparkpop .7s ease-out forwards}
+@keyframes sparkpop{0%{transform:scale(.2);opacity:0}30%{opacity:1}100%{transform:scale(1.5) translateY(-14px);opacity:0}}
+.glassclink{transition:transform .18s ease}
+.glassclink.l.go{animation:clinkL .5s ease}
+.glassclink.r.go{animation:clinkR .5s ease}
+@keyframes clinkL{0%,100%{transform:translateX(0) rotate(0)}40%{transform:translateX(11px) rotate(8deg)}}
+@keyframes clinkR{0%,100%{transform:translateX(0) rotate(0)}40%{transform:translateX(-11px) rotate(-8deg)}}
+.scoop{opacity:0;transform-box:fill-box;transform-origin:center bottom}
+.scoop.plop{opacity:1;animation:plop .45s cubic-bezier(.2,.9,.3,1.6)}
+@keyframes plop{0%{transform:scale(.4) translateY(-26px)}100%{transform:scale(1) translateY(0)}}
+.steam{opacity:0;transform-box:fill-box}
+.steam.go{animation:steamrise 2.6s ease-in-out infinite}
+@keyframes steamrise{0%{opacity:0;transform:translateY(6px)}35%{opacity:.6}100%{opacity:0;transform:translateY(-22px)}}
+.snitch{transform-box:fill-box}
+.snitch.go{animation:snitchfly 1.6s cubic-bezier(.4,.2,.4,1) forwards}
+@keyframes snitchfly{0%{transform:translate(0,0)}40%{transform:translate(-70px,-34px)}70%{transform:translate(20px,-52px)}100%{transform:translate(52px,-76px) scale(.75);opacity:.9}}
+.wandtip{opacity:0}
+.wandtip.go{opacity:1;animation:flickerop .5s steps(2) 3}
+.sparklelayer{position:absolute;inset:0;pointer-events:none;z-index:6;overflow:hidden}
+.sparkle{position:absolute;font-size:15px;opacity:0;pointer-events:none;animation:dropfly .9s ease-out forwards}
+@keyframes dropfly{0%{transform:translate(0,0) scale(.5);opacity:0}20%{opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(1);opacity:0}}
+.spotlight{position:absolute;left:50%;top:0;transform:translateX(-50%);width:70%;height:82%;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(231,200,120,.22),rgba(231,200,120,0) 80%);
+  clip-path:polygon(38% 0,62% 0,100% 100%,0 100%)}
+.yesflash{position:absolute;inset:0;z-index:5;background:radial-gradient(60% 50% at 50% 45%,rgba(231,200,120,.35),transparent 75%);opacity:0;pointer-events:none;transition:opacity .8s ease}
+.yesflash.on{opacity:1}
+.bigyes{position:absolute;left:0;right:0;top:36%;text-align:center;z-index:7;pointer-events:none;
+  font-family:'Caveat',cursive;font-weight:700;font-size:clamp(52px,17vw,88px);color:#fff;
+  text-shadow:0 2px 30px rgba(231,200,120,.8);opacity:0;transform:scale(.4)}
+.bigyes.on{animation:yespop .9s cubic-bezier(.2,.9,.3,1.4) forwards}
+@keyframes yespop{to{opacity:1;transform:scale(1)}}
+
+/* ---- framing cards ---- */
+.fcard{position:relative;border-radius:18px;overflow:hidden;padding:26px 22px;text-align:center;min-height:62dvh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:linear-gradient(180deg,#3a2152 0%,#2a1740 60%,#190d28 100%);
+  box-shadow:0 24px 60px rgba(0,0,0,.5);border:1px solid rgba(231,200,120,.25)}
+.fcard::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 2px,transparent 2px 27px)}
+.fcard>*{position:relative;z-index:2}
+.fcard--tap{cursor:pointer}
+.fcard--rain{background:linear-gradient(180deg,#1c2740 0%,#232036 60%,#161020 100%)}
+.fcard__kicker{font-family:'Anton',sans-serif;letter-spacing:.18em;font-size:12px;color:var(--gold-2);text-transform:uppercase}
+.fcard__title{font-family:'Playfair Display',serif;font-weight:800;font-style:italic;font-size:clamp(24px,8vw,36px);line-height:1.15;color:#fff;margin:8px 0;text-shadow:0 2px 16px rgba(0,0,0,.6)}
+.fcard__note{font-size:13px;line-height:1.6;color:#e7dcec;max-width:34ch;margin:12px auto 4px;font-style:italic}
+
+/* ---- the letter ---- */
+.reveal{text-align:center}
+.reveal__k{font-family:'Anton',sans-serif;letter-spacing:.14em;color:var(--gold-2);font-size:13px}
+.reveal__lead{font-size:14px;line-height:1.6;margin:8px auto 18px;max-width:31ch;color:#f3ead7}
+.ticket{position:relative;background:linear-gradient(180deg,#f7eece,var(--cream));color:var(--ink);
+  border-radius:14px;padding:22px 18px;box-shadow:0 22px 50px rgba(0,0,0,.5);overflow:hidden;text-align:left}
+.ticket::before,.ticket::after{content:"";position:absolute;width:26px;height:26px;border-radius:50%;
+  background:#220c0d;top:56px;transform:translateY(-50%)}
+.ticket::before{left:-14px}.ticket::after{right:-14px}
+.ticket__brand{font-family:'Caveat',cursive;font-size:20px;color:var(--burg);text-align:center}
+.ticket__day{font-family:'Anton',sans-serif;font-size:clamp(26px,9vw,44px);line-height:1;color:var(--burg);letter-spacing:.02em;margin:6px 0;text-align:center}
+.ticket__sub{font-size:11px;letter-spacing:.18em;color:#6a5436;text-align:center}
+.ticket__perf{border-top:2px dashed var(--paper-line);margin:16px -18px 14px}
+.letterbody{font-family:'Caveat',cursive;font-size:22px;line-height:1.35;color:#3a2417;padding:2px 4px}
+.letterbody p{margin:0 0 12px}
+.letterbody .sig{display:block;text-align:right;font-size:26px;color:var(--burg);margin-top:6px}
+.ticket__fine{font-size:10px;letter-spacing:.12em;color:#8a7551;line-height:1.7;text-align:center;border-top:1.5px solid var(--paper-line);padding-top:10px;margin-top:12px}
+
+.btn{display:inline-block;border:none;cursor:pointer;font-family:'Special Elite',monospace;
+  background:linear-gradient(180deg,var(--gold-2),var(--gold-deep));color:#3a1416;
+  padding:15px 22px;border-radius:30px;font-size:15px;letter-spacing:.04em;font-weight:bold;
+  box-shadow:0 10px 26px rgba(0,0,0,.4);transition:transform .12s ease, box-shadow .12s ease;
+  text-decoration:none;text-align:center;width:100%}
+.btn:active{transform:translateY(2px)}
+.btn--ghost{background:transparent;color:var(--gold-2);border:1.5px solid rgba(231,200,120,.5);box-shadow:none}
+.btn--big{font-size:17px;padding:17px 22px}
+.btn.pulse{animation:btnpulse 1.6s ease-in-out infinite}
+@keyframes btnpulse{0%,100%{box-shadow:0 10px 26px rgba(0,0,0,.4)}50%{box-shadow:0 10px 40px rgba(231,200,120,.6)}}
+.btnrow{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+
+/* confetti */
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:95;overflow:hidden}
+.confetti i{position:absolute;top:-12px;width:9px;height:14px;opacity:.9;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(108dvh) rotate(720deg);opacity:.9}}
+
+@media (prefers-reduced-motion: reduce){
+  .rain i,.wag,.flicker,.steam.go,.skycue,.scene__hint,.dscene__hint,.btn.pulse{animation:none}
+  .rain{display:none}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="brand">
+    <div class="brand__k">now playing…</div>
+    <div class="brand__t">THE RESIDENCY</div>
+    <div class="fdots"><i style="background:#e64b3c"></i><i style="background:#3aa0dc"></i><i style="background:#f4c542"></i><i style="background:#56b870"></i></div>
+    <div class="brand__u">SEASON 5 · OPENING NIGHT</div>
+  </div>
+  <div class="prog" id="prog"><i></i><i></i><i></i><i></i></div>
+  <div class="stage" id="stage"></div>
+</div>
+
+<script>
+/* ============================================================
+   Opening Night - the recap of July 2-3.
+   Night one: the door, the houses, Armand's, the rain, the ice
+   cream, the flashback, the crosswalk, the yes.
+   Day one: the spa, brunch, the wand shop, Tre Dita, the letter.
+   All client-side; safe on static hosting.
+   ============================================================ */
+
+/* ===================== helpers ===================== */
+var stage = document.getElementById('stage');
+var progEl = document.getElementById('prog');
+function setProg(n){ Array.prototype.forEach.call(progEl.children,function(i,k){ i.classList.toggle('on', k<=n); }); }
+function tap(el, fn){ if(el) el.addEventListener('pointerup', fn); }
+function capture(ev,props){ if(window.posthog) window.posthog.capture(ev, props||{}); }
+var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+var FDOTS='<i style="background:#e64b3c"></i><i style="background:#3aa0dc"></i><i style="background:#f4c542"></i><i style="background:#56b870"></i>';
+var COUCH_SVG='<svg viewBox="0 0 160 72" fill="none" aria-hidden="true" style="width:100%">'+
+  '<rect x="14" y="56" width="10" height="13" rx="2" fill="#4a1d10"/><rect x="136" y="56" width="10" height="13" rx="2" fill="#4a1d10"/>'+
+  '<rect x="6" y="28" width="148" height="30" rx="9" fill="#9c3a22"/>'+
+  '<rect x="0" y="22" width="24" height="40" rx="11" fill="#b5532b"/><rect x="136" y="22" width="24" height="40" rx="11" fill="#b5532b"/>'+
+  '<rect x="20" y="10" width="120" height="30" rx="10" fill="#b5532b"/>'+
+  '<rect x="26" y="32" width="52" height="17" rx="6" fill="#c4623a"/><rect x="82" y="32" width="52" height="17" rx="6" fill="#c4623a"/>'+
+'</svg>';
+
+/* little reusable people (heads + shoulders) */
+var MAN_HEAD = '<g><circle cx="0" cy="0" r="13" fill="#e8b894"/><path d="M-13 -1 Q-12 -15 0 -15 Q12 -15 13 -1 Q7 -9 0 -9 Q-7 -9 -13 -1 Z" fill="#2a1c14"/></g>';
+var WOMAN_HEAD = '<g><circle cx="0" cy="0" r="12.5" fill="#e8b894"/><circle cx="-6" cy="4" r="3.4" fill="#e08a8a" opacity=".55"/><circle cx="6" cy="4" r="3.4" fill="#e08a8a" opacity=".55"/><path d="M-13 -2 Q-13 -16 0 -16 Q13 -16 13 -2 L15 30 Q7 22 4 8 Q2 -4 0 -4 Q-2 -4 -4 8 Q-7 22 -15 30 Z" fill="#23160f"/></g>';
+
+/* rain: fill a .rain layer with streaks */
+function makeRain(el, count, speed){
+  if(!el || reduceMotion) return;
+  for(var i=0;i<count;i++){
+    var d=document.createElement('i');
+    d.style.left=(Math.random()*102-1)+'%';
+    d.style.height=(14+Math.random()*14)+'px';
+    d.style.animationDuration=((speed||0.9)+Math.random()*0.5)+'s';
+    d.style.animationDelay=(-Math.random()*2)+'s';
+    d.style.opacity=String(0.4+Math.random()*0.6);
+    el.appendChild(d);
+  }
+}
+function burst(){
+  var wrap=document.createElement('div'); wrap.className='confetti';
+  var colors=['#e7c878','#9c2c25','#f3e7cb','#cba14a','#c86a78'];
+  for(var i=0;i<70;i++){
+    var c=document.createElement('i');
+    c.style.left=Math.random()*100+'%';
+    c.style.background=colors[i%colors.length];
+    c.style.animationDuration=(2.4+Math.random()*2.2)+'s';
+    c.style.animationDelay=(Math.random()*0.5)+'s';
+    c.style.transform='rotate('+Math.random()*360+'deg)';
+    wrap.appendChild(c);
+  }
+  document.body.appendChild(wrap);
+  setTimeout(function(){ wrap.remove(); }, 5600);
+}
+function sparkles(layer, cx, cy){
+  var conf=[{dx:-30,dy:-36},{dx:-12,dy:-46},{dx:10,dy:-44},{dx:30,dy:-34},{dx:-40,dy:-16},{dx:42,dy:-14},{dx:0,dy:-56},{dx:20,dy:-24},{dx:-22,dy:-24}];
+  conf.forEach(function(s,i){
+    var d=document.createElement('div'); d.className='sparkle'; d.textContent = i%3===0 ? '✨' : '⭐';
+    d.style.left=cx; d.style.top=cy;
+    d.style.setProperty('--dx',s.dx+'px'); d.style.setProperty('--dy',s.dy+'px');
+    d.style.animationDelay=(i*0.05)+'s';
+    layer.appendChild(d); setTimeout(function(){ d.remove(); }, 1100);
+  });
+}
+
+/* ===================== the scene reel ===================== */
+var SCENES = ['title','door','houses','armands','icecream','flashback','crosswalk','perfect','spa','brunch','potter','tredita','letter'];
+var PHASE  = { title:0, door:0, houses:0, armands:0, icecream:0, flashback:1, crosswalk:1, perfect:1, spa:2, brunch:2, potter:2, tredita:2, letter:3 };
+var sceneIdx = 0;
+
+function render(){
+  var name = SCENES[sceneIdx];
+  setProg(PHASE[name]);
+  capture('openingnight_scene', { scene: name, index: sceneIdx });
+  window.scrollTo(0, 0);
+  ({ title: renderTitle, door: renderDoor, houses: renderHouses, armands: renderArmands,
+     icecream: renderIceCream, flashback: renderFlashback, crosswalk: renderCrosswalk,
+     perfect: renderPerfect, spa: renderSpa, brunch: renderBrunch, potter: renderPotter,
+     tredita: renderTreDita, letter: renderLetter })[name]();
+}
+function next(){ sceneIdx = Math.min(sceneIdx+1, SCENES.length-1); render(); }
+
+/* ---------- 1: TITLE CARD ---------- */
+function renderTitle(){
+  stage.innerHTML =
+    '<div class="tcard" id="scn">'+
+      '<div class="tcard__frame">'+
+        '<div class="tcard__prev">The Residency · Season 5 · the premiere</div>'+
+        '<div class="fdots fdots--lg">'+FDOTS+'</div>'+
+        '<div class="tcard__the">THE ONE WHERE</div>'+
+        '<div class="tcard__one">She Said Yes</div>'+
+        '<div class="fdots fdots--lg">'+FDOTS+'</div>'+
+      '</div>'+
+      '<div class="tcard__couch">'+COUCH_SVG+'</div>'+
+      '<div class="tcard__sig">our first episode as an official couple. of course I made it an episode.</div>'+
+      '<div class="scene__hint">TAP TO CONTINUE</div>'+
+    '</div>';
+  tap(document.getElementById('scn'), next);
+}
+
+/* ---------- 2: THE DOOR - Dash + her smile ---------- */
+function renderDoor(){
+  var ART =
+  '<svg viewBox="0 0 320 260" fill="none" aria-hidden="true">'+
+    /* house front */
+    '<rect x="46" y="40" width="228" height="190" rx="6" fill="#4a3550"/>'+
+    '<rect x="46" y="40" width="228" height="12" fill="#3a2840"/>'+
+    /* porch light */
+    '<circle cx="220" cy="86" r="9" fill="#f1d986"/><circle cx="220" cy="86" r="17" fill="#f1d986" opacity=".22"/>'+
+    /* door frame */
+    '<rect x="112" y="74" width="96" height="156" rx="4" fill="#2a1c30"/>'+
+    /* inside the doorway: warm light + Josie + Dash (revealed) */
+    '<rect x="118" y="80" width="84" height="150" rx="3" fill="#f4d27a" opacity=".9"/>'+
+    '<g class="hidegreet" id="greet">'+
+      '<g transform="translate(160,140)">'+WOMAN_HEAD+'</g>'+
+      '<g transform="translate(160,156)"><rect x="-14" y="0" width="28" height="52" rx="12" fill="#8a2f3e"/></g>'+
+      /* smile */
+      '<path d="M154 146 Q160 152 166 146" stroke="#8a4a3a" stroke-width="2" fill="none" stroke-linecap="round"/>'+
+      /* Dash */
+      '<g transform="translate(136,206)">'+
+        '<g class="wag"><path d="M-16 4 Q-27 -4 -24 -14" stroke="#8a5a33" stroke-width="5" fill="none" stroke-linecap="round"/></g>'+
+        '<ellipse cx="0" cy="8" rx="17" ry="10" fill="#8a5a33"/>'+
+        '<circle cx="15" cy="-2" r="9" fill="#8a5a33"/>'+
+        '<path d="M9 -8 L6 -17 L14 -12 Z" fill="#6e4525"/><path d="M20 -9 L24 -17 L15 -12 Z" fill="#6e4525"/>'+
+        '<circle cx="17" cy="-3" r="1.7" fill="#241a12"/><circle cx="23" cy="0" r="2.4" fill="#241a12"/>'+
+        '<rect x="-10" y="15" width="5" height="9" rx="2" fill="#7a4c29"/><rect x="5" y="15" width="5" height="9" rx="2" fill="#7a4c29"/>'+
+      '</g>'+
+    '</g>'+
+    /* the door panel (closes over the doorway until the knock) */
+    '<g class="doorpanel" id="door"><rect x="118" y="80" width="84" height="150" rx="3" fill="#5a3a26"/>'+
+      '<rect x="126" y="92" width="68" height="56" rx="3" fill="none" stroke="#3f2818" stroke-width="3"/>'+
+      '<rect x="126" y="158" width="68" height="60" rx="3" fill="none" stroke="#3f2818" stroke-width="3"/>'+
+      '<circle cx="192" cy="152" r="4" fill="#cba14a"/></g>'+
+    /* steps */
+    '<rect x="104" y="230" width="112" height="10" rx="2" fill="#3a2840"/><rect x="96" y="240" width="128" height="10" rx="2" fill="#32223a"/>'+
+    /* Matt arriving, flowers optional: keep hands free for the dog */
+    '<g transform="translate(70,196)"><rect x="-15" y="0" width="30" height="48" rx="13" fill="#3a4a6a"/></g>'+
+    '<g transform="translate(70,180)">'+MAN_HEAD+'</g>'+
+  '</svg>';
+  stage.innerHTML =
+    '<div class="dscene dscene--door" id="dscene">'+
+      '<div class="dscene__tag">Thursday · July 2</div>'+
+      '<div class="dscene__title">The Welcome<br>Committee</div>'+
+      '<div class="dscene__art"><div class="vstage" id="vstage">'+ART+
+        '<div class="skycue" id="cue">👆</div>'+
+        '<div class="bubble bubble--matt" id="b1" style="top:9%;max-width:66%">kinda missed seeing Dash… I mean you.<span class="bubble__sig">Matt</span></div>'+
+        '<div class="bubble bubble--josie" id="b2" style="top:34%;right:4%">we both missed you 🐾</div>'+
+      '</div></div>'+
+      '<div class="dscene__cap" id="cap">I knocked. The door opened on Dash losing his mind and you already smiling. Best welcome in Illinois.</div>'+
+      '<div class="dscene__hint" id="hint">TAP TO KNOCK 🚪</div>'+
+    '</div>';
+  var step=0, dscene=document.getElementById('dscene');
+  tap(dscene, function(){
+    if(step===0){ step=1;
+      var c=document.getElementById('cue'); if(c) c.remove();
+      document.getElementById('door').classList.add('open');
+      document.getElementById('greet').classList.add('show');
+      setTimeout(function(){ document.getElementById('b1').classList.add('show'); }, 650);
+      setTimeout(function(){ document.getElementById('b2').classList.add('show'); }, 1150);
+      document.getElementById('hint').textContent='TAP TO CONTINUE';
+    } else { next(); }
+  });
+}
+
+/* ---------- 3: THE HOUSES - two viewings from the car ---------- */
+function renderHouses(){
+  var ART =
+  '<svg viewBox="0 0 320 260" fill="none" aria-hidden="true">'+
+    /* soft afternoon clouds */
+    '<ellipse cx="70" cy="34" rx="34" ry="12" fill="#e8e4ea" opacity=".5"/><ellipse cx="240" cy="24" rx="42" ry="13" fill="#e8e4ea" opacity=".4"/>'+
+    /* house one (left) */
+    '<g><path d="M22 106 L84 62 L146 106 Z" fill="#6e3b30"/>'+
+    '<rect x="34" y="106" width="100" height="74" fill="#d8c79e"/>'+
+    '<rect class="win" id="w1" x="46" y="120" width="24" height="22" fill="#3a3348"/>'+
+    '<rect class="win" id="w2" x="98" y="120" width="24" height="22" fill="#3a3348"/>'+
+    '<rect x="72" y="140" width="24" height="40" fill="#5a3a26"/>'+
+    '<rect x="120" y="70" width="12" height="26" fill="#5a4a44"/></g>'+
+    /* house two (right) */
+    '<g><path d="M176 112 L236 70 L296 112 Z" fill="#3f4a5c"/>'+
+    '<rect x="188" y="112" width="96" height="68" fill="#c9c2ae"/>'+
+    '<rect class="win" id="w3" x="200" y="126" width="22" height="20" fill="#3a3348"/>'+
+    '<rect class="win" id="w4" x="248" y="126" width="22" height="20" fill="#3a3348"/>'+
+    '<rect x="224" y="144" width="22" height="36" fill="#4a3320"/></g>'+
+    /* yard sign */
+    '<g transform="translate(160,168)"><rect x="-2" y="0" width="4" height="26" fill="#8a7551"/>'+
+    '<rect x="-30" y="-18" width="60" height="22" rx="3" fill="#f3e7cb"/>'+
+    '<text x="0" y="-3" text-anchor="middle" font-family="Courier New, monospace" font-weight="bold" font-size="10" fill="#5d1a1c">A SIGN.</text></g>'+
+    /* street */
+    '<rect x="0" y="196" width="320" height="64" fill="#3a3f4a"/>'+
+    '<g stroke="#e8e4ea" stroke-width="3" opacity=".5" stroke-dasharray="14 12"><line x1="0" y1="228" x2="320" y2="228"/></g>'+
+    /* their car, two heads in it */
+    '<g transform="translate(96,204)">'+
+      '<path d="M14 22 Q18 4 44 2 L98 2 Q122 4 128 22 L134 24 Q140 26 138 34 L4 34 Q2 26 8 24 Z" fill="#7b1f23"/>'+
+      '<path d="M42 6 L96 6 Q108 6 114 20 L30 20 Q34 8 42 6 Z" fill="#bcd2e8" opacity=".85"/>'+
+      '<circle cx="34" cy="36" r="10" fill="#241a12"/><circle cx="34" cy="36" r="4" fill="#8a8f9c"/>'+
+      '<circle cx="108" cy="36" r="10" fill="#241a12"/><circle cx="108" cy="36" r="4" fill="#8a8f9c"/>'+
+      '<g transform="translate(60,10) scale(.62)">'+MAN_HEAD+'</g>'+
+      '<g transform="translate(86,10) scale(.62)"><circle cx="0" cy="0" r="13" fill="#e8b894"/><path d="M-13 -1 Q-13 -16 0 -16 Q13 -16 13 -1 Q6 -9 0 -9 Q-6 -9 -13 -1 Z" fill="#23160f"/></g>'+
+    '</g>'+
+  '</svg>';
+  stage.innerHTML =
+    '<div class="dscene dscene--houses" id="dscene">'+
+      '<div class="dscene__tag">Scene Two</div>'+
+      '<div class="dscene__title">Open House,<br>Open Question</div>'+
+      '<div class="dscene__art"><div class="vstage">'+ART+
+        '<div class="skycue" id="cue">👆</div>'+
+        '<div class="bubble bubble--matt" id="b1" style="top:6%;max-width:60%">just looking. for now ;)<span class="bubble__sig">Matt</span></div>'+
+        '<div class="bubble bubble--josie" id="b2" style="top:26%;right:3%">good bones 🏡</div>'+
+      '</div></div>'+
+      '<div class="dscene__cap">Two houses in one afternoon. Call it window shopping for a someday.</div>'+
+      '<div class="dscene__hint" id="hint">TAP TO TOUR 🔑</div>'+
+    '</div>';
+  var step=0, dscene=document.getElementById('dscene');
+  tap(dscene, function(){
+    if(step===0){ step=1;
+      var c=document.getElementById('cue'); if(c) c.remove();
+      ['w1','w2','w3','w4'].forEach(function(id,i){
+        setTimeout(function(){ document.getElementById(id).classList.add('lit'); }, 160*i);
+      });
+      setTimeout(function(){ document.getElementById('b1').classList.add('show'); }, 700);
+      setTimeout(function(){ document.getElementById('b2').classList.add('show'); }, 1200);
+      document.getElementById('hint').textContent='TAP TO CONTINUE';
+    } else { next(); }
+  });
+}
+
+/* ---------- 4: ARMAND'S - dinner while the sky loads its big scene ---------- */
+function renderArmands(){
+  var ART =
+  '<svg viewBox="0 0 320 260" fill="none" aria-hidden="true">'+
+    /* wall + window on the weather */
+    '<rect x="196" y="30" width="102" height="92" rx="6" fill="#2a3550"/>'+
+    '<rect x="196" y="30" width="102" height="92" rx="6" fill="none" stroke="#5a3a26" stroke-width="5"/>'+
+    '<line x1="247" y1="34" x2="247" y2="118" stroke="#5a3a26" stroke-width="4"/>'+
+    '<ellipse cx="226" cy="52" rx="18" ry="7" fill="#46557a" opacity=".9"/><ellipse cx="272" cy="44" rx="20" ry="8" fill="#46557a" opacity=".8"/>'+
+    /* framed sign */
+    '<rect x="34" y="40" width="118" height="44" rx="5" fill="#3f2818"/>'+
+    '<text x="93" y="59" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-weight="bold" font-size="17" fill="#e7c878">Armand&#8217;s</text>'+
+    '<text x="93" y="76" text-anchor="middle" font-family="Courier New, monospace" font-size="9" letter-spacing="2" fill="#cba14a">ARLINGTON HEIGHTS</text>'+
+    /* table */
+    '<rect x="0" y="186" width="320" height="74" fill="#2b190f"/><ellipse cx="160" cy="186" rx="150" ry="20" fill="#7d2019"/>'+
+    '<ellipse cx="160" cy="186" rx="150" ry="20" fill="none" stroke="#f3e7cb" stroke-width="2" opacity=".35" stroke-dasharray="8 8"/>'+
+    /* pizza */
+    '<g transform="translate(160,178)"><circle r="34" fill="#e0a94f"/><circle r="28" fill="#c23b26"/>'+
+    '<circle r="28" fill="none" stroke="#e8d9a8" stroke-width="2" opacity=".5"/>'+
+    '<g stroke="#f6eed7" stroke-width="2" opacity=".8"><line x1="-28" y1="0" x2="28" y2="0"/><line x1="0" y1="-28" x2="0" y2="28"/><line x1="-20" y1="-20" x2="20" y2="20"/><line x1="-20" y1="20" x2="20" y2="-20"/></g>'+
+    '<circle cx="-10" cy="-8" r="4" fill="#f4d27a"/><circle cx="12" cy="6" r="4" fill="#f4d27a"/><circle cx="-4" cy="12" r="4" fill="#f4d27a"/><circle cx="8" cy="-14" r="4" fill="#f4d27a"/></g>'+
+    /* candle */
+    '<rect x="228" y="158" width="8" height="22" rx="3" fill="#f3e7cb"/><ellipse class="flicker" cx="232" cy="152" rx="5" ry="9" fill="#ff9d3c"/>'+
+    /* the two of them */
+    '<g transform="translate(84,160)"><rect x="-16" y="0" width="32" height="30" rx="12" fill="#26303f"/></g>'+
+    '<g transform="translate(84,144)">'+MAN_HEAD+'</g>'+
+    '<g transform="translate(238,164)"><rect x="-15" y="0" width="30" height="26" rx="12" fill="#16110f"/></g>'+
+    '<g transform="translate(238,148) scale(.94)">'+WOMAN_HEAD+'</g>'+
+  '</svg>';
+  stage.innerHTML =
+    '<div class="dscene dscene--armands" id="dscene">'+
+      '<div class="dscene__tag">The One Back At Armand&#8217;s</div>'+
+      '<div class="dscene__title">Scene of<br>the Crime</div>'+
+      '<div class="dscene__art"><div class="vstage" id="vstage">'+ART+
+        '<div class="rain rain--window" id="winRain" style="left:61%;top:11%;width:32%;height:36%"></div>'+
+        '<div class="skycue" id="cue">👆</div>'+
+        '<div class="bubble bubble--matt" id="b1" style="top:30%;left:4%;max-width:58%">this restaurant, on purpose. you&#8217;ll see why.<span class="bubble__sig">Matt</span></div>'+
+        '<div class="bubble bubble--josie" id="b2" style="top:16%;right:3%">it&#8217;s raining 🌧️</div>'+
+      '</div></div>'+
+      '<div class="dscene__cap" id="cap">Back at Armand&#8217;s. Dinner was great. Outside, the sky started rehearsing for its big scene.</div>'+
+      '<div class="dscene__hint" id="hint">TAP FOR THE FORECAST 🌧️</div>'+
+    '</div>';
+  var step=0, dscene=document.getElementById('dscene');
+  tap(dscene, function(){
+    if(step===0){ step=1;
+      var c=document.getElementById('cue'); if(c) c.remove();
+      makeRain(document.getElementById('winRain'), 16, 1.1);
+      setTimeout(function(){ document.getElementById('b2').classList.add('show'); }, 500);
+      setTimeout(function(){ document.getElementById('b1').classList.add('show'); }, 1050);
+      document.getElementById('hint').textContent='TAP TO CONTINUE';
+    } else { next(); }
+  });
+}
+
+/* ---------- 5: ICE CREAM - in the rain, obviously ---------- */
+function renderIceCream(){
+  var ART =
+  '<svg viewBox="0 0 320 260" fill="none" aria-hidden="true">'+
+    /* shop awning */
+    '<rect x="60" y="26" width="200" height="14" fill="#8a2f3e"/>'+
+    '<g fill="#f3e7cb"><path d="M60 40 L85 40 L72.5 58 Z"/><path d="M110 40 L135 40 L122.5 58 Z"/><path d="M160 40 L185 40 L172.5 58 Z"/><path d="M210 40 L235 40 L222.5 58 Z"/></g>'+
+    '<g fill="#8a2f3e"><path d="M85 40 L110 40 L97.5 58 Z"/><path d="M135 40 L160 40 L147.5 58 Z"/><path d="M185 40 L210 40 L197.5 58 Z"/><path d="M235 40 L260 40 L247.5 58 Z"/></g>'+
+    /* sidewalk */
+    '<rect x="0" y="212" width="320" height="48" fill="#3a3f4a"/>'+
+    /* his cone */
+    '<g transform="translate(120,140)"><path d="M-14 8 L0 52 L14 8 Z" fill="#d8a35c"/>'+
+    '<g stroke="#b07f3c" stroke-width="1.6" opacity=".7"><line x1="-10" y1="14" x2="8" y2="34"/><line x1="-4" y1="8" x2="12" y2="26"/><line x1="-12" y1="24" x2="2" y2="42"/></g>'+
+    '<circle cx="0" cy="-2" r="16" fill="#7a4a2e"/><circle cx="-6" cy="-8" r="4" fill="#8f5c3c"/></g>'+
+    /* her cone (scoop lands on tap) */
+    '<g transform="translate(200,140)"><path d="M-14 8 L0 52 L14 8 Z" fill="#d8a35c"/>'+
+    '<g stroke="#b07f3c" stroke-width="1.6" opacity=".7"><line x1="-10" y1="14" x2="8" y2="34"/><line x1="-4" y1="8" x2="12" y2="26"/><line x1="-12" y1="24" x2="2" y2="42"/></g>'+
+    '<g class="scoop" id="scoop"><circle cx="0" cy="-2" r="16" fill="#f2c9d4"/><circle cx="5" cy="-8" r="3.4" fill="#fadfe7"/><circle cx="-7" cy="-4" r="2.6" fill="#c86a78"/></g></g>'+
+    /* the two of them under it all */
+    '<g transform="translate(120,204)"><rect x="-15" y="0" width="30" height="34" rx="13" fill="#3a4a6a"/></g>'+
+    '<g transform="translate(120,188)">'+MAN_HEAD+'</g>'+
+    '<g transform="translate(200,204)"><rect x="-14" y="0" width="28" height="34" rx="12" fill="#8a2f3e"/></g>'+
+    '<g transform="translate(200,188)">'+WOMAN_HEAD+'</g>'+
+  '</svg>';
+  stage.innerHTML =
+    '<div class="dscene dscene--icecream" id="dscene">'+
+      '<div class="dscene__tag">Logical Next Step</div>'+
+      '<div class="dscene__title">It Rained.<br>We Got Ice Cream.</div>'+
+      '<div class="dscene__art"><div class="vstage">'+ART+
+        '<div class="rain" id="rainMid"></div>'+
+        '<div class="puddleshine"></div>'+
+        '<div class="skycue" id="cue">👆</div>'+
+        '<div class="bubble bubble--matt" id="b1" style="top:4%;left:4%;max-width:58%">rain check? never heard of her.<span class="bubble__sig">Matt</span></div>'+
+        '<div class="bubble bubble--josie" id="b2" style="top:24%;right:3%">priorities 🍦</div>'+
+      '</div></div>'+
+      '<div class="dscene__cap">It rained harder. We walked out of Armand&#8217;s and got ice cream anyway. Obviously.</div>'+
+      '<div class="dscene__hint" id="hint">TAP FOR A SCOOP 🍦</div>'+
+    '</div>';
+  makeRain(document.getElementById('rainMid'), 26, 0.95);
+  var step=0, dscene=document.getElementById('dscene');
+  tap(dscene, function(){
+    if(step===0){ step=1;
+      var c=document.getElementById('cue'); if(c) c.remove();
+      document.getElementById('scoop').classList.add('plop');
+      setTimeout(function(){ document.getElementById('b2').classList.add('show'); }, 420);
+      setTimeout(function(){ document.getElementById('b1').classList.add('show'); }, 950);
+      document.getElementById('hint').textContent='TAP TO CONTINUE';
+    } else { next(); }
+  });
+}
+
+/* shared street-corner art for the flashback + the present */
+function cornerArt(mode){
+  var couple = mode==='then'
+    /* May 20: the hug that wasn't a kiss, plenty of daylight between them after */
+    ? '<g transform="translate(136,176)"><rect x="-15" y="0" width="30" height="48" rx="13" fill="#3a4a6a"/></g>'+
+      '<g transform="translate(136,160)">'+MAN_HEAD+'</g>'+
+      '<g transform="translate(196,176)"><rect x="-14" y="0" width="28" height="48" rx="12" fill="#8a2f3e"/></g>'+
+      '<g transform="translate(196,160)">'+WOMAN_HEAD+'</g>'+
+      /* stiff hug arms across the gap */
+      '<path d="M150 186 Q166 178 182 186" stroke="#3a4a6a" stroke-width="7" fill="none" stroke-linecap="round"/>'
+    /* July 2: no gap left */
+    : '<g transform="translate(152,176)"><rect x="-15" y="0" width="30" height="48" rx="13" fill="#3a4a6a"/></g>'+
+      '<g transform="translate(152,160)">'+MAN_HEAD+'</g>'+
+      '<g transform="translate(182,176)"><rect x="-14" y="0" width="28" height="48" rx="12" fill="#8a2f3e"/></g>'+
+      '<g transform="translate(182,160)">'+WOMAN_HEAD+'</g>'+
+      /* held hands */
+      '<path d="M162 206 Q167 212 172 206" stroke="#e8b894" stroke-width="6" fill="none" stroke-linecap="round"/>';
+  return '<svg viewBox="0 0 320 260" fill="none" aria-hidden="true">'+
+    /* buildings */
+    '<g fill="'+(mode==='then'?'#4a4034':'#1a2438')+'"><rect x="0" y="46" width="52" height="112"/><rect x="58" y="66" width="40" height="92"/><rect x="222" y="58" width="44" height="100"/><rect x="272" y="40" width="48" height="118"/></g>'+
+    '<g fill="#e7c878" opacity="'+(mode==='then'?'.25':'.6')+'"><rect x="10" y="60" width="5" height="7"/><rect x="30" y="84" width="5" height="7"/><rect x="68" y="80" width="5" height="7"/><rect x="232" y="72" width="5" height="7"/><rect x="284" y="56" width="5" height="7"/><rect x="298" y="92" width="5" height="7"/></g>'+
+    /* street + curb */
+    '<rect x="0" y="158" width="320" height="102" fill="'+(mode==='then'?'#57504a':'#262e3f')+'"/>'+
+    '<rect x="0" y="158" width="320" height="8" fill="'+(mode==='then'?'#6a625a':'#39445c')+'"/>'+
+    /* the crosswalk */
+    '<g fill="#e8e4ea" opacity="'+(mode==='then'?'.55':'.75')+'">'+
+      '<rect x="34" y="196" width="36" height="46" transform="skewX(-12)"/><rect x="94" y="196" width="36" height="46" transform="skewX(-12)"/>'+
+      '<rect x="154" y="196" width="36" height="46" transform="skewX(-12)"/><rect x="214" y="196" width="36" height="46" transform="skewX(-12)"/>'+
+      '<rect x="274" y="196" width="36" height="46" transform="skewX(-12)"/></g>'+
+    /* streetlight */
+    '<rect x="284" y="96" width="6" height="112" fill="#241a12"/>'+
+    '<path d="M287 96 Q287 78 262 78" stroke="#241a12" stroke-width="6" fill="none"/>'+
+    '<ellipse cx="258" cy="80" rx="10" ry="6" fill="#f1d986"/>'+
+    (mode==='then'?'':'<path d="M258 86 L226 208 L292 208 Z" fill="#f1d986" opacity=".14"/>')+
+    couple+
+  '</svg>';
+}
+
+/* ---------- 6: THE FLASHBACK - May 20, same corner ---------- */
+function renderFlashback(){
+  stage.innerHTML =
+    '<div class="dscene dscene--flashback" id="dscene">'+
+      '<div class="dscene__tag">Previously · May 20</div>'+
+      '<div class="dscene__title">This Exact Crosswalk</div>'+
+      '<div class="rewindtag" style="top:70px">&#9668;&#9668; REWIND · SEVEN WEEKS</div>'+
+      '<div class="dscene__art"><div class="vstage">'+cornerArt('then')+
+        '<div class="filmlines"></div>'+
+        '<div class="bubble bubble--think" id="b1" style="left:8%;right:auto;max-width:64%;top:16%">kiss her. KISS HER. …aaand it&#8217;s a hug.</div>'+
+      '</div></div>'+
+      '<div class="dscene__cap">Last time we stood right here, I hugged you goodnight and drove home replaying it for a week. An entire redemption tour started at this corner.</div>'+
+      '<div class="dscene__hint" id="hint">TAP TO REMEMBER</div>'+
+    '</div>';
+  var step=0, dscene=document.getElementById('dscene');
+  setTimeout(function(){ document.getElementById('b1').classList.add('show'); }, 700);
+  tap(dscene, function(){
+    if(step===0){ step=1;
+      document.getElementById('b1').classList.add('show');
+      document.getElementById('hint').textContent='TAP TO COME BACK TO THE RAIN';
+    } else { next(); }
+  });
+}
+
+/* ---------- 7: THE CROSSWALK - pouring rain, the question ---------- */
+function renderCrosswalk(){
+  stage.innerHTML =
+    '<div class="dscene dscene--crosswalk" id="dscene">'+
+      '<div class="dscene__tag">July 2 · 9:41 PM</div>'+
+      '<div class="dscene__title">Same Corner.<br>New Ending.</div>'+
+      '<div class="dscene__art"><div class="vstage">'+cornerArt('now')+
+        '<div class="rain" id="rainPour"></div>'+
+        '<div class="puddleshine"></div>'+
+        '<div class="yesflash" id="flash"></div>'+
+        '<div class="bigyes" id="bigyes">yes.</div>'+
+        '<div class="heart" id="h1" style="left:44%;top:36%">❤️</div>'+
+        '<div class="heart" id="h2" style="left:56%;top:42%;font-size:20px">❤️</div>'+
+        '<div class="heart" id="h3" style="left:50%;top:30%;font-size:16px">❤️</div>'+
+        '<div class="bubble bubble--matt" id="b1" style="top:7%;left:4%;max-width:72%">Last time I stood here I let the moment walk away. Not this time. Will you be my girlfriend?<span class="bubble__sig">Matt</span></div>'+
+      '</div></div>'+
+      '<div class="dscene__cap" id="cap">Back to the same crosswalk, on purpose, in pouring rain. No script this time. Just the question.</div>'+
+      '<div class="dscene__hint" id="hint">TAP TO ASK 💍</div>'+
+    '</div>';
+  makeRain(document.getElementById('rainPour'), 54, 0.62);
+  var step=0, dscene=document.getElementById('dscene');
+  tap(dscene, function(){
+    if(step===0){ step=1;
+      document.getElementById('b1').classList.add('show');
+      document.getElementById('hint').textContent='TAP FOR HER ANSWER';
+    } else if(step===1){ step=2;
+      capture('openingnight_yes_reached');
+      document.getElementById('b1').classList.remove('show');
+      document.getElementById('flash').classList.add('on');
+      document.getElementById('bigyes').classList.add('on');
+      document.getElementById('h1').style.animation='floatheart 1.4s ease-out forwards';
+      document.getElementById('h2').style.animation='floatheart 1.4s ease-out .2s forwards';
+      document.getElementById('h3').style.animation='floatheart 1.4s ease-out .4s forwards';
+      document.getElementById('cap').textContent='Soaked. Laughing. Official. She said yes at the crosswalk that started everything.';
+      burst();
+      document.getElementById('hint').textContent='TAP TO CONTINUE';
+    } else { next(); }
+  });
+}
+
+/* ---------- 8: INTERSTITIAL - not the plan, still perfect ---------- */
+function renderPerfect(){
+  stage.innerHTML =
+    '<div class="fcard fcard--tap fcard--rain" id="scn">'+
+      '<div class="rain" id="rainSoft"></div>'+
+      '<div class="fdots fdots--lg">'+FDOTS+'</div>'+
+      '<div class="fcard__kicker">For the record</div>'+
+      '<div class="fcard__title">Not according to plan.<br>Absolutely perfect.</div>'+
+      '<div class="fcard__note">The rain was not in the script. Neither was the ice cream. The best parts never are.</div>'+
+      '<div class="fdots">'+FDOTS+'</div>'+
+      '<div class="scene__hint">TAP FOR THE MORNING AFTER</div>'+
+    '</div>';
+  makeRain(document.getElementById('rainSoft'), 14, 1.3);
+  tap(document.getElementById('scn'), next);
+}
+
+/* ---------- 9: THE SPA - day one starts with you taken care of ---------- */
+function renderSpa(){
+  var ART =
+  '<svg viewBox="0 0 320 260" fill="none" aria-hidden="true">'+
+    /* calm wall + shelf */
+    '<rect x="36" y="44" width="110" height="8" rx="3" fill="#3f5a55" opacity=".8"/>'+
+    '<rect x="46" y="24" width="10" height="20" rx="3" fill="#88b2a8"/><rect x="64" y="18" width="10" height="26" rx="3" fill="#6a9a90"/><rect x="82" y="28" width="10" height="16" rx="3" fill="#88b2a8"/>'+
+    /* candles */
+    '<rect x="236" y="52" width="9" height="18" rx="3" fill="#f3e7cb"/><ellipse class="flicker" cx="240.5" cy="46" rx="4" ry="7" fill="#ff9d3c"/>'+
+    '<rect x="256" y="58" width="9" height="12" rx="3" fill="#f3e7cb"/><ellipse class="flicker" cx="260.5" cy="52" rx="4" ry="7" fill="#ff9d3c"/>'+
+    /* steam */
+    '<g stroke="#cfe8e0" stroke-width="4" stroke-linecap="round" fill="none">'+
+    '<path class="steam" id="st1" d="M120 96 Q114 82 122 70"/>'+
+    '<path class="steam" id="st2" d="M160 92 Q154 78 162 64"/>'+
+    '<path class="steam" id="st3" d="M200 98 Q194 84 202 72"/></g>'+
+    /* lounger */
+    '<path d="M52 168 L232 168 Q262 168 272 146 L286 146 L286 200 L52 200 Z" fill="#3a6a60"/>'+
+    '<rect x="40" y="196" width="14" height="40" rx="4" fill="#2a4a44"/><rect x="262" y="196" width="14" height="40" rx="4" fill="#2a4a44"/>'+
+    /* Josie, robe + towel + cucumbers */
+    '<ellipse cx="150" cy="150" rx="66" ry="22" fill="#f3ead7"/>'+
+    '<g transform="translate(238,138)"><circle r="15" fill="#e8b894"/>'+
+    '<path d="M-15 -3 Q-15 -17 0 -17 Q15 -17 15 -3 L13 -12 Q0 -22 -13 -12 Z" fill="#fff" opacity="0"/>'+
+    '<path d="M-16 -4 Q-14 -20 0 -19 Q14 -20 16 -4 Q16 -13 10 -16 Q0 -21 -10 -16 Q-16 -13 -16 -4 Z" fill="#f3ead7"/>'+
+    '<circle cx="-5" cy="-1" r="4.6" fill="#7fb069"/><circle cx="6" cy="-1" r="4.6" fill="#7fb069"/>'+
+    '<circle cx="-5" cy="-1" r="2" fill="#a8cf96"/><circle cx="6" cy="-1" r="2" fill="#a8cf96"/>'+
+    '<path d="M-4 8 Q0 11 4 8" stroke="#8a4a3a" stroke-width="1.8" fill="none" stroke-linecap="round"/></g>'+
+    /* tiny table w/ water */
+    '<rect x="60" y="120" width="4" height="46" fill="#2a4a44"/><ellipse cx="62" cy="118" rx="20" ry="6" fill="#3f5a55"/>'+
+    '<rect x="54" y="102" width="9" height="16" rx="2" fill="#bcd8d0" opacity=".85"/>'+
+  '</svg>';
+  stage.innerHTML =
+    '<div class="dscene dscene--spa" id="dscene">'+
+      '<div class="dscene__tag">Friday · July 3 · 9:15 AM</div>'+
+      '<div class="dscene__title">Spa Day.<br>Non-negotiable.</div>'+
+      '<div class="dscene__art"><div class="vstage">'+ART+
+        '<div class="skycue" id="cue">👆</div>'+
+        '<div class="bubble bubble--josie" id="b2" style="top:12%;right:4%">okay this is nice 🥒</div>'+
+        '<div class="bubble bubble--matt" id="b1" style="top:30%;left:4%;max-width:54%">you deserved it. I insisted.<span class="bubble__sig">Matt</span></div>'+
+      '</div></div>'+
+      '<div class="dscene__cap">Day one of being my girlfriend started at the spa. You earned it. I wasn&#8217;t taking no for an answer.</div>'+
+      '<div class="dscene__hint" id="hint">TAP TO EXHALE 🧖&#8205;&#9792;&#65039;</div>'+
+    '</div>';
+  var step=0, dscene=document.getElementById('dscene');
+  tap(dscene, function(){
+    if(step===0){ step=1;
+      var c=document.getElementById('cue'); if(c) c.remove();
+      ['st1','st2','st3'].forEach(function(id,i){
+        var el=document.getElementById(id);
+        el.classList.add('go'); el.style.animationDelay=(i*0.5)+'s';
+      });
+      setTimeout(function(){ document.getElementById('b2').classList.add('show'); }, 450);
+      setTimeout(function(){ document.getElementById('b1').classList.add('show'); }, 1000);
+      document.getElementById('hint').textContent='TAP TO CONTINUE';
+    } else { next(); }
+  });
+}
+
+/* ---------- 10: BRUNCH - the first toast as a couple ---------- */
+function renderBrunch(){
+  var ART =
+  '<svg viewBox="0 0 320 240" fill="none" aria-hidden="true">'+
+    /* sunny window */
+    '<rect x="112" y="18" width="96" height="66" rx="6" fill="#f4e3b2" opacity=".55"/>'+
+    '<line x1="160" y1="20" x2="160" y2="82" stroke="#5a3a26" stroke-width="3" opacity=".6"/>'+
+    '<rect x="112" y="18" width="96" height="66" rx="6" fill="none" stroke="#5a3a26" stroke-width="4" opacity=".7"/>'+
+    /* table */
+    '<rect x="0" y="176" width="320" height="64" fill="#3a241a"/><ellipse cx="160" cy="176" rx="150" ry="20" fill="#f3e7cb"/>'+
+    /* pancake stack */
+    '<g transform="translate(160,158)">'+
+    '<ellipse cx="0" cy="10" rx="36" ry="10" fill="#c98a3e"/><ellipse cx="0" cy="3" rx="34" ry="10" fill="#e0a94f"/>'+
+    '<ellipse cx="0" cy="-4" rx="32" ry="10" fill="#c98a3e"/><ellipse cx="0" cy="-11" rx="30" ry="10" fill="#e0a94f"/>'+
+    '<ellipse cx="0" cy="-15" rx="22" ry="6" fill="#a85f22"/>'+
+    '<rect x="-4" y="-26" width="8" height="9" rx="2" fill="#f4d27a"/></g>'+
+    /* mimosas */
+    '<g class="glassclink l" id="gL"><path d="M96 118 Q110 118 110 132 Q110 148 103 152 L103 166 L96 166 L96 152 Q89 148 89 132 Q89 118 96 118 Z" fill="#f4c542" opacity=".9" transform="translate(3,0)"/>'+
+    '<line x1="99" y1="166" x2="99" y2="172" stroke="#e3d3a8" stroke-width="3"/><ellipse cx="99" cy="173" rx="10" ry="3" fill="#e3d3a8"/></g>'+
+    '<g class="glassclink r" id="gR"><path d="M221 118 Q235 118 235 132 Q235 148 228 152 L228 166 L221 166 L221 152 Q214 148 214 132 Q214 118 221 118 Z" fill="#f4c542" opacity=".9"/>'+
+    '<line x1="224" y1="166" x2="224" y2="172" stroke="#e3d3a8" stroke-width="3"/><ellipse cx="224" cy="173" rx="10" ry="3" fill="#e3d3a8"/></g>'+
+    /* the two of them */
+    '<g transform="translate(64,152)"><rect x="-16" y="0" width="32" height="28" rx="12" fill="#3a4a6a"/></g>'+
+    '<g transform="translate(64,136)">'+MAN_HEAD+'</g>'+
+    '<g transform="translate(256,152)"><rect x="-15" y="0" width="30" height="28" rx="12" fill="#7a4a3a"/></g>'+
+    '<g transform="translate(256,136) scale(.96)">'+WOMAN_HEAD+'</g>'+
+  '</svg>';
+  stage.innerHTML =
+    '<div class="dscene dscene--brunch" id="dscene">'+
+      '<div class="dscene__tag">Still July 3</div>'+
+      '<div class="dscene__title">First Brunch<br>On The Books</div>'+
+      '<div class="dscene__art"><div class="vstage">'+ART+
+        '<div class="spark" id="spark" style="left:48%;top:42%">✨</div>'+
+        '<div class="bubble bubble--matt" id="b1" style="top:8%;max-width:60%">to us. that&#8217;s a thing I get to say now.<span class="bubble__sig">Matt</span></div>'+
+        '<div class="bubble bubble--josie" id="b2" style="top:30%;right:4%">to us 🥂</div>'+
+      '</div></div>'+
+      '<div class="dscene__cap">Post-spa brunch. We had a brand new thing to toast to.</div>'+
+      '<div class="dscene__hint" id="hint">TAP TO CHEERS 🥂</div>'+
+    '</div>';
+  var step=0, dscene=document.getElementById('dscene');
+  tap(dscene, function(){
+    if(step===0){ step=1;
+      document.getElementById('gL').classList.add('go');
+      document.getElementById('gR').classList.add('go');
+      document.getElementById('spark').classList.add('go');
+      document.getElementById('b1').classList.add('show');
+      setTimeout(function(){ document.getElementById('b2').classList.add('show'); }, 420);
+      document.getElementById('hint').textContent='TAP TO CONTINUE';
+    } else { next(); }
+  });
+}
+
+/* ---------- 11: THE WAND SHOP - Matt nerds out ---------- */
+function renderPotter(){
+  var ART =
+  '<svg viewBox="0 0 320 260" fill="none" aria-hidden="true">'+
+    /* shelves of wand boxes */
+    '<g fill="#4a3320"><rect x="20" y="30" width="120" height="8"/><rect x="20" y="76" width="120" height="8"/><rect x="20" y="122" width="120" height="8"/></g>'+
+    '<g fill="#6a4a2a"><rect x="26" y="42" width="34" height="34" rx="2"/><rect x="66" y="46" width="34" height="30" rx="2"/><rect x="104" y="40" width="30" height="36" rx="2"/>'+
+    '<rect x="30" y="88" width="30" height="34" rx="2"/><rect x="66" y="92" width="36" height="30" rx="2"/><rect x="106" y="86" width="28" height="36" rx="2"/></g>'+
+    '<g fill="#8a6a3a" opacity=".7"><rect x="26" y="134" width="40" height="30" rx="2"/><rect x="72" y="138" width="30" height="26" rx="2"/><rect x="108" y="132" width="26" height="32" rx="2"/></g>'+
+    /* hanging scarf, house colors */
+    '<g transform="translate(268,26)"><rect x="-9" y="0" width="18" height="86" rx="4" fill="#7d2019"/>'+
+    '<rect x="-9" y="14" width="18" height="9" fill="#cba14a"/><rect x="-9" y="36" width="18" height="9" fill="#cba14a"/><rect x="-9" y="58" width="18" height="9" fill="#cba14a"/>'+
+    '<g stroke="#7d2019" stroke-width="3"><line x1="-6" y1="86" x2="-6" y2="96"/><line x1="0" y1="86" x2="0" y2="96"/><line x1="6" y1="86" x2="6" y2="96"/></g></g>'+
+    /* the snitch (flies on tap) */
+    '<g class="snitch" id="snitch" transform="translate(220,150)">'+
+    '<circle r="7" fill="#f1d986"/><circle r="7" fill="none" stroke="#a87f2e" stroke-width="1.6"/>'+
+    '<path d="M-7 -2 Q-22 -10 -26 -2 Q-20 2 -7 2 Z" fill="#f6eed7" opacity=".9"/>'+
+    '<path d="M7 -2 Q22 -10 26 -2 Q20 2 7 2 Z" fill="#f6eed7" opacity=".9"/></g>'+
+    /* counter */
+    '<rect x="0" y="196" width="320" height="64" fill="#2b1a10"/><rect x="0" y="190" width="320" height="9" fill="#4a3320"/>'+
+    /* Matt mid-lecture with wand */
+    '<g transform="translate(96,168)"><rect x="-16" y="0" width="32" height="30" rx="12" fill="#3a4a6a"/></g>'+
+    '<g transform="translate(96,152)">'+MAN_HEAD+'</g>'+
+    '<line x1="112" y1="166" x2="146" y2="140" stroke="#5a3a26" stroke-width="5" stroke-linecap="round"/>'+
+    '<circle class="wandtip" id="wandtip" cx="149" cy="138" r="5" fill="#f1d986"/>'+
+    /* Josie, charmed, mostly by him */
+    '<g transform="translate(216,168)"><rect x="-15" y="0" width="30" height="30" rx="12" fill="#7a4a3a"/></g>'+
+    '<g transform="translate(216,152)">'+WOMAN_HEAD+'</g>'+
+  '</svg>';
+  stage.innerHTML =
+    '<div class="dscene dscene--potter" id="dscene">'+
+      '<div class="dscene__tag">The One Where He Nerded Out</div>'+
+      '<div class="dscene__title">The Wand<br>Chooses, Josie</div>'+
+      '<div class="dscene__art"><div class="vstage" id="vstage">'+ART+
+        '<div class="sparklelayer" id="sparkLayer"></div>'+
+        '<div class="skycue" id="cue">👆</div>'+
+        '<div class="bubble bubble--matt" id="b1" style="top:6%;max-width:70%">okay so the wand chooses the wizard, and don&#8217;t get me started on the Hogwarts Express…<span class="bubble__sig">Matt</span></div>'+
+        '<div class="bubble bubble--josie" id="b2" style="top:34%;right:3%">tell me everything 🪄</div>'+
+      '</div></div>'+
+      '<div class="dscene__cap">Two days of me talking about trains, trees, and Harry Potter. You made it look like a good time.</div>'+
+      '<div class="dscene__hint" id="hint">TAP TO CAST ✨</div>'+
+    '</div>';
+  var step=0, dscene=document.getElementById('dscene');
+  tap(dscene, function(){
+    if(step===0){ step=1;
+      var c=document.getElementById('cue'); if(c) c.remove();
+      document.getElementById('wandtip').classList.add('go');
+      document.getElementById('snitch').classList.add('go');
+      sparkles(document.getElementById('sparkLayer'), '46%', '52%');
+      setTimeout(function(){ document.getElementById('b1').classList.add('show'); }, 750);
+      setTimeout(function(){ document.getElementById('b2').classList.add('show'); }, 1450);
+      document.getElementById('hint').textContent='TAP TO CONTINUE';
+    } else { next(); }
+  });
+}
+
+/* ---------- 12: TRE DITA - the brown dress ---------- */
+function renderTreDita(){
+  var ART =
+  '<svg viewBox="0 0 320 260" fill="none" aria-hidden="true">'+
+    /* skyline out the window */
+    '<g fill="#1a1226" opacity=".9"><rect x="24" y="34" width="24" height="70"/><rect x="54" y="20" width="18" height="84"/><rect x="78" y="44" width="28" height="60"/><rect x="112" y="30" width="16" height="74"/></g>'+
+    '<g fill="#e7c878" opacity=".55"><rect x="30" y="44" width="4" height="5"/><rect x="40" y="66" width="4" height="5"/><rect x="60" y="32" width="4" height="5"/><rect x="86" y="54" width="4" height="5"/><rect x="118" y="40" width="4" height="5"/></g>'+
+    '<rect x="16" y="12" width="120" height="98" rx="4" fill="none" stroke="#5a3a26" stroke-width="5"/>'+
+    /* table set for two */
+    '<rect x="0" y="196" width="320" height="64" fill="#20100a"/><ellipse cx="160" cy="196" rx="150" ry="20" fill="#f3e7cb"/>'+
+    '<circle cx="104" cy="188" r="15" fill="#fff" opacity=".9"/><circle cx="104" cy="188" r="15" fill="none" stroke="#cba14a" stroke-width="1.6"/>'+
+    '<circle cx="216" cy="188" r="15" fill="#fff" opacity=".9"/><circle cx="216" cy="188" r="15" fill="none" stroke="#cba14a" stroke-width="1.6"/>'+
+    '<rect x="156" y="158" width="8" height="26" rx="3" fill="#f3e7cb"/><ellipse class="flicker" id="candle" cx="160" cy="150" rx="6" ry="11" fill="#ff9d3c"/>'+
+    /* Josie standing, THE brown dress */
+    '<g transform="translate(236,120)">'+
+      '<g transform="translate(0,0)">'+WOMAN_HEAD+'</g>'+
+      '<path d="M-11 12 L11 12 L22 84 L-22 84 Z" fill="#6e4a2f"/>'+
+      '<path d="M-11 12 L11 12 L14 36 L-14 36 Z" fill="#7d5636"/>'+
+      '<line x1="-13" y1="20" x2="-19" y2="48" stroke="#e8b894" stroke-width="6" stroke-linecap="round"/>'+
+      '<line x1="13" y1="20" x2="19" y2="48" stroke="#e8b894" stroke-width="6" stroke-linecap="round"/>'+
+    '</g>'+
+    /* Matt at the table, done for */
+    '<g transform="translate(84,168)"><rect x="-16" y="0" width="32" height="30" rx="12" fill="#26303f"/></g>'+
+    '<g transform="translate(84,152)">'+MAN_HEAD+'</g>'+
+  '</svg>';
+  stage.innerHTML =
+    '<div class="dscene dscene--tredita" id="dscene">'+
+      '<div class="dscene__tag">July 3 · Tre Dita</div>'+
+      '<div class="dscene__title">The Brown<br>Dress</div>'+
+      '<div class="dscene__art"><div class="vstage">'+ART+
+        '<div class="spotlight"></div>'+
+        '<div class="heart" id="h1" style="left:34%;top:44%">❤️</div>'+
+        '<div class="bubble bubble--matt" id="b1" style="top:32%;left:4%;max-width:52%">You look amazing.<span class="bubble__sig">Matt</span></div>'+
+        '<div class="bubble bubble--josie" id="b2" style="top:14%;right:4%">this old thing ;)</div>'+
+      '</div></div>'+
+      '<div class="dscene__cap" id="cap">First dinner as an official couple, and you walked in wearing the brown dress. I lost my train of thought. Worth it.</div>'+
+      '<div class="dscene__hint" id="hint">TAP FOR THE CANDLELIGHT 🕯️</div>'+
+    '</div>';
+  var step=0, dscene=document.getElementById('dscene');
+  tap(dscene, function(){
+    if(step===0){ step=1;
+      document.getElementById('b1').classList.add('show');
+      document.getElementById('h1').style.animation='floatheart 1.4s ease-out .3s forwards';
+      setTimeout(function(){ document.getElementById('b2').classList.add('show'); }, 700);
+      document.getElementById('hint').textContent='TAP TO CONTINUE';
+    } else { next(); }
+  });
+}
+
+/* ---------- 13: THE LETTER ---------- */
+function renderLetter(){
+  capture('openingnight_finale');
+  stage.innerHTML =
+    '<div class="reveal">'+
+      '<div class="reveal__k">KEEP THIS STUB</div>'+
+      '<div class="reveal__lead">One more thing, and then the credits.</div>'+
+      '<div class="ticket">'+
+        '<div class="ticket__brand">the residency presents</div>'+
+        '<div class="ticket__day">OPENING NIGHT</div>'+
+        '<div class="ticket__sub">JUL 2-3 2026 · CHICAGO · ADMIT TWO</div>'+
+        '<div class="ticket__perf"></div>'+
+        '<div class="letterbody">'+
+          '<p>Josie,</p>'+
+          '<p>None of it has gone according to plan. It has gone better. A lot of unexpected, a lot of right place at the right time, and one rainstorm at the exact right crosswalk.</p>'+
+          '<p>I am so happy you are in my life. You have really added to it.</p>'+
+          '<span class="sig">yours, Matt</span>'+
+        '</div>'+
+        '<div class="ticket__fine">NO REFUNDS · NO LAST SHOW · DASH RETAINS VETO RIGHTS</div>'+
+      '</div>'+
+      '<div class="btnrow">'+
+        '<a class="btn btn--big pulse" href="/?tours" id="toPassport">back to the passport →</a>'+
+        '<button class="btn btn--ghost" id="replay">replay opening night ↺</button>'+
+      '</div>'+
+    '</div>';
+  burst();
+  tap(document.getElementById('toPassport'), function(){ capture('openingnight_to_passport'); });
+  tap(document.getElementById('replay'), function(){ capture('openingnight_replay'); sceneIdx=0; render(); });
+}
+
+render();
+</script>
+</body>
+</html>
