@@ -80,3 +80,10 @@ Same public PostHog token. Events: `openingnight_scene` {scene},
 
 - Door caption says Chicago, not Illinois.
 - The two-houses scene was removed at Matt's request; the reel is 12 scenes.
+- Cold open added before the title card: the Love Is Blind interview chair,
+  'what do you want' / 'I want to be somebody to someone because of who I am,
+  and I hope that person is here', with the handwritten aside that because of
+  LIB he'd find that person on Rainey Street. 13 scenes again.
+- Soundtrack is Someone To You by BANNERS (openingnight/song.mp3, cache-busted
+  ?v=2), started by the hub on the stamp tap (overlay pattern) or standalone on
+  first tap. It replaced One Life, which shipped earlier the same day.

@@ -77,6 +77,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
   box-shadow:0 24px 60px rgba(0,0,0,.5);border:1px solid rgba(231,200,120,.25);cursor:pointer;
   background:radial-gradient(58% 46% at 50% 60%, #5a3320 0%, #34190f 52%, #1a0c08 100%);}
 .dscene--door{background:linear-gradient(180deg,#25314e 0%,#3a3350 40%,#4a2c28 100%)}
+.dscene--lib{background:radial-gradient(70% 55% at 50% 40%, #2c2440 0%, #1c1730 55%, #0e0b1a 100%)}
 .dscene--armands{background:radial-gradient(58% 46% at 50% 58%, #4a2418 0%, #2c130d 55%, #170a06 100%)}
 .dscene--icecream{background:linear-gradient(180deg,#2a3a56 0%,#3c3a58 55%,#2c2338 100%)}
 .dscene--flashback{background:linear-gradient(180deg,#3a3226 0%,#2c2118 55%,#1a120c 100%)}
@@ -120,6 +121,14 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 .rain--window{z-index:2;border-radius:8px}
 .puddleshine{position:absolute;left:12%;right:12%;bottom:8%;height:8px;border-radius:50%;z-index:3;
   background:radial-gradient(50% 100% at 50% 50%, rgba(169,198,226,.28), transparent 70%);pointer-events:none}
+
+/* the handwritten aside on the cold open */
+.dscene--lib .dscene__art{margin-bottom:76px}
+.libnote{position:absolute;left:16px;right:16px;bottom:32px;z-index:6;text-align:center;
+  font-family:'Caveat',cursive;font-weight:700;font-size:clamp(19px,5.4vw,24px);line-height:1.15;
+  color:var(--gold-2);transform:rotate(-1.5deg);text-shadow:0 2px 14px rgba(0,0,0,.7);
+  opacity:0;transition:opacity .7s ease .5s}
+.libnote.show{opacity:1}
 
 /* ---- flashback treatment ---- */
 .dscene--flashback .vstage{filter:sepia(.65) contrast(.92) brightness(.92)}
@@ -238,7 +247,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
   <div class="prog" id="prog"><i></i><i></i><i></i><i></i></div>
   <div class="stage" id="stage"></div>
 </div>
-<audio id="onsong" loop preload="none" src="song.mp3"></audio>
+<audio id="onsong" loop preload="none" src="song.mp3?v=2"></audio>
 
 <script>
 /* ============================================================
@@ -339,8 +348,8 @@ function sparkles(layer, cx, cy){
 }
 
 /* ===================== the scene reel ===================== */
-var SCENES = ['title','door','armands','icecream','flashback','crosswalk','perfect','spa','brunch','potter','tredita','letter'];
-var PHASE  = { title:0, door:0, armands:0, icecream:0, flashback:1, crosswalk:1, perfect:1, spa:2, brunch:2, potter:2, tredita:2, letter:3 };
+var SCENES = ['lib','title','door','armands','icecream','flashback','crosswalk','perfect','spa','brunch','potter','tredita','letter'];
+var PHASE  = { lib:0, title:0, door:0, armands:0, icecream:0, flashback:1, crosswalk:1, perfect:1, spa:2, brunch:2, potter:2, tredita:2, letter:3 };
 var sceneIdx = 0;
 
 function render(){
@@ -348,12 +357,70 @@ function render(){
   setProg(PHASE[name]);
   capture('openingnight_scene', { scene: name, index: sceneIdx });
   window.scrollTo(0, 0);
-  ({ title: renderTitle, door: renderDoor, armands: renderArmands,
+  ({ lib: renderLIB, title: renderTitle, door: renderDoor, armands: renderArmands,
      icecream: renderIceCream, flashback: renderFlashback, crosswalk: renderCrosswalk,
      perfect: renderPerfect, spa: renderSpa, brunch: renderBrunch, potter: renderPotter,
      tredita: renderTreDita, letter: renderLetter })[name]();
 }
 function next(){ sceneIdx = Math.min(sceneIdx+1, SCENES.length-1); render(); }
+
+/* ---------- 0: COLD OPEN - the Love Is Blind interview ---------- */
+function renderLIB(){
+  var ART =
+  '<svg viewBox="0 0 320 260" fill="none" aria-hidden="true">'+
+    /* set bokeh */
+    '<g fill="#e7c878"><circle cx="42" cy="46" r="7" opacity=".28"/><circle cx="84" cy="24" r="5" opacity=".2"/>'+
+    '<circle cx="252" cy="34" r="6" opacity=".25"/><circle cx="290" cy="66" r="8" opacity=".18"/>'+
+    '<circle cx="24" cy="96" r="5" opacity=".16"/><circle cx="300" cy="118" r="5" opacity=".14"/></g>'+
+    '<g fill="#7f9fdd"><circle cx="126" cy="30" r="4" opacity=".22"/><circle cx="212" cy="20" r="5" opacity=".18"/>'+
+    '<circle cx="58" cy="70" r="4" opacity=".18"/><circle cx="272" cy="92" r="4" opacity=".16"/></g>'+
+    /* floor */
+    '<rect x="0" y="204" width="320" height="56" fill="#141021"/>'+
+    '<ellipse cx="186" cy="206" rx="96" ry="12" fill="#241c3a" opacity=".8"/>'+
+    /* softbox light, stage left */
+    '<g opacity=".92"><line x1="272" y1="204" x2="272" y2="96" stroke="#2c2440" stroke-width="6"/>'+
+    '<rect x="248" y="66" width="48" height="36" rx="5" fill="#efe3cc" transform="rotate(-18 272 84)"/>'+
+    '<path d="M262 96 L196 176 L262 176 Z" fill="#f1d986" opacity=".1"/></g>'+
+    /* camera on tripod, stage right, aimed at the chair */
+    '<g stroke="#2c2440" stroke-width="6" stroke-linecap="round"><line x1="52" y1="204" x2="70" y2="150"/><line x1="88" y1="204" x2="72" y2="150"/><line x1="70" y1="204" x2="71" y2="152"/></g>'+
+    '<rect x="52" y="122" width="42" height="30" rx="5" fill="#1c1730" stroke="#3a3054" stroke-width="2"/>'+
+    '<circle cx="98" cy="137" r="9" fill="#0e0b1a" stroke="#3a3054" stroke-width="2"/>'+
+    '<circle cx="60" cy="118" r="3.4" fill="#c0303a"/>'+
+    /* the interview chair + Matt */
+    '<g stroke="#5a3a26" stroke-width="5" stroke-linecap="round"><line x1="168" y1="204" x2="172" y2="164"/><line x1="212" y1="204" x2="206" y2="164"/></g>'+
+    '<rect x="160" y="158" width="56" height="12" rx="5" fill="#6a4a2a"/>'+
+    '<rect x="206" y="106" width="12" height="58" rx="5" fill="#6a4a2a"/>'+
+    '<g transform="translate(182,150)"><rect x="-16" y="-24" width="32" height="40" rx="12" fill="#26303f"/></g>'+
+    '<g transform="translate(182,110)">'+MAN_HEAD+'</g>'+
+    '<rect x="170" y="164" width="34" height="12" rx="6" fill="#3a4a6a"/>'+
+    /* lower-third chyron */
+    '<g><rect x="18" y="222" width="142" height="26" rx="4" fill="#e7c878"/>'+
+    '<text x="26" y="240" font-family="Arial Narrow, sans-serif" font-weight="bold" font-size="14" letter-spacing="1" fill="#1c1730">MATT &#183; AUSTIN, TX</text></g>'+
+  '</svg>';
+  stage.innerHTML =
+    '<div class="dscene dscene--lib" id="dscene">'+
+      '<div class="dscene__tag">Cold Open &#183; Love Is Blind</div>'+
+      '<div class="dscene__title">The Interview</div>'+
+      '<div class="rewindtag" style="top:64px">&#9668;&#9668; REWIND &#183; WHERE IT STARTED</div>'+
+      '<div class="dscene__art"><div class="vstage">'+ART+
+        '<div class="filmlines"></div>'+
+        '<div class="bubble bubble--think" id="b1" style="left:2%;right:auto;max-width:44%;top:auto;bottom:34%">so, Matt&hellip; what do you want?</div>'+
+        '<div class="bubble bubble--matt" id="b2" style="top:2%;left:auto;right:3%;max-width:68%;--orig:bottom right">I want to be somebody to someone because of who I am&hellip; and I hope that person is here.<span class="bubble__sig">Matt</span></div>'+
+      '</div></div>'+
+      '<div class="libnote" id="libnote">little did I know: because of Love Is Blind, I&#8217;d find that person&hellip; on Rainey Street.</div>'+
+      '<div class="dscene__hint" id="hint">TAP FOR HIS ANSWER</div>'+
+    '</div>';
+  showLater('b1', 600);
+  var step=0, dscene=document.getElementById('dscene');
+  tap(dscene, function(){
+    if(step===0){ step=1;
+      document.getElementById('b1').classList.add('show');
+      showLater('b2', 250);
+      showLater('libnote', 1400);
+      document.getElementById('hint').textContent='TAP TO CONTINUE';
+    } else { next(); }
+  });
+}
 
 /* ---------- 1: TITLE CARD ---------- */
 function renderTitle(){
