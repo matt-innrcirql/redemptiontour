@@ -424,8 +424,8 @@ function makeMovieCalloutTexture() {
     ctx.fillStyle = COLORS.goldBright;
     ctx.font = '900 78px Courier New, monospace';
     trackedText(ctx, 'JOSIE', 550, 120, 16);
-    ctx.font = '900 78px Playfair Display, Georgia, serif';
-    ctx.fillText('TAP THE MOVIE', 550, 196);
+    ctx.font = '900 76px Playfair Display, Georgia, serif';
+    ctx.fillText('TAP THE NEW ONE', 550, 196);
 
     ctx.strokeStyle = COLORS.goldBright;
     ctx.fillStyle = COLORS.goldBright;
@@ -626,15 +626,20 @@ openShadow.scale.set(1, 0.9, 1);
 openGroup.add(openShadow, leftPage, rightPage, gutter, stampGroup);
 
 const stampMeshes = [];
-const stampPositions = [
-  [-2.28, 1.66, 0.14],
+// Stamps live on the right page only now, three per page, newest first;
+// the identity page stays readable and extra stamps sit behind a page flip.
+const RIGHT_SLOTS = [
   [2.28, 1.66, 0.14],
-  [-2.28, 0.22, 0.15],
   [2.28, 0.22, 0.15],
-  [-2.28, -1.22, 0.16],
   [2.28, -1.22, 0.16],
-  [-2.28, -2.42, 0.17],
 ];
+const STAMPS_PER_PAGE = RIGHT_SLOTS.length;
+let stampPage = 0;
+let pageFlip = null;
+
+function pageCount() {
+  return Math.max(1, Math.ceil(destinations.length / STAMPS_PER_PAGE));
+}
 
 function clearStampMeshes() {
   for (const mesh of stampMeshes) {
@@ -648,8 +653,11 @@ function clearStampMeshes() {
 
 function buildStampMeshes() {
   clearStampMeshes();
-  destinations.forEach((destination, index) => {
-    const [x, y, z] = stampPositions[index] || [0, 0, 0.18];
+  stampPage = Math.min(stampPage, pageCount() - 1);
+  const order = [...destinations].reverse();
+  const pageStamps = order.slice(stampPage * STAMPS_PER_PAGE, stampPage * STAMPS_PER_PAGE + STAMPS_PER_PAGE);
+  pageStamps.forEach((destination, index) => {
+    const [x, y, z] = RIGHT_SLOTS[index];
     const mesh = new THREE.Mesh(
       new THREE.PlaneGeometry(2.42, 1.26),
       new THREE.MeshStandardMaterial({
@@ -670,7 +678,70 @@ function buildStampMeshes() {
     stampGroup.add(mesh);
     stampMeshes.push(mesh);
   });
+  updateFlipTab();
 }
+
+function makeFlipTabTexture() {
+  return makeTexture(780, 250, (ctx, w, h) => {
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = 'rgba(93,26,28,.96)';
+    ctx.strokeStyle = COLORS.goldBright;
+    ctx.lineWidth = 10;
+    ctx.lineJoin = 'round';
+    roundedRect(ctx, 14, 14, w - 28, h - 28, 30);
+    ctx.fill();
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(241,217,134,.45)';
+    ctx.lineWidth = 4;
+    roundedRect(ctx, 38, 38, w - 76, h - 76, 22);
+    ctx.stroke();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = COLORS.goldBright;
+    ctx.font = '900 62px Playfair Display, Georgia, serif';
+    ctx.fillText('MORE STAMPS ▸', w / 2, 102);
+    ctx.font = '700 30px Courier New, monospace';
+    trackedText(ctx, `PAGE ${stampPage + 1} OF ${pageCount()} - TAP TO FLIP`, w / 2, 172, 6);
+  });
+}
+
+const flipTab = new THREE.Mesh(
+  new THREE.PlaneGeometry(2.5, 0.8),
+  new THREE.MeshStandardMaterial({
+    map: makeFlipTabTexture(),
+    transparent: true,
+    roughness: 0.74,
+    metalness: 0.02,
+    side: THREE.DoubleSide,
+    depthWrite: false,
+  })
+);
+flipTab.renderOrder = 17;
+flipTab.position.set(2.35, -2.6, 0.2);
+flipTab.rotation.z = THREE.MathUtils.degToRad(-2);
+flipTab.userData.flip = true;
+flipTab.userData.base = flipTab.position.clone();
+stampGroup.add(flipTab);
+
+function updateFlipTab() {
+  if (flipTab.material.map) flipTab.material.map.dispose();
+  flipTab.material.map = makeFlipTabTexture();
+  flipTab.material.needsUpdate = true;
+  flipTab.visible = pageCount() > 1;
+}
+
+function flipPage() {
+  if (pageFlip || pageCount() < 2) return;
+  capture('passport_page_flipped', { to: (stampPage + 1) % pageCount() });
+  if (reducedMotion) {
+    stampPage = (stampPage + 1) % pageCount();
+    buildStampMeshes();
+    animate(performance.now());
+    return;
+  }
+  pageFlip = { start: performance.now(), swapped: false };
+}
+
 buildStampMeshes();
 
 const movieCallout = new THREE.Group();
@@ -686,13 +757,13 @@ const movieCalloutSign = new THREE.Mesh(
   })
 );
 movieCalloutSign.renderOrder = 18;
-movieCalloutSign.userData.destination = destinations[0];
+movieCalloutSign.userData.destination = OPENING_NIGHT;
 movieCallout.add(movieCalloutSign);
-movieCallout.position.set(-1.34, 2.43, 0.48);
+movieCallout.position.set(2.55, 2.43, 0.48);
 movieCallout.rotation.z = THREE.MathUtils.degToRad(-5);
 movieCallout.userData.base = movieCallout.position.clone();
 movieCallout.userData.baseScale = 1;
-movieCallout.userData.mobileBase = new THREE.Vector3(-1.02, 2.42, 0.72);
+movieCallout.userData.mobileBase = new THREE.Vector3(1.12, 2.42, 0.72);
 movieCallout.userData.mobileScale = 1.42;
 stampGroup.add(movieCallout);
 
@@ -898,7 +969,7 @@ function screenRay(event) {
 
 function raycastInteractive(event) {
   screenRay(event);
-  const objects = opened ? [...stampMeshes, movieCalloutSign] : [coverHit];
+  const objects = opened ? [...stampMeshes, movieCalloutSign, flipTab] : [coverHit];
   const hit = raycaster.intersectObjects(objects, false)[0];
   return hit ? hit.object : null;
 }
@@ -940,6 +1011,10 @@ canvas.addEventListener('pointerdown', (event) => {
   const hit = raycastInteractive(event);
   if (!opened) {
     openPassport();
+    return;
+  }
+  if (hit && hit.userData.flip) {
+    flipPage();
     return;
   }
   if (hit && hit.userData.destination) activateDestination(hit.userData.destination);
@@ -1052,6 +1127,7 @@ function animate(now) {
     mesh.material.emissive.setHex(hovered === mesh ? 0x2d2106 : 0x000000);
     mesh.material.emissiveIntensity = hovered === mesh ? 0.2 : 0;
   });
+  movieCallout.visible = stampPage === 0;
   const calloutBase = new THREE.Vector3().lerpVectors(movieCallout.userData.base, movieCallout.userData.mobileBase, mobileMix);
   movieCallout.position.x = calloutBase.x;
   movieCallout.position.y = calloutBase.y + Math.sin(t * 1.2) * (compact ? 0.05 : 0.035);
@@ -1059,6 +1135,27 @@ function animate(now) {
   movieCallout.rotation.z = THREE.MathUtils.degToRad(-5) + Math.sin(t * 0.9) * 0.018;
   const calloutScale = THREE.MathUtils.lerp(movieCallout.userData.baseScale, movieCallout.userData.mobileScale, mobileMix);
   movieCallout.scale.setScalar(calloutScale * (1 + Math.sin(t * 2.0) * 0.035));
+
+  // page-flip: swing the stamp layer around the gutter, swap stamps mid-turn
+  if (pageFlip) {
+    const p = (performance.now() - pageFlip.start) / 480;
+    if (p >= 1) {
+      stampGroup.rotation.y = 0;
+      pageFlip = null;
+    } else if (p < 0.5) {
+      stampGroup.rotation.y = -(p * 2) * 0.9;
+    } else {
+      if (!pageFlip.swapped) {
+        stampPage = (stampPage + 1) % pageCount();
+        buildStampMeshes();
+        pageFlip.swapped = true;
+      }
+      stampGroup.rotation.y = -(1 - (p - 0.5) * 2) * 0.9;
+    }
+  }
+  flipTab.position.y = flipTab.userData.base.y + Math.sin(t * 1.3) * 0.03;
+  flipTab.scale.setScalar(1 + Math.sin(t * 2.2) * 0.03);
+  flipTab.material.opacity = (0.86 + Math.sin(t * 2.2) * 0.1) * openProgress;
 
   particles.rotation.y = Math.sin(t * 0.08) * 0.11 + openProgress * 0.06;
   particles.rotation.x = Math.sin(t * 0.05) * 0.035;
