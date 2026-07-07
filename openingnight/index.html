@@ -199,6 +199,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 .wtile.correct{background:linear-gradient(180deg,var(--gold-2),var(--gold-deep));color:#3a1416;border-color:var(--gold-2)}
 .wtile.present{background:#2a6b63;border-color:#3f8f84;color:#eafaf6}
 .wtile.absent{background:rgba(58,56,68,.9);border-color:rgba(58,56,68,.9);color:#b3b0be}
+.wtile--sm{width:26px;height:34px;font-size:14px;border-width:1.5px;border-radius:4px}
+.wgap{margin-left:9px}
 .wreact{min-height:18px;text-align:center;font-size:12px;font-style:italic;color:var(--gold-2)}
 .wkbd{width:100%;max-width:390px;display:flex;flex-direction:column;gap:5px}
 .wkrow{display:flex;gap:4px;justify-content:center}
@@ -988,7 +990,7 @@ function renderGame(){
   var ROUNDS = [
     { word:'PIZZA', clue:'Round 1 of 5: dinner, back at the scene of the crime.', win:'deep dish redemption.' },
     { word:'SCOOP', clue:'Round 2 of 5: it started pouring, so naturally we walked out and got one.', win:'priorities. always.' },
-    { word:'MAGIC', clue:'Round 3 of 5: what I would not stop explaining at the wand shop.', win:'the wand chooses, Josie.' },
+    { word:'HARRYPOTTER', gap:5, clue:'Round 3 of 5: what I talked about for two days straight. two words.', win:'the boy who lived. the guy who would not shut up about him.' },
     { word:'DRESS', clue:'Round 4 of 5: brown. devastating. worn by you at Tre Dita.', win:'I still think about it.' },
     { word:'YES',   clue:'Final round: the only word that mattered at the crosswalk.', win:'' }
   ];
@@ -1059,7 +1061,8 @@ function renderGame(){
   }
   function buildRound(){
     var r=ROUNDS[round];
-    var tries = r.word.length===3 ? 4 : 5;
+    var tries = r.word.length===3 ? 4 : (r.word.length>7 ? 4 : 5);
+    var small = r.word.length>7;
     rowIdx=0; cur=''; locked=false; keyState={};
     clueEl.innerHTML = r.clue;
     react.innerHTML = round===0 ? 'type with the keys below' : '';
@@ -1067,7 +1070,9 @@ function renderGame(){
     for(var i=0;i<tries;i++){
       var row=document.createElement('div'); row.className='wrow'; row.dataset.row=i;
       for(var j=0;j<r.word.length;j++){
-        var t=document.createElement('div'); t.className='wtile'; row.appendChild(t);
+        var t=document.createElement('div');
+        t.className='wtile'+(small?' wtile--sm':'')+(r.gap && j===r.gap?' wgap':'');
+        row.appendChild(t);
       }
       grid.appendChild(row);
     }
@@ -1100,7 +1105,7 @@ function renderGame(){
       if(cur.length!==r.word.length){
         grid.children[rowIdx].classList.add('shake');
         setTimeout(function(){ if(alive()) grid.children[rowIdx] && grid.children[rowIdx].classList.remove('shake'); }, 450);
-        react.innerHTML='needs '+r.word.length+' letters';
+        react.innerHTML = r.gap ? 'two words, '+r.word.length+' letters, no space needed' : 'needs '+r.word.length+' letters';
         return;
       }
       submit(); return;
