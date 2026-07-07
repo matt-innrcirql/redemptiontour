@@ -238,12 +238,13 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
   <div class="prog" id="prog"><i></i><i></i><i></i><i></i></div>
   <div class="stage" id="stage"></div>
 </div>
+<audio id="onsong" loop preload="none" src="song.mp3"></audio>
 
 <script>
 /* ============================================================
    Opening Night - the recap of July 2-3.
-   Night one: the door, the houses, Armand's, the rain, the ice
-   cream, the flashback, the crosswalk, the yes.
+   Night one: the door, Armand's, the rain, the ice cream,
+   the flashback, the crosswalk, the yes.
    Day one: the spa, brunch, the wand shop, Tre Dita, the letter.
    All client-side; safe on static hosting.
    ============================================================ */
@@ -253,6 +254,34 @@ var stage = document.getElementById('stage');
 var progEl = document.getElementById('prog');
 function setProg(n){ Array.prototype.forEach.call(progEl.children,function(i,k){ i.classList.toggle('on', k<=n); }); }
 function tap(el, fn){ if(el) el.addEventListener('pointerup', fn); }
+
+/* ===================== soundtrack ===================== */
+/* When the passport opens this page in its overlay (?embed=1), the hub is
+   already playing One Life from the stamp tap, so the page stays silent.
+   Standalone (residency link, direct URL) it plays its own copy: attempted
+   on load, otherwise started by the first tap the browser will honor. */
+var EMBED = /[?&]embed=1/.test(location.search) || (function(){ try { return window.self !== window.top; } catch(e){ return true; } })();
+var theSong = document.getElementById('onsong');
+function fadeSong(to, ms){
+  if(!theSong) return;
+  var from = theSong.volume || 0, steps = 24, step = 0;
+  var timer = setInterval(function(){
+    step += 1;
+    theSong.volume = Math.max(0, Math.min(1, from + (to - from) * step / steps));
+    if(step >= steps) clearInterval(timer);
+  }, ms / steps);
+}
+if(!EMBED && theSong){
+  theSong.preload = 'auto';
+  var startSong = function(){
+    if(!theSong.paused) return;
+    theSong.volume = 0;
+    var p = theSong.play();
+    if(p && p.then) p.then(function(){ fadeSong(0.85, 1500); }).catch(function(){});
+  };
+  startSong();
+  document.addEventListener('pointerup', startSong);
+}
 function showLater(id, ms){ setTimeout(function(){ var el=document.getElementById(id); if(el) el.classList.add('show'); }, ms); }
 function capture(ev,props){ if(window.posthog) window.posthog.capture(ev, props||{}); }
 var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -871,6 +900,7 @@ function renderLetter(){
       '</div>'+
     '</div>';
   burst();
+  if(EMBED) document.getElementById('toPassport').target='_top';
   tap(document.getElementById('toPassport'), function(){ capture('openingnight_to_passport'); });
   tap(document.getElementById('replay'), function(){ capture('openingnight_replay'); sceneIdx=0; render(); });
 }

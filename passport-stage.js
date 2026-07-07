@@ -3,6 +3,7 @@ import * as THREE from './vendor/three.module.js';
 const canvas = document.getElementById('passport-stage');
 const frame = document.getElementById('s4frame');
 const song = document.getElementById('s4song');
+const onSong = document.getElementById('onsong');
 const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Opening the passport leads straight into the current reveal (The Residency),
 // unless we arrived in "browse mode" (?tours) from the Past Tours button, which
@@ -450,21 +451,23 @@ function makeMovieCalloutTexture() {
   });
 }
 
-function fadeAudio(to, ms) {
-  if (!song) return;
-  const from = song.volume || 0;
+function fadeAudio(audio, to, ms) {
+  if (!audio) return;
+  const from = audio.volume || 0;
   const steps = 24;
   let step = 0;
   const timer = setInterval(() => {
     step += 1;
-    song.volume = Math.max(0, Math.min(1, from + (to - from) * step / steps));
+    audio.volume = Math.max(0, Math.min(1, from + (to - from) * step / steps));
     if (step >= steps) clearInterval(timer);
   }, ms / steps);
 }
 
-function openSeasonFour() {
+// Shared overlay: the hub owns the soundtrack (the tap here is the user
+// gesture autoplay policies require) while the experience runs in an iframe.
+function openFrameExperience(src, audio, eventName) {
   if (!frame) return;
-  capture('season_four_opened');
+  capture(eventName);
   frame.innerHTML = '';
   const close = document.createElement('button');
   close.className = 's4close';
@@ -473,28 +476,37 @@ function openSeasonFour() {
   close.setAttribute('aria-label', 'close');
   close.textContent = 'x';
   const iframe = document.createElement('iframe');
-  iframe.src = 'stars/?embed=1';
+  iframe.src = src;
   iframe.allow = 'autoplay; gyroscope; accelerometer; fullscreen';
   frame.append(close, iframe);
   frame.classList.add('show');
 
-  if (song) {
+  if (audio) {
     try {
-      song.currentTime = 0;
-      song.volume = 0;
-      const play = song.play();
-      if (play && play.then) play.then(() => fadeAudio(0.85, 1500)).catch(() => {});
+      audio.currentTime = 0;
+      audio.volume = 0;
+      const play = audio.play();
+      if (play && play.then) play.then(() => fadeAudio(audio, 0.85, 1500)).catch(() => {});
     } catch (error) {}
   }
-  close.addEventListener('click', closeSeasonFour, { once: true });
+  close.addEventListener('click', closeFrame, { once: true });
 }
 
-function closeSeasonFour() {
+function openSeasonFour() {
+  openFrameExperience('stars/?embed=1', song, 'season_four_opened');
+}
+
+function openOpeningNight() {
+  openFrameExperience('openingnight/?embed=1', onSong, 'opening_night_opened');
+}
+
+function closeFrame() {
   if (frame) {
     frame.classList.remove('show');
     setTimeout(() => { frame.innerHTML = ''; }, 500);
   }
   try { if (song) song.pause(); } catch (error) {}
+  try { if (onSong) onSong.pause(); } catch (error) {}
 }
 
 if (!canvas) {
@@ -914,6 +926,12 @@ function activateDestination(destination) {
     openSeasonFour();
     return;
   }
+  // Opening Night has its own soundtrack: start it on this tap and run the
+  // page in the overlay so the music survives (a navigation would kill it).
+  if (destination.href === 'openingnight/') {
+    openOpeningNight();
+    return;
+  }
   window.location.href = destination.href;
 }
 
@@ -936,7 +954,7 @@ canvas.addEventListener('pointermove', (event) => {
 }, { passive: true });
 
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && frame && frame.classList.contains('show')) closeSeasonFour();
+  if (event.key === 'Escape' && frame && frame.classList.contains('show')) closeFrame();
   if ((event.key === 'Enter' || event.key === ' ') && !opened) {
     event.preventDefault();
     openPassport();
