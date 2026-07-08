@@ -184,14 +184,14 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 
 /* ---- YESDLE (wordle, but it's us) ---- */
 .dscene--wordle{background:linear-gradient(180deg,#221a34 0%,#191228 55%,#0f0a1a 100%);cursor:default}
-.wwrap{position:absolute;left:10px;right:10px;top:70px;bottom:10px;z-index:7;display:flex;flex-direction:column;align-items:center;gap:7px}
+.wwrap{position:relative;z-index:7;flex:1;margin:70px 10px 10px;display:flex;flex-direction:column;align-items:center;gap:7px}
 .wclue{text-align:center;font-size:12px;font-style:italic;color:var(--gold-2);line-height:1.45;min-height:34px;padding:0 6px}
 .wgrid{display:flex;flex-direction:column;gap:5px;flex:1;justify-content:center}
 .wrow{display:flex;gap:5px;justify-content:center}
 .wrow.shake{animation:wshake .4s}
 @keyframes wshake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
-.wtile{width:44px;height:44px;display:flex;align-items:center;justify-content:center;
-  font-family:'Anton',sans-serif;font-size:22px;color:var(--cream);text-transform:uppercase;
+.wtile{width:min(44px,5.2dvh);height:min(44px,5.2dvh);display:flex;align-items:center;justify-content:center;
+  font-family:'Anton',sans-serif;font-size:min(22px,2.6dvh);color:var(--cream);text-transform:uppercase;
   border:2px solid rgba(231,200,120,.35);border-radius:6px;background:rgba(12,9,16,.55);transition:transform .1s ease,background .2s ease}
 .wtile.fill{border-color:var(--gold-2);transform:scale(1.05)}
 .wtile.flip{animation:wflip .45s ease}
@@ -199,12 +199,12 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 .wtile.correct{background:linear-gradient(180deg,var(--gold-2),var(--gold-deep));color:#3a1416;border-color:var(--gold-2)}
 .wtile.present{background:#2a6b63;border-color:#3f8f84;color:#eafaf6}
 .wtile.absent{background:rgba(58,56,68,.9);border-color:rgba(58,56,68,.9);color:#b3b0be}
-.wtile--sm{width:26px;height:34px;font-size:14px;border-width:1.5px;border-radius:4px}
+.wtile--sm{width:26px;height:min(34px,4.2dvh);font-size:14px;border-width:1.5px;border-radius:4px}
 .wgap{margin-left:9px}
 .wreact{min-height:18px;text-align:center;font-size:12px;font-style:italic;color:var(--gold-2)}
 .wkbd{width:100%;max-width:390px;display:flex;flex-direction:column;gap:5px}
 .wkrow{display:flex;gap:4px;justify-content:center}
-.wkey{flex:1;max-width:36px;height:46px;border-radius:6px;border:none;cursor:pointer;padding:0;
+.wkey{flex:1;max-width:36px;height:min(46px,5.8dvh);border-radius:6px;border:none;cursor:pointer;padding:0;
   font-family:'Special Elite',monospace;font-size:14px;color:var(--cream);
   background:rgba(231,200,120,.16);text-transform:uppercase;transition:background .2s ease}
 .wkey:active{transform:translateY(1px)}
