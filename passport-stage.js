@@ -81,7 +81,7 @@ const RESIDENCY = {
   go: 'TAP TO ENTER',
 };
 
-// The newest stamp in the book: the July 2-3 weekend, filed under The Residency.
+// The July 2-3 weekend, filed under The Residency.
 const OPENING_NIGHT = {
   no: 'THE RESIDENCY',
   title: 'Opening Night',
@@ -94,7 +94,20 @@ const OPENING_NIGHT = {
   go: 'RELIVE IT',
 };
 
-let destinations = [...BASE_DESTINATIONS, seasonFourFromRsvp(), RESIDENCY, OPENING_NIGHT];
+// The newest stamp in the book: the envelope-to-bloom yellow roses.
+const BOUQUET = {
+  no: 'SPECIAL DELIVERY',
+  title: 'The Bouquet',
+  place: 'THE ONE WITH THE ROSES',
+  date: 'JUL 17 - 2026',
+  href: 'bouquet/',
+  kind: 'gold',
+  rot: 3,
+  glow: true,
+  go: 'TAP TO OPEN',
+};
+
+let destinations = [...BASE_DESTINATIONS, seasonFourFromRsvp(), RESIDENCY, OPENING_NIGHT, BOUQUET];
 
 function roundedRect(ctx, x, y, width, height, radius) {
   const r = Math.min(radius, width / 2, height / 2);
@@ -412,7 +425,7 @@ function makeStampTexture(destination) {
   });
 }
 
-function makeMovieCalloutTexture() {
+function makeBouquetCalloutTexture() {
   return makeTexture(1100, 560, (ctx, w, h) => {
     ctx.clearRect(0, 0, w, h);
     ctx.strokeStyle = COLORS.goldBright;
@@ -433,8 +446,8 @@ function makeMovieCalloutTexture() {
     ctx.fillStyle = COLORS.goldBright;
     ctx.font = '900 78px Courier New, monospace';
     trackedText(ctx, 'JOSIE', 550, 120, 16);
-    ctx.font = '900 76px Playfair Display, Georgia, serif';
-    ctx.fillText('TAP THE NEW ONE', 550, 196);
+    ctx.font = '900 70px Playfair Display, Georgia, serif';
+    ctx.fillText('THESE ARE FOR YOU', 550, 196);
 
     ctx.strokeStyle = COLORS.goldBright;
     ctx.fillStyle = COLORS.goldBright;
@@ -753,11 +766,12 @@ function flipPage() {
 
 buildStampMeshes();
 
-const movieCallout = new THREE.Group();
-const movieCalloutSign = new THREE.Mesh(
+// The arrow sign above the stamps: points at the bouquet, tapping it goes there.
+const bouquetCallout = new THREE.Group();
+const bouquetCalloutSign = new THREE.Mesh(
   new THREE.PlaneGeometry(3.9, 1.98),
   new THREE.MeshStandardMaterial({
-    map: makeMovieCalloutTexture(),
+    map: makeBouquetCalloutTexture(),
     transparent: true,
     roughness: 0.74,
     metalness: 0.02,
@@ -765,16 +779,16 @@ const movieCalloutSign = new THREE.Mesh(
     depthWrite: false,
   })
 );
-movieCalloutSign.renderOrder = 18;
-movieCalloutSign.userData.destination = OPENING_NIGHT;
-movieCallout.add(movieCalloutSign);
-movieCallout.position.set(2.55, 2.43, 0.48);
-movieCallout.rotation.z = THREE.MathUtils.degToRad(-5);
-movieCallout.userData.base = movieCallout.position.clone();
-movieCallout.userData.baseScale = 1;
-movieCallout.userData.mobileBase = new THREE.Vector3(1.12, 2.42, 0.72);
-movieCallout.userData.mobileScale = 1.42;
-stampGroup.add(movieCallout);
+bouquetCalloutSign.renderOrder = 18;
+bouquetCalloutSign.userData.destination = BOUQUET;
+bouquetCallout.add(bouquetCalloutSign);
+bouquetCallout.position.set(2.55, 2.43, 0.48);
+bouquetCallout.rotation.z = THREE.MathUtils.degToRad(-5);
+bouquetCallout.userData.base = bouquetCallout.position.clone();
+bouquetCallout.userData.baseScale = 1;
+bouquetCallout.userData.mobileBase = new THREE.Vector3(1.12, 2.42, 0.72);
+bouquetCallout.userData.mobileScale = 1.42;
+stampGroup.add(bouquetCallout);
 
 function makeParticleField(count, radius, height, zMin, zMax) {
   const positions = new Float32Array(count * 3);
@@ -978,7 +992,7 @@ function screenRay(event) {
 
 function raycastInteractive(event) {
   screenRay(event);
-  const objects = opened ? [...stampMeshes, movieCalloutSign, flipTab] : [coverHit];
+  const objects = opened ? [...stampMeshes, bouquetCalloutSign, flipTab] : [coverHit];
   const hit = raycaster.intersectObjects(objects, false)[0];
   return hit ? hit.object : null;
 }
@@ -1042,7 +1056,7 @@ document.addEventListener('keydown', (event) => {
 if (window.DB) {
   window.DB.load('stars', 'rsvp').then((rsvp) => {
     if (!rsvp || !rsvp.mode || rsvp.mode === 'neither') return;
-    destinations = [...BASE_DESTINATIONS, seasonFourFromRsvp({ ...rsvp, stamp: 'IV' }), RESIDENCY, OPENING_NIGHT];
+    destinations = [...BASE_DESTINATIONS, seasonFourFromRsvp({ ...rsvp, stamp: 'IV' }), RESIDENCY, OPENING_NIGHT, BOUQUET];
     buildStampMeshes();
   }).catch(() => {});
 }
@@ -1130,14 +1144,14 @@ function animate(now) {
     mesh.material.emissive.setHex(hovered === mesh ? 0x2d2106 : 0x000000);
     mesh.material.emissiveIntensity = hovered === mesh ? 0.2 : 0;
   });
-  movieCallout.visible = stampPage === 0;
-  const calloutBase = new THREE.Vector3().lerpVectors(movieCallout.userData.base, movieCallout.userData.mobileBase, mobileMix);
-  movieCallout.position.x = calloutBase.x;
-  movieCallout.position.y = calloutBase.y + Math.sin(t * 1.2) * (compact ? 0.05 : 0.035);
-  movieCallout.position.z = calloutBase.z;
-  movieCallout.rotation.z = THREE.MathUtils.degToRad(-5) + Math.sin(t * 0.9) * 0.018;
-  const calloutScale = THREE.MathUtils.lerp(movieCallout.userData.baseScale, movieCallout.userData.mobileScale, mobileMix);
-  movieCallout.scale.setScalar(calloutScale * (1 + Math.sin(t * 2.0) * 0.035));
+  bouquetCallout.visible = stampPage === 0;
+  const calloutBase = new THREE.Vector3().lerpVectors(bouquetCallout.userData.base, bouquetCallout.userData.mobileBase, mobileMix);
+  bouquetCallout.position.x = calloutBase.x;
+  bouquetCallout.position.y = calloutBase.y + Math.sin(t * 1.2) * (compact ? 0.05 : 0.035);
+  bouquetCallout.position.z = calloutBase.z;
+  bouquetCallout.rotation.z = THREE.MathUtils.degToRad(-5) + Math.sin(t * 0.9) * 0.018;
+  const calloutScale = THREE.MathUtils.lerp(bouquetCallout.userData.baseScale, bouquetCallout.userData.mobileScale, mobileMix);
+  bouquetCallout.scale.setScalar(calloutScale * (1 + Math.sin(t * 2.0) * 0.035));
 
   // page-flip: swing the stamp layer around the gutter, swap stamps mid-turn
   if (pageFlip) {
