@@ -5,10 +5,6 @@ const frame = document.getElementById('s4frame');
 const song = document.getElementById('s4song');
 const onSong = document.getElementById('onsong');
 const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-// Opening the passport leads straight into the current reveal (The Residency),
-// unless we arrived in "browse mode" (?tours) from the Past Tours button, which
-// keeps the stamp archive reachable without a redirect loop.
-const browseMode = /[?&](tours|past|passport|browse)/i.test(location.search);
 
 const COLORS = {
   burgundy: '#5d1a1c',
@@ -72,6 +68,19 @@ function seasonFourFromRsvp(source) {
   };
 }
 
+// The Residency reveal ticket, filed as a regular stamp (the front door no
+// longer redirects into it).
+const RESIDENCY = {
+  no: 'NOW PLAYING',
+  title: 'The Residency',
+  place: 'ADMIT ONE +1',
+  date: 'NO END DATE',
+  href: 'residency/',
+  kind: 'gold',
+  rot: 2,
+  go: 'TAP TO ENTER',
+};
+
 // The newest stamp in the book: the July 2-3 weekend, filed under The Residency.
 const OPENING_NIGHT = {
   no: 'THE RESIDENCY',
@@ -85,7 +94,7 @@ const OPENING_NIGHT = {
   go: 'RELIVE IT',
 };
 
-let destinations = [...BASE_DESTINATIONS, seasonFourFromRsvp(), OPENING_NIGHT];
+let destinations = [...BASE_DESTINATIONS, seasonFourFromRsvp(), RESIDENCY, OPENING_NIGHT];
 
 function roundedRect(ctx, x, y, width, height, radius) {
   const r = Math.min(radius, width / 2, height / 2);
@@ -976,12 +985,6 @@ function raycastInteractive(event) {
 
 function openPassport() {
   if (opened) return;
-  // Tap-to-open now leads into The Residency reveal (unless browsing past tours).
-  if (!browseMode) {
-    capture('passport_to_residency');
-    window.location.href = 'residency/';
-    return;
-  }
   opened = true;
   document.body.classList.add('open');
   if (!openedCaptured) {
@@ -1039,7 +1042,7 @@ document.addEventListener('keydown', (event) => {
 if (window.DB) {
   window.DB.load('stars', 'rsvp').then((rsvp) => {
     if (!rsvp || !rsvp.mode || rsvp.mode === 'neither') return;
-    destinations = [...BASE_DESTINATIONS, seasonFourFromRsvp({ ...rsvp, stamp: 'IV' }), OPENING_NIGHT];
+    destinations = [...BASE_DESTINATIONS, seasonFourFromRsvp({ ...rsvp, stamp: 'IV' }), RESIDENCY, OPENING_NIGHT];
     buildStampMeshes();
   }).catch(() => {});
 }
